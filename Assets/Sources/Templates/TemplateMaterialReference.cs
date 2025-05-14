@@ -45,7 +45,7 @@ public class TemplateMaterialReference : ScriptableObject
         }
     }
 
-    public void HightLightAllCubes(IReadOnlyList<IReadonlyCube> templateCubes)
+    public void HightLightAllCubes(IReadOnlyList<IReadonlyTemplateCube> templateCubes)
     {
         foreach (TemplateCube cube in templateCubes)
         {

@@ -10,7 +10,7 @@ public class ColorReferenceViewer : MonoBehaviour
     [SerializeField] private TemplateMaterialReference _materialReference;
     [SerializeField] private Button _showButton;
 
-    private IReadOnlyList<IReadonlyCube> _templateCubes;
+    private IReadOnlyList<IReadonlyTemplateCube> _templateCubes;
     private Coroutine _showingRoutine;
     private WaitForSeconds _waitForShowing;
 
@@ -18,8 +18,12 @@ public class ColorReferenceViewer : MonoBehaviour
 
     private void Awake()
     {
-        _templateCubes = _template.TemplateCubes;
         _waitForShowing = new WaitForSeconds(UserUtils.TimeForShow);
+    }
+
+    private void Start()
+    {
+        _templateCubes = _template.TemplateCubes;
     }
 
     private void OnEnable()
@@ -47,7 +51,7 @@ public class ColorReferenceViewer : MonoBehaviour
         _materialReference.HightLightAllCubes(_templateCubes);
         yield return _waitForShowing;
 
-        foreach (IReadonlyCube cube in _templateCubes)
+        foreach (IReadonlyTemplateCube cube in _templateCubes)
             cube.StopHighlight();
 
         ReferenceShowed?.Invoke(false);

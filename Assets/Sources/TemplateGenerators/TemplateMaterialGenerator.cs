@@ -37,6 +37,7 @@ public class TemplateMaterialGenerator : MonoBehaviour
 
         string assetPath = "Assets/Resources/ScriptableAssets/TemplateMaterialReference.asset";
         AssetDatabase.CreateAsset(materialReference, assetPath);
+        EditorUtility.SetDirty(materialReference);
         AssetDatabase.SaveAssets();
 
         EditorUtility.FocusProjectWindow();

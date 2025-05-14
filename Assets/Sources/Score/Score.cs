@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class Score : MonoBehaviour
 {
-    [SerializeField] private TemplateMaterialReference _materialReference;
-    [SerializeField] private Template _template;
-    [SerializeField] private Colorizer _colorizer;
+    [SerializeField] private Validator _validator;
 
     public event Action ValueChanged;
 
@@ -13,28 +11,17 @@ public class Score : MonoBehaviour
 
     private void OnEnable()
     {
-        _colorizer.IndexApplied += Validate;
+        _validator.ValidateConfirmed += OnValidateConfirmed;
     }
 
     private void OnDisable()
     {
-        _colorizer.IndexApplied -= Validate;
+        _validator.ValidateConfirmed -= OnValidateConfirmed;
     }
 
-    private void Validate(int index)
+    private void OnValidateConfirmed()
     {
-        Material expected = _materialReference.GetMaterial(index);
-        Material actual = _template.GetCube(index).Material;
-
-        if (MaterialsMatch(expected, actual) == false)
-            return;
-
         Value++;
         ValueChanged?.Invoke();
-    }
-
-    private bool MaterialsMatch(Material a, Material b)
-    {
-        return a != null && b != null && a.color == b.color;
     }
 }

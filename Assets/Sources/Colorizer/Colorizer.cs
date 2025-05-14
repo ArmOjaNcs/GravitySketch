@@ -1,73 +1,59 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(BoxCollider))]
 public class Colorizer : MonoBehaviour
 {
-    [SerializeField] private ColorizedCube _cubePrefab;
-    [SerializeField] private int _maxCapacity;
-    [SerializeField] private ColoringPositionHandler _coloringPositionHandler;
+    [SerializeField] private TemplateMaterialReference _materialReference;
+    [SerializeField] private ColoringPositionHandler _positionHandler;
 
-    [Header("CubeSettings")]
-    [SerializeField] private float _minSpeed;
-    [SerializeField] private float _maxSpeed;
+    private Queue<Material> _availableMaterials = new();
 
-    private BoxCollider _boxCollider;
-    private ObjectPool<ColorizedCube> _pool;
+    public event Action<IEnumerable<Color>> QueueChanged;
+    public event Action<IReadonlyTemplateCube, Material> PaintApplied;
 
-    public event Action<int> IndexApplied;
-
-    private void Awake()
+    private IEnumerable<Color> Colors
     {
-        _pool = new ObjectPool<ColorizedCube>(_cubePrefab, _maxCapacity, transform);
-        _boxCollider = GetComponent<BoxCollider>();
+        get => _availableMaterials.Select(m => m.color)
+                          .Take(_availableMaterials.Count >= UserUtils.ColorizerBarCount
+                              ? UserUtils.ColorizerBarCount
+                              : _availableMaterials.Count);
+    }
+
+    private void Start()
+    {
+        List<Material> materials = _materialReference.GetAllMaterials();
+        SetPaintMaterials(materials);
+        QueueChanged?.Invoke(Colors);
+        Debug.Log("Total colorized cubes" + _availableMaterials.Count);
     }
 
     private void OnEnable()
     {
-        _coloringPositionHandler.PaintApplied += OnPaintApplied;
+        _positionHandler.PositionApplied += TryPaint;
     }
 
     private void OnDisable()
     {
-        _coloringPositionHandler.PaintApplied -= OnPaintApplied;
+        _positionHandler.PositionApplied -= TryPaint;
     }
 
-    private void OnPaintApplied(TemplateCube templateCube, Material material)
+    private void TryPaint(IReadonlyTemplateCube cube)
     {
-        SendCube(templateCube, material);
+        if (cube.Type != CubeType.In || _availableMaterials.Count == 0 || cube.IsMarked)
+            return;
+
+        Material paintMaterial = _availableMaterials.Dequeue();
+        Debug.Log("Total colorized cubes" + _availableMaterials.Count);
+        cube.Mark();
+        QueueChanged?.Invoke(Colors);
+
+        PaintApplied?.Invoke(cube, paintMaterial);
     }
 
-    private void SendCube(TemplateCube templateCube, Material material)
+    private void SetPaintMaterials(IEnumerable<Material> materials)
     {
-        ColorizedCube cube = _pool.GetElement();
-        float speed = Random.Range(_minSpeed, _maxSpeed);
-        Vector3 position = GetRandomPointInsideBox();
-        position.z = transform.position.z;
-        cube.Init();
-        cube.SetStartSettings(position, templateCube, material, speed);
-        cube.Finished += OnCubeFinished;
-        cube.StartMove();
-    }
-
-    private void OnCubeFinished(ColorizedCube cube)
-    {
-        cube.Finished -= OnCubeFinished;
-        IndexApplied?.Invoke(cube.GetTargetIndex());
-        cube.gameObject.SetActive(false);
-    }
-
-    private Vector3 GetRandomPointInsideBox()
-    {
-        Vector2 size = _boxCollider.size;
-
-        Vector3 randomPoint = new Vector3
-        (
-            Random.Range(-size.x / 2f, size.x / 2f),
-            Random.Range(-size.y / 2f, size.y / 2f)
-        );
-
-        return _boxCollider.transform.TransformPoint(randomPoint);
+        _availableMaterials = new Queue<Material>(materials);
     }
 }

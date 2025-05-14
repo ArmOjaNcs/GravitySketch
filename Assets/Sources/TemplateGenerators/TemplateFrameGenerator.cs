@@ -7,7 +7,6 @@ public class TemplateFrameGenerator : MonoBehaviour
 {
     [SerializeField] private TemplateCube _cubePrefab;
     [SerializeField] private Texture2D _sourceTexture;
-    [SerializeField] private Material _defaultMaterial;
 
     private Vector2Int _pixelPositions = new Vector2Int(UserUtils.ImageResolution, UserUtils.ImageResolution);
     private CubeType[] _cubeTypes = new CubeType[UserUtils.ImageResolution * UserUtils.ImageResolution];
@@ -41,9 +40,8 @@ public class TemplateFrameGenerator : MonoBehaviour
                         frameReference.AddIndexedType(index, type);
                         break;
                     case CubeType.In:
-                        TemplateCube cube = InitiateCube(new Vector2(x, y), gameObject.transform);
+                        IReadonlyTemplateCube cube = InitiateCube(new Vector2(x, y), gameObject.transform);
                         cube.DisableRendering();
-                        cube.ApplyMaterial(_defaultMaterial);
                         frameReference.AddIndexedType(index, type);
                         break;
                     case CubeType.Out:
@@ -54,6 +52,7 @@ public class TemplateFrameGenerator : MonoBehaviour
 
         string assetPath = "Assets/Resources/ScriptableAssets/TemplateFrameReference.asset";
         AssetDatabase.CreateAsset(frameReference, assetPath);
+        EditorUtility.SetDirty(frameReference);
         AssetDatabase.SaveAssets();
 
         EditorUtility.FocusProjectWindow();
@@ -104,7 +103,7 @@ public class TemplateFrameGenerator : MonoBehaviour
         }
     }
 
-    private TemplateCube InitiateCube(Vector2 position, Transform container)
+    private IReadonlyTemplateCube InitiateCube(Vector2 position, Transform container)
     {
         TemplateCube cube = PrefabUtility.InstantiatePrefab(_cubePrefab, transform) as TemplateCube;
         cube.transform.localPosition = position;

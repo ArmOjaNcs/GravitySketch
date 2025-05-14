@@ -6,20 +6,21 @@ using UnityEngine.UI;
 public class ColorizerView : MonoBehaviour
 {
     [SerializeField] private Image[] _colors;
-    [SerializeField] private ColoringPositionHandler _coloringPositionHandler;
+    [SerializeField] private Colorizer _colorizer;
 
     private void OnEnable()
     {
-        _coloringPositionHandler.QueueChanged += OnQueueChanged;
+        _colorizer.QueueChanged += OnQueueChanged;
     }
 
     private void OnDisable()
     {
-        _coloringPositionHandler.QueueChanged -= OnQueueChanged;
+        _colorizer.QueueChanged -= OnQueueChanged;
     }
 
     private void OnQueueChanged(IEnumerable<Color> colors)
     {
+        Debug.Log("ColorsCount" + colors.Count());
         if (colors.Count() >= _colors.Length)
         {
             for (int i = 0; i < _colors.Length; i++)
@@ -29,9 +30,11 @@ public class ColorizerView : MonoBehaviour
         {
             for (int i = 0; i < colors.Count(); i++)
             {
-                _colors[i].color = colors.ElementAt(i);
-                _colors[_colors.Count() - (i + 1)].gameObject.SetActive(false);
+                if (_colors[i].isActiveAndEnabled)
+                    _colors[i].color = colors.ElementAt(i);
             }
+
+            _colors[colors.Count()].gameObject.SetActive(false);
         }
     }
 }
