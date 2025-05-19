@@ -4,9 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(MeshRenderer))]
 public class ColorizedCube : MonoBehaviour
 {
-    private FlipType _flipType;
+    private Vector3 _rotateDirection;
     private float _speed;
-    private float _rotateSpeed;
     private MeshRenderer _meshRenderer;
     private IReadonlyTemplateCube _target;
     private bool _isCanMove;
@@ -42,8 +41,7 @@ public class ColorizedCube : MonoBehaviour
         _target = colorizedCubeData.TemplateCube;
         _meshRenderer.material = colorizedCubeData.Material;
         _speed = colorizedCubeData.Speed;
-        _rotateSpeed = colorizedCubeData.RotateSpeed;
-        _flipType = colorizedCubeData.FlipType;
+        _rotateDirection = colorizedCubeData.RotateDirection;
     }
 
     public void StartMove() => _isCanMove = true;
@@ -67,25 +65,8 @@ public class ColorizedCube : MonoBehaviour
             Finished?.Invoke(this);
         }
 
-        Flip();
+        Rotate();
     }
 
-    private void Rotate(Vector3 rotation) => _transform.Rotate(rotation * Time.deltaTime);
-    private void Flip()
-    {
-        switch (_flipType)
-        {
-            case FlipType.XFlip:
-                Rotate(new Vector3(_rotateSpeed, 0, 0));
-                break;
-
-            case FlipType.YFlip:
-                Rotate(new Vector3(0, _rotateSpeed, 0));
-                break;
-
-            case FlipType.ZFlip:
-                Rotate(new Vector3(0, 0, _rotateSpeed));
-                break;
-        }
-    }
+    private void Rotate() => _transform.Rotate(_rotateDirection * _speed * Time.deltaTime);
 }

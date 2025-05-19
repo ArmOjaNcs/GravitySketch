@@ -12,8 +12,6 @@ public class ColorizedCubeSpawner : MonoBehaviour
     [Header("CubeSettings")]
     [SerializeField] private float _minSpeed;
     [SerializeField] private float _maxSpeed;
-    [SerializeField] private float _minRotateSpeed;
-    [SerializeField] private float _maxRotateSpeed;
 
     private ObjectPool<ColorizedCube> _pool;
 
@@ -46,12 +44,12 @@ public class ColorizedCubeSpawner : MonoBehaviour
     {
         ColorizedCube colorizedCube = _pool.GetElement();
         float speed = Random.Range(_minSpeed, _maxSpeed);
-        float rotateSpeed = Random.Range(_minRotateSpeed, _maxRotateSpeed);
         SpawnZone spawnZone = GetRandomSpawnZone();
         Vector3 position = GetRandomPointInZone(spawnZone);
+        Vector3 rotateDirection = UserUtils.GetRandomRotateDirection();
         colorizedCube.Init();
-        colorizedCube.SetStartSettings(new ColorizedCubeData(position, cube, material, speed, 
-            rotateSpeed, UserUtils.GetRandomFlipType()));
+        colorizedCube.SetStartSettings(new ColorizedCubeData(position, cube, material, 
+            speed, rotateDirection));
         colorizedCube.Finished += OnCubeFinished;
         colorizedCube.StartMove();
     }
@@ -71,12 +69,13 @@ public class ColorizedCubeSpawner : MonoBehaviour
 
     public Vector3 GetRandomPointInZone(SpawnZone spawnZone)
     {
-        Vector2 size = spawnZone.GetBoxCollider().size;
+        Vector3 size = spawnZone.GetBoxCollider().size;
 
         Vector3 randomPoint = new Vector3
         (
             Random.Range(-size.x / 2f, size.x / 2f),
-            Random.Range(-size.y / 2f, size.y / 2f)
+            Random.Range(-size.y / 2f, size.y / 2f),
+            Random.Range(-size.z / 2f, size.z / 2f)
         );
 
         return spawnZone.GetPoint(randomPoint);

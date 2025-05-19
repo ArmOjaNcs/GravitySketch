@@ -6,17 +6,15 @@ public struct ColorizedCubeData
     public readonly IReadonlyTemplateCube TemplateCube;
     public readonly Material Material;
     public readonly float Speed;
-    public readonly float RotateSpeed;
-    public readonly FlipType FlipType;
+    public readonly Vector3 RotateDirection;
 
     public ColorizedCubeData(Vector3 startPosition, IReadonlyTemplateCube templateCube, 
-        Material material, float speed, float rotateSpeed, FlipType flipType)
+        Material material, float speed, Vector3 rotateDirection)
     {
         StartPosition = startPosition;
         TemplateCube = templateCube;
         Material = material;
         Speed = speed;
-        RotateSpeed = rotateSpeed;
-        FlipType = flipType;
+        RotateDirection = rotateDirection;
     }
 }

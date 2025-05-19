@@ -11,9 +11,7 @@ public class SpawnZone : MonoBehaviour
         if(_transform == null)
             _transform = transform;
 
-        Vector3 startPoint = _transform.TransformPoint(randomPoint);
-        startPoint.z = _transform.position.z;
-        return startPoint;
+        return _transform.TransformPoint(randomPoint);
     }
 
     public BoxCollider GetBoxCollider()
