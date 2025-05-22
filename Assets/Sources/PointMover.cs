@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PointMover : MonoBehaviour
@@ -33,7 +34,10 @@ public class PointMover : MonoBehaviour
     private void ChangeTarget()
     {
         if (_movePoints[_index] != null)
+        {
             _targetPosition = _movePoints[_index].position;
+            _targetPosition.y = _transform.position.y;
+        }
 
         _sqrtDistance = (_targetPosition - _transform.position).sqrMagnitude;
 
