@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-#if UNITY_EDITOR
-#endif
 
 public class SimpleCubeSpawner : MonoBehaviour
 {
@@ -15,14 +12,26 @@ public class SimpleCubeSpawner : MonoBehaviour
     [SerializeField] private float _spacing = 1.5f;
     [SerializeField] private float _yPosition = 0f;
 
+    [HideInInspector]
+    [SerializeField] private List<SimpleCube> _simpleCubes = new List<SimpleCube>();
+
     private Queue<Material> _materialsQueue;
     private int _totalMaterials;
 
+    private void Awake()
+    {
+        SimpleCubeAnimationSpawner animationSpawner = new SimpleCubeAnimationSpawner();
+
+        foreach (SimpleCube cube in _simpleCubes)
+            cube.SetAnimationSpawner(animationSpawner);
+    }
+
+#if UNITY_EDITOR
     public void PrepareQueue()
     {
         ClearAllCubes();
 
-        if (!ValidateReferences())
+        if (ValidateReferences() == false)
             return;
 
         _materialsQueue = new Queue<Material>(ShuffleMaterials(_materialReference.GetAllMaterials()));
@@ -39,7 +48,7 @@ public class SimpleCubeSpawner : MonoBehaviour
             return;
         }
 
-        if (!ValidateReferences())
+        if (ValidateReferences() == false)
             return;
 
         DistributeCubes();
@@ -71,8 +80,8 @@ public class SimpleCubeSpawner : MonoBehaviour
             if (_materialsQueue.Count == 0)
                 break;
 
-            Vector3 pos = CalculatePosition(center, gridSize, i / gridSize, i % gridSize);
-            SpawnCube(area.transform, pos, _materialsQueue.Dequeue());
+            Vector3 spawnPosition = CalculatePosition(center, gridSize, i / gridSize, i % gridSize);
+            SpawnCube(area.transform, spawnPosition, _materialsQueue.Dequeue());
         }
     }
 
@@ -80,6 +89,7 @@ public class SimpleCubeSpawner : MonoBehaviour
     {
         SimpleCube cube = Instantiate(_cubePrefab, position, Quaternion.identity, parent);
         cube.SetMaterial(material);
+        _simpleCubes.Add(cube);
     }
 
     private void LogSpawnResults()
@@ -91,6 +101,7 @@ public class SimpleCubeSpawner : MonoBehaviour
         }
 
         int remainingAreas = 0;
+
         foreach (SpawnArea area in _spawnAreas)
         {
             if (area.transform.childCount < area.Count)
@@ -113,6 +124,7 @@ public class SimpleCubeSpawner : MonoBehaviour
     {
         float x = center.x + (col - (gridSize - 1) * 0.5f) * _spacing;
         float z = center.z + (row - (gridSize - 1) * 0.5f) * _spacing;
+
         return new Vector3(x, _yPosition, z);
     }
 
@@ -123,19 +135,27 @@ public class SimpleCubeSpawner : MonoBehaviour
             int j = Random.Range(0, i + 1);
             (materials[i], materials[j]) = (materials[j], materials[i]);
         }
+
         return materials;
     }
 
     private bool ValidateReferences()
     {
-        if (_cubePrefab == null) Debug.LogError("Cube prefab missing!");
-        if (_materialReference == null) Debug.LogError("Material reference missing!");
-        if (_spawnAreas.Count == 0) Debug.LogError("No spawn areas!");
+        if (_cubePrefab == null)
+            Debug.LogError("Cube prefab missing!");
+
+        if (_materialReference == null)
+            Debug.LogError("Material reference missing!");
+
+        if (_spawnAreas.Count == 0)
+            Debug.LogError("No spawn areas!");
+
         return _cubePrefab && _materialReference && _spawnAreas.Count > 0;
     }
 
     private void ClearAllCubes()
     {
+        _simpleCubes.Clear();
         List<GameObject> childrenToDestroy = new List<GameObject>();
 
         foreach (SpawnArea area in _spawnAreas)
@@ -146,29 +166,15 @@ public class SimpleCubeSpawner : MonoBehaviour
             foreach (Transform child in area.transform)
             {
                 if (child != null && child.gameObject != null)
-                {
                     childrenToDestroy.Add(child.gameObject);
-                }
             }
         }
 
         foreach (GameObject child in childrenToDestroy)
         {
             if (child != null)
-            {
-#if UNITY_EDITOR
-                if (!EditorApplication.isPlaying)
-                {
-                    DestroyImmediate(child);
-                }
-                else
-                {
-                    Destroy(child);
-                }
-#else
-            Destroy(child);
-#endif
-            }
+                DestroyImmediate(child.gameObject);
         }
     }
 }
+#endif

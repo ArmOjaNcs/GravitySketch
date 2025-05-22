@@ -1,7 +1,6 @@
-using DG.Tweening;
 using UnityEngine;
 
-public static class UserUtils 
+public static class UserUtils
 {
     public const int ImageResolution = 32;
     public const int ColorizerBarCount = 5;
@@ -18,14 +17,7 @@ public static class UserUtils
 
     private const float MinAlfa = 0.1f;
 
-    private static readonly Vector3[] _rotations =
-    {
-        new Vector3(MaxRotation, 0, 0),
-        new Vector3(0, MaxRotation, 0), 
-        new Vector3(0, 0, MaxRotation)
-    };
-
-    public static bool IsBlack(Color color) 
+    public static bool IsBlack(Color color)
     {
         return Mathf.Approximately(color.r, 0)
             && Mathf.Approximately(color.g, 0)
@@ -41,23 +33,5 @@ public static class UserUtils
         float zRotation = Random.Range(0, MaxRotation);
 
         return new Vector3(xRotation, yRotation, zRotation);
-    }
-
-    public static Sequence GetAnimation(Transform transform)
-    {
-        Vector3 startPosition = transform.position;
-        Quaternion startRotation = transform.rotation;
-        int rotationsIndex = Random.Range(0, _rotations.Length);
-
-        Sequence sequence = DOTween.Sequence()
-            .Append(transform.DORotate(_rotations[rotationsIndex], 2f, RotateMode.FastBeyond360))
-            .Join(transform.DOMoveY(startPosition.y + 0.5f, 1f))
-            .Insert(1, transform.DOMoveY(startPosition.y, 1f))
-            .SetLoops(-1)
-            .SetEase(Ease.Linear)
-            .SetAutoKill(false)
-            .SetLink(transform.gameObject);
-
-        return sequence;
     }
 }

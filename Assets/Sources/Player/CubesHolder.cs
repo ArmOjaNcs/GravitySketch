@@ -6,19 +6,21 @@ using System.Linq;
 [Serializable]
 public class CubesHolder
 {
-    private Queue<IReadonlyTemplateCube> _cubesQueue = new Queue<IReadonlyTemplateCube>();
-    private List<IReadonlyTemplateCube> _toThrowBack = new List<IReadonlyTemplateCube>();
+    private Queue<SimpleCube> _cubesQueue = new Queue<SimpleCube>();
+    private List<SimpleCube> _toThrowBack = new List<SimpleCube>();
 
-    public IReadOnlyList<IReadonlyTemplateCube> Cubes => _cubesQueue.ToArray();
+    public IReadOnlyList<SimpleCube> Cubes => _cubesQueue.ToArray();
 
-    public void AddCube(IReadonlyTemplateCube templateCube) => _cubesQueue.Enqueue(templateCube);
+    public void AddCube(SimpleCube simpleCube) => _cubesQueue.Enqueue(simpleCube);
 
-    public IEnumerable<IReadonlyTemplateCube> GetCubes(float percent)
+    public int Count => _cubesQueue.Count;
+
+    public IEnumerable<SimpleCube> GetCubes(float percent)
     {
         if (_cubesQueue.Count == 0)
         {
             Debug.Log($"cubes count: {_cubesQueue.Count}");
-            return Enumerable.Empty<IReadonlyTemplateCube>();
+            return Enumerable.Empty<SimpleCube>();
         }
 
         if (percent <= 0)
