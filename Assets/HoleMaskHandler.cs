@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class HoleMaskHandler : MonoBehaviour
 {
-    [SerializeField] private Transform _hole;
     [SerializeField] private Mover _mover;
     [SerializeField] private Material _material;
     [SerializeField] private Renderer _renderer;
@@ -11,18 +10,8 @@ public class HoleMaskHandler : MonoBehaviour
     [SerializeField] private float _growDuration;
 
     private Transform _transform;
-    private float _radius;
+    private float _targetRadius;
     private float _currentRadius;
-
-    private void Awake()
-    {
-        _radius = _hole.localScale.x / 2;
-        _material.SetFloat("_HoleRadius", _radius);
-        _currentRadius = _radius;
-        Debug.Log(_hole.localScale.x/2);
-        _transform = transform;
-        _renderer.material = _material;
-    }
 
     private void OnEnable()
     {
@@ -36,6 +25,15 @@ public class HoleMaskHandler : MonoBehaviour
         _grower.SizeChanged -= OnSizeChanged;
     }
 
+    private void Awake()
+    {
+        _targetRadius = _mover.transform.lossyScale.x / 2;
+        _material.SetFloat("_HoleRadius", _targetRadius);
+        _currentRadius = _targetRadius;
+        _transform = transform;
+        _renderer.material = _material;
+    }
+
     private void OnPositionChanged(Vector3 position)
     {
         _material.SetVector("_HolePosition", new Vector4(position.x, _transform.position.y, position.z, 0));
@@ -43,8 +41,8 @@ public class HoleMaskHandler : MonoBehaviour
 
     private void OnSizeChanged(float sizeDelta)
     {
-        Debug.Log("Radius " + _radius);
-        _radius += sizeDelta / 2;
+        Debug.Log("Radius " + _targetRadius);
+        _targetRadius += sizeDelta / 2;
         StartCoroutine(SizeChangeRoutine());
     }
 
@@ -56,11 +54,11 @@ public class HoleMaskHandler : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float normalizedPosition = elapsedTime / _growDuration;
-            _currentRadius = Mathf.MoveTowards(_currentRadius, _radius, normalizedPosition);
+            _currentRadius = Mathf.Lerp(_currentRadius, _targetRadius, normalizedPosition);
             _material.SetFloat("_HoleRadius", _currentRadius);
             yield return null;
         }
 
-        _currentRadius = _radius;
+        _currentRadius = _targetRadius;
     }
 }

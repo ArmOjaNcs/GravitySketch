@@ -10,11 +10,7 @@ public class CameraPositionHandler : MonoBehaviour
     [SerializeField] private Vector3 _offsetByGrow;
 
     private CinemachineTransposer _cinemachineTransposer;
-
-    private void Awake()
-    {
-        _cinemachineTransposer = _virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
-    }
+    private Vector3 _targetOffset;
 
     private void OnEnable()
     {
@@ -28,19 +24,25 @@ public class CameraPositionHandler : MonoBehaviour
         _growHandler.GrowingDown -= OnGrowingDown;
     }
 
+    private void Awake()
+    {
+        _cinemachineTransposer = _virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
+        _targetOffset = _cinemachineTransposer.m_FollowOffset;
+    }
+
     private void OnGrowing()
     {
-        Vector3 targetOffset = _cinemachineTransposer.m_FollowOffset + _offsetByGrow;
-        StartCoroutine(GrowRoutine(targetOffset));
+        _targetOffset += _offsetByGrow;
+        StartCoroutine(GrowRoutine());
     }
 
     private void OnGrowingDown()
     {
-        Vector3 targetOffset = _cinemachineTransposer.m_FollowOffset - _offsetByGrow;
-        StartCoroutine(GrowRoutine(targetOffset));
+        _targetOffset -= _offsetByGrow;
+        StartCoroutine(GrowRoutine());
     }
 
-    private IEnumerator GrowRoutine(Vector3 targetOffset)
+    private IEnumerator GrowRoutine()
     {
         float elapsedTime = 0;
        
@@ -48,12 +50,12 @@ public class CameraPositionHandler : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float normalizedPosition = elapsedTime / _growDuration;
-            _cinemachineTransposer.m_FollowOffset = Vector3.MoveTowards(_cinemachineTransposer.m_FollowOffset, 
-                targetOffset, normalizedPosition);
+            _cinemachineTransposer.m_FollowOffset = Vector3.Lerp(_cinemachineTransposer.m_FollowOffset, 
+                _targetOffset, normalizedPosition);
       
             yield return null;
         }
 
-        _cinemachineTransposer.m_FollowOffset = targetOffset;
+        _cinemachineTransposer.m_FollowOffset = _targetOffset;
     }
 }

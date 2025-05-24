@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CubesCollector : MonoBehaviour
 {
-    [SerializeField] private Catcher _catcher;
+    [SerializeField] private TakeOverLimit _takeOverLimit;
     [SerializeField] private Transform _bottom;
 
     private CubesHolder _holder = new CubesHolder();
@@ -12,12 +12,12 @@ public class CubesCollector : MonoBehaviour
 
     private void OnEnable()
     {
-        _catcher.CubeCatched += OnCubeCatched;
+        _takeOverLimit.CubeAbsorbed += OnCubeAbsorbed;
     }
 
     private void OnDisable()
     {
-        _catcher.CubeCatched -= OnCubeCatched;
+        _takeOverLimit.CubeAbsorbed -= OnCubeAbsorbed;
     }
 
     private void Start()
@@ -25,12 +25,12 @@ public class CubesCollector : MonoBehaviour
         CubesCountChanged?.Invoke(_holder.Count);
     }
 
-    private void OnCubeCatched(SimpleCube simpleCube)
+    private void OnCubeAbsorbed(SimpleCube simpleCube)
     {
         _holder.AddCube(simpleCube);
         CubesCountChanged?.Invoke(_holder.Count);
         simpleCube.Dissolved += OnDissolved;
-        simpleCube.Dissolve(_bottom.position);
+        simpleCube.Dissolve(_bottom);
     }
 
     private void OnDissolved(SimpleCube simpleCube)

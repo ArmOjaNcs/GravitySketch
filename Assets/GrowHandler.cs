@@ -5,11 +5,12 @@ public class GrowHandler : MonoBehaviour
 {
     [SerializeField] private CubesCollector _collector;
     [SerializeField] private int _maxSize;
+    [SerializeField] private int _growDelta;
 
-    private int _cubesOnNextGrow = 10;
     private int _damageCount;
     private int _previousCubesCount;
     private int _currentSize;
+    private int _cubesOnNextGrow;
 
     public event Action Dissolved;
     public event Action Growing;
@@ -25,6 +26,11 @@ public class GrowHandler : MonoBehaviour
         _collector.CubesCountChanged -= OnCubesCountChanged;
     }
 
+    private void Awake()
+    {
+        _cubesOnNextGrow = _growDelta;
+    }
+
     private void OnCubesCountChanged(int cubesCount)
     {
         if(cubesCount < _previousCubesCount)
@@ -38,9 +44,9 @@ public class GrowHandler : MonoBehaviour
             }
         }
         
-        if (cubesCount == _cubesOnNextGrow)
+        if (cubesCount >= _cubesOnNextGrow)
         {
-            _cubesOnNextGrow += _cubesOnNextGrow;
+            _cubesOnNextGrow += _growDelta;
             GrowUp();
         }
        

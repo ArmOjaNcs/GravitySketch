@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -9,9 +10,10 @@ public class SimpleCube : MonoBehaviour
 
     private Transform _transform;
     private Sequence _idleAnimation;
-    private Sequence _dissolveAnimation;
+    private Tween _dissolveAnimation;
     private SimpleCubeAnimationSpawner _animationSpawner;
     private Rigidbody _rigidbody;
+    private Vector3 _defaultScale;
 
     public event Action<SimpleCube> Dissolved;
 
@@ -22,18 +24,18 @@ public class SimpleCube : MonoBehaviour
         _transform = transform;
         _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.isKinematic = true;
+        _defaultScale = _transform.localScale;
     }
 
-    private void OnDisable()
+    private void OnEnable()
     {
-        _dissolveAnimation.Kill();
+        _transform.localScale = _defaultScale;
     }
 
     private void Start()
     {
-        if (_idleAnimation == null)
-            _idleAnimation = _animationSpawner.GetIdleAnimation(_transform);
-
+        _idleAnimation = _animationSpawner.GetIdleAnimation(_transform);
+        _dissolveAnimation = _animationSpawner.GetDissolveAnimation(_transform);
         _idleAnimation.Restart();
     }
 
@@ -47,10 +49,27 @@ public class SimpleCube : MonoBehaviour
         _rigidbody.isKinematic = false;
     }
 
-    public void Dissolve(Vector3 destination)
+    public void Dissolve(Transform hole)
     {
         _rigidbody.isKinematic = true;
-        _dissolveAnimation = _animationSpawner.GetDissolveAnimation(_transform, destination);
-        _dissolveAnimation.Play().OnComplete(() => Dissolved?.Invoke(this));
+        _dissolveAnimation.Restart();
+        StartCoroutine(FallingRoutine(hole, _dissolveAnimation.Duration()));
+    }
+
+    private IEnumerator FallingRoutine(Transform hole, float duration)
+    {
+        float elapsedTime = 0;
+        Debug.Log("OnEnter" + hole.position + "duration" + duration);
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float normalizedPosition = elapsedTime / duration;
+            _transform.position = Vector3.Lerp(_transform.position, hole.position, normalizedPosition);
+
+            yield return null;
+        }
+        Debug.Log("OnExit" + hole.position);
+        _transform.position = hole.position;
+        Dissolved?.Invoke(this);
     }
 }

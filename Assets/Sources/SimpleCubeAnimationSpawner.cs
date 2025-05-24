@@ -4,17 +4,19 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [Serializable]
-public class SimpleCubeAnimationSpawner 
+public class SimpleCubeAnimationSpawner
 {
+    private const float BaseAnimationLength = 2;
+
     public Sequence GetIdleAnimation(Transform transform)
     {
         Vector3 startPosition = transform.position;
         Quaternion startRotation = transform.rotation;
 
         Sequence sequence = DOTween.Sequence()
-            .Append(transform.DORotate(GetRandomRotation(), 2f, RotateMode.FastBeyond360))
-            .Join(transform.DOMoveY(startPosition.y + 0.5f, 1f))
-            .Insert(1, transform.DOMoveY(startPosition.y, 1f))
+            .Append(transform.DORotate(GetRandomRotation(), BaseAnimationLength, RotateMode.FastBeyond360))
+            .Join(transform.DOMoveY(startPosition.y + 0.5f, BaseAnimationLength / UserUtils.Half))
+            .Insert(1, transform.DOMoveY(startPosition.y, BaseAnimationLength / UserUtils.Half))
             .SetLoops(-1)
             .SetEase(Ease.Linear)
             .SetAutoKill(false);
@@ -22,14 +24,9 @@ public class SimpleCubeAnimationSpawner
         return sequence;
     }
 
-    public Sequence GetDissolveAnimation(Transform cube, Vector3 destination)
+    public Tween GetDissolveAnimation(Transform cube)
     {
-        Sequence sequence = DOTween.Sequence()
-            .Append(cube.DOMove(destination, 1.5f))
-            .Join(cube.DOScale(0, 1.5f))
-            .SetAutoKill(false);
-
-        return sequence;
+        return cube.DOScale(0, BaseAnimationLength).SetLink(cube.gameObject);
     }
 
     private Vector3 GetRandomRotation()
