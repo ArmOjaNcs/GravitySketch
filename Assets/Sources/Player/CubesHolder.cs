@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 [Serializable]
 public class CubesHolder
@@ -15,29 +14,21 @@ public class CubesHolder
 
     public int Count => _cubesQueue.Count;
 
-    public IEnumerable<SimpleCube> GetCubes(float percent)
+    public IReadOnlyList<SimpleCube> GetCubes(int cubesCount)
     {
         if (_cubesQueue.Count == 0)
         {
             Debug.Log($"cubes count: {_cubesQueue.Count}");
-            return Enumerable.Empty<SimpleCube>();
+            return null;
         }
 
-        if (percent <= 0)
-            throw new ArgumentOutOfRangeException("percent can not be 0 or less");
-
-        if (percent > 100)
-            throw new ArgumentOutOfRangeException("percent can not be more than 100");
-
-        percent /= 100;
-        percent = Mathf.Clamp01(percent);
-
         _toThrowBack.Clear();
-        int cubesCount = Mathf.Max(1, Mathf.RoundToInt(_cubesQueue.Count * percent));
+
+        cubesCount = Mathf.Clamp(cubesCount, cubesCount, _cubesQueue.Count);
 
         for (int index = 0; index < cubesCount; index++)
             _toThrowBack.Add(_cubesQueue.Dequeue());
 
-        return _toThrowBack.ToArray();
+        return _toThrowBack;
     }
 }

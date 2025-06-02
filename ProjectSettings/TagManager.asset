@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - MovePoint
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -18,10 +20,10 @@ TagManager:
   - PlayerPhysics
   - Pipe
   - Obstacle
-  - 
-  - 
-  - 
-  - 
+  - Drone
+  - CubesCollector
+  - Bullet
+  - HoleGrowBar
   - 
   - 
   - 
@@ -40,4 +42,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: HoleGrowBar
+    uniqueID: 1152402715
     locked: 0

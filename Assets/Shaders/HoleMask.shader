@@ -1,4 +1,4 @@
-Shader "Custom/HoleMask"
+п»їShader "Custom/HoleMask"
 {
     Properties
     {
@@ -6,18 +6,20 @@ Shader "Custom/HoleMask"
         _HolePosition ("Hole Position", Vector) = (0,0,0,0)
         _HoleRadius ("Hole Radius", Float) = 1.0
     }
+
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Overlay" }
+        Tags { "RenderType"="Opaque" }
+
         Pass
         {
-            ZWrite Off
-            Blend SrcAlpha OneMinusSrcAlpha
+            ZWrite On
+            ZTest LEqual
+            Cull Back
 
             CGPROGRAM
             #pragma vertex vert
-            #pragma fragment frag
-
+            #pragma fragment frag_opaque
             #include "UnityCG.cginc"
 
             struct appdata
@@ -35,7 +37,7 @@ Shader "Custom/HoleMask"
             float4 _HolePosition;
             float _HoleRadius;
 
-            v2f vert (appdata v)
+            v2f vert(appdata v)
             {
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
@@ -43,16 +45,18 @@ Shader "Custom/HoleMask"
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 frag_opaque(v2f i) : SV_Target
             {
                 float dist = distance(i.worldPos.xz, _HolePosition.xz);
                 if (dist < _HoleRadius)
                 {
-                    discard; // Прозрачное место
+                    discard; 
                 }
                 return _Color;
             }
             ENDCG
         }
     }
+
+    FallBack "Diffuse"
 }

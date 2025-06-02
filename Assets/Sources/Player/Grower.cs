@@ -9,12 +9,19 @@ public class Grower : MonoBehaviour
     [SerializeField] private Vector3 _sizeDelta;
     [SerializeField] private float _growSize;
     [SerializeField] private float _growDuration;
+    [SerializeField] private Catcher _catcher;
 
     private Transform _player;
     private Vector3 _targetScale;
 
     public event Action<float> SizeChanged;
     int count = 0;
+
+    private void Awake()
+    {
+        _player = transform;
+        _targetScale = _player.lossyScale;
+    }
 
     private void OnEnable()
     {
@@ -26,12 +33,6 @@ public class Grower : MonoBehaviour
     {
         _growHandler.Growing -= OnGrowing;
         _growHandler.GrowingDown -= OnGrowingDown;
-    }
-
-    private void Awake()
-    {
-        _player = transform;
-        _targetScale = _player.lossyScale;
     }
 
     private void OnGrowingDown()
@@ -46,8 +47,9 @@ public class Grower : MonoBehaviour
         CalculateTargetScale(false);
         StartCoroutine(GrowRoutine());
         SizeChanged?.Invoke(_growSize);
+        _catcher.RefreshSensor();
         count++;
-        Debug.Log("Growing level " + count);
+        //Debug.Log("Growing level " + count);
     }
 
     private void CalculateTargetScale(bool isNegative)
@@ -57,9 +59,9 @@ public class Grower : MonoBehaviour
         if (isNegative)
             sign = -1;
         
-        Debug.Log("currentScale" + _player.lossyScale);
+        //Debug.Log("currentScale" + _player.lossyScale);
         _targetScale += _sizeDelta * sign;
-        Debug.Log("targetScale" + _targetScale);
+        //Debug.Log("targetScale" + _targetScale);
     }
 
     private IEnumerator GrowRoutine()
@@ -86,6 +88,6 @@ public class Grower : MonoBehaviour
         foreach (var particle in _particleSystems)
             particle.transform.localScale = _targetScale;
 
-        Debug.Log($"local: {_player.localScale}, lossy: {_player.lossyScale}");
+        //Debug.Log($"local: {_player.localScale}, lossy: {_player.lossyScale}");
     }
 }

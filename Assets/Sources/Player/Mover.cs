@@ -12,16 +12,22 @@ public class Mover : MonoBehaviour
     private float _currentSpeed;
     private Transform _transform;
     private Vector3 _moveDirection;
+    private float _defaultY;
 
     public event Action<Vector3> PositionChanged; 
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+        _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionX;
+        _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionZ;
         _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
-        _rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+        _rigidbody.useGravity = false;
+        _rigidbody.isKinematic = false;
         _currentSpeed = _moveSpeed;
         _transform = transform;
+        _defaultY = _transform.position.y;
     }
 
     private void OnEnable()
@@ -39,6 +45,7 @@ public class Mover : MonoBehaviour
     private void Update()
     {
         PositionChanged?.Invoke(_transform.position);
+        FixYPosition();
     }
 
     private void FixedUpdate()
@@ -61,7 +68,18 @@ public class Mover : MonoBehaviour
 
     private void MoveR()
     {
-        Vector3 velocity = new Vector3(_moveDirection.x, 0, _moveDirection.y).normalized * _currentSpeed;
+        Vector3 velocity = new Vector3(_moveDirection.x, _defaultY, _moveDirection.y).normalized * _currentSpeed;
+        velocity.y = _rigidbody.velocity.y;
         _rigidbody.velocity = velocity;
+    }
+
+    private void FixYPosition()
+    {
+        if (Mathf.Abs(_rigidbody.position.y - _defaultY) > 0.0001f)
+        {
+            Vector3 fixedYposition = _rigidbody.position;
+            fixedYposition.y = _defaultY;
+            _rigidbody.MovePosition(fixedYposition);
+        }
     }
 }
