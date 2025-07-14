@@ -1,0 +1,241 @@
+﻿using Assets.Sources.Utils;
+using UnityEngine;
+using UnityEngine.AI;
+
+namespace Assets.Sources.EnemyScripts
+{
+    [RequireComponent(typeof(NavMeshAgent))]
+    public class EnemyMover : MonoBehaviour
+    {
+        private const float UpdateTargetTime = 0.5f;
+
+        [SerializeField] private EnemyStopZone _stopZone;
+        [SerializeField] private EnemyMoveZone _moveZone;
+        [SerializeField] private GameObject _attackZone;
+        [SerializeField] private EnemyRetreatZone _retreatZone;
+
+        private MovePointsHolder _movePointsHolder;
+        private Transform _target;
+        private Transform _transform;
+        private NavMeshAgent _agent;
+        private float _minSqrtDistanceToTarget = 20;
+        private float _currentUpdateTime;
+        private float _rotationSpeed = 5;
+        private bool _isPlayerTarget;
+        private bool _isInZone;
+        private bool _isStopped;
+        private bool _isRetreat;
+        private bool _isActive;
+
+        private void Awake()
+        {
+            _transform = transform;
+            _isInZone = true;
+        }
+
+        private void Update()
+        {
+            if (_isActive == false)
+                return;
+
+            if (_agent.isActiveAndEnabled && _agent.isOnNavMesh)
+            {
+                if (_isPlayerTarget == false)
+                    if (_agent.updateRotation == false)
+                        _agent.updateRotation = true;
+
+                if (_agent.updateRotation == false)
+                    RotateTowards(_target.position);
+
+                ControlDistance();
+
+                if (_isPlayerTarget && _isInZone)
+                {
+                    if (_agent.updateRotation)
+                        _agent.updateRotation = false;
+
+                    _currentUpdateTime += Time.deltaTime;
+
+                    if (_isRetreat == false && _isStopped == false && _currentUpdateTime > UpdateTargetTime)
+                    {
+                        if (_agent.isStopped)
+                            _agent.isStopped = false;
+
+                        _agent.destination = _target.position;
+                        _currentUpdateTime = 0;
+                    }
+
+                    if (_isRetreat)
+                        RetreatFromPlayer();
+
+                    if (_isStopped && _isRetreat == false)
+                    {
+                        if (_agent.isStopped == false)
+                            _agent.isStopped = true;
+                    }
+                }
+            }
+        }
+
+        public void SetDistance(float distance)
+        {
+            if (distance <= 0)
+                return;
+
+            _minSqrtDistanceToTarget = distance;
+        }
+
+        public void ReturnToZone()
+        {
+            _isInZone = false;
+            _target = _movePointsHolder.GetMovePoint();
+            DeactivateStopZone();
+            ConfirmTarget();
+            Debug.Log("OutZone");
+        }
+
+        public void SetInZone()
+        {
+            _isInZone = true;
+            ActivateStopZone();
+            _moveZone.Refresh();
+            Debug.Log("InZone");
+        }
+
+        public void Activate()
+        {
+            if (_agent == null)
+                _agent = GetComponent<NavMeshAgent>();
+
+            _stopZone.gameObject.SetActive(true);
+            _retreatZone.gameObject.SetActive(true);
+            _attackZone.SetActive(true);
+            Subscribe();
+            _agent.enabled = true;
+            _target = _movePointsHolder.GetMovePoint();
+            ConfirmTarget();
+            _isActive = true;
+        }
+
+        public void Deactivate()
+        {
+            UnSubscribe();
+            _stopZone.gameObject.SetActive(false);
+            _retreatZone.gameObject.SetActive(false);
+            _attackZone.SetActive(false);
+            _agent.SafeDisable();
+            _isActive = false;
+        }
+
+        public void SetMovePointsHolder(MovePointsHolder movePointsHolder) => _movePointsHolder = movePointsHolder;
+
+        private void OnStop(bool isStopped) => _isStopped = isStopped;
+        private void OnRetreat(bool isRetreat) => _isRetreat = isRetreat;
+
+        private void OnPlayerLosed()
+        {
+            _isPlayerTarget = false;
+            _target = _movePointsHolder.GetMovePoint();
+            ConfirmTarget();
+            Debug.Log("Player Losed. Target tag:" + _target.tag);
+        }
+
+        private void OnPlayerDetected()
+        {
+            if (_isInZone == false)
+                return;
+
+            _target = _moveZone.Player.transform;
+            _isPlayerTarget = true;
+        }
+
+        private void RetreatFromPlayer()
+        {
+            if (_moveZone.Player == null)
+                return;
+
+            if (_agent.isStopped)
+                _agent.isStopped = false;
+
+            Vector3 retreatDirection = (_transform.position - _moveZone.Player.Position).normalized;
+            retreatDirection.y = 0;
+            Vector3 retreatTarget = _transform.position + retreatDirection * (10f + _moveZone.Player.Radius);
+
+            if (NavMesh.SamplePosition(retreatTarget, out NavMeshHit hit, 10f, NavMesh.AllAreas))
+            {
+                _agent.destination = hit.position;
+            }
+        }
+
+        private void RotateTowards(Vector3 targetPosition)
+        {
+            Vector3 lookVector = targetPosition - _transform.position;
+            lookVector.y = 0;
+
+            if (lookVector.sqrMagnitude < 0.01f)
+                return;
+
+            Quaternion targetRotation = Quaternion.LookRotation(lookVector);
+            _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+        }
+
+        private void Subscribe()
+        {
+            _stopZone.ShouldStop += OnStop;
+            _retreatZone.ShouldRetreat += OnRetreat;
+            _moveZone.PlayerDetected += OnPlayerDetected;
+            _moveZone.PlayerLosed += OnPlayerLosed;
+        }
+
+        private void UnSubscribe()
+        {
+            _stopZone.ShouldStop -= OnStop;
+            _retreatZone.ShouldRetreat -= OnRetreat;
+            _moveZone.PlayerDetected -= OnPlayerDetected;
+            _moveZone.PlayerLosed -= OnPlayerLosed;
+        }
+
+        private void ControlDistance()
+        {
+            if (_target.CompareTag("MovePoint") == false)
+                return;
+
+            float sqrtDistance = (_target.position - _transform.position).sqrMagnitude;
+
+            if (sqrtDistance < _minSqrtDistanceToTarget)
+            {
+                _target = _movePointsHolder.GetMovePoint();
+                ConfirmTarget();
+            }
+        }
+
+        private void ConfirmTarget()
+        {
+            if (_agent != null && _agent.isActiveAndEnabled && _agent.isOnNavMesh)
+            {
+                _agent.destination = _target.position;
+                _agent.isStopped = false;
+            }
+        }
+
+        private void ActivateStopZone()
+        {
+            if (_stopZone.isActiveAndEnabled)
+                return;
+
+            _stopZone.enabled = true;
+            _stopZone.ShouldStop += OnStop;
+            _stopZone.Refresh();
+        }
+
+        private void DeactivateStopZone()
+        {
+            if (_stopZone.isActiveAndEnabled == false)
+                return;
+
+            _stopZone.ShouldStop -= OnStop;
+            OnStop(false);
+            _stopZone.enabled = false;
+        }
+    }
+}

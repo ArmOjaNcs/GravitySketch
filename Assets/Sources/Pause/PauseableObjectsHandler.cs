@@ -1,0 +1,23 @@
+using System.Collections.Generic;
+
+namespace Assets.Sources.Pause
+{
+    public static class PauseableObjectsHandler
+    {
+        private static List<IPauseable> _pauseableObjects = new List<IPauseable>();
+
+        public static void Register(IPauseable pauseable) => _pauseableObjects.Add(pauseable);
+
+        public static void Pause()
+        {
+            foreach (IPauseable pauseable in _pauseableObjects)
+                pauseable.Pause();
+        }
+
+        public static void Resume()
+        {
+            foreach (IPauseable pauseable in _pauseableObjects)
+                pauseable.Resume();
+        }
+    }
+}

@@ -1,0 +1,42 @@
+using Assets.Sources.Utils;
+using UnityEngine;
+
+namespace Assets.Sources.EnemyScripts
+{
+    public class EnemyRocketZone : EnemyAttackZone
+    {
+        private ObjectPool<Rocket> _pool;
+        private RocketConfig _rocketConfig;
+
+        public override void Initialize(EnemyAttackConfig config, Transform firePoint)
+        {
+            base.Initialize(config, firePoint);
+
+            RocketerConfig rocketerConfig = config.SafeCast<RocketerConfig>();
+
+            if(rocketerConfig != null)
+            {
+                _pool = new ObjectPool<Rocket>(rocketerConfig.RocketPrefab, rocketerConfig.Capacity, transform);
+                _rocketConfig = rocketerConfig.RocketConfig;
+                IsInitialized = true;
+                return;
+            }
+        }
+
+        private protected override void Attack()
+        {
+            if (Player == null)
+                return;
+
+            CurrentTime = 0;
+            Rocket rocket = _pool.GetElement();
+
+            if (rocket.IsInitialized == false)
+                rocket.Initialize(_rocketConfig, this);
+
+            rocket.transform.position = FirePoint.position;
+            rocket.gameObject.SetActive(true);
+            rocket.Launch();
+        }
+    }
+}

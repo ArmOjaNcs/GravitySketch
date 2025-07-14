@@ -1,0 +1,85 @@
+using Assets.Sources.Utils;
+using UnityEngine;
+
+namespace Assets.Sources.UI
+{
+    public class HealthView : MonoBehaviour
+    {
+        [SerializeField] private Health _health;
+        [SerializeField] private SmoothedImage _fillerNear;
+        [SerializeField] private SmoothedImage _fillerFar;
+        [SerializeField] private float _duration;
+
+        private float _targetValue;
+        private bool _isNearUpdated;
+        private bool _isFarUpdated;
+        private float _previousValue;
+
+        private void OnEnable()
+        {
+            _health.Updated += OnUpdate;
+            _fillerFar.Updated += OnFarFillerUpdate;
+            _fillerNear.Updated += OnNearFillerUpdate;
+        }
+
+        private void OnDisable()
+        {
+            _health.Updated -= OnUpdate;
+            _fillerFar.Updated -= OnFarFillerUpdate;
+            _fillerNear.Updated -= OnNearFillerUpdate;
+        }
+
+        private void Start()
+        {
+            _fillerFar.SetValue(1);
+            _fillerNear.SetValue(1);
+            _previousValue = _health.MaxValue;
+        }
+
+        private void OnUpdate()
+        {
+            float difference = _health.CurrentValue - _previousValue;
+            _previousValue = _health.CurrentValue;
+            _targetValue = _health.CurrentValue / _health.MaxValue;
+
+            if(difference >= 0)
+                _fillerFar.UpdateView(_duration, _targetValue);
+            else
+                _fillerNear.UpdateView(_duration, _targetValue);
+        }
+
+        private void OnFarFillerUpdate()
+        {
+            _isFarUpdated = true;
+
+            if(TryStop())
+                return;
+
+            _fillerNear.UpdateView(_duration, _targetValue);
+        }
+
+        private void OnNearFillerUpdate()
+        {
+            _isNearUpdated = true;
+
+            if(TryStop()) 
+                return;
+
+            _fillerFar.UpdateView(_duration, _targetValue);
+        }
+
+        private bool TryStop()
+        {
+            if(_isFarUpdated && _isNearUpdated)
+            {
+                _isNearUpdated = false;
+                _isFarUpdated = false;
+                _fillerNear.SetValue(_targetValue);
+                _fillerFar.SetValue(_targetValue);
+                return true;
+            }
+
+            return false;
+        }
+    }
+}

@@ -1,4 +1,4 @@
-﻿Shader "Custom/HoleMask"
+﻿Shader "Custom/HoleMaskWithShadows"
 {
     Properties
     {
@@ -10,17 +10,51 @@
     SubShader
     {
         Tags { "RenderType"="Opaque" }
+        LOD 200
 
+        CGPROGRAM
+        #pragma surface surf Standard fullforwardshadows
+        #pragma target 3.0
+
+        fixed4 _Color;
+        float4 _HolePosition;
+        float _HoleRadius;
+
+        struct Input
+        {
+            float3 worldPos;
+        };
+
+        void surf(Input IN, inout SurfaceOutputStandard o)
+        {
+            float dist = distance(IN.worldPos.xz, _HolePosition.xz);
+            if (dist < _HoleRadius)
+            {
+                clip(-1); // Аналог discard
+            }
+
+            o.Albedo = _Color.rgb;
+            o.Alpha = _Color.a;
+        }
+        ENDCG
+
+        // ShadowCaster pass to ensure shadows work
         Pass
         {
+            Name "ShadowCaster"
+            Tags { "LightMode" = "ShadowCaster" }
+
             ZWrite On
             ZTest LEqual
             Cull Back
 
             CGPROGRAM
             #pragma vertex vert
-            #pragma fragment frag_opaque
+            #pragma fragment frag
             #include "UnityCG.cginc"
+
+            float4 _HolePosition;
+            float _HoleRadius;
 
             struct appdata
             {
@@ -33,10 +67,6 @@
                 float3 worldPos : TEXCOORD0;
             };
 
-            fixed4 _Color;
-            float4 _HolePosition;
-            float _HoleRadius;
-
             v2f vert(appdata v)
             {
                 v2f o;
@@ -45,14 +75,14 @@
                 return o;
             }
 
-            fixed4 frag_opaque(v2f i) : SV_Target
+            float4 frag(v2f i) : SV_Target
             {
                 float dist = distance(i.worldPos.xz, _HolePosition.xz);
                 if (dist < _HoleRadius)
                 {
-                    discard; 
+                    clip(-1); // вырезаем дыру в shadow caster тоже
                 }
-                return _Color;
+                return 0;
             }
             ENDCG
         }

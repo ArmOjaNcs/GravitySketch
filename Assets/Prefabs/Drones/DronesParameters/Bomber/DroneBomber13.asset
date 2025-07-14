@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f071f06fc31003243b5f7dbc42416dd4, type: 3}
+  m_Name: DroneBomber13
+  m_EditorClassIdentifier: 
+  Level: 15
+  Health: 500
+  Name: Bomber
+  MoveZoneScale: {x: 35, y: 35, z: 35}
+  StopZoneScale: {x: 1, y: 1, z: 1}
+  RetreatZoneScale: {x: 20, y: 20, z: 20}
+  AttackZoneScale: {x: 30, y: 30, z: 30}
+  Speed: 15
+  Acceleration: 15
+  Scale: {x: 1.6, y: 1.6, z: 1.6}
+  AttackConfig: {fileID: 11400000, guid: a660a1bf0fb74c84a9469823c15e36a8, type: 2}
