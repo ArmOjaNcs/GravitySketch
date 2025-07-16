@@ -1,27 +1,24 @@
-using System.Collections;
+using Assets.Sources.Pause;
+using Assets.Sources.Utils;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Sources.Utils;
-using Assets.Sources.Pause;
 
 namespace Assets.Sources.UI
 {
-    public class SmoothedFade : PauseableObject
+    public class SmoothedFade : PauseableRoutine
     {
         private const float DefaultAlpha = 1.0f;
 
-        [SerializeField] private protected float FadeDuration;
         [SerializeField] private protected CanvasGroup CanvasGroup;
         [SerializeField] private protected List<GameObject> Elements;
 
-        private protected Coroutine FadeRoutine;
-        private protected float CurrentTime;
         private protected float StartAlpha;
-
+        private protected float StartValue;
+ 
         public void ShowElements()
         {
-            if (FadeRoutine != null)
-                StopCoroutine(FadeRoutine);
+            if (Routine != null)
+                StopCoroutine(Routine);
 
             if(Mathf.Approximately(StartAlpha, 0))
                 StartAlpha = DefaultAlpha;
@@ -38,60 +35,34 @@ namespace Assets.Sources.UI
 
         public void HideElements()
         {
-            if (FadeRoutine != null)
-                StopCoroutine(FadeRoutine);
+            if (Routine != null)
+                StopCoroutine(Routine);
 
             CanvasGroup.alpha = 0;
             UserUtils.SetActiveElements(false, Elements);
         }
 
-        public override void Pause()
-        {
-            base.Pause();
-
-            if (FadeRoutine != null)
-                StopCoroutine(FadeRoutine);
-        }
-
-        public override void Resume()
-        {
-            base.Resume();
-
-            if (FadeRoutine != null && CurrentTime < FadeDuration && isActiveAndEnabled)
-                FadeRoutine = StartCoroutine(FadeOut(FadeDuration - CurrentTime, CanvasGroup, Elements));
-        }
-
         public void FadeOut()
         {
-            if (isActiveAndEnabled == false)
-                return;
-
-            if (FadeRoutine != null)
-                StopCoroutine(FadeRoutine);
-
-            FadeRoutine = StartCoroutine(FadeOut(FadeDuration, CanvasGroup, Elements));
+            UpdateView(Duration);
         }
 
-        private protected IEnumerator FadeOut(float duration, CanvasGroup canvasGroup,
-            List<GameObject> gameObjects = null)
+        private protected override void OnRoutineStart() 
         {
-            float startValue = canvasGroup.alpha;
-            float elapsedTime = 0f;
+            StartValue = CanvasGroup.alpha;
+        }
 
-            while (elapsedTime < duration)
-            {
-                elapsedTime += Time.deltaTime;
+        private protected override void OnRoutineIteration(float cycleDuration) 
+        {
+            float progress = ElapsedTime / cycleDuration;
+            CanvasGroup.alpha = Mathf.Lerp(StartValue, 0f, progress);
+        }
 
-                if (CurrentTime < elapsedTime)
-                    CurrentTime = elapsedTime;
-
-                canvasGroup.alpha = Mathf.Lerp(startValue, 0f, elapsedTime / duration);
-                yield return null;
-            }
-
-            canvasGroup.alpha = 0;
-            UserUtils.SetActiveElements(false, gameObjects);
-            FadeRoutine = null;
+        private protected override void OnRoutineEnd()
+        {
+            base.OnRoutineEnd();
+            CanvasGroup.alpha = 0;
+            UserUtils.SetActiveElements(false, Elements);
         }
     }
 }

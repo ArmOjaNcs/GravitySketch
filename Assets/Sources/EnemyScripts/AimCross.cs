@@ -1,5 +1,4 @@
 using Assets.Sources.Utils;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,15 +25,13 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void Awake()
         {
+            base.Awake();
             _rectTransform = GetComponent<RectTransform>();
             _defaultScale = _rectTransform.lossyScale;
-            base.Awake();
         }
 
-        private protected override void Start()
+        private void Start()
         {
-            base.Start();
-
             if (Effect != null)
             {
                 _defaultEffectScale = Effect.transform.lossyScale;
@@ -85,12 +82,12 @@ namespace Assets.Sources.EnemyScripts
             IsAiming = true;
         }
 
-        private protected override IEnumerator UpdateRoutine(float duration)
+        private protected override void Interact()
         {
             Effect.transform.SetParent(null);
             Effect.transform.localScale = _defaultEffectScale;
             Effect.transform.rotation = Quaternion.identity;
-            return base.UpdateRoutine(duration);
+            base.Interact();
         }
 
         private protected override void Live()

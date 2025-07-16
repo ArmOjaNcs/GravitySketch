@@ -1,6 +1,5 @@
 using Assets.Sources.Pause;
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,23 +34,15 @@ namespace Assets.Sources.ColorizerScripts
             OnUpdate();
         }
 
-        private protected override IEnumerator UpdateRoutine(float duration)
+        private protected override void OnRoutineStart()
         {
             IsShowing?.Invoke(true);
-            float elapsedTime = 0;
+        }
 
-            while (elapsedTime < duration)
-            {
-                elapsedTime += Time.deltaTime;
+        private protected override void OnRoutineIteration(float cycleDuration) { }
 
-                if (CurrentTime < elapsedTime)
-                    CurrentTime = elapsedTime;
-
-                yield return null;
-            }
-
-            CurrentTime = 0;
-            Routine = null;
+        private protected override void OnRoutineEnd()
+        {
             IsShowing?.Invoke(false);
         }
     }

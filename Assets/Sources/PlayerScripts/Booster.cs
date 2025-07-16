@@ -1,9 +1,10 @@
+using Assets.Sources.Pause;
 using System;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
 {
-    public class Booster : MonoBehaviour
+    public class Booster : PauseableObject
     {
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField, Min(0)] private float _boostSpeed;
@@ -30,8 +31,9 @@ namespace Assets.Sources.PlayerScripts
         public float BoostReloadTime => _boostReloadTime;
         public int BoostCount => _boostCount;
 
-        private void Awake()
+        private protected override void Awake()
         {
+            base.Awake();
             CurrentBoostCount = _boostCount;
         }
 
@@ -49,6 +51,9 @@ namespace Assets.Sources.PlayerScripts
 
         private void Update()
         {
+            if(IsPaused) 
+                return;
+
             Boost();
         }
 

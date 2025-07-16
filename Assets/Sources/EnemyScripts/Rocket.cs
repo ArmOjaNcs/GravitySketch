@@ -15,15 +15,24 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void Update()
         {
-           if(IsLaunched() == false) 
+            if (IsPaused || IsInitialized == false)
                 return;
 
-            FindPosition();
-            Live();
+            if (_isLaunched)
+            {
+                FindPosition();
+                Live();
+            }
+
+            if (IsInteracted)
+                EndLife();
         }
 
         private void FixedUpdate()
         {
+            if (IsPaused)
+                return;
+
             if (IsLaunched() == false)
                 return;
 
@@ -38,7 +47,7 @@ namespace Assets.Sources.EnemyScripts
 
             _config = missileConfig.SafeCast<RocketConfig>();
 
-            if( _config != null )
+            if (_config != null)
             {
                 IsInitialized = true;
                 return;
@@ -49,18 +58,15 @@ namespace Assets.Sources.EnemyScripts
 
         public void Launch()
         {
-            _delayedTargetPosition = AttackZone.Player.Position; 
+            _delayedTargetPosition = AttackZone.Player.Position;
             _isLaunched = true;
             _flame.Play();
         }
 
         public override void Pause()
         {
-            if (IsLaunched() == false)
-                return;
-
             base.Pause();
-            _flame.Stop();
+            _flame.Pause();
 
             if (_rigidbody != null)
             {
@@ -72,9 +78,6 @@ namespace Assets.Sources.EnemyScripts
 
         public override void Resume()
         {
-            if (IsLaunched() == false)
-                return;
-
             base.Resume();
             _flame.Play();
 
@@ -99,9 +102,9 @@ namespace Assets.Sources.EnemyScripts
             Vector3 directionToTarget = (_delayedTargetPosition - Transform.position).normalized;
             Quaternion targetRotation = Quaternion.FromToRotation(Vector3.up, directionToTarget);
 
-            Transform.rotation = Quaternion.RotateTowards(Transform.rotation, targetRotation, 
+            Transform.rotation = Quaternion.RotateTowards(Transform.rotation, targetRotation,
                 _config.MaxTurnAngle * Time.fixedDeltaTime * _config.RotationSpeed);
-            _rigidbody.velocity = Transform.up * _config.Speed; 
+            _rigidbody.velocity = Transform.up * _config.Speed;
         }
 
         private void FindPosition()
@@ -109,8 +112,6 @@ namespace Assets.Sources.EnemyScripts
             _delayedTargetPosition = Vector3.Lerp(_delayedTargetPosition,
                 AttackZone.Player.Position, Time.deltaTime / _config.ReactionDelay);
         }
-
-        
 
         private void OnCollisionEnter(Collision collision)
         {
@@ -121,7 +122,7 @@ namespace Assets.Sources.EnemyScripts
 
         private bool IsLaunched()
         {
-            if (IsInitialized == false || IsInteracted || IsPaused || _isLaunched == false)
+            if (IsInitialized == false || _isLaunched == false)
                 return false;
 
             return true;

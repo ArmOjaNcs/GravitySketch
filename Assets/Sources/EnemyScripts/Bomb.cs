@@ -29,8 +29,10 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void Update()
         {
-            base.Update();
+            if (IsPaused)
+                return;
 
+            base.Update();
             Blink();
         }
 

@@ -180,8 +180,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1306953394379952014}
-  - component: {fileID: 5665225147744762126}
   - component: {fileID: 2062343480616347674}
+  - component: {fileID: 7660018592242859116}
   m_Layer: 13
   m_Name: EnemyStoppedZone
   m_TagString: Untagged
@@ -204,18 +204,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1666757922122395402}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5665225147744762126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 921287618221548792}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e028c98cf71bfb64c80c5b3365c5b597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &2062343480616347674
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -237,6 +225,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7660018592242859116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921287618221548792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa036c4245c058b4b96663863ad629de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsInitialized: 1
 --- !u!1 &1574935265392766337
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +489,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4527494956821995860}
   - component: {fileID: 3441647537633498258}
-  - component: {fileID: 8346978728424179202}
+  - component: {fileID: 5533796482752983148}
   m_Layer: 13
   m_Name: EnemyMoveZone
   m_TagString: Untagged
@@ -532,7 +533,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8346978728424179202
+--- !u!114 &5533796482752983148
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -541,9 +542,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4557625646619171136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc467590db4b24343b223f72ba5351c9, type: 3}
+  m_Script: {fileID: 11500000, guid: aa036c4245c058b4b96663863ad629de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInitialized: 1
 --- !u!1 &5823534346033986206
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,8 +902,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec569245bbb95a243903a9cda0e5c25d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stopZone: {fileID: 5665225147744762126}
-  _moveZone: {fileID: 8346978728424179202}
+  _stopZone: {fileID: 7660018592242859116}
+  _moveZone: {fileID: 5533796482752983148}
   _attackZone: {fileID: 1574935265392766337}
   _retreatZone: {fileID: 5927630647916472225}
 --- !u!1 &8308982733344971155
@@ -1123,7 +1125,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3629371156219035186}
-  - component: {fileID: 4448154267760526840}
   - component: {fileID: 9147689370126054529}
   - component: {fileID: 5927630647916472225}
   m_Layer: 13
@@ -1148,18 +1149,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1666757922122395402}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4448154267760526840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9161395111426377039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e028c98cf71bfb64c80c5b3365c5b597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!135 &9147689370126054529
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1193,6 +1182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 027fb5c9f7ccb314d8d2d33e90f1ce62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsInitialized: 1
   _bomb: {fileID: 3305001596536304132, guid: 53a4018065386854fa4faa88d4f9ea06, type: 3}
 --- !u!1001 &1178267847519731536
 PrefabInstance:

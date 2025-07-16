@@ -14,7 +14,7 @@ namespace Assets.Sources.EnemyScripts
 
             BomberConfig bomberConfig = config.SafeCast<BomberConfig>();
 
-            if(bomberConfig != null)
+            if (bomberConfig != null)
             {
                 _pool = new ObjectPool<ThrowableBomb>(bomberConfig.BombPrefab, bomberConfig.Capacity, transform);
                 _config = bomberConfig.BombConfig;
@@ -27,10 +27,8 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void Attack()
         {
-            if (Player == null)
-                return;
+            base.Attack();
 
-            CurrentTime = 0;
             ThrowableBomb bomb = _pool.GetElement();
 
             if (bomb.IsInitialized == false)

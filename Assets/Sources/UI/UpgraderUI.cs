@@ -24,7 +24,8 @@ namespace Assets.Sources.UI
         [SerializeField] private TextMeshProUGUI _upgraded;
         [SerializeField] private RectTransform _textPivot;
 
-        Tween _shakeAnimation;
+        private Tween _shakeAnimation;
+        private bool _wasPlayingBeforePause;
 
         private void OnEnable()
         {
@@ -34,6 +35,9 @@ namespace Assets.Sources.UI
         private void OnDisable()
         {
             _upgrader.Upgraded -= OnUpgraded;
+            
+            if(_shakeAnimation != null)
+                _shakeAnimation.Kill();
         }
 
         private void Start()
@@ -49,15 +53,21 @@ namespace Assets.Sources.UI
             base.Pause();
 
             if(_shakeAnimation != null && _shakeAnimation.IsPlaying())
+            {
                 _shakeAnimation.Pause();
+                _wasPlayingBeforePause = true;
+            }
         }
 
         public override void Resume()
         {
             base.Resume();
-
-            if (_shakeAnimation != null && _shakeAnimation.IsComplete() == false)
+           
+            if (_shakeAnimation != null && _wasPlayingBeforePause)
+            {
                 _shakeAnimation.Play();
+                _wasPlayingBeforePause = false;
+            }
         }
 
         private void OnUpgraded()

@@ -1,6 +1,4 @@
 using Assets.Sources.Pause;
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +8,7 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private protected Image Image;
 
-        public event Action Updated;
+        private protected float StartImageValue;
 
         public Color Color => Image.color;
 
@@ -20,28 +18,21 @@ namespace Assets.Sources.UI
             Image.fillAmount = value;
         }
 
-        private protected override IEnumerator UpdateRoutine(float duration)
+        private protected override void OnRoutineStart()
         {
-            float elapsedTime = 0;
-            float startSliderValue = Image.fillAmount;
+            StartImageValue = Image.fillAmount;
+        }
 
-            while (elapsedTime < duration)
-            {
-                elapsedTime += Time.deltaTime;
+        private protected override void OnRoutineIteration(float cycleDuration)
+        {
+            float progress = ElapsedTime / cycleDuration;
+            Image.fillAmount = Mathf.Lerp(StartImageValue, TargetValue, progress);
+        }
 
-                if (CurrentTime < elapsedTime)
-                    CurrentTime = elapsedTime;
-
-                float progress = elapsedTime / duration;
-                Image.fillAmount = Mathf.Lerp(startSliderValue, TargetValue, progress);
-
-                yield return null;
-            }
-
+        private protected override void OnRoutineEnd()
+        {
             Image.fillAmount = TargetValue;
-            Routine = null;
-            CurrentTime = 0;
-            Updated?.Invoke();
+            base.OnRoutineEnd();
         }
     }
 }

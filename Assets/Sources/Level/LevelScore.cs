@@ -1,10 +1,11 @@
+using Assets.Sources.Pause;
 using Assets.Sources.Save;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Sources.Level
 {
-    public abstract class LevelScore : MonoBehaviour
+    public abstract class LevelScore : PauseableObject
     {
         private PlayerProgress _progress;
 
@@ -14,8 +15,9 @@ namespace Assets.Sources.Level
         public IReadOnlyList<Color> CurrentColors => _progress.CurrentColors;
         public int ColorsCount => _progress.ColorsCount;
 
-        private protected virtual void Awake()
+        private protected override void Awake()
         {
+            base.Awake();
             LoadProgress();
         }
 

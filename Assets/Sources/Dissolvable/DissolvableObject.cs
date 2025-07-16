@@ -1,9 +1,8 @@
-using DG.Tweening;
-using System.Collections;
-using UnityEngine;
-using Assets.Sources.Utils;
 using Assets.Sources.Pause;
+using Assets.Sources.Utils;
+using DG.Tweening;
 using System;
+using UnityEngine;
 
 namespace Assets.Sources.Dissolvable
 {
@@ -19,6 +18,7 @@ namespace Assets.Sources.Dissolvable
         private Rigidbody _rigidbody;
         private bool _isInitiated;
         private bool _isDropped;
+        private bool _wasPlayingBeforePause;
         private float _defaultMass;
 
         private protected Tween DissolveAnimation;
@@ -28,6 +28,14 @@ namespace Assets.Sources.Dissolvable
         public int Size => _size;
         public int Reward => _reward;
         public bool IsDissolving { get; private set; }
+
+        private protected override void OnDisable()
+        {
+            if (DissolveAnimation != null)
+                DissolveAnimation.Kill();
+
+            base.OnDisable();
+        }
 
         private protected  override void Start()
         {
@@ -41,7 +49,13 @@ namespace Assets.Sources.Dissolvable
         {
             base.Pause();
 
-            if(_rigidbody != null && _isDropped)
+            if (DissolveAnimation != null && DissolveAnimation.IsPlaying())
+            {
+                DissolveAnimation.Pause();
+                _wasPlayingBeforePause = true;
+            }
+
+            if (_rigidbody != null && _isDropped && IsDissolving == false)
             {
                 _currentVelocity = _rigidbody.velocity;
                 _rigidbody.velocity = Vector3.zero;
@@ -53,7 +67,13 @@ namespace Assets.Sources.Dissolvable
         {
             base.Resume();
 
-            if (_rigidbody != null && _isDropped)
+            if (DissolveAnimation != null && _wasPlayingBeforePause)
+            {
+                DissolveAnimation.Play();
+                _wasPlayingBeforePause = false;
+            }
+
+            if (_rigidbody != null && _isDropped && IsDissolving == false)
             {
                 _rigidbody.isKinematic = false;
                 _rigidbody.velocity = _currentVelocity;
@@ -141,25 +161,16 @@ namespace Assets.Sources.Dissolvable
             return size * UserUtils.RewardBySize;
         }
 
-        private protected override IEnumerator UpdateRoutine(float duration)
+        private protected override void OnRoutineStart() { }
+
+        private protected override void OnRoutineIteration(float cycleDuration)
         {
-            float elapsedTime = 0;
+            float progress = ElapsedTime / cycleDuration;
+            _transform.position = Vector3.Lerp(_transform.position, _hole.position, progress);
+        }
 
-            while (elapsedTime < duration)
-            {
-                elapsedTime += Time.deltaTime;
-
-                if(CurrentTime < elapsedTime)
-                    CurrentTime = elapsedTime;
-
-                float progress = elapsedTime / duration;
-                _transform.position = Vector3.Lerp(_transform.position, _hole.position, progress);
-
-                yield return null;
-            }
-
-            Routine = null;
-            CurrentTime = 0;
+        private protected override void OnRoutineEnd()
+        {
             _transform.position = _hole.position;
             DissolveAnimation.Pause();
             DissolveAnimation.Kill();

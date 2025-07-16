@@ -14,11 +14,11 @@ namespace Assets.Sources.AnomalyScpipts
 
         [SerializeField] private float _damageRate;
         [SerializeField] private GameObject _collidersHolder;
+        [SerializeField] private ParticleSystem _effect;
 
         private Player _player;
         private Rigidbody _playerRigidbody;
         private Coroutine _coroutine;
-        private WaitForSeconds _rateTime;
         private SphereCollider _collider;
         private bool _isDowned;
 
@@ -31,7 +31,6 @@ namespace Assets.Sources.AnomalyScpipts
             base.Awake();
 
             _collider = GetComponent<SphereCollider>();
-            _rateTime = new WaitForSeconds(_damageRate);
             _collidersHolder.SetActive(false);
         }
 
@@ -59,6 +58,18 @@ namespace Assets.Sources.AnomalyScpipts
             }
         }
 
+        public override void Pause()
+        {
+            base.Pause();
+            _effect.Pause();
+        }
+
+        public override void Resume()
+        {
+            base.Resume();
+            _effect.Play();
+        }
+
         public override void DropDown()
         {
             base.DropDown();
@@ -71,9 +82,20 @@ namespace Assets.Sources.AnomalyScpipts
 
         private IEnumerator AttackPlayerRoutine()
         {
-            _player.TakeDamage(Damage, transform.position, Force);
+            float elapsedTime = 0;
 
-            yield return _rateTime;
+            _player.TakeDamage(Damage, transform.position, Force);
+            
+            while(elapsedTime < _damageRate)
+            {
+                if (IsPaused)
+                {
+                    yield return null;
+                    continue;
+                }
+
+                elapsedTime += Time.deltaTime;
+            }
 
             _coroutine = null;
         }

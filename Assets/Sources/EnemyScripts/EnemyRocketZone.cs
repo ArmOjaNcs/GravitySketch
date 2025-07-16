@@ -25,10 +25,8 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void Attack()
         {
-            if (Player == null)
-                return;
+            base.Attack();
 
-            CurrentTime = 0;
             Rocket rocket = _pool.GetElement();
 
             if (rocket.IsInitialized == false)

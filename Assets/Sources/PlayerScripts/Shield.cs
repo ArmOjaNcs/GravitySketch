@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
+using Assets.Sources.Pause;
 
 namespace Assets.Sources.PlayerScripts
 {
     [RequireComponent(typeof(MeshRenderer))]
-    public class Shield : MonoBehaviour
+    public class Shield : PauseableObject
     {
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField, Min(0)] private float _defendTime;
@@ -27,8 +28,9 @@ namespace Assets.Sources.PlayerScripts
         public bool IsDefended => _isDefended;
         public bool IsReloading { get; private set; }
 
-        private void Awake()
+        private protected override void Awake()
         {
+            base.Awake();
             CycleTime = _reloadTime + _defendTime;
             _meshRenderer = GetComponent<MeshRenderer>();
             _meshRenderer.enabled = false;
@@ -46,6 +48,9 @@ namespace Assets.Sources.PlayerScripts
 
         private void Update()
         {
+            if(IsPaused) 
+                return;
+
             if (_isDefendApplied)
                 PlayCycle();
         }

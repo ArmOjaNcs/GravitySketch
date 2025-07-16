@@ -1,21 +1,30 @@
+using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Sources.Table
 {
-    public class HoleMaskHandler : MonoBehaviour
+    public class HoleMaskHandler : PauseableRoutine
     {
         [SerializeField] private Mover _mover;
         [SerializeField] private Material _material;
         [SerializeField] private Renderer _renderer;
         [SerializeField] private Grower _grower;
         [SerializeField] private Player _player;
-        [SerializeField] private float _growDuration;
 
         private Transform _transform;
         private float _targetRadius;
         private float _currentRadius;
+        
+        private protected override void Awake()
+        {
+            base.Awake();
+            _targetRadius = _mover.transform.lossyScale.x / 2;
+            _material.SetFloat("_HoleRadius", _targetRadius);
+            _currentRadius = _targetRadius;
+            _transform = transform;
+            _renderer.material = _material;
+        }
 
         private void OnEnable()
         {
@@ -24,20 +33,12 @@ namespace Assets.Sources.Table
             _player.IsDead += OnPlayerDead;
         }
 
-        private void OnDisable()
+        private protected override void OnDisable()
         {
+            base.OnDisable();
             _mover.PositionChanged -= OnPositionChanged;
             _grower.SizeChanged -= OnSizeChanged;
             _player.IsDead -= OnPlayerDead;
-        }
-
-        private void Awake()
-        {
-            _targetRadius = _mover.transform.lossyScale.x / 2;
-            _material.SetFloat("_HoleRadius", _targetRadius);
-            _currentRadius = _targetRadius;
-            _transform = transform;
-            _renderer.material = _material;
         }
 
         private void OnPositionChanged(Vector3 position)
@@ -48,28 +49,25 @@ namespace Assets.Sources.Table
         private void OnSizeChanged(float sizeDelta)
         {
             _targetRadius += sizeDelta / 2;
-            StartCoroutine(SizeChangeRoutine());
+            UpdateView(Duration);
         }
 
         private void OnPlayerDead()
         {
             _targetRadius = 0;
-            StartCoroutine(SizeChangeRoutine());
+            UpdateView(Duration);
         }
 
-        private IEnumerator SizeChangeRoutine()
+        private protected override void OnRoutineIteration(float cycleDuration) 
         {
-            float elapsedTime = 0;
+            float progress = ElapsedTime / cycleDuration;
+            _currentRadius = Mathf.Lerp(_currentRadius, _targetRadius, progress);
+            _material.SetFloat("_HoleRadius", _currentRadius);
+        }
 
-            while (elapsedTime < _growDuration)
-            {
-                elapsedTime += Time.deltaTime;
-                float normalizedPosition = elapsedTime / _growDuration;
-                _currentRadius = Mathf.Lerp(_currentRadius, _targetRadius, normalizedPosition);
-                _material.SetFloat("_HoleRadius", _currentRadius);
-                yield return null;
-            }
-
+        private protected override void OnRoutineEnd()
+        {
+            base.OnRoutineEnd();
             _currentRadius = _targetRadius;
         }
     }

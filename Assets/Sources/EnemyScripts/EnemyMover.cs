@@ -1,16 +1,17 @@
 ﻿using Assets.Sources.Utils;
 using UnityEngine;
 using UnityEngine.AI;
+using Assets.Sources.Pause;
 
 namespace Assets.Sources.EnemyScripts
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class EnemyMover : MonoBehaviour
+    public class EnemyMover : PauseableObject
     {
         private const float UpdateTargetTime = 0.5f;
 
-        [SerializeField] private EnemyStopZone _stopZone;
-        [SerializeField] private EnemyMoveZone _moveZone;
+        [SerializeField] private EnemyZone _stopZone;
+        [SerializeField] private EnemyZone _moveZone;
         [SerializeField] private GameObject _attackZone;
         [SerializeField] private EnemyRetreatZone _retreatZone;
 
@@ -18,6 +19,7 @@ namespace Assets.Sources.EnemyScripts
         private Transform _target;
         private Transform _transform;
         private NavMeshAgent _agent;
+        private Vector3 _currentVelocity;
         private float _minSqrtDistanceToTarget = 20;
         private float _currentUpdateTime;
         private float _rotationSpeed = 5;
@@ -27,17 +29,18 @@ namespace Assets.Sources.EnemyScripts
         private bool _isRetreat;
         private bool _isActive;
 
-        private void Awake()
+        private protected override void Awake()
         {
+            base.Awake();
             _transform = transform;
             _isInZone = true;
         }
 
         private void Update()
         {
-            if (_isActive == false)
+            if(IsPaused || _isActive == false)
                 return;
-
+                
             if (_agent.isActiveAndEnabled && _agent.isOnNavMesh)
             {
                 if (_isPlayerTarget == false)
@@ -74,6 +77,25 @@ namespace Assets.Sources.EnemyScripts
                             _agent.isStopped = true;
                     }
                 }
+            }
+        }
+
+        public override void Pause()
+        {
+            base.Pause();
+            _currentVelocity = _agent.velocity;
+            _agent.SafeStop();
+        }
+
+        public override void Resume()
+        {
+            base.Resume();
+            Debug.Log("isactive!" + _isActive);
+            if (_isActive)
+            {
+                _agent.SafeEnable();
+                _agent.velocity = _currentVelocity;
+                ConfirmTarget();
             }
         }
 
@@ -129,10 +151,29 @@ namespace Assets.Sources.EnemyScripts
 
         public void SetMovePointsHolder(MovePointsHolder movePointsHolder) => _movePointsHolder = movePointsHolder;
 
-        private void OnStop(bool isStopped) => _isStopped = isStopped;
+        private void Subscribe()
+        {
+            _stopZone.PlayerIn += OnStopIn;
+            _stopZone.PlayerOut += OnStopOut;
+            _retreatZone.ShouldRetreat += OnRetreat;
+            _moveZone.PlayerIn += OnMoveIn;
+            _moveZone.PlayerOut += OnMoveOut;
+        }
+
+        private void UnSubscribe()
+        {
+            _stopZone.PlayerIn -= OnStopIn;
+            _stopZone.PlayerOut -= OnStopOut;
+            _retreatZone.ShouldRetreat -= OnRetreat;
+            _moveZone.PlayerIn -= OnMoveIn;
+            _moveZone.PlayerOut -= OnMoveOut;
+        }
+
+        private void OnStopIn() => _isStopped = true;
+        private void OnStopOut() => _isStopped = false;
         private void OnRetreat(bool isRetreat) => _isRetreat = isRetreat;
 
-        private void OnPlayerLosed()
+        private void OnMoveOut()
         {
             _isPlayerTarget = false;
             _target = _movePointsHolder.GetMovePoint();
@@ -140,7 +181,7 @@ namespace Assets.Sources.EnemyScripts
             Debug.Log("Player Losed. Target tag:" + _target.tag);
         }
 
-        private void OnPlayerDetected()
+        private void OnMoveIn()
         {
             if (_isInZone == false)
                 return;
@@ -179,22 +220,6 @@ namespace Assets.Sources.EnemyScripts
             _transform.rotation = Quaternion.Slerp(_transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
         }
 
-        private void Subscribe()
-        {
-            _stopZone.ShouldStop += OnStop;
-            _retreatZone.ShouldRetreat += OnRetreat;
-            _moveZone.PlayerDetected += OnPlayerDetected;
-            _moveZone.PlayerLosed += OnPlayerLosed;
-        }
-
-        private void UnSubscribe()
-        {
-            _stopZone.ShouldStop -= OnStop;
-            _retreatZone.ShouldRetreat -= OnRetreat;
-            _moveZone.PlayerDetected -= OnPlayerDetected;
-            _moveZone.PlayerLosed -= OnPlayerLosed;
-        }
-
         private void ControlDistance()
         {
             if (_target.CompareTag("MovePoint") == false)
@@ -215,6 +240,7 @@ namespace Assets.Sources.EnemyScripts
             {
                 _agent.destination = _target.position;
                 _agent.isStopped = false;
+                Debug.Log($"target confirmedP {_target.position}");
             }
         }
 
@@ -224,7 +250,8 @@ namespace Assets.Sources.EnemyScripts
                 return;
 
             _stopZone.enabled = true;
-            _stopZone.ShouldStop += OnStop;
+            _stopZone.PlayerIn += OnStopIn;
+            _stopZone.PlayerOut += OnStopOut;
             _stopZone.Refresh();
         }
 
@@ -233,8 +260,9 @@ namespace Assets.Sources.EnemyScripts
             if (_stopZone.isActiveAndEnabled == false)
                 return;
 
-            _stopZone.ShouldStop -= OnStop;
-            OnStop(false);
+            _stopZone.PlayerIn -= OnStopIn;
+            _stopZone.PlayerOut -= OnStopOut;
+            OnStopOut();
             _stopZone.enabled = false;
         }
     }

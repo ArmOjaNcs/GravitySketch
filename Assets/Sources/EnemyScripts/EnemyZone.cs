@@ -1,14 +1,21 @@
 using Assets.Sources.Pause;
+using Assets.Sources.PlayerScripts;
 using Assets.Sources.Utils;
+using System;
 using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
 {
     [RequireComponent(typeof(SphereCollider))]
-    public abstract class EnemyZone : PauseableObject
+    public class EnemyZone : PauseableObject
     {
-        private protected bool IsInitialized;
+        [SerializeField] private protected bool IsInitialized;
         private protected SphereCollider Collider;
+
+        public event Action PlayerIn;
+        public event Action PlayerOut;
+
+        public Player Player { get; protected set; }
 
         private protected override void Awake()
         {
@@ -35,6 +42,12 @@ namespace Assets.Sources.EnemyScripts
                 PlayerLosed(other);
         }
 
+        public void Refresh()
+        {
+            Collider.enabled = false;
+            Collider.enabled = true;
+        }
+
         public override void Pause()
         {
             base.Pause();
@@ -47,7 +60,18 @@ namespace Assets.Sources.EnemyScripts
             Collider.enabled = true;
         }
 
-        private protected abstract void PlayerDetected(Collider playerCollider);
-        private protected abstract void PlayerLosed(Collider playerCollider);
+        private protected virtual void PlayerDetected(Collider playerCollider)
+        {
+            if (Player == null)
+                if (playerCollider.TryGetComponent(out Player player))
+                    Player = player;
+
+            PlayerIn?.Invoke();
+        }
+
+        private protected virtual void PlayerLosed(Collider playerCollider)
+        {
+            PlayerOut?.Invoke();
+        }
     }
 }

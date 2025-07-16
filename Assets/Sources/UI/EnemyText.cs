@@ -12,8 +12,9 @@ namespace Assets.Sources.UI
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private Enemy _enemy;
 
-        private void Start()
+        private protected override void Start()
         {
+            base.Start();
             IsNeedToSplit = true;
             SplitSign = '/';
             MaxValue = Health.MaxValue;

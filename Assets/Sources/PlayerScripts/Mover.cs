@@ -1,10 +1,11 @@
+using Assets.Sources.Pause;
 using System;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class Mover : MonoBehaviour
+    public class Mover : PauseableObject
     {
         [SerializeField, Min(1)] private float _moveSpeed;
         [SerializeField, Min(50)] private float _rotationSpeed;
@@ -16,6 +17,7 @@ namespace Assets.Sources.PlayerScripts
         private float _currentSpeed;
         private Transform _transform;
         private Vector3 _moveDirection;
+        private Vector3 _currentVelocity;
         private float _rotateAxis;
         private float _defaultY;
 
@@ -23,8 +25,9 @@ namespace Assets.Sources.PlayerScripts
 
         public float MoveSpeed => _moveSpeed;
 
-        private void Awake()
+        private protected override void Awake()
         {
+            base.Awake();
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionX;
@@ -54,11 +57,17 @@ namespace Assets.Sources.PlayerScripts
 
         private void Update()
         {
+            if (IsPaused)
+                return;
+
             FixYPosition();
         }
 
         private void FixedUpdate()
         {
+            if (IsPaused)
+                return;
+
             Move();
             Rotate();
         }
@@ -66,6 +75,29 @@ namespace Assets.Sources.PlayerScripts
         private void LateUpdate()
         {
             PositionChanged?.Invoke(_transform.position);
+        }
+
+        public override void Pause()
+        {
+            base.Pause();
+
+            if(_rigidbody != null)
+            {
+                _currentVelocity = _rigidbody.velocity;
+                _rigidbody.velocity = Vector3.zero;
+                _rigidbody.isKinematic = true;
+            }
+        }
+
+        public override void Resume()
+        {
+            base.Resume();
+
+            if (_rigidbody != null)
+            {
+                _rigidbody.isKinematic = false;
+                _rigidbody.velocity = _currentVelocity;
+            }
         }
 
         public void UpgradeMoveSpeed()

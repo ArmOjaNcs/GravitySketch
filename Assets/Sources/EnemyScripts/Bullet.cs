@@ -8,6 +8,7 @@ namespace Assets.Sources.EnemyScripts
     public class Bullet : EnemyMissileWithRenderer
     {
         private Vector3 _direction;
+        private bool _isMoving;
 
         private protected BulletConfig BulletConfig;
 
@@ -19,9 +20,13 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void Update()
         {
+            if (IsPaused)
+                return;
+
             base.Update();
 
-            Move();
+            if(_isMoving)
+                Move();
         }
 
         public override void Initialize(MissileConfig missileConfig, EnemyAttackZone attackZone)
@@ -43,11 +48,13 @@ namespace Assets.Sources.EnemyScripts
         {
             Transform.position = startPosition;
             _direction = (destination - Transform.position).normalized;
+            _isMoving = true;
         }
 
-        private protected override void Live()
+        private protected override void Interact()
         {
-            base.Live();
+            base.Interact();
+            _isMoving = false;
         }
 
         private protected virtual void Move()

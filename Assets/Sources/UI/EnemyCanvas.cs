@@ -15,12 +15,13 @@ namespace Assets.Sources.UI
             _enemy.Detected += OnDetected;
         }
 
-        private void OnDisable()
+        private protected override void OnDisable()
         {
+            base.OnDisable();
             _enemy.Detected -= OnDetected;
         }
 
-        private void Start()
+        private protected override void Start()
         {
             UserUtils.SetActiveElements(false, Elements);
         }
@@ -31,7 +32,7 @@ namespace Assets.Sources.UI
             {
                 if(CanvasGroup.alpha > 0 && _fadeRoutineStarted == false)
                 {
-                    StartFadeRoutine();
+                    UpdateView(Duration);
                     _fadeRoutineStarted = true;
                 }
 
@@ -40,24 +41,16 @@ namespace Assets.Sources.UI
 
             if (isDetected)
             {
-                if (FadeRoutine != null)
-                    StopCoroutine(FadeRoutine);
+                if (Routine != null)
+                    StopCoroutine(Routine);
 
                 UserUtils.SetActiveElements(true, Elements);
                 CanvasGroup.alpha = 1f;
             }
             else
             {
-                StartFadeRoutine();
+                UpdateView(Duration);
             }
-        }
-
-        private void StartFadeRoutine()
-        {
-            if (FadeRoutine != null)
-                StopCoroutine(FadeRoutine);
-
-            FadeRoutine = StartCoroutine(FadeOut(FadeDuration, CanvasGroup, Elements));
         }
     }
 }

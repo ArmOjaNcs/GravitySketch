@@ -11,6 +11,7 @@ namespace Assets.Sources.UI
 
         private protected override void Start()
         {
+            base.Start();
             StartText = Energy;
             IsNeedToSplit = true;
             SplitSign = '/';

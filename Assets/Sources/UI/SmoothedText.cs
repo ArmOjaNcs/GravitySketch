@@ -1,9 +1,7 @@
-using System;
-using System.Collections;
+using Assets.Sources.Pause;
+using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
-using Assets.Sources.Utils;
-using Assets.Sources.Pause;
 
 namespace Assets.Sources.UI
 {
@@ -13,40 +11,13 @@ namespace Assets.Sources.UI
 
         private protected string StartText;
         private protected string EndText;
+        private protected float StartValue;
         private protected float CurrentValue;
         private protected float MaxValue;
         private protected char SplitSign;
         private protected bool IsNeedToSplit;
 
-        public event Action Updated;
-
         public void SetColor(Color color) => Text.color = color;
-
-        private protected override IEnumerator UpdateRoutine(float duration)
-        {
-            float elapsedTime = 0;
-            float startValue = ParseCurrentTextValue();
-
-            while (elapsedTime < duration)
-            {
-                elapsedTime += Time.deltaTime;
-
-                if (CurrentTime < elapsedTime)
-                    CurrentTime = elapsedTime;
-
-                float progress = elapsedTime / duration;
-                CurrentValue = Mathf.Lerp(startValue, TargetValue, progress);
-                Text.text = GetTotalText();
-
-                yield return null;
-            }
-
-            CurrentValue = TargetValue;
-            Text.text = GetTotalText();
-            Routine = null;
-            CurrentTime = 0;
-            Updated?.Invoke();
-        }
 
         private float ParseCurrentTextValue()
         {
@@ -101,6 +72,25 @@ namespace Assets.Sources.UI
                 totalText += EndText;
 
             return totalText;
+        }
+
+        private protected override void OnRoutineStart()
+        {
+            StartValue = ParseCurrentTextValue();
+        }
+
+        private protected override void OnRoutineIteration(float cycleDuration)
+        {
+            float progress = ElapsedTime / cycleDuration;
+            CurrentValue = Mathf.Lerp(StartValue, TargetValue, progress);
+            Text.text = GetTotalText();
+        }
+
+        private protected override void OnRoutineEnd()
+        {
+            CurrentValue = TargetValue;
+            Text.text = GetTotalText();
+            base.OnRoutineEnd();
         }
     }
 }

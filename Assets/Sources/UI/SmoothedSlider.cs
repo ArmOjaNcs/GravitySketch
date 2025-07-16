@@ -1,6 +1,4 @@
 using Assets.Sources.Pause;
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +8,7 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private protected Slider Slider;
 
-        public event Action Updated;
+        private protected float StartSliderValue;
 
         public void SetStartValue(float value)
         {
@@ -18,28 +16,21 @@ namespace Assets.Sources.UI
             Slider.value = value;
         }
 
-        private protected override IEnumerator UpdateRoutine(float duration)
+        private protected override void OnRoutineStart()
         {
-            float elapsedTime = 0;
-            float startSliderValue = Slider.value;
+            StartSliderValue = Slider.value;
+        }
 
-            while (elapsedTime < duration)
-            {
-                elapsedTime += Time.deltaTime;
+        private protected override void OnRoutineIteration(float cycleDuration)
+        {
+            float progress = ElapsedTime / cycleDuration;
+            Slider.value = Mathf.Lerp(StartSliderValue, TargetValue, progress);
+        }
 
-                if (CurrentTime < elapsedTime)
-                    CurrentTime = elapsedTime;
-
-                float progress = elapsedTime / duration;
-                Slider.value = Mathf.Lerp(startSliderValue, TargetValue, progress);
-
-                yield return null;
-            }
-
+        private protected override void OnRoutineEnd()
+        {
             Slider.value = TargetValue;
-            Routine = null;
-            CurrentTime = 0;
-            Updated?.Invoke();
+            base.OnRoutineEnd();
         }
     }
 }

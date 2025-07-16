@@ -68,16 +68,12 @@ namespace Assets.Sources.Level
 
         private void UpdateExitStatus()
         {
-            if (IsCanFinish())
+            if (IsCanFinish() && _exit.IsDowned == false)
             {
                 _exit.gameObject.SetActive(true);
 
                 if (_exit.IsDowned == false)
                     _exit.DropDown();
-            }
-            else
-            {
-                _exit.gameObject.SetActive(false);
             }
         }
     }

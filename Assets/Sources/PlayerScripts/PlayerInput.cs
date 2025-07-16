@@ -1,10 +1,11 @@
 using System;
 using UnityEngine;
 using Assets.Sources.Utils;
+using Assets.Sources.Pause;
 
 namespace Assets.Sources.PlayerScripts
 {
-    public class PlayerInput : MonoBehaviour
+    public class PlayerInput : PauseableObject
     {
         public event Action<Vector2> DirectionChanged;
         public event Action<bool> Boosted;
@@ -18,6 +19,9 @@ namespace Assets.Sources.PlayerScripts
 
         private void Update()
         {
+            if (IsPaused)
+                return;
+
             DirectionChanged?.Invoke(new Vector2(HorizontalInput, VerticalInput));
             Boosted?.Invoke(IsBoosted);
 

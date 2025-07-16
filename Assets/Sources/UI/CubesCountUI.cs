@@ -23,8 +23,9 @@ namespace Assets.Sources.UI
             _cubesCollector.CubesCountChanged -= OnCubesCountChanged;
         }
 
-        private void Start()
+        private protected override void Start()
         {
+            base.Start();
             StartText = CubesCount;
             IsNeedToSplit = true;
             SplitSign = '/';

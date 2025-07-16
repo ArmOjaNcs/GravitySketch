@@ -32,7 +32,7 @@ namespace Assets.Sources.EnemyScripts
 
             BomberConfig bomberConfig = config.SafeCast<BomberConfig>();
 
-            if(bomberConfig != null)
+            if (bomberConfig != null)
             {
                 _bomb = Instantiate(_bomb);
                 _bomb.Initialize(bomberConfig.BombConfig, this);
@@ -52,7 +52,8 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void Attack()
         {
-            CurrentTime = 0;
+            base.Attack();
+
             _isCanDrop = false;
             _bomb.transform.position = FirePoint.position;
             _bomb.gameObject.SetActive(true);

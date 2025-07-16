@@ -36,13 +36,15 @@ namespace Assets.Sources.EnemyScripts
         public override void Return(GameObject gameObject)
         {
             _isCanShoot = true;
+            base.Return(gameObject);
         }
 
         private protected override void Attack()
         {
+            base.Attack();
+
             _isCanShoot = false;
-            CurrentTime = 0;
-            Debug.Log("attack");
+            _cross.gameObject.SetActive(true);
             _cross.StartAimWarning();
         }  
     }

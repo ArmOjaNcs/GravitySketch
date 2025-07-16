@@ -16,8 +16,9 @@ namespace Assets.Sources.SimpleCubeScripts
 
         public Color Color => _currentColor;
 
-        private void Awake()
+        private protected override void Awake()
         {
+            base.Awake();
             _idleAnimation = AnimationSpawner.GetIdleAnimation(transform);
             _idleAnimation.Restart();
         }
@@ -25,6 +26,22 @@ namespace Assets.Sources.SimpleCubeScripts
         private void OnEnable()
         {
             transform.parent = null;
+        }
+
+        public override void Pause()
+        {
+            base.Pause();
+
+            if(_idleAnimation != null)
+                _idleAnimation.Pause();
+        }
+
+        public override void Resume()
+        {
+            base.Resume();
+
+            if (_idleAnimation != null)
+                _idleAnimation.Play();
         }
 
         public void SetColor(Color color)

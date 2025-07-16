@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using System;
 using UnityEngine;
 
@@ -17,6 +18,15 @@ namespace Assets.Sources.PlayerScripts
         public float Damage => _catcher.Damage;
 
         public event Action Upgraded;
+
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.Q))
+                PauseableObjectsHandler.Pause();
+
+            if (Input.GetKeyDown(KeyCode.E))
+                PauseableObjectsHandler.Resume();
+        }
 
         private void OnEnable()
         {

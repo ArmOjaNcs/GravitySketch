@@ -1,8 +1,6 @@
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Utils;
-using System;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -15,8 +13,6 @@ namespace Assets.Sources.UI
         [SerializeField] private TextMeshProUGUI _growText;
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private SmoothedFade _smoothedFade;
-
-        public event Action Updated;
 
         private void OnEnable()
         {
@@ -33,27 +29,20 @@ namespace Assets.Sources.UI
         {
             base.Start();
             _growText.text = GrowUp;
+            _growText.gameObject.SetActive(false);
             _smoothedFade.SetStartAplpha(UserUtils.HalfUnit);
             _smoothedFade.FadeOut();
         }
 
-        private protected override IEnumerator UpdateRoutine(float duration)
+        private protected override void OnRoutineStart()
         {
-            float elapsedTime = 0;
             _smoothedFade.ShowElements();
+        }
 
-            while (elapsedTime < Duration)
-            {
-                elapsedTime += Time.deltaTime;
+        private protected override void OnRoutineIteration(float cycleDuration) { }
 
-                if (CurrentTime < elapsedTime)
-                    CurrentTime = elapsedTime;
-
-                yield return null;
-            }
-
-            Routine = null;
-            CurrentTime = 0;
+        private protected override void OnRoutineEnd()
+        {
             _smoothedFade.FadeOut();
         }
     }

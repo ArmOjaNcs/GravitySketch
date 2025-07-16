@@ -11,8 +11,6 @@ namespace Assets.Sources.EnemyScripts
         private protected float AttackRate;
         private protected bool IsAttacking;
         
-        public Player Player {  get; protected set; }
-
         private protected virtual void Update()
         {
             if (IsInitialized == false || IsAttacking == false || IsPaused || Player == null)
@@ -34,14 +32,17 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void PlayerDetected(Collider playerCollider)
         {
-            if(Player == null)
-                if (playerCollider.TryGetComponent(out Player player))
-                    Player = player;
-
+            base.PlayerDetected(playerCollider);
             IsAttacking = true;
         }
 
-        private protected abstract void Attack();
+        private protected virtual void Attack()
+        {
+            if (Player == null)
+                return;
+
+            CurrentTime = 0;
+        }
        
         private protected override void PlayerLosed(Collider playerCollider)
         {
