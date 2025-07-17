@@ -39,8 +39,6 @@ namespace Assets.Sources.UI
             _smoothedFade.ShowElements();
         }
 
-        private protected override void OnRoutineIteration(float cycleDuration) { }
-
         private protected override void OnRoutineEnd()
         {
             _smoothedFade.FadeOut();

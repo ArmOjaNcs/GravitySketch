@@ -71,6 +71,8 @@ namespace Assets.Sources.PlayerScripts
 
             if (_health.CurrentValue == 0)
             {
+                _catcher.SetDie();
+                _catcher.RefreshSensor();
                 IsDead?.Invoke();
                 gameObject.SetActive(false);
                 return;

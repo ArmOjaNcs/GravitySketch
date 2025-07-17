@@ -33,13 +33,6 @@ namespace Assets.Sources.PlayerScripts
             CubesCountChanged?.Invoke(_holder.Count);
         }
 
-        public void RemoveCubes(int value)
-        {
-            _holder.RemoveCubes(value);
-            IsDecreased = true;
-            CubesCountChanged?.Invoke(_holder.Count);
-        }
-
         public List<Color> GetAllCollors()
         {
             List<Color> colors = new List<Color>();

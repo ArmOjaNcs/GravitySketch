@@ -1,16 +1,15 @@
+using Assets.Sources.Pause;
 using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
 {
-    public class Grower : MonoBehaviour
+    public class Grower : PauseableRoutine
     {
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private ParticleSystem[] _particleSystems;
         [SerializeField] private Vector3 _sizeDelta;
         [SerializeField] private float _growSize;
-        [SerializeField] private float _growDuration;
         [SerializeField] private Catcher _catcher;
 
         private Transform _player;
@@ -18,8 +17,9 @@ namespace Assets.Sources.PlayerScripts
 
         public event Action<float> SizeChanged;
 
-        private void Awake()
+        private protected override void Awake()
         {
+            base.Awake();
             _player = transform;
             _targetScale = _player.lossyScale;
         }
@@ -29,15 +29,16 @@ namespace Assets.Sources.PlayerScripts
             _growHandler.Growing += OnGrowing;
         }
 
-        private void OnDisable()
+        private protected override void OnDisable()
         {
             _growHandler.Growing -= OnGrowing;
+            base.OnDisable();
         }
 
         private void OnGrowing()
         {
             CalculateTargetScale(false);
-            StartCoroutine(GrowRoutine());
+            OnUpdate();
             SizeChanged?.Invoke(_growSize);
             _catcher.RefreshSensor();
         }
@@ -52,25 +53,20 @@ namespace Assets.Sources.PlayerScripts
             _targetScale += _sizeDelta * sign;
         }
 
-        private IEnumerator GrowRoutine()
+        private protected override void OnRoutineStart() { }
+        private protected override void OnRoutineIteration(float cycleDuration) 
         {
-            float elapsedTime = 0;
+            float progress = ElapsedTime / Duration;
+            _player.localScale = Vector3.Lerp(_player.localScale, _targetScale, progress);
 
-            while (elapsedTime < _growDuration)
+            foreach (ParticleSystem particle in _particleSystems)
             {
-                elapsedTime += Time.deltaTime;
-                float normalizedPosition = elapsedTime / _growDuration;
-                _player.localScale = Vector3.Lerp(_player.localScale, _targetScale, normalizedPosition);
-
-                foreach (ParticleSystem particle in _particleSystems)
-                {
-                    particle.transform.localScale = Vector3.Lerp(particle.transform.localScale,
-                        _targetScale, normalizedPosition);
-                }
-
-                yield return null;
+                particle.transform.localScale = Vector3.Lerp(particle.transform.localScale,
+                    _targetScale, progress);
             }
-
+        }
+        private protected override void OnRoutineEnd()
+        {
             _player.localScale = _targetScale;
 
             foreach (var particle in _particleSystems)

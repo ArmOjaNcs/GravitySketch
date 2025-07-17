@@ -1,38 +1,40 @@
-using System.Collections;
+using Assets.Sources.Dissolvable;
+using Assets.Sources.EnemyScripts;
+using Assets.Sources.Pause;
+using Assets.Sources.SimpleCubeScripts;
+using Assets.Sources.Utils;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Sources.Utils;
-using Assets.Sources.EnemyScripts;
-using Assets.Sources.Dissolvable;
-using Assets.Sources.SimpleCubeScripts;
 
 namespace Assets.Sources.PlayerScripts
 {
     [RequireComponent(typeof(CapsuleCollider))]
-    public class Catcher : MonoBehaviour
+    public class Catcher : PauseableObject
     {
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private Transform _hole;
         [SerializeField, Min(0)] private float _damageRate;
 
         private CapsuleCollider _sensor;
-        private Coroutine _refreshCoroutine;
-        private WaitForEndOfFrame _waitForEndOfFrame;
 
         private List<Enemy> _enemiesInGravityCatch;
         private float _currentDamageTime;
+        private bool _isPlayerDied;
 
         public float Damage => _growHandler.CurrentSize * UserUtils.PlayerDamageMultiplier;
 
-        private void Awake()
+        private protected override void Awake()
         {
+            base.Awake();
             _sensor = GetComponent<CapsuleCollider>();
-            _waitForEndOfFrame = new WaitForEndOfFrame();
             _enemiesInGravityCatch = new List<Enemy>();
         }
 
         private void Update()
         {
+            if (IsPaused)
+                return;
+
             _currentDamageTime += Time.deltaTime;
 
             if (_currentDamageTime > _damageRate)
@@ -49,6 +51,9 @@ namespace Assets.Sources.PlayerScripts
 
         private void OnTriggerEnter(Collider other)
         {
+            if (_isPlayerDied)
+                return;
+
             if (other.TryGetComponent(out Enemy enemy))
             {
                 enemy.Detect(true);
@@ -75,9 +80,7 @@ namespace Assets.Sources.PlayerScripts
             }
 
             if (other.TryGetComponent(out SimpleCube simpleCube))
-            {
                 simpleCube.DropDown();
-            }
         }
 
         private void OnTriggerExit(Collider other)
@@ -106,22 +109,12 @@ namespace Assets.Sources.PlayerScripts
 
         }
 
+        public void SetDie()=> _isPlayerDied = true;
+
         public void RefreshSensor()
         {
-            if (_refreshCoroutine != null)
-                return;
-
-            _refreshCoroutine = StartCoroutine(RefreshRoutine());
-        }
-
-        private IEnumerator RefreshRoutine()
-        {
             _sensor.enabled = false;
-
-            yield return _waitForEndOfFrame;
-
             _sensor.enabled = true;
-            _refreshCoroutine = null;
         }
     }
 }

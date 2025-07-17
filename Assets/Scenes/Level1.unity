@@ -46961,7 +46961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10de39d70a533b24db7ae097e200a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeDuration: 0.5
+  Duration: 0
   CanvasGroup: {fileID: 522978777}
   Elements:
   - {fileID: 522978772}
@@ -46977,7 +46977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10de39d70a533b24db7ae097e200a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeDuration: 0.5
+  Duration: 0
   CanvasGroup: {fileID: 347254698}
   Elements:
   - {fileID: 347254694}
@@ -59215,9 +59215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f025b75293b7264b98dfbf9bb494a8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Duration: 0
   _virtualCamera: {fileID: 817898967}
   _growHandler: {fileID: 995408787836506034}
-  _growDuration: 2
   _offsetByGrow: {x: 0, y: 0.8, z: -0.3}
 --- !u!1 &820261328
 GameObject:
@@ -71882,7 +71882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10de39d70a533b24db7ae097e200a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeDuration: 0.5
+  Duration: 0
   CanvasGroup: {fileID: 1317308558}
   Elements:
   - {fileID: 1317308554}
@@ -79788,7 +79788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10de39d70a533b24db7ae097e200a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeDuration: 0.5
+  Duration: 0
   CanvasGroup: {fileID: 1367448770}
   Elements:
   - {fileID: 1367448769}
@@ -82485,7 +82485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10de39d70a533b24db7ae097e200a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeDuration: 1.5
+  Duration: 0
   CanvasGroup: {fileID: 521479349}
   Elements:
   - {fileID: 521479345}
@@ -92120,8 +92120,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1226717324}
   - component: {fileID: 1226717323}
+  - component: {fileID: 1226717325}
   m_Layer: 0
-  m_Name: LevelProgress
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92146,6 +92147,8 @@ MonoBehaviour:
   _simpleCubeSpawner: {fileID: 1358164849}
   _playerScore: {fileID: 7810749400657384048}
   _exit: {fileID: 1386227495}
+  _pauseableRoutine: {fileID: 1226717325}
+  _timeBeforeLoad: 5
 --- !u!4 &1226717324
 Transform:
   m_ObjectHideFlags: 0
@@ -92161,6 +92164,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1226717325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226717322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fcb672823f68494080a854914d14d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 2
 --- !u!1 &1227164462
 GameObject:
   m_ObjectHideFlags: 0
@@ -94275,12 +94291,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07ae05d18c370544e90640ef0d95a112, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Duration: 0
   _mover: {fileID: 7211446280009335644}
   _material: {fileID: 2100000, guid: 43c075a7f70aa9148ad1856ede832ebf, type: 2}
   _renderer: {fileID: 1253867502}
   _grower: {fileID: 7810749400657384040}
   _player: {fileID: 7810749400657384043}
-  _growDuration: 1.2
 --- !u!65 &1253867501
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -100273,7 +100289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10de39d70a533b24db7ae097e200a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeDuration: 0.5
+  Duration: 0
   CanvasGroup: {fileID: 590986325}
   Elements:
   - {fileID: 590986323}
@@ -102115,7 +102131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10de39d70a533b24db7ae097e200a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeDuration: 0.1
+  Duration: 0
   CanvasGroup: {fileID: 1133471773}
   Elements:
   - {fileID: 1133471771}
@@ -111454,7 +111470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10de39d70a533b24db7ae097e200a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeDuration: 0.5
+  Duration: 0
   CanvasGroup: {fileID: 1506471565}
   Elements:
   - {fileID: 1506471561}
@@ -143865,7 +143881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10de39d70a533b24db7ae097e200a8b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeDuration: 0.1
+  Duration: 0
   CanvasGroup: {fileID: 1133471772}
   Elements:
   - {fileID: 1133471770}

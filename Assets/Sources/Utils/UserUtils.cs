@@ -29,6 +29,11 @@ namespace Assets.Sources.Utils
         public const string Dissolved = nameof(Dissolved);
         public const string Untagged = nameof(Untagged);
         public const string Player = nameof(Player);
+        public const string MoveSpeed = "Move speed ";
+        public const string BoostSpeed = "Boost speed ";
+        public const string DefenceTime = "Defence time ";
+        public const string Damage = "Damage ";
+        public const string Upgraded = "Upgraded!!!";
 
         public const float PlayerStartHealth = 100;
         public const float PlayerHealthByGrow = 5;

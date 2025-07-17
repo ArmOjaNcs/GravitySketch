@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Sources.UI
 {
-    public class BoosterUI : MonoBehaviour
+    public class BoosterUI : PauseableAnimation
     {
         [SerializeField] private Booster _booster;
         [SerializeField] private SmoothedImage _boostTimeImage;
@@ -14,8 +14,6 @@ namespace Assets.Sources.UI
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private SmoothedFade _boostTimeFade;
         [SerializeField] private SmoothedFade _reloadTimeFade;
-
-        private Tween _shakeAnimation;
 
         private void OnEnable()
         {
@@ -26,21 +24,18 @@ namespace Assets.Sources.UI
             _reloadTimeImage.Updated += OnReloadUpdated;
         }
 
-        private void OnDisable()
+        private protected override void OnDisable()
         {
             _booster.BoostApplied -= OnBoostApplied;
             _booster.Reloading -= OnReloading;
             _booster.Reloaded -= OnReloaded;
             _boostTimeImage.Updated -= OnBoostUpdated;
             _reloadTimeImage.Updated -= OnReloadUpdated;
-
-            if (_shakeAnimation != null)
-                _shakeAnimation.Kill();
+            base.OnDisable();
         }
 
         private void Start()
         {
-            _shakeAnimation = AnimationSpawner.GetShakeAnimation(_text.transform, 0.5f);
             _boostTimeFade.HideElements();
             _reloadTimeFade.HideElements();
         }
@@ -76,8 +71,13 @@ namespace Assets.Sources.UI
         private void OnReloaded()
         {
             _text.color = _reloadTimeImage.Color;
-            _shakeAnimation.OnComplete(() => _text.color = Color.black);
-            _shakeAnimation.Restart();
+            Animation.OnComplete(() => _text.color = Color.black);
+            Animation.Restart();
+        }
+
+        private protected override Tween GetAnimation()
+        {
+            return AnimationSpawner.GetShakeAnimation(_text.transform, 0.5f);
         }
     }
 }

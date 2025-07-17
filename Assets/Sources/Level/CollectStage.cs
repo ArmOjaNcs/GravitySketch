@@ -4,6 +4,7 @@ using Assets.Sources.Utils;
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.SimpleCubeScripts;
+using Assets.Sources.Pause;
 
 namespace Assets.Sources.Level
 {
@@ -16,6 +17,8 @@ namespace Assets.Sources.Level
         [SerializeField] private SimpleCubeSpawner _simpleCubeSpawner;
         [SerializeField] private PlayerScore _playerScore;
         [SerializeField] private LevelExit _exit;
+        [SerializeField] private PauseableRoutine _pauseableRoutine;
+        [SerializeField] private float _timeBeforeLoad;
 
         private float _currentEnemyDissolvedPercent;
         private float _currentCubesCountPercent;
@@ -32,6 +35,7 @@ namespace Assets.Sources.Level
         {
             _takeOverLimit.EnemyDissolved += OnEnemyDissolved;
             _cubesCollector.CubesCountChanged += OnCubesCountChanged;
+            _pauseableRoutine.Updated += OnRoutineUpdated;
         }
 
         private void OnDisable()
@@ -39,6 +43,14 @@ namespace Assets.Sources.Level
             _exit.Exit -= OnExitApplied;
             _takeOverLimit.EnemyDissolved -= OnEnemyDissolved;
             _cubesCollector.CubesCountChanged -= OnCubesCountChanged;
+            _pauseableRoutine.Updated -= OnRoutineUpdated;
+        }
+
+        private void OnRoutineUpdated()
+        {
+            SetIntermediateResult(_index, _playerScore.Value, _cubesCollector.GetAllCollors());
+            SaveProgress();
+            SceneManager.LoadScene("Radar");
         }
 
         private void OnCubesCountChanged(int cubesCount)
@@ -55,9 +67,7 @@ namespace Assets.Sources.Level
 
         private void OnExitApplied()
         {
-            SetIntermediateResult(_index, _playerScore.Value, _cubesCollector.GetAllCollors());
-            SaveProgress();
-            SceneManager.LoadScene("Radar");
+            _pauseableRoutine.UpdateView(_timeBeforeLoad);
         }
 
         private bool IsCanFinish()
