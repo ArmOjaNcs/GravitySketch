@@ -135,5 +135,11 @@ namespace Assets.Sources.EnemyScripts
             Effect.transform.SetParent(null);
             Effect.Play();
         }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawSphere(transform.position, Radius);
+        }
     }
 }

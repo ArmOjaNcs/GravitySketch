@@ -80,6 +80,7 @@ namespace Assets.Sources.Level
         {
             if (IsCanFinish() && _exit.IsDowned == false)
             {
+                _exit.transform.position = _takeOverLimit.transform.position + Vector3.up * 70;
                 _exit.gameObject.SetActive(true);
 
                 if (_exit.IsDowned == false)

@@ -35,6 +35,12 @@ namespace Assets.Sources.PlayerScripts
             _cubesOnNextGrow = _growDelta;
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.O) && _currentSize < _maxSize)
+                GrowUp();
+        }
+
         private void OnCubesCountChanged(int cubesCount)
         {
             if (_currentSize < _maxSize && cubesCount >= _cubesOnNextGrow)

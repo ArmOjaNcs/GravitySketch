@@ -52,7 +52,15 @@ namespace Assets.Sources.PlayerScripts
         private void OnTriggerEnter(Collider other)
         {
             if (_isPlayerDied)
+            {
+                if (other.gameObject.layer == UserUtils.FallingLayer)
+                {
+                    Physics.SyncTransforms();
+                    other.gameObject.layer = UserUtils.NormalLayer;
+                }
+
                 return;
+            }
 
             if (other.TryGetComponent(out Enemy enemy))
             {

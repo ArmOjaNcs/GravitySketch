@@ -1,4 +1,5 @@
 using Assets.Sources.ColorizerScripts;
+using Assets.Sources.Pause;
 using Assets.Sources.ScoreScripts;
 using Assets.Sources.Table;
 using System;
@@ -48,6 +49,15 @@ namespace Assets.Sources.Level
             _validator.Finished -= OnFinished;
             _referenceViewer.IsShowing -= OnShowing;
             _autoPaint.onValueChanged.RemoveListener(OnAutoPaint);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+                PauseableObjectsHandler.Pause();
+
+            if (Input.GetKeyDown(KeyCode.E))
+                PauseableObjectsHandler.Resume();
         }
 
         public IReadonlyTemplateCube GetCubeByColor(Color color)

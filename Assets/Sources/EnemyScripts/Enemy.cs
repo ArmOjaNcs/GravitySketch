@@ -18,8 +18,6 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private Transform _firePoint;
         [SerializeField] private Animator[] _fansAnimators;
 
-        private BoxCollider _boxCollider;
-
         public event Action<bool> Detected;
 
         public GameObject AttackZone => _attackZone;
@@ -31,8 +29,7 @@ namespace Assets.Sources.EnemyScripts
         private protected override void Awake()
         {
             base.Awake();
-            _boxCollider = GetComponent<BoxCollider>();
-            _boxCollider.isTrigger = true;
+            Collider.isTrigger = true;
             ApplyRandomColors();
         }
 
@@ -72,7 +69,7 @@ namespace Assets.Sources.EnemyScripts
 
             IsDowned = true;
             _mover.Deactivate();
-            _boxCollider.isTrigger = false;
+            Collider.isTrigger = false;
             StopFans();
         }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Assets.Sources.SimpleCubeScripts
 {
+    [RequireComponent(typeof(BoxCollider))]
     [RequireComponent(typeof(Rigidbody))]
     public class SimpleCube : DissolvableObject
     {

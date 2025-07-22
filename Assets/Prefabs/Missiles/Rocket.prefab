@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3554554145273975717}
   - component: {fileID: 7105974796314925472}
   - component: {fileID: 1079745941613626103}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Rocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ce4986401d0d54ab25ea158919c829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Duration: 0
   _flame: {fileID: 8704680870564442892}
 --- !u!136 &1079745941613626103
 CapsuleCollider:
@@ -162,6 +161,10 @@ PrefabInstance:
     - target: {fileID: 1163363743960670289, guid: 7aeccc11f295f244999a61f72c23e928, type: 3}
       propertyPath: m_Name
       value: RocketFlame
+      objectReference: {fileID: 0}
+    - target: {fileID: 1163363743960670289, guid: 7aeccc11f295f244999a61f72c23e928, type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 6958474239266240654, guid: 7aeccc11f295f244999a61f72c23e928, type: 3}
       propertyPath: m_LocalPosition.x

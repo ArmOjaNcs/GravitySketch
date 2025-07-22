@@ -13,13 +13,11 @@ namespace Assets.Sources.AnomalyScpipts
         private const float Force = 500;
 
         [SerializeField] private float _damageRate;
-        [SerializeField] private GameObject _collidersHolder;
         [SerializeField] private ParticleSystem _effect;
 
         private Player _player;
         private Rigidbody _playerRigidbody;
         private Coroutine _coroutine;
-        private SphereCollider _collider;
         private bool _isDowned;
 
         public event Action IsDowned;
@@ -29,20 +27,12 @@ namespace Assets.Sources.AnomalyScpipts
         private protected override void Awake()
         {
             base.Awake();
-
-            _collider = GetComponent<SphereCollider>();
-            _collidersHolder.SetActive(false);
-        }
-
-        private void FixedUpdate()
-        {
-            _collider.enabled = false;
-            _collider.enabled = true;
+            CollidersHolder.SetActive(false);
         }
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (_isDowned)
+            if (_isDowned || _coroutine != null)
                 return;
 
             if (collision.gameObject.tag == UserUtils.Player)
@@ -53,7 +43,7 @@ namespace Assets.Sources.AnomalyScpipts
                 if (_playerRigidbody == null)
                     _playerRigidbody = collision.gameObject.GetComponent<Rigidbody>();
 
-                if (_coroutine == null)
+                if (_player.CurrentSize <= Size)
                     _coroutine = StartCoroutine(AttackPlayerRoutine());
             }
         }
@@ -76,14 +66,15 @@ namespace Assets.Sources.AnomalyScpipts
 
             _isDowned = true;
             IsDowned?.Invoke();
-            _collider.isTrigger = true;
-            _collidersHolder.SetActive(true);
+            Collider.isTrigger = true;
+            CollidersHolder.SetActive(true);
         }
 
         private IEnumerator AttackPlayerRoutine()
         {
+            Debug.Log($"Attack {Time.time}");
             float elapsedTime = 0;
-
+            Collider.enabled = false;
             _player.TakeDamage(Damage, transform.position, Force);
             
             while(elapsedTime < _damageRate)
@@ -95,9 +86,11 @@ namespace Assets.Sources.AnomalyScpipts
                 }
 
                 elapsedTime += Time.deltaTime;
+                yield return null;
             }
 
             _coroutine = null;
+            Collider.enabled = true;
         }
     }
 }

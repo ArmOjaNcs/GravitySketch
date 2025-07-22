@@ -16,6 +16,9 @@ namespace Assets.Sources.EnemyScripts
             if (IsInitialized == false || IsAttacking == false || IsPaused || Player == null)
                 return;
 
+            if (Player.gameObject.activeSelf == false)
+                return;
+
             CurrentTime += Time.deltaTime;
 
             if (CurrentTime > AttackRate)

@@ -38,8 +38,12 @@ namespace Assets.Sources.PlayerScripts
             }
             else if(other.TryGetComponent(out MedAid medAid))
             {
-                MedAidAbsorbed?.Invoke(medAid.HealPower);
-                Rewarded?.Invoke(medAid.Reward);
+                if(medAid.IsDissolving == false)
+                {
+                    MedAidAbsorbed?.Invoke(medAid.HealPower);
+                    Rewarded?.Invoke(medAid.Reward);
+                    medAid.Dissolve(_hole);
+                }
             }
             else if (other.gameObject.CompareTag(UserUtils.Dissolved))
             {

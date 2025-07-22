@@ -40,7 +40,7 @@ namespace Assets.Sources.Utils
         public const float Half = 2;
         public const float HalfUnit = 0.5f;
         public const float TimeForShow = 5f;
-        public const float MinPercentToComplete = 0.1f;
+        public const float MinPercentToComplete = 0.7f;
         public const float ExitTime = 3;
         public const float PlayerDamageMultiplier = 1.5f;
 

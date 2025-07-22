@@ -28,7 +28,7 @@ namespace Assets.Sources.ColorizerScripts
 
         private void ShowReference()
         {
-            if (_isAutoPaint || Routine != null)
+            if (_isAutoPaint || Routine != null || IsPaused)
                 return;
 
             OnUpdate();
@@ -38,8 +38,6 @@ namespace Assets.Sources.ColorizerScripts
         {
             IsShowing?.Invoke(true);
         }
-
-        private protected override void OnRoutineIteration(float cycleDuration) { }
 
         private protected override void OnRoutineEnd()
         {

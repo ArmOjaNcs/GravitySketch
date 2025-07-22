@@ -39,6 +39,13 @@ namespace Assets.Sources.EnemyScripts
             Move();
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.CompareTag(UserUtils.Obstacle) ||
+              collision.gameObject.CompareTag(UserUtils.DissolvableObject))
+                Interact();
+        }
+
         public override void Initialize(MissileConfig missileConfig, EnemyAttackZone attackZone)
         {
             base.Initialize(missileConfig, attackZone);
@@ -111,13 +118,6 @@ namespace Assets.Sources.EnemyScripts
         {
             _delayedTargetPosition = Vector3.Lerp(_delayedTargetPosition,
                 AttackZone.Player.Position, Time.deltaTime / _config.ReactionDelay);
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.CompareTag(UserUtils.Obstacle) ||
-              collision.gameObject.CompareTag(UserUtils.DissolvableObject))
-                Interact();
         }
 
         private bool IsLaunched()

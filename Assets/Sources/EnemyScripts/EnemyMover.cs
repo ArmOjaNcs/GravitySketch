@@ -198,7 +198,9 @@ namespace Assets.Sources.EnemyScripts
             if (_agent.isStopped)
                 _agent.isStopped = false;
 
-            Vector3 retreatDirection = (_transform.position - _moveZone.Player.Position).normalized;
+            Vector3 position = _transform.position;
+            position.y = _moveZone.Player.Position.y;
+            Vector3 retreatDirection = (position - _moveZone.Player.Position).normalized;
             retreatDirection.y = 0;
             Vector3 retreatTarget = _transform.position + retreatDirection * (10f + _moveZone.Player.Radius);
 

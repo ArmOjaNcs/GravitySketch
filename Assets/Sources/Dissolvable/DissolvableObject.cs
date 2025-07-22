@@ -22,12 +22,21 @@ namespace Assets.Sources.Dissolvable
         private float _defaultMass;
 
         private protected Tween DissolveAnimation;
+        private protected Collider Collider = null;
 
         public event Action Finished;
 
         public int Size => _size;
         public int Reward => _reward;
         public bool IsDissolving { get; private set; }
+
+        private protected override void Awake()
+        {
+            base.Awake();
+
+            if (TryGetComponent(out Collider collider))
+                Collider = collider;
+        }
 
         private protected override void OnDisable()
         {
@@ -118,6 +127,9 @@ namespace Assets.Sources.Dissolvable
         {
             if (IsDissolving)
                 return;
+
+            if (Collider != null)
+                Collider.enabled = false;
 
             IsDissolving = true;
             _hole = hole;

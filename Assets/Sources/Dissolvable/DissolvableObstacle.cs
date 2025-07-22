@@ -5,6 +5,8 @@ namespace Assets.Sources.Dissolvable
 {
     public class DissolvableObstacle : DissolvableObject
     {
+        [SerializeField] private protected GameObject CollidersHolder = null;
+ 
         private protected override void Awake()
         {
             base.Awake();
@@ -18,6 +20,14 @@ namespace Assets.Sources.Dissolvable
 
             SetLayerRecursively(gameObject, UserUtils.NormalLayer);
             SetTagRecursively(gameObject, UserUtils.Dissolved);
+        }
+
+        public override void Dissolve(Transform hole)
+        {
+            base.Dissolve(hole);
+
+            if (CollidersHolder != null)
+                CollidersHolder.SetActive(false);
         }
 
         private void SetLayerRecursively(GameObject obj, int newLayer)
