@@ -9,10 +9,10 @@ namespace Assets.Sources.Utils
 
         private static readonly Vector3[] _rotations =
         {
-        new Vector3(UserUtils.MaxRotation, 0, 0),
-        new Vector3(0, UserUtils.MaxRotation, 0),
-        new Vector3(0, 0, UserUtils.MaxRotation)
-    };
+            new Vector3(UserUtils.MaxRotation, 0, 0),
+            new Vector3(0, UserUtils.MaxRotation, 0),
+            new Vector3(0, 0, UserUtils.MaxRotation)
+        };
 
         public static Sequence GetIdleAnimation(Transform transform)
         {
@@ -25,7 +25,8 @@ namespace Assets.Sources.Utils
                 .Insert(1, transform.DOMoveY(startPosition.y, BaseAnimationLength / UserUtils.Half))
                 .SetLoops(-1)
                 .SetEase(Ease.Linear)
-                .SetAutoKill(false);
+                .SetAutoKill(false)
+                .Pause();
 
             return sequence;
         }
@@ -35,22 +36,7 @@ namespace Assets.Sources.Utils
             if (duration <= 0)
                 duration = BaseAnimationLength;
 
-            return transform.DOScale(0, duration).SetLink(transform.gameObject);
-        }
-
-        public static Tween GetPopUpAnimation(Transform transform, float offsetZ, float duration = 0)
-        {
-            if (duration <= 0)
-                duration = BaseAnimationLength;
-
-            Vector3 startPos = transform.localPosition;
-            Vector3 endPos = startPos + Vector3.forward * offsetZ;
-
-            return transform.DOLocalMove(endPos, duration)
-                .SetEase(Ease.OutQuad)
-                .From(startPos)
-                .SetAutoKill(false)
-                .Pause();
+            return transform.DOScale(0, duration).SetLink(transform.gameObject).Pause();
         }
 
         public static Tween GetPopUpAnimation(RectTransform rectTransform, float offsetY, float duration = 0)
@@ -68,23 +54,52 @@ namespace Assets.Sources.Utils
                 .Pause();
         }
 
-        public static Tween GetShakeAnimation(Transform transform, float duration = 0)
+        public static Tween GetShakeAnimation(RectTransform transform, float duration = 0)
         {
             if (duration <= 0)
                 duration = BaseAnimationLength;
 
-            return transform.DOShakePosition(duration, 10).SetEase(Ease.Linear).SetAutoKill(false);
+            return transform.DOShakeAnchorPos(duration, 10).SetEase(Ease.Linear).SetAutoKill(false).Pause();
         }
 
-        public static Sequence GetCatchedAnimation(Transform transform, Transform hole)
+        public static Sequence GetShowAnimation(RectTransform transform, float duration)
         {
+            float transformScaleX = transform.localScale.x;
+
             Sequence sequence = DOTween.Sequence();
-            Vector3 holePosition = hole.position;
-            holePosition.y = transform.position.y;
-            sequence.Append(transform.DOMove(holePosition, 1))
-                .Join(transform.DORotate(GetRandomRotation(), 1, RotateMode.FastBeyond360))
-                .SetEase(Ease.Linear)
-                .SetAutoKill(false);
+            
+            sequence.Append(transform.DOScale(transformScaleX * 1.1f, duration * 0.5f)
+                    .From(0)
+                    .SetEase(Ease.OutBack));
+
+            sequence.Append(transform.DOScale(transformScaleX, duration * 0.2f)
+                    .SetEase(Ease.OutSine));
+
+            sequence.Append(GetShakeAnimation(transform, duration * 0.3f));
+            sequence.SetAutoKill(false);
+            sequence.Pause();
+
+            return sequence;
+        }
+
+        public static Sequence GetHideAnimation(RectTransform transform, float duration)
+        {
+            Vector3 originalScale = Vector3.one;
+            float step = duration / 3;
+           
+            Sequence sequence = DOTween.Sequence();
+
+            sequence.Append(transform.DOScaleX(originalScale.x * 0.5f, step)
+                    .SetEase(Ease.Linear));
+
+            sequence.Append(transform.DOScaleY(originalScale.y * 0.5f, step)
+                    .SetEase(Ease.Linear));
+
+            sequence.Append(transform.DOScale(Vector3.zero, step)
+                    .SetEase(Ease.InBack));
+
+            sequence.SetAutoKill(false);
+            sequence.Pause();
 
             return sequence;
         }

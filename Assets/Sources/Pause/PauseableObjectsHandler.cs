@@ -6,18 +6,24 @@ namespace Assets.Sources.Pause
     {
         private static List<IPauseable> _pauseableObjects = new List<IPauseable>();
 
+        public static bool IsPaused {  get; private set; }
+
         public static void Register(IPauseable pauseable) => _pauseableObjects.Add(pauseable);
 
         public static void Pause()
         {
             foreach (IPauseable pauseable in _pauseableObjects)
                 pauseable.Pause();
+
+            IsPaused = true;
         }
 
         public static void Resume()
         {
             foreach (IPauseable pauseable in _pauseableObjects)
                 pauseable.Resume();
+
+            IsPaused = false;
         }
     }
 }

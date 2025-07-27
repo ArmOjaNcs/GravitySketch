@@ -77,7 +77,7 @@ namespace Assets.Sources.UI
 
         private protected override Tween GetAnimation()
         {
-            return AnimationSpawner.GetShakeAnimation(_text.transform, 0.5f);
+            return AnimationSpawner.GetShakeAnimation(_text.rectTransform, 0.5f);
         }
     }
 }

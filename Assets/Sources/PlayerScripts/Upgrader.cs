@@ -19,15 +19,6 @@ namespace Assets.Sources.PlayerScripts
 
         public event Action Upgraded;
 
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.Q))
-                PauseableObjectsHandler.Pause();
-
-            if (Input.GetKeyDown(KeyCode.E))
-                PauseableObjectsHandler.Resume();
-        }
-
         private void OnEnable()
         {
             _growHandler.Growing += OnGrowing;

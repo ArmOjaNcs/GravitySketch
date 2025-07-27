@@ -18,8 +18,8 @@ namespace Assets.Sources.PlayerScripts
         private CapsuleCollider _sensor;
 
         private List<Enemy> _enemiesInGravityCatch;
+        private List<GameObject> _objectsInGravityCatch;
         private float _currentDamageTime;
-        private bool _isPlayerDied;
 
         public float Damage => _growHandler.CurrentSize * UserUtils.PlayerDamageMultiplier;
 
@@ -28,6 +28,7 @@ namespace Assets.Sources.PlayerScripts
             base.Awake();
             _sensor = GetComponent<CapsuleCollider>();
             _enemiesInGravityCatch = new List<Enemy>();
+            _objectsInGravityCatch = new List<GameObject>();
         }
 
         private void Update()
@@ -51,17 +52,6 @@ namespace Assets.Sources.PlayerScripts
 
         private void OnTriggerEnter(Collider other)
         {
-            if (_isPlayerDied)
-            {
-                if (other.gameObject.layer == UserUtils.FallingLayer)
-                {
-                    Physics.SyncTransforms();
-                    other.gameObject.layer = UserUtils.NormalLayer;
-                }
-
-                return;
-            }
-
             if (other.TryGetComponent(out Enemy enemy))
             {
                 enemy.Detect(true);
@@ -78,13 +68,13 @@ namespace Assets.Sources.PlayerScripts
                 Physics.SyncTransforms();
                 other.gameObject.layer = UserUtils.FallingLayer;
 
+                if (_objectsInGravityCatch.Contains(other.gameObject) == false)
+                    _objectsInGravityCatch.Add(other.gameObject);
+
                 DissolvableObject dissolvableObject = other.GetComponentInParent<DissolvableObject>();
 
                 if (dissolvableObject != null)
-                {
                     dissolvableObject.ResetMass();
-                    Debug.Log("mass reseted");
-                }
             }
 
             if (other.TryGetComponent(out SimpleCube simpleCube))
@@ -97,6 +87,9 @@ namespace Assets.Sources.PlayerScripts
             {
                 Physics.SyncTransforms();
                 other.gameObject.layer = UserUtils.NormalLayer;
+
+                if (_objectsInGravityCatch.Contains(other.gameObject))
+                    _objectsInGravityCatch.Remove(other.gameObject);
 
                 DissolvableObject dissolvableObject = other.GetComponentInParent<DissolvableObject>();
 
@@ -114,10 +107,15 @@ namespace Assets.Sources.PlayerScripts
                         _enemiesInGravityCatch.Remove(enemy);
                 }
             }
-
         }
 
-        public void SetDie()=> _isPlayerDied = true;
+        public void SetDie()
+        {
+            _sensor.enabled = false;
+
+            foreach(GameObject gameObject in _objectsInGravityCatch)
+                gameObject.layer = UserUtils.NormalLayer;
+        }
 
         public void RefreshSensor()
         {

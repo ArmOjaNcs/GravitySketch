@@ -242,7 +242,6 @@ namespace Assets.Sources.EnemyScripts
             {
                 _agent.destination = _target.position;
                 _agent.isStopped = false;
-                Debug.Log($"target confirmedP {_target.position}");
             }
         }
 

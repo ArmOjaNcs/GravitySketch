@@ -38,7 +38,7 @@ namespace Assets.Sources.UI
 
         private void Start()
         {
-            _shakeAnimation = AnimationSpawner.GetShakeAnimation(_text.transform, 0.5f);
+            _shakeAnimation = AnimationSpawner.GetShakeAnimation(_text.rectTransform, 0.5f);
             _defendFade.HideElements();
             _reloadFade.HideElements();
         }
