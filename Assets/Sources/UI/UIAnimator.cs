@@ -36,6 +36,7 @@ namespace Assets.Sources.UI
             _hideAnimation?.Pause();
             gameObject.SetActive(true);
             _showAnimation?.Restart();
+            _showAnimation.OnComplete(() => _canvasGroup.interactable = true);
         }
 
         public void Hide()
