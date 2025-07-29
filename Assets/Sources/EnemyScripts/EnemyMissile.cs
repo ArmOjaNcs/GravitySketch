@@ -31,6 +31,7 @@ namespace Assets.Sources.EnemyScripts
             AudioPlayer.Init();
             AudioPlayer.AudioSource.playOnAwake = false;
             AudioPlayer.AudioSource.loop = false;
+            AudioPlayer.AudioSource.spatialBlend = 1;
         }
 
         private protected virtual void OnEnable()

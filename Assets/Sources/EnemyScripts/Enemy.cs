@@ -3,10 +3,12 @@ using UnityEngine;
 using UnityEngine.AI;
 using Assets.Sources.Utils;
 using Assets.Sources.Dissolvable;
+using Assets.Sources.Audio;
 
 namespace Assets.Sources.EnemyScripts
 {
     [RequireComponent(typeof(BoxCollider))]
+    [RequireComponent(typeof(AudioPlayer))]
     public class Enemy : DissolvableObject
     {
         [SerializeField] private Health _health;
@@ -17,6 +19,8 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private EnemyRetreatZone _retreatZone;
         [SerializeField] private Transform _firePoint;
         [SerializeField] private Animator[] _fansAnimators;
+
+        private AudioPlayer _audioPlayer;
 
         public event Action<bool> Detected;
 
@@ -29,6 +33,11 @@ namespace Assets.Sources.EnemyScripts
         private protected override void Awake()
         {
             base.Awake();
+            _audioPlayer = GetComponent<AudioPlayer>();
+            _audioPlayer.Init();
+            _audioPlayer.AudioSource.playOnAwake = false;
+            _audioPlayer.AudioSource.loop = true;
+            _audioPlayer.AudioSource.spatialBlend = 1;
             Collider.isTrigger = true;
             ApplyRandomColors();
         }
@@ -39,6 +48,7 @@ namespace Assets.Sources.EnemyScripts
                 _mover.Activate();
 
             ActivateFans();
+            _audioPlayer.Play();
         }
 
         private protected override void OnDisable()
@@ -71,6 +81,7 @@ namespace Assets.Sources.EnemyScripts
             _mover.Deactivate();
             Collider.isTrigger = false;
             StopFans();
+            _audioPlayer.Stop();
         }
 
         public void TakeDamage(float damage = 1)
