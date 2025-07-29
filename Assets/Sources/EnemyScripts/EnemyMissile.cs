@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Utils;
@@ -5,8 +6,10 @@ using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
 {
+    [RequireComponent(typeof(AudioPlayer))]
     public abstract class EnemyMissile : PauseableObject
     {
+        private protected AudioPlayer AudioPlayer;
         private protected EnemyAttackZone AttackZone;
         private protected Transform Transform;
         private protected ParticleSystem Effect;
@@ -20,6 +23,15 @@ namespace Assets.Sources.EnemyScripts
         private protected bool IsInteracted;
 
         public bool IsInitialized { get; protected set; }
+
+        private protected override void Awake()
+        {
+            base.Awake();
+            AudioPlayer = GetComponent<AudioPlayer>();
+            AudioPlayer.Init();
+            AudioPlayer.AudioSource.playOnAwake = false;
+            AudioPlayer.AudioSource.loop = false;
+        }
 
         private protected virtual void OnEnable()
         {
@@ -134,6 +146,7 @@ namespace Assets.Sources.EnemyScripts
 
             Effect.transform.SetParent(null);
             Effect.Play();
+            AudioPlayer.Play();
         }
 
         private void OnDrawGizmos()

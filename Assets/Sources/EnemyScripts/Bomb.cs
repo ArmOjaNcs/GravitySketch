@@ -59,9 +59,9 @@ namespace Assets.Sources.EnemyScripts
 
             if(Rigidbody != null)
             {
-                Rigidbody.isKinematic = true;
                 _currentVelocity = Rigidbody.velocity;
                 Rigidbody.velocity = Vector3.zero;
+                Rigidbody.isKinematic = true;
             }
         }
 

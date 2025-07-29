@@ -25,14 +25,14 @@ namespace Assets.Sources.Audio
             _slider.onValueChanged.AddListener(SetVolume);
         }
 
-        private void Start()
-        {
-            _slider.value = 1f;
-        }
-
         private void OnDisable()
         {
             _slider.onValueChanged.RemoveListener(SetVolume);
+        }
+
+        private void Start()
+        {
+            _slider.value = 1f;
         }
 
         private void SetVolume(float volume)

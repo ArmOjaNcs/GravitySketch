@@ -27,10 +27,7 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void Attack()
         {
-            if (Player == null)
-                return;
-
-            CurrentTime = 0;
+            base.Attack();
             Bullet bullet = _pool.GetElement();
 
             if (bullet.IsInitialized == false)
@@ -38,7 +35,13 @@ namespace Assets.Sources.EnemyScripts
 
             bullet.transform.position = FirePoint.position;
             bullet.gameObject.SetActive(true);
+            AudioPlayer.Play();
             bullet.Send(FirePoint.position, Player.Position);
+        }
+
+        private protected override void SetAudioClip()
+        {
+            AudioClip = Resources.Load<AudioClip>("Audio/Sounds/Shooter/ShooterShot");
         }
     }
 }

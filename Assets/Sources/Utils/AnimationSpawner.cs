@@ -21,8 +21,8 @@ namespace Assets.Sources.Utils
 
             Sequence sequence = DOTween.Sequence()
                 .Append(transform.DORotate(GetRandomRotation(), BaseAnimationLength, RotateMode.FastBeyond360))
-                .Join(transform.DOMoveY(startPosition.y + 0.5f, BaseAnimationLength / UserUtils.Half))
-                .Insert(1, transform.DOMoveY(startPosition.y, BaseAnimationLength / UserUtils.Half))
+                .Join(transform.DOMoveY(startPosition.y + 0.5f, BaseAnimationLength / UserUtils.Two))
+                .Insert(1, transform.DOMoveY(startPosition.y, BaseAnimationLength / UserUtils.Two))
                 .SetLoops(-1)
                 .SetEase(Ease.Linear)
                 .SetAutoKill(false)

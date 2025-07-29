@@ -30,13 +30,19 @@ namespace Assets.Sources.EnemyScripts
             base.Attack();
 
             ThrowableBomb bomb = _pool.GetElement();
-
+   
             if (bomb.IsInitialized == false)
                 bomb.Initialize(_config, this);
 
             bomb.transform.position = FirePoint.position;
             bomb.gameObject.SetActive(true);
+            AudioPlayer.Play();
             bomb.AddForces(FirePoint.position);
+        }
+
+        private protected override void SetAudioClip()
+        {
+            AudioClip = Resources.Load<AudioClip>("Audio/Sounds/Bomb/GrenadeLauncher");
         }
     }
 }

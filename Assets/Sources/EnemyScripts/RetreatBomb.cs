@@ -13,10 +13,10 @@ namespace Assets.Sources.EnemyScripts
 
         private void CorrectSize()
         {
-            Transform.localScale /= UserUtils.Half;
-            Damage /= UserUtils.Half;
-            Force /= UserUtils.Half;
-            Radius /= UserUtils.Half;
+            Transform.localScale /= UserUtils.Two;
+            Damage /= UserUtils.Two;
+            Force /= UserUtils.Two;
+            Radius /= UserUtils.Two;
         }
     }
 }

@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -6,12 +7,21 @@ namespace Assets.Sources.EnemyScripts
     public class Rocket : Bullet
     {
         [SerializeField] private ParticleSystem _flame;
+        [SerializeField] private AudioPlayer _nozzleSound;
 
         private RocketConfig _config;
         private Vector3 _delayedTargetPosition;
         private bool _isLaunched;
         private Rigidbody _rigidbody;
         private Vector3 _currentVelocity;
+
+        private protected override void Awake()
+        {
+            base.Awake();
+            _nozzleSound.Init();
+            _nozzleSound.AudioSource.playOnAwake = false;
+            _nozzleSound.AudioSource.loop = true;
+        }
 
         private protected override void Update()
         {
@@ -68,6 +78,7 @@ namespace Assets.Sources.EnemyScripts
             _delayedTargetPosition = AttackZone.Player.Position;
             _isLaunched = true;
             _flame.Play();
+            _nozzleSound.Play();
         }
 
         public override void Pause()
@@ -77,9 +88,9 @@ namespace Assets.Sources.EnemyScripts
 
             if (_rigidbody != null)
             {
-                _rigidbody.isKinematic = true;
                 _currentVelocity = _rigidbody.velocity;
                 _rigidbody.velocity = Vector3.zero;
+                _rigidbody.isKinematic = true;
             }
         }
 
@@ -101,6 +112,7 @@ namespace Assets.Sources.EnemyScripts
             Effect.transform.localScale = Vector3.one + Vector3.one * Transform.localScale.x;
             _isLaunched = false;
             _flame.Stop();
+            _nozzleSound.Stop();
             base.Interact();
         }
 

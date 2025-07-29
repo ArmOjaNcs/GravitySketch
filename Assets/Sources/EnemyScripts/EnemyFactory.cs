@@ -85,9 +85,6 @@ namespace Assets.Sources.EnemyScripts
                         zone.Initialize(config.AttackConfig, enemy.FirePoint);
                     }
 
-                    foreach (var c in _bomberConfigs)
-                        Debug.Log($"Available bomber config: level={c.Level}");
-
                     enemy.Init(config.Level);
                     config = _bomberConfigs.FirstOrDefault(c => c.Level == currentLevel);
                     enemy.RetreatZone.Initialize(config.AttackConfig, enemy.FirePoint);

@@ -28,13 +28,19 @@ namespace Assets.Sources.EnemyScripts
             base.Attack();
 
             Rocket rocket = _pool.GetElement();
-
+            
             if (rocket.IsInitialized == false)
                 rocket.Initialize(_rocketConfig, this);
 
             rocket.transform.position = FirePoint.position;
             rocket.gameObject.SetActive(true);
+            AudioPlayer.Play();
             rocket.Launch();
+        }
+
+        private protected override void SetAudioClip()
+        {
+            AudioClip = Resources.Load<AudioClip>("Audio/Sounds/Rocket/RocketLauncher");
         }
     }
 }

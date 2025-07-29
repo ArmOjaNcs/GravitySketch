@@ -54,6 +54,7 @@ namespace Assets.Sources.EnemyScripts
         {
             base.Attack();
 
+            AudioPlayer.Play();
             _isCanDrop = false;
             _bomb.transform.position = FirePoint.position;
             _bomb.gameObject.SetActive(true);
@@ -69,6 +70,11 @@ namespace Assets.Sources.EnemyScripts
         {
             base.PlayerLosed(playerCollider);
             ShouldRetreat?.Invoke(false);
+        }
+
+        private protected override void SetAudioClip()
+        {
+            AudioClip = Resources.Load<AudioClip>("Audio/Sounds/Bomb/GrenadeLauncher");
         }
     }
 }

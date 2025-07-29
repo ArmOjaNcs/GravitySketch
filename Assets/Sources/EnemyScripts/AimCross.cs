@@ -1,4 +1,5 @@
 using Assets.Sources.Utils;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,8 @@ namespace Assets.Sources.EnemyScripts
         private AimCrossConfig _config;
         private bool _isShoot;
 
+        public event Action Shoot;
+
         private Vector3 TargetScale => _initialScale * UserUtils.HalfUnit;
         public bool IsAiming {  get; private set; }
 
@@ -28,15 +31,6 @@ namespace Assets.Sources.EnemyScripts
             base.Awake();
             _rectTransform = GetComponent<RectTransform>();
             _defaultScale = _rectTransform.lossyScale;
-        }
-
-        private void Start()
-        {
-            if (Effect != null)
-            {
-                _defaultEffectScale = Effect.transform.lossyScale;
-                Debug.Log($"defScale {_defaultEffectScale}");
-            }
         }
 
         private protected override void OnEnable()
@@ -48,6 +42,12 @@ namespace Assets.Sources.EnemyScripts
             _currentAimingTime = 0;
         }
 
+        private void Start()
+        {
+            if (Effect != null)
+                _defaultEffectScale = Effect.transform.lossyScale;
+        }
+
         public override void Initialize(MissileConfig config, EnemyAttackZone attackZone)
         {
             base.Initialize(config, attackZone);
@@ -55,7 +55,6 @@ namespace Assets.Sources.EnemyScripts
             _config = config.SafeCast<AimCrossConfig>();
             if (_config != null)
             {
-            Debug.Log("Initialized");
                 IsInitialized = true;
                 return;
             }
@@ -84,6 +83,7 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void Interact()
         {
+            Shoot?.Invoke();
             Effect.transform.SetParent(null);
             Effect.transform.localScale = _defaultEffectScale;
             Effect.transform.rotation = Quaternion.identity;

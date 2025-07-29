@@ -37,7 +37,8 @@ namespace Assets.Sources.Utils
 
         public const float PlayerStartHealth = 100;
         public const float PlayerHealthByGrow = 5;
-        public const float Half = 2;
+        public const float One = 1;
+        public const float Two = 2;
         public const float HalfUnit = 0.5f;
         public const float TimeForShow = 5f;
         public const float MinPercentToComplete = 0.7f;
