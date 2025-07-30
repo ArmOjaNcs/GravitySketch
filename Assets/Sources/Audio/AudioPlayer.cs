@@ -9,6 +9,7 @@ namespace Assets.Sources.Audio
     {
         public bool IsFinishable;
 
+        private Transform _transform;
         private bool _isFinished;
         private bool _isPlaying;
 
@@ -21,7 +22,10 @@ namespace Assets.Sources.Audio
             base.Awake();
 
             if (AudioSource == null)
+            {
                 AudioSource = GetComponent<AudioSource>();
+                _transform = transform;
+            }
         }
 
         private void OnEnable()
@@ -41,11 +45,13 @@ namespace Assets.Sources.Audio
 
             if (AudioSource.isPlaying == false && _isFinished == false)
             {
-                PlaybackIsFinished?.Invoke(this);
-                _isFinished = true;
                 _isPlaying = false;
+                _isFinished = true;
+                PlaybackIsFinished?.Invoke(this);
             }
         }
+
+        public void SetPosition(Vector3 position) => _transform.position = position;
 
         public AudioPlayer SetAudioClip(AudioClip clip)
         {
@@ -59,11 +65,15 @@ namespace Assets.Sources.Audio
                 return;
 
             AudioSource = GetComponent<AudioSource>();
+            _transform = transform;
         }
 
         public override void Pause()
         {
             base.Pause();
+
+            if (IsActive() == false)
+                return;
 
             if (_isPlaying)
                 AudioSource.Pause();
@@ -72,6 +82,9 @@ namespace Assets.Sources.Audio
         public override void Resume()
         {
             base.Resume();
+
+            if (IsActive() == false)
+                return;
 
             if (_isPlaying)
                 AudioSource.Play();

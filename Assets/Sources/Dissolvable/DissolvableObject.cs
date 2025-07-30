@@ -7,7 +7,6 @@ using UnityEngine;
 
 namespace Assets.Sources.Dissolvable
 {
-    [RequireComponent(typeof(AudioPlayerSpawner))]
     [RequireComponent(typeof(Rigidbody))]
     public class DissolvableObject : PauseableRoutine
     {
@@ -40,8 +39,6 @@ namespace Assets.Sources.Dissolvable
 
             if (TryGetComponent(out Collider collider))
                 Collider = collider;
-
-            _audioPlayerSpawner = GetComponent<AudioPlayerSpawner>();
         }
 
         private protected override void OnDisable()
@@ -62,9 +59,18 @@ namespace Assets.Sources.Dissolvable
 
         private protected virtual void OnCollisionEnter(Collision collision)
         {
+            if (_audioPlayerSpawner == null)
+                return;
+
             if(_collisionSound != null && _isDropped)
-                _audioPlayerSpawner.GetAudioPlayer().SetAudioClip(_collisionSound).Play();
+            {
+                _audioPlayerSpawner.GetAudioPlayer(_transform.position, UserUtils.MixerGroupSound)
+                                   .SetAudioClip(_collisionSound).Play();
+            }
         }
+
+        public void SetAudioPlayerSpawner(AudioPlayerSpawner audioPlayerSpawner) 
+            => _audioPlayerSpawner = audioPlayerSpawner;
 
         public override void Pause()
         {

@@ -35192,7 +35192,6 @@ GameObject:
   - component: {fileID: 6808716251448231177}
   - component: {fileID: 5538747546583878545}
   - component: {fileID: 6596212786805928281}
-  - component: {fileID: 813414930047550607}
   m_Layer: 20
   m_Name: 'Anomaly '
   m_TagString: DissolvableObstacle
@@ -35303,17 +35302,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &813414930047550607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9025686841619518339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e9bd0002e2b5e24a9d7c2dd8496bccb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _audioPlayerPrefab: {fileID: 9022625072603613771, guid: 910f868608aac474c8b5c4e1bb8f0ee7, type: 3}
-  _capacity: 5

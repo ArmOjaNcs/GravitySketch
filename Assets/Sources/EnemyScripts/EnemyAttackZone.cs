@@ -1,6 +1,7 @@
 using Assets.Sources.PlayerScripts;
 using UnityEngine;
 using Assets.Sources.Audio;
+using Assets.Sources.Utils;
 
 namespace Assets.Sources.EnemyScripts
 {
@@ -36,11 +37,12 @@ namespace Assets.Sources.EnemyScripts
                 Attack();
         }
 
-        public virtual void Initialize(EnemyAttackConfig config, Transform firePoint)
+        public virtual void Initialize(EnemyAttackConfig config, Transform firePoint, 
+            AudioPlayerSpawner audioPlayerSpawner)
         {
             FirePoint = firePoint;
             AttackRate = config.AttackRate;
-            _audioPlayerSpawner = FirePoint.GetComponent<AudioPlayerSpawner>();
+            _audioPlayerSpawner = audioPlayerSpawner;
         }
 
         public virtual void Return(GameObject gameObject) => gameObject.SetActive(false);
@@ -57,7 +59,7 @@ namespace Assets.Sources.EnemyScripts
                 return;
 
             AudioPlayer = GetAudioPlayer();
-            AudioPlayer.AudioSource.clip = AudioClip;
+            AudioPlayer.SetAudioClip(AudioClip);
             CurrentTime = 0;
         }
        
@@ -69,6 +71,9 @@ namespace Assets.Sources.EnemyScripts
 
         private protected abstract void SetAudioClip();
 
-        private protected AudioPlayer GetAudioPlayer() => _audioPlayerSpawner.GetAudioPlayer();
+        private protected AudioPlayer GetAudioPlayer()
+        {
+            return _audioPlayerSpawner.GetAudioPlayer(FirePoint.position, UserUtils.MixerGroupSound);
+        }
     }
 }

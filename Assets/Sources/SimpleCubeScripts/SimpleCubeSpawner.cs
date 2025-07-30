@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.Table;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Assets.Sources.SimpleCubeScripts
         [SerializeField] private List<SpawnArea> _spawnAreas = new List<SpawnArea>();
 
         [Header("Settings")]
+        [SerializeField] private AudioPlayerSpawner _audioPlayerSpawner;
         [SerializeField] private float _spacing = 1.5f;
         [SerializeField] private float _yPosition = 0f;
 
@@ -72,6 +74,7 @@ namespace Assets.Sources.SimpleCubeScripts
         private void Start()
         {
             ApplyColorsOnStart();
+            SetAudioPlayerSpawner();
         }
 
         private void ApplyColorsOnStart()
@@ -91,6 +94,12 @@ namespace Assets.Sources.SimpleCubeScripts
                 else
                     Debug.LogWarning($"Cube {i} has no color assigned");
             }
+        }
+
+        private void SetAudioPlayerSpawner()
+        {
+            foreach (SimpleCube cube in _spawnedCubes)
+                cube.SetAudioPlayerSpawner(_audioPlayerSpawner);
         }
 
         private Vector3 CalculatePosition(int gridSize, int row, int col)

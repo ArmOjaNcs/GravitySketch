@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.EnemyScripts;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Assets.Sources.Utils
 
         [Header("Enemy settings")]
         [SerializeField] private Enemy _enemy;
+        [SerializeField] private AudioPlayerSpawner _audioPlayerSpawner;
         [SerializeField] private EnemyConfig _enemyConfig;
         [SerializeField] private BomberConfig _bomberConfig;
         [SerializeField] private Transform _spawnPoint;
@@ -27,6 +29,7 @@ namespace Assets.Sources.Utils
         private void CreateEnemy()
         {
             Enemy enemy = Instantiate(_enemy, _spawnPoint.position, Quaternion.identity);
+            enemy.SetAudioPlayerSpawner(_audioPlayerSpawner);
             EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();
             enemyMover.SetMovePointsHolder(_patrolZone.MovePointsHolder);
             enemyMover.SetDistance(_enemyConfig.Level * 5);
@@ -37,11 +40,11 @@ namespace Assets.Sources.Utils
             if (_enemyConfig.AttackConfig != null)
             {
                 var zone = (IEnemyAttack)enemy.AttackZone.AddComponent(_enemyConfig.AttackConfig.ZoneComponentType);
-                zone.Initialize(_enemyConfig.AttackConfig, enemy.FirePoint);
+                zone.Initialize(_enemyConfig.AttackConfig, enemy.FirePoint, _audioPlayerSpawner);
             }
 
             enemy.Init(_enemyConfig.Level);
-            enemy.RetreatZone.Initialize(_bomberConfig, enemy.FirePoint);
+            enemy.RetreatZone.Initialize(_bomberConfig, enemy.FirePoint, _audioPlayerSpawner);
         }
     }
 }

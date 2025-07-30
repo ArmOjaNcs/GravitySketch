@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -8,9 +9,10 @@ namespace Assets.Sources.EnemyScripts
         private ObjectPool<Rocket> _pool;
         private RocketConfig _rocketConfig;
 
-        public override void Initialize(EnemyAttackConfig config, Transform firePoint)
+        public override void Initialize(EnemyAttackConfig config, Transform firePoint, 
+            AudioPlayerSpawner audioPlayerSpawner)
         {
-            base.Initialize(config, firePoint);
+            base.Initialize(config, firePoint, audioPlayerSpawner);
 
             RocketerConfig rocketerConfig = config.SafeCast<RocketerConfig>();
 

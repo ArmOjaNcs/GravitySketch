@@ -34,6 +34,8 @@ namespace Assets.Sources.Utils
         public const string DefenceTime = "Defence time ";
         public const string Damage = "Damage ";
         public const string Upgraded = "Upgraded!!!";
+        public const string MixerGroupSound = nameof(MixerGroupSound);
+        public const string MixerGroupInterface = nameof(MixerGroupInterface);
 
         public const float PlayerStartHealth = 100;
         public const float PlayerHealthByGrow = 5;

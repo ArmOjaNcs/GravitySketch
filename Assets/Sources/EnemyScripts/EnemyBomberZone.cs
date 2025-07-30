@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -8,9 +9,10 @@ namespace Assets.Sources.EnemyScripts
         private ObjectPool<ThrowableBomb> _pool;
         private BombConfig _config;
 
-        public override void Initialize(EnemyAttackConfig config, Transform firePoint)
+        public override void Initialize(EnemyAttackConfig config, Transform firePoint, 
+            AudioPlayerSpawner audioPlayerSpawner)
         {
-            base.Initialize(config, firePoint);
+            base.Initialize(config, firePoint, audioPlayerSpawner);
 
             BomberConfig bomberConfig = config.SafeCast<BomberConfig>();
 

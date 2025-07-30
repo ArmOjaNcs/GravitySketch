@@ -1,9 +1,10 @@
+using Assets.Sources.Audio;
 using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
 {
     public interface IEnemyAttack
     {
-        public void Initialize(EnemyAttackConfig config, Transform firePoint);
+        public void Initialize(EnemyAttackConfig config, Transform firePoint, AudioPlayerSpawner audioPlayerSpawner);
     }
 }

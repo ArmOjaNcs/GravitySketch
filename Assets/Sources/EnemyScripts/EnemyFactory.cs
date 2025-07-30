@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.PlayerScripts;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Assets.Sources.EnemyScripts
 
         [Header("Enemy settings")]
         [SerializeField] private Enemy _enemy;
-        [SerializeField] private Player _player;
+        [SerializeField] private AudioPlayerSpawner _audioPlayerSpawner;
         [SerializeField] private List<EnemyConfig> _shooterConfigs;
         [SerializeField] private List<EnemyConfig> _sniperConfigs;
         [SerializeField] private List<EnemyConfig> _bomberConfigs;
@@ -72,6 +73,7 @@ namespace Assets.Sources.EnemyScripts
 
                     TryGetFreePosition(10, patrolZone, out Vector3 freePosition);
                     Enemy enemy = Instantiate(_enemy, freePosition, Quaternion.identity);
+                    enemy.SetAudioPlayerSpawner(_audioPlayerSpawner);
                     EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();
                     enemyMover.SetMovePointsHolder(patrolZone.MovePointsHolder);
                     enemyMover.SetDistance(currentLevel * 5);
@@ -82,12 +84,12 @@ namespace Assets.Sources.EnemyScripts
                     if (config.AttackConfig != null)
                     {
                         var zone = (IEnemyAttack)enemy.AttackZone.AddComponent(config.AttackConfig.ZoneComponentType);
-                        zone.Initialize(config.AttackConfig, enemy.FirePoint);
+                        zone.Initialize(config.AttackConfig, enemy.FirePoint, _audioPlayerSpawner);
                     }
 
                     enemy.Init(config.Level);
                     config = _bomberConfigs.FirstOrDefault(c => c.Level == currentLevel);
-                    enemy.RetreatZone.Initialize(config.AttackConfig, enemy.FirePoint);
+                    enemy.RetreatZone.Initialize(config.AttackConfig, enemy.FirePoint, _audioPlayerSpawner);
 
                     created++;
                 }

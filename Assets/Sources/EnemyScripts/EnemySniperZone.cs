@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -22,9 +23,10 @@ namespace Assets.Sources.EnemyScripts
             base.Update();
         }
 
-        public override void Initialize(EnemyAttackConfig config, Transform firePoint)
+        public override void Initialize(EnemyAttackConfig config, Transform firePoint, 
+            AudioPlayerSpawner audioPlayerSpawner)
         {
-            base.Initialize(config, firePoint);
+            base.Initialize(config, firePoint, audioPlayerSpawner);
 
             SniperConfig sniperConfig = config.SafeCast<SniperConfig>();
 
