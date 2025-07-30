@@ -716,6 +716,7 @@ GameObject:
   - component: {fileID: 6297213463525672080}
   - component: {fileID: 433388600058686785}
   - component: {fileID: 9137823716876504271}
+  - component: {fileID: 5444227810262127582}
   m_Layer: 18
   m_Name: drone
   m_TagString: Untagged
@@ -834,6 +835,7 @@ MonoBehaviour:
   Duration: 0
   _reward: 0
   _size: 0
+  _collisionSound: {fileID: 8300000, guid: 6655916d35767124ca328d7fbd3617b0, type: 3}
   _health: {fileID: 3696833520282096010}
   _mover: {fileID: 6297213463525672080}
   _attackZone: {fileID: 1574935265392766337}
@@ -1032,6 +1034,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsFinishable: 0
+--- !u!114 &5444227810262127582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7748596361833032435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9bd0002e2b5e24a9d7c2dd8496bccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioPlayerPrefab: {fileID: 9022625072603613771, guid: 910f868608aac474c8b5c4e1bb8f0ee7, type: 3}
+  _capacity: 20
 --- !u!1 &8308982733344971155
 GameObject:
   m_ObjectHideFlags: 0

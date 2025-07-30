@@ -21,6 +21,7 @@ namespace Assets.Sources.EnemyScripts
             _nozzleSound.Init();
             _nozzleSound.AudioSource.playOnAwake = false;
             _nozzleSound.AudioSource.loop = true;
+            _nozzleSound.AudioSource.spatialBlend = 1;
         }
 
         private protected override void Update()

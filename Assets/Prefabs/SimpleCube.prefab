@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6650246877483980327}
   - component: {fileID: 8862142247830744672}
   - component: {fileID: 6969145193278940210}
+  - component: {fileID: 3156947989522690753}
   m_Layer: 7
   m_Name: SimpleCube
   m_TagString: Untagged
@@ -119,6 +120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a6bd11497d774843adbbc95d9110ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 0
+  _size: 0
+  _collisionSound: {fileID: 8300000, guid: c971249cffb11a04dbc9acc3c6e5fce9, type: 3}
   _meshRenderer: {fileID: 4848429991657793628}
 --- !u!54 &6969145193278940210
 Rigidbody:
@@ -147,3 +152,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &3156947989522690753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116351520715113237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9bd0002e2b5e24a9d7c2dd8496bccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _audioPlayerPrefab: {fileID: 9022625072603613771, guid: 910f868608aac474c8b5c4e1bb8f0ee7, type: 3}
+  _capacity: 5

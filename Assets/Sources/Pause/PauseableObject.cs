@@ -13,18 +13,16 @@ namespace Assets.Sources.Pause
 
         public virtual void Pause()
         {
-            if (IsPaused || isActiveAndEnabled == false)
-                return;
-
-            IsPaused = true;
+            if (IsPaused == false)
+                IsPaused = true;
         }
 
         public virtual void Resume()
         {
-            if (IsPaused == false || isActiveAndEnabled == false)
-                return;
-
-            IsPaused = false;
+            if (IsPaused)
+                IsPaused = false;
         }
+
+        public bool IsActive() => gameObject.activeInHierarchy;
     }
 }

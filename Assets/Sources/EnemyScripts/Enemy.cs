@@ -20,7 +20,7 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private Transform _firePoint;
         [SerializeField] private Animator[] _fansAnimators;
 
-        private AudioPlayer _audioPlayer;
+        private AudioPlayer _fansSoundPlayer;
 
         public event Action<bool> Detected;
 
@@ -33,11 +33,11 @@ namespace Assets.Sources.EnemyScripts
         private protected override void Awake()
         {
             base.Awake();
-            _audioPlayer = GetComponent<AudioPlayer>();
-            _audioPlayer.Init();
-            _audioPlayer.AudioSource.playOnAwake = false;
-            _audioPlayer.AudioSource.loop = true;
-            _audioPlayer.AudioSource.spatialBlend = 1;
+            _fansSoundPlayer = GetComponent<AudioPlayer>();
+            _fansSoundPlayer.Init();
+            _fansSoundPlayer.AudioSource.playOnAwake = false;
+            _fansSoundPlayer.AudioSource.loop = true;
+            _fansSoundPlayer.AudioSource.spatialBlend = 1;
             Collider.isTrigger = true;
             ApplyRandomColors();
         }
@@ -48,7 +48,7 @@ namespace Assets.Sources.EnemyScripts
                 _mover.Activate();
 
             ActivateFans();
-            _audioPlayer.Play();
+            _fansSoundPlayer.Play();
         }
 
         private protected override void OnDisable()
@@ -81,7 +81,7 @@ namespace Assets.Sources.EnemyScripts
             _mover.Deactivate();
             Collider.isTrigger = false;
             StopFans();
-            _audioPlayer.Stop();
+            _fansSoundPlayer.Stop();
         }
 
         public void TakeDamage(float damage = 1)

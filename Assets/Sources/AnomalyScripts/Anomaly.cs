@@ -10,7 +10,7 @@ namespace Assets.Sources.AnomalyScpipts
     [RequireComponent(typeof(SphereCollider))]
     public class Anomaly : DissolvableObstacle
     {
-        private const float Force = 500;
+        private const float Force = 200;
 
         [SerializeField] private float _damageRate;
         [SerializeField] private ParticleSystem _effect;
@@ -30,7 +30,7 @@ namespace Assets.Sources.AnomalyScpipts
             CollidersHolder.SetActive(false);
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private protected override void OnCollisionEnter(Collision collision)
         {
             if (_isDowned || _coroutine != null)
                 return;
@@ -72,12 +72,11 @@ namespace Assets.Sources.AnomalyScpipts
 
         private IEnumerator AttackPlayerRoutine()
         {
-            Debug.Log($"Attack {Time.time}");
             float elapsedTime = 0;
             Collider.enabled = false;
             _player.TakeDamage(Damage, transform.position, Force);
-            
-            while(elapsedTime < _damageRate)
+
+            while (elapsedTime < _damageRate)
             {
                 if (IsPaused)
                 {

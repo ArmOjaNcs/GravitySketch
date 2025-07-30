@@ -13,7 +13,10 @@ namespace Assets.Sources.Pause
         public static void Pause()
         {
             foreach (IPauseable pauseable in _pauseableObjects)
-                pauseable.Pause();
+            {
+                if(pauseable.IsActive())
+                    pauseable.Pause();
+            }
 
             IsPaused = true;
         }
@@ -21,7 +24,10 @@ namespace Assets.Sources.Pause
         public static void Resume()
         {
             foreach (IPauseable pauseable in _pauseableObjects)
-                pauseable.Resume();
+            {
+                if(pauseable.IsActive())
+                    pauseable.Resume();
+            }
 
             IsPaused = false;
         }

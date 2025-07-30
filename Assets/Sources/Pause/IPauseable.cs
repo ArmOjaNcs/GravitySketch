@@ -4,5 +4,6 @@ namespace Assets.Sources.Pause
     {
         public void Pause();
         public void Resume();
+        public bool IsActive();
     }
 }

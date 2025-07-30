@@ -57,6 +57,9 @@ namespace Assets.Sources.EnemyScripts
         {
             base.Pause();
 
+            if (gameObject.activeInHierarchy == false)
+                return;
+
             if(Rigidbody != null)
             {
                 _currentVelocity = Rigidbody.velocity;
@@ -68,6 +71,9 @@ namespace Assets.Sources.EnemyScripts
         public override void Resume()
         {
             base.Resume();
+
+            if (gameObject.activeInHierarchy == false)
+                return;
 
             if (Rigidbody != null)
             {

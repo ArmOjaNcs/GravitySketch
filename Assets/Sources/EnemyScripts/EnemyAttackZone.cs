@@ -58,7 +58,6 @@ namespace Assets.Sources.EnemyScripts
 
             AudioPlayer = GetAudioPlayer();
             AudioPlayer.AudioSource.clip = AudioClip;
-            AudioPlayer.AudioSource.spatialBlend = 1;
             CurrentTime = 0;
         }
        

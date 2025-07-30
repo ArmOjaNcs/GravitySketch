@@ -12,7 +12,7 @@ namespace Assets.Sources.SimpleCubeScripts
         [SerializeField] private MeshRenderer _meshRenderer;
 
         private Sequence _idleAnimation;
-        private MaterialPropertyBlock _mpb;
+        private MaterialPropertyBlock _MPBlock;
         private Color _currentColor;
 
         public Color Color => _currentColor;
@@ -33,7 +33,7 @@ namespace Assets.Sources.SimpleCubeScripts
         {
             base.Pause();
 
-            if(_idleAnimation != null)
+            if(_idleAnimation.IsActive())
                 _idleAnimation.Pause();
         }
 
@@ -41,19 +41,19 @@ namespace Assets.Sources.SimpleCubeScripts
         {
             base.Resume();
 
-            if (_idleAnimation != null)
+            if (_idleAnimation.IsActive())
                 _idleAnimation.Play();
         }
 
         public void SetColor(Color color)
         {
-            if (_mpb == null)
-                _mpb = new MaterialPropertyBlock();
+            if (_MPBlock == null)
+                _MPBlock = new MaterialPropertyBlock();
 
             _currentColor = color;
-            _meshRenderer.GetPropertyBlock(_mpb);
-            _mpb.SetColor("_Color", color);
-            _meshRenderer.SetPropertyBlock(_mpb);
+            _meshRenderer.GetPropertyBlock(_MPBlock);
+            _MPBlock.SetColor("_Color", color);
+            _meshRenderer.SetPropertyBlock(_MPBlock);
             Debug.Log("colorSeted");
         }
 

@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using DG.Tweening;
@@ -6,16 +7,19 @@ using UnityEngine;
 
 namespace Assets.Sources.Dissolvable
 {
+    [RequireComponent(typeof(AudioPlayerSpawner))]
     [RequireComponent(typeof(Rigidbody))]
     public class DissolvableObject : PauseableRoutine
     {
         [SerializeField, Min(0)] private int _reward;
         [SerializeField, Min(0)] private int _size;
+        [SerializeField] private AudioClip _collisionSound = null;
 
         private Vector3 _currentVelocity;
         private Transform _transform;
         private Transform _hole;
         private Rigidbody _rigidbody;
+        private AudioPlayerSpawner _audioPlayerSpawner;
         private bool _isInitiated;
         private bool _isDropped;
         private bool _wasPlayingBeforePause;
@@ -36,6 +40,8 @@ namespace Assets.Sources.Dissolvable
 
             if (TryGetComponent(out Collider collider))
                 Collider = collider;
+
+            _audioPlayerSpawner = GetComponent<AudioPlayerSpawner>();
         }
 
         private protected override void OnDisable()
@@ -54,11 +60,17 @@ namespace Assets.Sources.Dissolvable
                 Init();
         }
 
+        private protected virtual void OnCollisionEnter(Collision collision)
+        {
+            if(_collisionSound != null && _isDropped)
+                _audioPlayerSpawner.GetAudioPlayer().SetAudioClip(_collisionSound).Play();
+        }
+
         public override void Pause()
         {
             base.Pause();
 
-            if (DissolveAnimation != null && DissolveAnimation.IsPlaying())
+            if (DissolveAnimation.IsActive() && DissolveAnimation.IsPlaying())
             {
                 DissolveAnimation.Pause();
                 _wasPlayingBeforePause = true;
@@ -76,7 +88,7 @@ namespace Assets.Sources.Dissolvable
         {
             base.Resume();
 
-            if (DissolveAnimation != null && _wasPlayingBeforePause)
+            if (DissolveAnimation.IsActive() && _wasPlayingBeforePause)
             {
                 DissolveAnimation.Play();
                 _wasPlayingBeforePause = false;

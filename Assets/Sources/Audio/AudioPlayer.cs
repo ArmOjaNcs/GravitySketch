@@ -20,7 +20,7 @@ namespace Assets.Sources.Audio
         {
             base.Awake();
 
-            if(AudioSource ==  null)
+            if (AudioSource == null)
                 AudioSource = GetComponent<AudioSource>();
         }
 
@@ -45,6 +45,12 @@ namespace Assets.Sources.Audio
                 _isFinished = true;
                 _isPlaying = false;
             }
+        }
+
+        public AudioPlayer SetAudioClip(AudioClip clip)
+        {
+            AudioSource.clip = clip;
+            return this;
         }
 
         public void Init()
