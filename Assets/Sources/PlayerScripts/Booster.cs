@@ -1,17 +1,12 @@
-using Assets.Sources.Pause;
 using System;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
 {
-    public class Booster : PauseableObject
+    public class Booster : PlayerAbility
     {
-        [SerializeField] private PlayerInput _playerInput;
         [SerializeField, Min(0)] private float _boostSpeed;
         [SerializeField, Min(0)] private int _boostCount;
-        [SerializeField, Min(0)] private float _boostTime = 0.7f;
-        [SerializeField, Min(0)] private float _boostReloadTime;
-        [SerializeField, Min(0)] private float _boostReloadUpgradeDelta;
         [SerializeField, Min(0)] private float _boostSpeedUpgradeDelta;
 
         private bool _isBoostApplied;
@@ -23,12 +18,10 @@ namespace Assets.Sources.PlayerScripts
         public event Action Reloading;
         public event Action Reloaded;
 
-        public float CurrentBoostReloadTime { get; private set; }
-        public float CurrentBoostTime { get; private set; }
         public int CurrentBoostCount { get; private set; }
         public float BoostSpeed => _boostSpeed;
-        public float BoostTime => _boostTime;
-        public float BoostReloadTime => _boostReloadTime;
+        public float BoostTime => ActiveTime;
+        public float BoostReloadTime => ReloadTime;
         public int BoostCount => _boostCount;
 
         private protected override void Awake()
@@ -39,12 +32,12 @@ namespace Assets.Sources.PlayerScripts
 
         private void OnEnable()
         {
-            _playerInput.Boosted += OnBoosted;
+            Input.Boosted += OnBoosted;
         }
 
         private void OnDisable()
         {
-            _playerInput.Boosted -= OnBoosted;
+            Input.Boosted -= OnBoosted;
         }
 
         private void OnBoosted(bool isBoosted) => _isBoosted = isBoosted;
@@ -57,12 +50,6 @@ namespace Assets.Sources.PlayerScripts
             Boost();
         }
 
-        public void UpgradeBoost()
-        {
-            _boostSpeed += _boostSpeedUpgradeDelta;
-            _boostReloadTime -= _boostReloadUpgradeDelta;
-        }
-
         private void Boost()
         {
             if (CurrentBoostCount < _boostCount)
@@ -73,9 +60,9 @@ namespace Assets.Sources.PlayerScripts
                     Reloading?.Invoke();
                 }
 
-                CurrentBoostReloadTime += Time.deltaTime;
+                CurrentReloadTime += Time.deltaTime;
 
-                if (CurrentBoostReloadTime > _boostReloadTime)
+                if (CurrentReloadTime > ReloadTime)
                     ReloadBoost();
             }
 
@@ -84,9 +71,9 @@ namespace Assets.Sources.PlayerScripts
 
             if (_isBoostApplied)
             {
-                CurrentBoostTime += Time.deltaTime;
+                CurrentActiveTime += Time.deltaTime;
 
-                if (CurrentBoostTime > _boostTime)
+                if (CurrentActiveTime > ActiveTime)
                     StopBoost();
             }
         }
@@ -94,7 +81,7 @@ namespace Assets.Sources.PlayerScripts
         private void StopBoost()
         {
             _isBoostApplied = false;
-            CurrentBoostTime = 0;
+            CurrentActiveTime = 0;
             BoostApplied?.Invoke(0);
         }
 
@@ -104,7 +91,7 @@ namespace Assets.Sources.PlayerScripts
             BoostCountChanged?.Invoke();
             Reloaded?.Invoke();
             _isReloading = false;
-            CurrentBoostReloadTime = 0;
+            CurrentReloadTime = 0;
         }
 
         private void ApplyBoost()
@@ -113,6 +100,12 @@ namespace Assets.Sources.PlayerScripts
             BoostCountChanged?.Invoke();
             _isBoostApplied = true;
             BoostApplied?.Invoke(_boostSpeed);
+        }
+
+        public override void Upgrade()
+        {
+            _boostSpeed += _boostSpeedUpgradeDelta;
+            ReloadTime -= ReloadUpgradeDelta;
         }
     }
 }

@@ -23,6 +23,8 @@ namespace Assets.Sources.Dissolvable
         private bool _isDropped;
         private bool _wasPlayingBeforePause;
         private float _defaultMass;
+        private int _totalCollisionsCount;
+        private int _previousCollisionsCount;
 
         private protected Tween DissolveAnimation;
         private protected Collider Collider = null;
@@ -49,7 +51,7 @@ namespace Assets.Sources.Dissolvable
             base.OnDisable();
         }
 
-        private protected  override void Start()
+        private protected override void Start()
         {
             base.Start();
 
@@ -59,17 +61,34 @@ namespace Assets.Sources.Dissolvable
 
         private protected virtual void OnCollisionEnter(Collision collision)
         {
+            if (IsPaused)
+                return;
+
             if (_audioPlayerSpawner == null)
                 return;
 
-            if(_collisionSound != null && _isDropped)
+            if (_collisionSound != null && _isDropped)
             {
+                _totalCollisionsCount++;
+               
+                if (_previousCollisionsCount >= _totalCollisionsCount)
+                {
+                    _previousCollisionsCount = _totalCollisionsCount;
+                    return;
+                }
+
+                _previousCollisionsCount = _totalCollisionsCount;
                 _audioPlayerSpawner.GetAudioPlayer(_transform.position, UserUtils.MixerGroupSound)
                                    .SetAudioClip(_collisionSound).Play();
             }
         }
 
-        public void SetAudioPlayerSpawner(AudioPlayerSpawner audioPlayerSpawner) 
+        private protected virtual void OnCollisionExit(Collision collision)
+        {
+            _totalCollisionsCount--;
+        }
+
+        public void SetAudioPlayerSpawner(AudioPlayerSpawner audioPlayerSpawner)
             => _audioPlayerSpawner = audioPlayerSpawner;
 
         public override void Pause()

@@ -32,8 +32,8 @@ namespace Assets.Sources.PlayerScripts
         private void OnGrowing()
         {
             _mover.UpgradeMoveSpeed();
-            _shield.UpgradeShield();
-            _booster.UpgradeBoost();
+            _shield.Upgrade();
+            _booster.Upgrade();
             Upgraded?.Invoke();
         }
     }

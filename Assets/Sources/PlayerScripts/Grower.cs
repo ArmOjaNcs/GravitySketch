@@ -53,7 +53,6 @@ namespace Assets.Sources.PlayerScripts
             _targetScale += _sizeDelta * sign;
         }
 
-        private protected override void OnRoutineStart() { }
         private protected override void OnRoutineIteration(float cycleDuration) 
         {
             float progress = ElapsedTime / Duration;
@@ -65,6 +64,7 @@ namespace Assets.Sources.PlayerScripts
                     _targetScale, progress);
             }
         }
+
         private protected override void OnRoutineEnd()
         {
             _player.localScale = _targetScale;

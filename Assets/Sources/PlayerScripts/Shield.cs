@@ -1,17 +1,12 @@
 using System;
 using UnityEngine;
-using Assets.Sources.Pause;
 
 namespace Assets.Sources.PlayerScripts
 {
     [RequireComponent(typeof(MeshRenderer))]
-    public class Shield : PauseableObject
+    public class Shield : PlayerAbility
     {
-        [SerializeField] private PlayerInput _playerInput;
-        [SerializeField, Min(0)] private float _defendTime;
-        [SerializeField, Min(0)] private float _reloadTime;
         [SerializeField, Min(0)] private float _defendUpgradeDelta;
-        [SerializeField, Min(0)] private float _reloadUpgradeDelta;
         [SerializeField, Min(1)] private float _maxDefendTime;
 
         private MeshRenderer _meshRenderer;
@@ -21,29 +16,27 @@ namespace Assets.Sources.PlayerScripts
         public event Action DefendApplied;
         public event Action Reloading;
 
-        public float CurrentDefendTime { get; private set; }
-        public float CurrentReloadTime { get; private set; }
         public float CycleTime { get; private set; }
-        public float DefendTime => _defendTime;
+        public float DefendTime => ActiveTime;
         public bool IsDefended => _isDefended;
         public bool IsReloading { get; private set; }
 
         private protected override void Awake()
         {
             base.Awake();
-            CycleTime = _reloadTime + _defendTime;
+            CycleTime = ReloadTime + ActiveTime;
             _meshRenderer = GetComponent<MeshRenderer>();
             _meshRenderer.enabled = false;
         }
 
         private void OnEnable()
         {
-            _playerInput.Defended += OnDefended;
+            Input.Defended += OnDefended;
         }
 
         private void OnDisable()
         {
-            _playerInput.Defended -= OnDefended;
+            Input.Defended -= OnDefended;
         }
 
         private void Update()
@@ -53,14 +46,6 @@ namespace Assets.Sources.PlayerScripts
 
             if (_isDefendApplied)
                 PlayCycle();
-        }
-
-        public void UpgradeShield()
-        {
-            _defendTime += _defendUpgradeDelta;
-            CycleTime -= _reloadUpgradeDelta;
-            _defendTime = Mathf.Clamp(_defendTime, 0, _maxDefendTime);
-            CycleTime = Mathf.Clamp(CycleTime, _defendTime + 1, float.MaxValue);
         }
 
         private void OnDefended()
@@ -76,9 +61,9 @@ namespace Assets.Sources.PlayerScripts
 
         private void PlayCycle()
         {
-            CurrentDefendTime += Time.deltaTime;
+            CurrentActiveTime += Time.deltaTime;
 
-            if (CurrentDefendTime > _defendTime && IsReloading == false)
+            if (CurrentActiveTime > ActiveTime && IsReloading == false)
             {
                 _isDefended = false;
                 _meshRenderer.enabled = false;
@@ -95,9 +80,17 @@ namespace Assets.Sources.PlayerScripts
                     _isDefendApplied = false;
                     IsReloading = false;
                     CurrentReloadTime = 0;
-                    CurrentDefendTime = 0;
+                    CurrentActiveTime = 0;
                 }
             }
+        }
+
+        public override void Upgrade()
+        {
+            ActiveTime += _defendUpgradeDelta;
+            CycleTime -= ReloadUpgradeDelta;
+            ActiveTime = Mathf.Clamp(ActiveTime, 0, _maxDefendTime);
+            CycleTime = Mathf.Clamp(CycleTime, ActiveTime + 1, float.MaxValue);
         }
     }
 }

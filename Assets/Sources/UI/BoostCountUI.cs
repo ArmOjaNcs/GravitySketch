@@ -30,6 +30,5 @@ namespace Assets.Sources.UI
         {
             _boostCount.text = Boosts + _booster.CurrentBoostCount.ToString();
         }
-
     }
 }

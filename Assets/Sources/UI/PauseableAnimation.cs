@@ -16,7 +16,7 @@ namespace Assets.Sources.UI
 
         private protected virtual void OnDisable()
         {
-            if (Animation != null)
+            if (Animation.IsActive())
                 Animation.Kill();
         }
 
@@ -24,7 +24,7 @@ namespace Assets.Sources.UI
         {
             base.Pause();
 
-            if (Animation != null && Animation.IsPlaying())
+            if (Animation.IsActive() && Animation.IsPlaying())
             {
                 Animation.Pause();
                 WasPlayingBeforePause = true;
@@ -35,9 +35,9 @@ namespace Assets.Sources.UI
         {
             base.Resume();
 
-            if (Animation != null && WasPlayingBeforePause)
+            if (Animation.IsActive() && WasPlayingBeforePause)
             {
-                Animation.Pause();
+                Animation.Play();
                 WasPlayingBeforePause = false;
             }
         }

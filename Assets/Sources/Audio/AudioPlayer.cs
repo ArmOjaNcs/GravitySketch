@@ -72,9 +72,6 @@ namespace Assets.Sources.Audio
         {
             base.Pause();
 
-            if (IsActive() == false)
-                return;
-
             if (_isPlaying)
                 AudioSource.Pause();
         }
@@ -82,9 +79,6 @@ namespace Assets.Sources.Audio
         public override void Resume()
         {
             base.Resume();
-
-            if (IsActive() == false)
-                return;
 
             if (_isPlaying)
                 AudioSource.Play();
