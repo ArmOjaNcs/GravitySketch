@@ -1,5 +1,6 @@
 using Assets.Sources.Pause;
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +9,14 @@ namespace Assets.Sources.ColorizerScripts
     public class ColorReferenceViewHandler : PauseableRoutine
     {
         [SerializeField] private Button _showButton;
+        [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField, Range(1,10)] private int _showCounts;
 
         private bool _isAutoPaint;
 
         public event Action<bool> IsShowing;
+
+        public int ShowCount => _showCounts;
 
         private void OnEnable()
         {
@@ -24,13 +29,22 @@ namespace Assets.Sources.ColorizerScripts
             base.OnDisable();
         }
 
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            _text.text = _showCounts.ToString();
+            IsInitialized = true;
+        }
+
         public void SetAutoPaint(bool autoPaint) => _isAutoPaint = autoPaint;
 
         private void ShowReference()
         {
-            if (_isAutoPaint || Routine != null || IsPaused)
+            if (_isAutoPaint || Routine != null || IsPaused || _showCounts == 0)
                 return;
 
+            _showCounts--;
+            _text.text = _showCounts.ToString();
             OnUpdate();
         }
 

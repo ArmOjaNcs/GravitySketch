@@ -4,6 +4,7 @@ using UnityEngine.AI;
 using Assets.Sources.Utils;
 using Assets.Sources.Dissolvable;
 using Assets.Sources.Audio;
+using Assets.Sources.Pause;
 
 namespace Assets.Sources.EnemyScripts
 {
@@ -19,6 +20,7 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private EnemyRetreatZone _retreatZone;
         [SerializeField] private Transform _firePoint;
         [SerializeField] private Animator[] _fansAnimators;
+        [SerializeField] private PauseableObject[] _pauseableObjects;
 
         private AudioPlayer _fansSoundPlayer;
 
@@ -30,33 +32,23 @@ namespace Assets.Sources.EnemyScripts
         public string Name { get; private set; }
         public bool IsDowned { get; private set; }
 
-        private protected override void Awake()
+        public override void Init(PauseHandler pauseHandler)
         {
-            base.Awake();
+            base.Init(pauseHandler);
             _fansSoundPlayer = GetComponent<AudioPlayer>();
-            _fansSoundPlayer.Init();
+            _fansSoundPlayer.Init(pauseHandler);
             _fansSoundPlayer.AudioSource.playOnAwake = false;
             _fansSoundPlayer.AudioSource.loop = true;
             _fansSoundPlayer.AudioSource.spatialBlend = 1;
             Collider.isTrigger = true;
             ApplyRandomColors();
-        }
 
-        private void OnEnable()
-        {
-            if (_health.CurrentValue > 0)
-                _mover.Activate();
+            foreach (PauseableObject pauseableObject in _pauseableObjects)
+                pauseableObject.Init(pauseHandler);
 
             ActivateFans();
             _fansSoundPlayer.Play();
-        }
-
-        private protected override void OnDisable()
-        {
-            if (_health.CurrentValue > 0)
-                _mover.Deactivate();
-
-            base.OnDisable();
+            IsInitialized = true;
         }
 
         public override void Pause()
@@ -100,6 +92,7 @@ namespace Assets.Sources.EnemyScripts
             transform.localScale = config.Scale;
             Name = config.Name;
             SetZonesScale(config);
+            SetSize(config.Level);
 
             var agent = GetComponent<NavMeshAgent>();
             agent.speed = config.Speed;

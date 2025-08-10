@@ -5,37 +5,44 @@ namespace Assets.Sources.Pause
 {
     public class PauseMenu : MonoBehaviour
     {
-        [SerializeField] private PauseInput _pauseInput;
-        [SerializeField] private UIAnimator _animator;
-
-        private void OnEnable()
-        {
-            _pauseInput.Paused += OnPaused;
-            _animator.Hidden += OnHidden;
-        }
+        [SerializeField] private PauseMenuAnimator _animator;
+       
+        private PauseInput _pauseInput;
+        private PauseHandler _pauseHandler;
 
         private void OnDisable()
         {
-            _pauseInput.Paused -= OnPaused;
             _animator.Hidden -= OnHidden;
+            _pauseInput.Paused -= OnPaused;
+        }
+
+        public void Init(PauseHandler pauseHandler, PauseInput pauseInput)
+        {
+            _pauseHandler = pauseHandler;
+            _pauseInput = pauseInput;
+            _animator.Hidden += OnHidden;
+            _pauseInput.Paused += OnPaused;
         }
 
         private void OnPaused()
         {
-            if (PauseableObjectsHandler.IsPaused)
+            if (_pauseHandler.IsPaused)
             {
-                if(_animator.IsShown)
+                if (_animator.IsShown)
                     _animator.Hide();
                 else
                     _animator.Show();
             }
             else
             {
-                PauseableObjectsHandler.Pause();
+                _pauseHandler.Pause();
                 _animator.Show();
             }
         }
 
-        private void OnHidden()=> PauseableObjectsHandler.Resume();
+        private void OnHidden()
+        {
+            _pauseHandler.Resume();
+        }
     }
 }

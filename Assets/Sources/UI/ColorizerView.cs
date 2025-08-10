@@ -1,4 +1,6 @@
 using Assets.Sources.ColorizerScripts;
+using Assets.Sources.Pause;
+using Assets.Sources.Utils;
 using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Assets.Sources.UI
 {
-    public class ColorizerView : MonoBehaviour
+    public class ColorizerView : PauseableAnimation
     {
         [SerializeField] private Image[] _colors;
         [SerializeField] private Image _arrow;
@@ -18,22 +20,16 @@ namespace Assets.Sources.UI
             _colorizer.QueueChanged += OnQueueChanged;
         }
 
-        private void OnDisable()
+        private protected override void OnDisable()
         {
             _colorizer.QueueChanged -= OnQueueChanged;
+            base.OnDisable();
         }
 
-        private void Start()
+        public override void Init(PauseHandler pauseHandler)
         {
-            Vector2 startAnchoredPos = _arrow.rectTransform.anchoredPosition;
-            Vector3 startScale = _arrow.rectTransform.localScale;
-
-            Sequence sequence = DOTween.Sequence();
-            sequence.Append(_arrow.rectTransform.DOAnchorPosX(startAnchoredPos.x - 50f, 0.75f).SetEase(Ease.Linear));
-            sequence.Insert(0, _arrow.rectTransform.DOScale(startScale * 0.75f, 0.75f).SetEase(Ease.Linear));
-            sequence.SetLoops(-1, LoopType.Yoyo);
-            sequence.SetLink(gameObject);
-            sequence.Restart();
+            base.Init(pauseHandler);
+            Animation.Restart();
         }
 
         private void OnQueueChanged(IEnumerable<Color> colors)
@@ -57,6 +53,11 @@ namespace Assets.Sources.UI
                 if (_colors[0].isActiveAndEnabled == false)
                     _arrow.gameObject.SetActive(false);
             }
+        }
+
+        private protected override Sequence GetAnimation()
+        {
+            return AnimationSpawner.GetArrowAnimation(_arrow.rectTransform);
         }
     }
 }

@@ -2,6 +2,8 @@ using System;
 using UnityEngine;
 using Assets.Sources.Utils;
 using Assets.Sources.Dissolvable;
+using System.Collections.Generic;
+using Assets.Sources.Pause;
 
 namespace Assets.Sources.PlayerScripts
 {
@@ -15,6 +17,7 @@ namespace Assets.Sources.PlayerScripts
         [SerializeField] private Catcher _catcher;
         [SerializeField] private Health _health;
         [SerializeField] private TakeOverLimit _takeOverLimit;
+        [SerializeField] private List<PauseableObject> _objects;
 
         private Transform _transform;
         private Rigidbody _rigidbody;
@@ -59,6 +62,12 @@ namespace Assets.Sources.PlayerScripts
                     }
                 }
             }
+        }
+
+        public void Init(PauseHandler pauseHandler)
+        {
+            foreach (PauseableObject pauseableObject in _objects)
+                pauseableObject.Init(pauseHandler);
         }
 
         public void TakeDamage(float damage, Vector3 forcePosition, float force)

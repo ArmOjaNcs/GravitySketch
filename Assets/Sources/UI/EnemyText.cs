@@ -1,4 +1,5 @@
 using Assets.Sources.EnemyScripts;
+using Assets.Sources.Pause;
 using TMPro;
 using UnityEngine;
 
@@ -12,9 +13,9 @@ namespace Assets.Sources.UI
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private Enemy _enemy;
 
-        private protected override void Start()
+        public override void Init(PauseHandler pauseHandler)
         {
-            base.Start();
+            base.Init(pauseHandler);
             IsNeedToSplit = true;
             SplitSign = '/';
             MaxValue = Health.MaxValue;
@@ -22,6 +23,7 @@ namespace Assets.Sources.UI
             Text.text = GetTotalText();
             _levelText.text = Level + " " + _enemy.Size;
             _nameText.text = _enemy.Name;
+            IsInitialized = true;
         }
     }
 }

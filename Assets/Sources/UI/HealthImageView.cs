@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,12 +9,6 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private protected Health Health;
         [SerializeField] private SmoothedImage _duplicate;
-
-        private protected override void Start()
-        {
-            base.Start();
-            Image.fillAmount = Health.CurrentValue / Health.MaxValue;
-        }
 
         private protected virtual void OnEnable()
         {
@@ -26,6 +21,14 @@ namespace Assets.Sources.UI
             Health.Updated -= OnUpdate;
             Updated -= OnSelfUpdated;
             base.OnDisable();
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            Image.fillAmount = Health.CurrentValue / Health.MaxValue;
+            _duplicate.Init(pauseHandler);
+            IsInitialized = true;
         }
 
         private protected override void OnUpdate()

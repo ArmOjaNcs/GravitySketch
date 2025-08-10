@@ -13,7 +13,6 @@ namespace Assets.Sources.ColorizerScripts
         private MeshRenderer _meshRenderer;
         private IReadonlyTemplateCube _target;
         private bool _isCanMove;
-        private bool _isInitiated;
         private Transform _transform;
 
         private MaterialPropertyBlock _mpb;
@@ -25,27 +24,26 @@ namespace Assets.Sources.ColorizerScripts
 
         private void Update()
         {
+            if (IsInitialized == false)
+                return;
+
             if (_isCanMove && isActiveAndEnabled && IsPaused == false)
                 MoveToTarget();
         }
 
-        public void Init()
+        public override void Init(PauseHandler pauseHandler)
         {
-            gameObject.SetActive(true);
-
-            if (_isInitiated)
-                return;
-
-            _isInitiated = true;
-            _transform = transform;
+            base.Init(pauseHandler);
             _meshRenderer = GetComponent<MeshRenderer>();
+            _transform = transform;
             _mpb = new MaterialPropertyBlock();
+            IsInitialized = true;
         }
 
         public void SetStartSettings(ColorizedCubeData colorizedCubeData, bool isAutoPaint)
         {
-            if (_isInitiated == false)
-                Init();
+            if (IsInitialized == false)
+                return;
 
             _transform.position = colorizedCubeData.StartPosition;
             _target = colorizedCubeData.TemplateCube;

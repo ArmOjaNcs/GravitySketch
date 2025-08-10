@@ -4,6 +4,7 @@ using UnityEngine;
 using Assets.Sources.Utils;
 using Assets.Sources.Dissolvable;
 using Assets.Sources.PlayerScripts;
+using Assets.Sources.Pause;
 
 namespace Assets.Sources.AnomalyScpipts
 {
@@ -32,7 +33,7 @@ namespace Assets.Sources.AnomalyScpipts
 
         private protected override void OnCollisionEnter(Collision collision)
         {
-            if (_isDowned || _coroutine != null)
+            if (_isDowned || _coroutine != null || IsInitialized == false)
                 return;
 
             if (collision.gameObject.tag == UserUtils.Player)
@@ -46,6 +47,12 @@ namespace Assets.Sources.AnomalyScpipts
                 if (_player.CurrentSize <= Size)
                     _coroutine = StartCoroutine(AttackPlayerRoutine());
             }
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            IsInitialized = true;
         }
 
         public override void Pause()

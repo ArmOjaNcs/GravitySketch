@@ -1,4 +1,5 @@
 using Assets.Sources.Audio;
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -23,17 +24,18 @@ namespace Assets.Sources.EnemyScripts
             base.Update();
         }
 
-        public override void Initialize(EnemyAttackConfig config, Transform firePoint, 
-            AudioPlayerSpawner audioPlayerSpawner)
+        public override void InitFromConfig(EnemyAttackConfig config, Transform firePoint, 
+            AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
         {
-            base.Initialize(config, firePoint, audioPlayerSpawner);
+            base.InitFromConfig(config, firePoint, audioPlayerSpawner, pauseHandler);
 
             SniperConfig sniperConfig = config.SafeCast<SniperConfig>();
 
             if(sniperConfig != null)
             {
                 _cross = Instantiate(sniperConfig.AimCrossPrefab).GetComponent<AimCross>();
-                _cross.Initialize(sniperConfig.AimCrossConfig, this);
+                _cross.InitFromConfig(sniperConfig.AimCrossConfig, this);
+                _cross.Init(PauseHandler);
                 _cross.Shoot += OnShoot;
                 Return(_cross.gameObject);
                 IsInitialized = true;

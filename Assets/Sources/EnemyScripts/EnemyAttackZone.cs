@@ -2,6 +2,7 @@ using Assets.Sources.PlayerScripts;
 using UnityEngine;
 using Assets.Sources.Audio;
 using Assets.Sources.Utils;
+using Assets.Sources.Pause;
 
 namespace Assets.Sources.EnemyScripts
 {
@@ -10,6 +11,7 @@ namespace Assets.Sources.EnemyScripts
     {
         private AudioPlayerSpawner _audioPlayerSpawner;
 
+        private protected PauseHandler PauseHandler;
         private protected AudioClip AudioClip;
         private protected AudioPlayer AudioPlayer;
         private protected Transform FirePoint;
@@ -17,15 +19,9 @@ namespace Assets.Sources.EnemyScripts
         private protected float AttackRate;
         private protected bool IsAttacking;
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            SetAudioClip();
-        }
-
         private protected virtual void Update()
         {
-            if (IsInitialized == false || IsAttacking == false || IsPaused || Player == null)
+            if (IsActivated() == false)
                 return;
 
             if (Player.gameObject.activeSelf == false)
@@ -37,12 +33,20 @@ namespace Assets.Sources.EnemyScripts
                 Attack();
         }
 
-        public virtual void Initialize(EnemyAttackConfig config, Transform firePoint, 
-            AudioPlayerSpawner audioPlayerSpawner)
+        public virtual void InitFromConfig(EnemyAttackConfig config, Transform firePoint, 
+            AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
         {
             FirePoint = firePoint;
             AttackRate = config.AttackRate;
             _audioPlayerSpawner = audioPlayerSpawner;
+            Init(pauseHandler);
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            SetAudioClip();
+            PauseHandler = pauseHandler;
         }
 
         public virtual void Return(GameObject gameObject) => gameObject.SetActive(false);
@@ -61,6 +65,11 @@ namespace Assets.Sources.EnemyScripts
             AudioPlayer = GetAudioPlayer();
             AudioPlayer.SetAudioClip(AudioClip);
             CurrentTime = 0;
+        }
+
+        private protected bool IsActivated()
+        {
+            return IsInitialized && IsAttacking && IsPaused == false && Player != null;
         }
        
         private protected override void PlayerLosed(Collider playerCollider)

@@ -2,6 +2,7 @@
 using Assets.Sources.Utils;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.SimpleCubeScripts;
+using Assets.Sources.Pause;
 
 namespace Assets.Sources.UI
 {
@@ -23,15 +24,16 @@ namespace Assets.Sources.UI
             _cubesCollector.CubesCountChanged -= OnCubesCountChanged;
         }
 
-        private protected override void Start()
+        public override void Init(PauseHandler pauseHandler)
         {
-            base.Start();
+            base.Init(pauseHandler);
             StartText = CubesCount;
             IsNeedToSplit = true;
             SplitSign = '/';
             MaxValue = _simpleCubeSpawner.TotalCubes;
             EndText = GetEndText();
             Text.text = GetTotalText();
+            IsInitialized = true;
         }
 
         private void OnCubesCountChanged(int count)

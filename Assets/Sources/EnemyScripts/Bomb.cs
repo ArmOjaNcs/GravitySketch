@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -29,7 +30,7 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void Update()
         {
-            if (IsPaused)
+            if (IsPaused || IsInitialized == false)
                 return;
 
             base.Update();
@@ -76,20 +77,26 @@ namespace Assets.Sources.EnemyScripts
             }
         }
 
-        public override void Initialize(MissileConfig config, EnemyAttackZone attackZone)
+        public override void InitFromConfig(MissileConfig config, EnemyAttackZone attackZone)
         {
-            base.Initialize(config, attackZone);
+            base.InitFromConfig(config, attackZone);
             Rigidbody = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
             BombConfig = config.SafeCast<BombConfig>();
 
-            if (BombConfig != null)
+            if(config != null)
             {
-                IsInitialized = true;
+                IsConfigurated = true;
                 return;
             }
-        
-           IsInitialized = false;
+
+            IsConfigurated = false;
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            IsInitialized = true;
         }
 
         private void Blink()

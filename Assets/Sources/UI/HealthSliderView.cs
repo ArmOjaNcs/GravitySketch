@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -6,11 +7,6 @@ namespace Assets.Sources.UI
     public class HealthSliderView : SmoothedSlider
     {
         [SerializeField] private protected Health Health;
-
-        private protected override void Start()
-        {
-            Slider.value = Health.CurrentValue / Health.MaxValue;
-        }
 
         private protected virtual void OnEnable()
         {
@@ -22,6 +18,14 @@ namespace Assets.Sources.UI
             base.OnDisable();
 
             Health.Updated -= OnUpdate;
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            Slider.value = Health.CurrentValue / Health.MaxValue;
+            Debug.Log($"health slider {Slider.value} healt {Health.MaxValue}");
+            IsInitialized = true;
         }
 
         private protected override void OnUpdate()

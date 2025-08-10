@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -12,14 +13,23 @@ namespace Assets.Sources.Audio
         [SerializeField] private AudioMixerGroup _interfaceGroup;
 
         private ObjectPool<AudioPlayer> _pool;
+        private PauseHandler _pauseHandler;
 
         private void Awake()
         {
             _pool = new ObjectPool<AudioPlayer>(_audioPlayerPrefab, _capacity, transform);
         }
 
+        public void SetPauseHandler(PauseHandler pauseHandler)
+        {
+            _pauseHandler = pauseHandler;
+        }
+
         public AudioPlayer GetAudioPlayer(Vector3 position, string mixerGroupName)
         {
+            if(_pauseHandler == null)
+                return null;
+
             AudioPlayer audioPlayer = _pool.GetElement();
             Initialize(audioPlayer);
             audioPlayer.SetPosition(position);
@@ -34,12 +44,12 @@ namespace Assets.Sources.Audio
 
         private void Initialize(AudioPlayer audioPlayer)
         {
+            audioPlayer.Init(_pauseHandler);
             audioPlayer.IsFinishable = true;
             audioPlayer.PlaybackIsFinished += OnPlaybackIsFinished;
             audioPlayer.AudioSource.playOnAwake = false;
             audioPlayer.AudioSource.loop = false;
             audioPlayer.gameObject.SetActive(true);
-            audioPlayer.Init();
             audioPlayer.AudioSource.spatialBlend = 1;
         }
 

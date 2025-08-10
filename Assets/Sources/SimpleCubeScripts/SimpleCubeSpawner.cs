@@ -1,4 +1,5 @@
 using Assets.Sources.Audio;
+using Assets.Sources.Pause;
 using Assets.Sources.Table;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,12 +14,14 @@ namespace Assets.Sources.SimpleCubeScripts
         [SerializeField] private List<SpawnArea> _spawnAreas = new List<SpawnArea>();
 
         [Header("Settings")]
-        [SerializeField] private AudioPlayerSpawner _audioPlayerSpawner;
         [SerializeField] private float _spacing = 1.5f;
         [SerializeField] private float _yPosition = 0f;
 
         [HideInInspector]
         [SerializeField] private List<SimpleCube> _spawnedCubes = new List<SimpleCube>();
+
+        private PauseHandler _pauseHandler;
+        private AudioPlayerSpawner _audioPlayerSpawner;
 
         public int TotalCubes => _materialReference.GetTotalCount();
 
@@ -71,10 +74,15 @@ namespace Assets.Sources.SimpleCubeScripts
         }
 #endif
 
-        private void Start()
+        public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
         {
+            _pauseHandler = pauseHandler;
+            _audioPlayerSpawner = audioPlayerSpawner;
             ApplyColorsOnStart();
             SetAudioPlayerSpawner();
+
+            foreach (SimpleCube simpleCube in _spawnedCubes)
+                simpleCube.Init(pauseHandler);
         }
 
         private void ApplyColorsOnStart()

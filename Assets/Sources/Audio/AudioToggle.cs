@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -14,25 +15,30 @@ namespace Assets.Sources.Audio
 
         private string _parameterName;
 
-        private void Awake()
-        {
-            _parameterName = _audioMixerGroup.name;
-        }
-
-        private void OnEnable()
-        {
-            _toggle.onValueChanged.AddListener(SetFloat);
-        }
+        public event Action<bool> ValueChanged;
 
         private void OnDisable()
         {
             _toggle.onValueChanged.RemoveListener(SetFloat);
         }
 
+        public void Init()
+        {
+            _parameterName = _audioMixerGroup.name;
+            _toggle.onValueChanged.AddListener(SetFloat);
+        }
+
+        public void SetOn(bool isOn)
+        {
+            _toggle.isOn = isOn;
+            SetFloat(isOn);
+        }
+
         private void SetFloat(bool isEnabled)
         {
             float volume = isEnabled ? _slider.CurrentVolume : MinVolume;
             _audioMixerGroup.audioMixer.SetFloat(_parameterName, volume);
+            ValueChanged?.Invoke(isEnabled);
         }
     }
 }

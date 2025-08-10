@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using System;
 using UnityEngine;
 
@@ -24,12 +25,6 @@ namespace Assets.Sources.PlayerScripts
         public float BoostReloadTime => ReloadTime;
         public int BoostCount => _boostCount;
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            CurrentBoostCount = _boostCount;
-        }
-
         private void OnEnable()
         {
             Input.Boosted += OnBoosted;
@@ -40,14 +35,23 @@ namespace Assets.Sources.PlayerScripts
             Input.Boosted -= OnBoosted;
         }
 
-        private void OnBoosted(bool isBoosted) => _isBoosted = isBoosted;
-
         private void Update()
         {
-            if(IsPaused) 
+            if(IsPaused || IsInitialized == false) 
                 return;
 
             Boost();
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+
+            if (IsInitialized)
+                return;
+
+            CurrentBoostCount = _boostCount;
+            IsInitialized = true;
         }
 
         private void Boost()
@@ -77,6 +81,8 @@ namespace Assets.Sources.PlayerScripts
                     StopBoost();
             }
         }
+
+        private void OnBoosted(bool isBoosted) => _isBoosted = isBoosted;
 
         private void StopBoost()
         {

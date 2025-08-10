@@ -5,9 +5,9 @@ namespace Assets.Sources.EnemyScripts
 {
     public class RetreatBomb : Bomb
     {
-        public override void Initialize(MissileConfig config, EnemyAttackZone attackZone)
+        public override void InitFromConfig(MissileConfig config, EnemyAttackZone attackZone)
         {
-            base.Initialize(config, attackZone);
+            base.InitFromConfig(config, attackZone);
             CorrectSize();
         }
 

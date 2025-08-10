@@ -11,9 +11,9 @@ namespace Assets.Sources.Save
     {
         [SerializeField] private int _totalScore;
         [SerializeField] private List<LevelData> _levels;
+        [SerializeField] private List<Color> _currentColors;
         [SerializeField] private int _currentLevelIndex;
         [SerializeField] private int _currentScore;
-        [SerializeField] private List<Color> _currentColors;
 
         public PlayerProgress()
         {
@@ -22,8 +22,8 @@ namespace Assets.Sources.Save
         }
 
         public int TotalScore => _totalScore;
-        public int LevelsCount => _levels.Count;
         public int CurrentLevelIndex => _currentLevelIndex;
+        public int LevelsCount => _levels.Count;
         public int CurrentScore => _currentScore;
         public IReadOnlyList<Color> CurrentColors => _currentColors;
         public int ColorsCount => _currentColors.Count;
@@ -47,6 +47,7 @@ namespace Assets.Sources.Save
                 LevelData levelToAdd = new LevelData(levelIndex);
                 levelToAdd.UpdateScore(score);
                 _levels.Add(levelToAdd);
+                UpdateTotalScore();
             }
         }
 

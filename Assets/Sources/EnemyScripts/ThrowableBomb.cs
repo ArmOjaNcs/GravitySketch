@@ -10,7 +10,6 @@ namespace Assets.Sources.EnemyScripts
                 return;
 
             Vector3 direction = (AttackZone.Player.Position - position).normalized;
-            //direction.y = 0;
             Rigidbody.AddForce(direction * BombConfig.ThrowForce, ForceMode.Impulse);
             Rigidbody.AddRelativeTorque(Rigidbody.transform.forward * BombConfig.ThrowForce, ForceMode.Impulse);
         }

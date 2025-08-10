@@ -17,25 +17,39 @@ namespace Assets.Sources.ColorizerScripts
         [SerializeField] private float _maxRayDistance = 1000f;
 
         private PaintStage _stage;
+        private PaintInput _input;
         private IReadonlyTemplateCube _currentHighlighted;
         private bool _isAutoPaint;
+        private bool _isColoring;
 
         public event Action<IReadonlyTemplateCube> PositionApplied;
 
-        private bool IsColoring => Input.GetMouseButton(0);
+        private void OnDisable()
+        {
+            if (_input != null)
+                _input.Coloring -= OnColoring;
+        }
 
         private void Update()
         {
-            if (_stage == null || IsPaused)
+            if (IsPaused || IsInitialized == false)
                 return;
 
             if (_isAutoPaint == false && _stage.IsReferenceShowing == false)
                 HandleHoverAndPaint();
         }
 
-        public void Init(PaintStage paintStage) => _stage = paintStage;
+        public void SetPaintInput(PaintInput input)
+        {
+            _input = input;
+            _input.Coloring += OnColoring;
+        }
+
+        public void SetPaintStage(PaintStage paintStage) => _stage = paintStage;
 
         public void SetAutoPaint(bool isAutoPaint) => _isAutoPaint = isAutoPaint;
+
+        private void OnColoring(bool isColoring) => _isColoring = isColoring;
 
         private void HandleHoverAndPaint()
         {
@@ -80,12 +94,22 @@ namespace Assets.Sources.ColorizerScripts
 
         private bool IsCanApplyPosition()
         {
-            return IsHitCube(out IReadonlyTemplateCube cube) && _currentHighlighted != null && IsColoring;
+            return IsHitCube(out IReadonlyTemplateCube cube) && _currentHighlighted != null && _isColoring;
         }
 
         private bool IsCanHighlight()
         {
             return _currentHighlighted != null;
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+
+            if (_input == null || _stage == null)
+                return;
+
+            IsInitialized = true;
         }
     }
 }

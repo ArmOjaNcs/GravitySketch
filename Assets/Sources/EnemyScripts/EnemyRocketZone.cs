@@ -1,4 +1,5 @@
 using Assets.Sources.Audio;
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -9,10 +10,10 @@ namespace Assets.Sources.EnemyScripts
         private ObjectPool<Rocket> _pool;
         private RocketConfig _rocketConfig;
 
-        public override void Initialize(EnemyAttackConfig config, Transform firePoint, 
-            AudioPlayerSpawner audioPlayerSpawner)
+        public override void InitFromConfig(EnemyAttackConfig config, Transform firePoint, 
+            AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
         {
-            base.Initialize(config, firePoint, audioPlayerSpawner);
+            base.InitFromConfig(config, firePoint, audioPlayerSpawner, pauseHandler);
 
             RocketerConfig rocketerConfig = config.SafeCast<RocketerConfig>();
 
@@ -32,7 +33,10 @@ namespace Assets.Sources.EnemyScripts
             Rocket rocket = _pool.GetElement();
             
             if (rocket.IsInitialized == false)
-                rocket.Initialize(_rocketConfig, this);
+            {
+                rocket.InitFromConfig(_rocketConfig, this);
+                rocket.Init(PauseHandler);
+            }
 
             rocket.transform.position = FirePoint.position;
             rocket.gameObject.SetActive(true);

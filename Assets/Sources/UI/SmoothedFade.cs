@@ -44,6 +44,7 @@ namespace Assets.Sources.UI
 
         public void FadeOut()
         {
+            Debug.Log($"Fade duration {Duration}");
             UpdateView(Duration);
         }
 

@@ -163,7 +163,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &8942650751716433854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +205,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d9bacc585e72854eb4be8eb4b7efa68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _audioClip: {fileID: 8300000, guid: 7bce3a1321ae9444caba78831852a2ed, type: 3}
   _image: {fileID: 3603351457334752733}
   _startColor: {r: 0.80615497, g: 0.9622642, b: 0.21242432, a: 1}
   _endColor: {r: 1, g: 0.20861861, b: 0, a: 1}
@@ -317,3 +316,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b44bb28872dff354db9fbc93678c2dad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsFinishable: 0

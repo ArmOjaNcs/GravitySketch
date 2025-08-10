@@ -1,4 +1,5 @@
-﻿using Assets.Sources.Utils;
+﻿using Assets.Sources.Pause;
+using Assets.Sources.Utils;
 using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
@@ -20,7 +21,7 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void Update()
         {
-            if (IsPaused)
+            if (IsCanLive() == false)
                 return;
 
             base.Update();
@@ -29,19 +30,25 @@ namespace Assets.Sources.EnemyScripts
                 Move();
         }
 
-        public override void Initialize(MissileConfig missileConfig, EnemyAttackZone attackZone)
+        public override void InitFromConfig(MissileConfig missileConfig, EnemyAttackZone attackZone)
         {
-            base.Initialize(missileConfig, attackZone);
+            base.InitFromConfig(missileConfig, attackZone);
 
             BulletConfig = missileConfig.SafeCast<BulletConfig>();
 
             if (BulletConfig != null)
             {
-                IsInitialized = true;
+                IsConfigurated = true;
                 return;
             }
 
-            IsInitialized = false;
+            IsConfigurated = false;
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            IsInitialized = true;
         }
 
         public void Send(Vector3 startPosition, Vector3 destination)

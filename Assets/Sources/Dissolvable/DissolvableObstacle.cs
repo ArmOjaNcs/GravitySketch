@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace Assets.Sources.Dissolvable
     public class DissolvableObstacle : DissolvableObject
     {
         [SerializeField] private protected GameObject CollidersHolder = null;
- 
+
         private protected override void Awake()
         {
             base.Awake();

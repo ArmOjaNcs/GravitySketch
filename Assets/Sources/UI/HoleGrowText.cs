@@ -25,13 +25,15 @@ namespace Assets.Sources.UI
             base.OnDisable();
         }
 
-        private protected override void Start()
+        public override void Init(PauseHandler pauseHandler)
         {
-            base.Start();
+            base.Init(pauseHandler);
             _growText.text = GrowUp;
             _growText.gameObject.SetActive(false);
+            _smoothedFade.Init(pauseHandler);
             _smoothedFade.SetStartAplpha(UserUtils.HalfUnit);
             _smoothedFade.FadeOut();
+            IsInitialized = true;
         }
 
         private protected override void OnRoutineStart()

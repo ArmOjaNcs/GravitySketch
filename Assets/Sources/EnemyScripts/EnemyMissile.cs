@@ -21,18 +21,7 @@ namespace Assets.Sources.EnemyScripts
         private protected float Force;
         private protected float Duration;
         private protected bool IsInteracted;
-
-        public bool IsInitialized { get; protected set; }
-
-        private protected override void Awake()
-        {
-            base.Awake();
-            AudioPlayer = GetComponent<AudioPlayer>();
-            AudioPlayer.Init();
-            AudioPlayer.AudioSource.playOnAwake = false;
-            AudioPlayer.AudioSource.loop = false;
-            AudioPlayer.AudioSource.spatialBlend = 1;
-        }
+        private protected bool IsConfigurated;
 
         private protected virtual void OnEnable()
         {
@@ -49,7 +38,7 @@ namespace Assets.Sources.EnemyScripts
 
         private protected virtual void Update()
         {
-            if (IsInitialized == false || IsPaused)
+            if (IsCanLive() == false)
                 return;
 
             Live();
@@ -58,7 +47,7 @@ namespace Assets.Sources.EnemyScripts
                 EndLife();
         }
 
-        public virtual void Initialize(MissileConfig missileConfig, EnemyAttackZone attackZone)
+        public virtual void InitFromConfig(MissileConfig missileConfig, EnemyAttackZone attackZone)
         {
             if (missileConfig == null)
             {
@@ -66,7 +55,7 @@ namespace Assets.Sources.EnemyScripts
                 return;
             }
 
-            if (IsInitialized)
+            if (IsConfigurated)
                 return;
 
             AttackZone = attackZone;
@@ -80,6 +69,20 @@ namespace Assets.Sources.EnemyScripts
             Effect.transform.localPosition = Vector3.zero;
             Effect.Stop();
             Duration = Effect.main.duration;
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+
+            if (IsInitialized)
+                return;
+
+            AudioPlayer = GetComponent<AudioPlayer>();
+            AudioPlayer.Init(pauseHandler);
+            AudioPlayer.AudioSource.playOnAwake = false;
+            AudioPlayer.AudioSource.loop = false;
+            AudioPlayer.AudioSource.spatialBlend = 1;
         }
 
         public override void Pause()
@@ -150,10 +153,9 @@ namespace Assets.Sources.EnemyScripts
             AudioPlayer.Play();
         }
 
-        private void OnDrawGizmos()
+        private protected bool IsCanLive()
         {
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawSphere(transform.position, Radius);
+            return IsInitialized && IsPaused == false && IsConfigurated;
         }
     }
 }

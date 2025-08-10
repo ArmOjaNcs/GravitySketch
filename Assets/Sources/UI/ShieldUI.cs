@@ -1,5 +1,5 @@
-﻿using Assets.Sources.PlayerScripts;
-using Assets.Sources.Utils;
+﻿using Assets.Sources.Pause;
+using Assets.Sources.PlayerScripts;
 using DG.Tweening;
 using UnityEngine;
 
@@ -24,6 +24,13 @@ namespace Assets.Sources.UI
             base.OnDisable();
         }
 
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            _backgroundFade.Init(pauseHandler);
+            IsInitialized = true;
+        }
+
         private void OnDefendStart()
         {
             ActiveTimeImage.gameObject.SetActive(true);
@@ -38,11 +45,6 @@ namespace Assets.Sources.UI
             ReloadTimeImage.SetValue(1);
             float reloadDuration = _shield.CycleTime - _shield.DefendTime;
             ReloadTimeImage.UpdateView(reloadDuration, 0);
-        }
-
-        private protected override Tween GetAnimation()
-        {
-            return AnimationSpawner.GetShakeAnimation(Text.rectTransform, 0.5f);
         }
 
         private protected override void OnActiveImageUpdated()

@@ -1,16 +1,14 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using Assets.Sources.Utils;
 using Assets.Sources.EnemyScripts;
+using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.SimpleCubeScripts;
-using Assets.Sources.Pause;
+using Assets.Sources.Utils;
+using UnityEngine;
 
 namespace Assets.Sources.Level
 {
     public class CollectStage : LevelScore
     {
-        [SerializeField] private int _index;
         [SerializeField] private TakeOverLimit _takeOverLimit;
         [SerializeField] private CubesCollector _cubesCollector;
         [SerializeField] private EnemyFactory _enemyFactory;
@@ -23,16 +21,9 @@ namespace Assets.Sources.Level
         private float _currentEnemyDissolvedPercent;
         private float _currentCubesCountPercent;
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            _exit.Exit += OnExitApplied;
-            _exit.Init(0);
-            _exit.gameObject.SetActive(false);
-        }
-
         private void OnEnable()
         {
+            _exit.Exit += OnExitApplied;
             _takeOverLimit.EnemyDissolved += OnEnemyDissolved;
             _cubesCollector.CubesCountChanged += OnCubesCountChanged;
             _pauseableRoutine.Updated += OnRoutineUpdated;
@@ -46,11 +37,19 @@ namespace Assets.Sources.Level
             _pauseableRoutine.Updated -= OnRoutineUpdated;
         }
 
+        public void Init(PauseHandler pauseHandler)
+        {
+            _exit.Init(pauseHandler);
+            _exit.SetSize(0);
+            _exit.gameObject.SetActive(false);
+            _pauseableRoutine.Init(pauseHandler);
+        }
+
         private void OnRoutineUpdated()
         {
-            SetIntermediateResult(_index, _playerScore.Value, _cubesCollector.GetAllCollors());
+            SetIntermediateResult(Index, _playerScore.Value, _cubesCollector.GetAllCollors());
             SaveProgress();
-            SceneManager.LoadScene("Radar");
+            LoadNextScene();
         }
 
         private void OnCubesCountChanged(int cubesCount)

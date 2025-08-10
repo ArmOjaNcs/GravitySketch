@@ -1,9 +1,10 @@
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 
 namespace Assets.Sources.UI
 {
-    public class HealthView : MonoBehaviour
+    public class HealthView : PauseableObject
     {
         [SerializeField] private Health _health;
         [SerializeField] private SmoothedImage _fillerNear;
@@ -34,6 +35,13 @@ namespace Assets.Sources.UI
             _fillerFar.SetValue(1);
             _fillerNear.SetValue(1);
             _previousValue = _health.MaxValue;
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            _fillerNear.Init(pauseHandler);
+            _fillerFar.Init(pauseHandler);
+            IsInitialized = true;
         }
 
         private void OnUpdate()

@@ -1,0 +1,64 @@
+using Assets.Sources.UI;
+using Assets.Sources.Utils;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Assets.Sources.Level
+{
+    public class LevelSelector : LevelScore
+    {
+        [SerializeField] private LevelButton[] _levels;
+        [SerializeField] private Button _play;
+        [SerializeField] private TextMeshProUGUI _totalScore;
+
+        private LevelButton _currentButton;
+        
+        private void OnEnable()
+        {
+            _play.onClick.AddListener(OnPlayClicked);
+
+            for (int i = 0; i <= LevelsCount && i < _levels.Length; i++)
+            {
+                _levels[i].gameObject.SetActive(true);
+                _levels[i].Init();
+                _levels[i].Chosen += OnLevelChosen;
+            }
+        }
+
+        private void OnDisable()
+        {
+            _play.onClick.RemoveListener(OnPlayClicked);
+
+            foreach (LevelButton level in _levels)
+            {
+                if (level.gameObject.activeSelf)
+                {
+                    level.Chosen -= OnLevelChosen;
+                    level.Dispose();
+                }
+            }
+        }
+
+        private void Start()
+        {
+            _totalScore.text = UserUtils.TotalScore + TotalScore;
+            _play.gameObject.SetActive(false);
+        }
+
+        private void OnLevelChosen(LevelButton level)
+        {
+            if (_currentButton != null)
+                _currentButton.Hide();
+
+            _currentButton = level;
+            level.SetScore(GetLevelScore(level.Index));
+            level.Show();
+
+            if (_play.gameObject.activeSelf == false)
+                _play.gameObject.SetActive(true);
+        }
+
+        private void OnPlayClicked() => LoadScene(_currentButton.Name);
+    }
+}

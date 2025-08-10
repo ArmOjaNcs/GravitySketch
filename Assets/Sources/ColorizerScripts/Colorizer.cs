@@ -46,14 +46,9 @@ namespace Assets.Sources.ColorizerScripts
             _positionHandler.PositionApplied -= Paint;
         }
 
-        private void Start()
-        {
-            QueueChanged?.Invoke(Colors);
-        }
-
         private void Update()
         {
-            if (_stage == null || IsPaused)
+            if (_stage == null || IsPaused || IsInitialized == false)
                 return;
 
             if (_isAutoPaint == false)
@@ -87,7 +82,14 @@ namespace Assets.Sources.ColorizerScripts
             }
         }
 
-        public void Init(PaintStage paintStage, IReadOnlyList<Color> colors)
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            QueueChanged?.Invoke(Colors);
+            IsInitialized = true;
+        }
+
+        public void SetStage(PaintStage paintStage, IReadOnlyList<Color> colors)
         {
             _stage = paintStage;
             SetPaintMaterials(colors);

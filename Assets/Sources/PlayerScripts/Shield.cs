@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using System;
 using UnityEngine;
 
@@ -21,14 +22,6 @@ namespace Assets.Sources.PlayerScripts
         public bool IsDefended => _isDefended;
         public bool IsReloading { get; private set; }
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            CycleTime = ReloadTime + ActiveTime;
-            _meshRenderer = GetComponent<MeshRenderer>();
-            _meshRenderer.enabled = false;
-        }
-
         private void OnEnable()
         {
             Input.Defended += OnDefended;
@@ -41,11 +34,20 @@ namespace Assets.Sources.PlayerScripts
 
         private void Update()
         {
-            if(IsPaused) 
+            if(IsPaused || IsInitialized == false) 
                 return;
 
             if (_isDefendApplied)
                 PlayCycle();
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            CycleTime = ReloadTime + ActiveTime;
+            _meshRenderer = GetComponent<MeshRenderer>();
+            _meshRenderer.enabled = false;
+            IsInitialized = true;
         }
 
         private void OnDefended()

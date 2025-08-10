@@ -6,10 +6,7 @@ namespace Assets.Sources.Pause
     {
         private protected bool IsPaused;
 
-        private protected virtual void Awake()
-        {
-            PauseableObjectsHandler.Register(this);
-        }
+        public bool IsInitialized {  get; protected set; }
 
         public virtual void Pause()
         {
@@ -24,5 +21,10 @@ namespace Assets.Sources.Pause
         }
 
         public bool IsActive() => gameObject.activeInHierarchy;
+
+        public virtual void Init(PauseHandler pauseHandler)
+        {
+            pauseHandler.Register(this);
+        }
     }
 }

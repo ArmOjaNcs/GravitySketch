@@ -3,10 +3,12 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using Assets.Sources.Utils;
 using Assets.Sources.Table;
+using Assets.Sources.Pause;
+using Assets.Sources.Audio;
 
 namespace Assets.Sources.ColorizerScripts
 {
-    public class ColorizedCubeSpawner : MonoBehaviour
+    public class ColorizedCubeSpawner : PauseableObject
     {
         [SerializeField] private ColorizedCube _cubePrefab;
         [SerializeField] private int _maxCapacity;
@@ -18,6 +20,8 @@ namespace Assets.Sources.ColorizerScripts
         [SerializeField] private float _maxSpeed;
 
         private ObjectPool<ColorizedCube> _pool;
+        private PauseHandler _pauseHandler;
+        private AudioPlayerSpawner _audioPlayerSpawner;
 
         public event Action<int, bool> IndexApplied;
 
@@ -39,9 +43,21 @@ namespace Assets.Sources.ColorizerScripts
             _colorizer.PaintApplied -= OnPaintApplied;
         }
 
+        public void SetAudioPlayerSpawner(AudioPlayerSpawner audioPlayerSpawner) 
+            => _audioPlayerSpawner = audioPlayerSpawner;
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            _pauseHandler = pauseHandler;
+
+            if (_audioPlayerSpawner != null)
+                IsInitialized = true;
+        }
+
         private void OnPaintApplied(IReadonlyTemplateCube templateCube, Color color, bool isAutoPaint)
         {
-            SendCube(templateCube, color, isAutoPaint);
+            if (IsInitialized)
+                SendCube(templateCube, color, isAutoPaint);
         }
 
         private void SendCube(IReadonlyTemplateCube cube, Color color, bool isAutoPaint)
@@ -51,7 +67,8 @@ namespace Assets.Sources.ColorizerScripts
             SpawnZone spawnZone = GetRandomSpawnZone();
             Vector3 position = GetRandomPointInZone(spawnZone);
             Vector3 rotateDirection = UserUtils.GetRandomRotateDirection();
-            colorizedCube.Init();
+            colorizedCube.Init(_pauseHandler);
+            colorizedCube.gameObject.SetActive(true);
             colorizedCube.SetStartSettings(new ColorizedCubeData(position, cube, color,
                 speed, rotateDirection), isAutoPaint);
             colorizedCube.Finished += OnCubeFinished;

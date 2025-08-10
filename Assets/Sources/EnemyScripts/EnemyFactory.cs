@@ -1,5 +1,5 @@
 using Assets.Sources.Audio;
-using Assets.Sources.PlayerScripts;
+using Assets.Sources.Pause;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,25 +13,26 @@ namespace Assets.Sources.EnemyScripts
 
         [Header("Enemy settings")]
         [SerializeField] private Enemy _enemy;
-        [SerializeField] private AudioPlayerSpawner _audioPlayerSpawner;
         [SerializeField] private List<EnemyConfig> _shooterConfigs;
         [SerializeField] private List<EnemyConfig> _sniperConfigs;
         [SerializeField] private List<EnemyConfig> _bomberConfigs;
         [SerializeField] private List<EnemyConfig> _rocketerConfigs;
         [SerializeField] private LayerMask _tableLayer;
 
+        private AudioPlayerSpawner _audioPlayerSpawner;
+        private PauseHandler _pauseHandler;
+
         public int TotalEnemies { get; private set; }
 
-        private void Awake()
+        public void Init(AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
         {
+            _audioPlayerSpawner = audioPlayerSpawner;
+            _pauseHandler = pauseHandler;
+
             foreach (EnemyPatrolZone patrolZone in _patrolZones)
                 patrolZone.Initialize();
 
             TotalEnemies = _patrolZones.Sum(pz => pz.EnemiesCount);
-        }
-
-        private void Start()
-        {
             CreateEnemy();
         }
 
@@ -73,23 +74,24 @@ namespace Assets.Sources.EnemyScripts
 
                     TryGetFreePosition(10, patrolZone, out Vector3 freePosition);
                     Enemy enemy = Instantiate(_enemy, freePosition, Quaternion.identity);
-                    enemy.SetAudioPlayerSpawner(_audioPlayerSpawner);
                     EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();
                     enemyMover.SetMovePointsHolder(patrolZone.MovePointsHolder);
+                    enemyMover.Init(_pauseHandler);
+                    enemy.InitializeFromConfig(config);
+                    enemy.Init(_pauseHandler);
+                    enemy.SetAudioPlayerSpawner(_audioPlayerSpawner);
                     enemyMover.SetDistance(currentLevel * 5);
                     patrolZone.AddEnemy(enemyMover);
-
-                    enemy.InitializeFromConfig(config);
 
                     if (config.AttackConfig != null)
                     {
                         var zone = (IEnemyAttack)enemy.AttackZone.AddComponent(config.AttackConfig.ZoneComponentType);
-                        zone.Initialize(config.AttackConfig, enemy.FirePoint, _audioPlayerSpawner);
+                        zone.InitFromConfig(config.AttackConfig, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
                     }
 
-                    enemy.Init(config.Level);
+                    enemy.SetSize(config.Level);
                     config = _bomberConfigs.FirstOrDefault(c => c.Level == currentLevel);
-                    enemy.RetreatZone.Initialize(config.AttackConfig, enemy.FirePoint, _audioPlayerSpawner);
+                    enemy.RetreatZone.InitFromConfig(config.AttackConfig, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
 
                     created++;
                 }

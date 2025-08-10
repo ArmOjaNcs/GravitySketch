@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Utils;
 using System.Collections;
@@ -25,12 +26,14 @@ namespace Assets.Sources.UI
             _cubesCollector.CubesCountChanged -= OnCubesUpdate;
         }
 
-        private protected override void Start()
+        public override void Init(PauseHandler pauseHandler)
         {
-            base.Start();
+            base.Init(pauseHandler);
             Image.fillAmount = 0;
+            _smoothedFade.Init(pauseHandler);
             _smoothedFade.FadeOut();
             _smoothedFade.SetStartAplpha(UserUtils.HalfUnit);
+            IsInitialized = true;
         }
 
         private void OnCubesUpdate(int cubesCount)

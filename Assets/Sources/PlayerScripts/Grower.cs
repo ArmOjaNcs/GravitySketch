@@ -17,13 +17,6 @@ namespace Assets.Sources.PlayerScripts
 
         public event Action<float> SizeChanged;
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            _player = transform;
-            _targetScale = _player.lossyScale;
-        }
-
         private void OnEnable()
         {
             _growHandler.Growing += OnGrowing;
@@ -33,6 +26,14 @@ namespace Assets.Sources.PlayerScripts
         {
             _growHandler.Growing -= OnGrowing;
             base.OnDisable();
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            _player = transform;
+            _targetScale = _player.lossyScale;
+            IsInitialized = true;
         }
 
         private void OnGrowing()

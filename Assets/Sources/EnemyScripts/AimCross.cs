@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using System;
 using UnityEngine;
@@ -24,17 +25,13 @@ namespace Assets.Sources.EnemyScripts
         public event Action Shoot;
 
         private Vector3 TargetScale => _initialScale * UserUtils.HalfUnit;
-        public bool IsAiming {  get; private set; }
-
-        private protected override void Awake()
-        {
-            base.Awake();
-            _rectTransform = GetComponent<RectTransform>();
-            _defaultScale = _rectTransform.lossyScale;
-        }
+        public bool IsAiming { get; private set; }
 
         private protected override void OnEnable()
         {
+            if (IsInitialized == false)
+                return;
+
             base.OnEnable();
             _rectTransform.SetParent(null);
             _rectTransform.localScale = _defaultScale;
@@ -42,24 +39,32 @@ namespace Assets.Sources.EnemyScripts
             _currentAimingTime = 0;
         }
 
-        private void Start()
+        public override void InitFromConfig(MissileConfig config, EnemyAttackZone attackZone)
         {
+            base.InitFromConfig(config, attackZone);
+
+            _config = config.SafeCast<AimCrossConfig>();
+
             if (Effect != null)
                 _defaultEffectScale = Effect.transform.lossyScale;
-        }
 
-        public override void Initialize(MissileConfig config, EnemyAttackZone attackZone)
-        {
-            base.Initialize(config, attackZone);
-            
-            _config = config.SafeCast<AimCrossConfig>();
             if (_config != null)
             {
-                IsInitialized = true;
+                _defaultEffectScale = Effect.transform.lossyScale;
+                IsConfigurated = true;
                 return;
             }
 
-            IsInitialized = false;
+            IsConfigurated = false;
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            _rectTransform = GetComponent<RectTransform>();
+            _defaultScale = Vector3.one * UserUtils.ThirdOfUnit;
+            IsInitialized = true;
+            OnEnable();
         }
 
         public void StartAimWarning()
@@ -114,7 +119,7 @@ namespace Assets.Sources.EnemyScripts
             {
                 _currentDelayTime += Time.deltaTime;
 
-                if(_currentDelayTime > _config.ShotDelay)
+                if (_currentDelayTime > _config.ShotDelay)
                 {
                     _currentDelayTime = 0;
                     _isShoot = false;

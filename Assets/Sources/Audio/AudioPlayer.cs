@@ -17,17 +17,6 @@ namespace Assets.Sources.Audio
 
         public AudioSource AudioSource { get; private set; }
 
-        private protected override void Awake()
-        {
-            base.Awake();
-
-            if (AudioSource == null)
-            {
-                AudioSource = GetComponent<AudioSource>();
-                _transform = transform;
-            }
-        }
-
         private void OnEnable()
         {
             _isFinished = false;
@@ -40,6 +29,9 @@ namespace Assets.Sources.Audio
 
         private void Update()
         {
+            if (IsInitialized == false)
+                return;
+
             if (_isPlaying == false || IsPaused || IsFinishable == false)
                 return;
 
@@ -55,17 +47,19 @@ namespace Assets.Sources.Audio
 
         public AudioPlayer SetAudioClip(AudioClip clip)
         {
+            if (IsInitialized == false)
+                return null;
+
             AudioSource.clip = clip;
             return this;
         }
 
-        public void Init()
+        public override void Init(PauseHandler pauseHandler)
         {
-            if (AudioSource != null)
-                return;
-
+            base.Init(pauseHandler);
             AudioSource = GetComponent<AudioSource>();
             _transform = transform;
+            IsInitialized = true;
         }
 
         public override void Pause()
@@ -86,12 +80,18 @@ namespace Assets.Sources.Audio
 
         public void Play()
         {
+            if (AudioSource == null)
+                return;
+
             AudioSource.Play();
             _isPlaying = true;
         }
 
         public void Stop()
         {
+            if (AudioSource == null)
+                return;
+
             AudioSource.Stop();
             _isPlaying = false;
         }

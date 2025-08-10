@@ -24,10 +24,14 @@ namespace Assets.Sources.Pause
             Routine = null;
         }
 
-        private protected virtual void Start()
+        public override void Init(PauseHandler pauseHandler)
         {
+            base.Init(pauseHandler);
+
             if (Mathf.Approximately(Duration, 0))
                 Duration = MinDuration;
+
+            IsInitialized = true;
         }
 
         public void UpdateView(float duration, float target)
@@ -36,9 +40,9 @@ namespace Assets.Sources.Pause
             UpdateView(duration);
         }
 
-        public void UpdateView(float duration)
+        public virtual void UpdateView(float duration)
         {
-            if (isActiveAndEnabled == false)
+            if (IsInitialized == false || isActiveAndEnabled == false)
                 return;
 
             if (Routine != null)

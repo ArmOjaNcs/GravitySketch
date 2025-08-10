@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using DG.Tweening;
 using TMPro;
@@ -24,13 +25,16 @@ namespace Assets.Sources.UI
             base.OnDisable();
         }
 
-        private void Start()
+        public override void Init(PauseHandler pauseHandler)
         {
+            base.Init(pauseHandler);
+            ActiveTimeImage.Init(pauseHandler);
+            ReloadTimeImage.Init(pauseHandler);
             ActiveTimeImage.gameObject.SetActive(false);
             ReloadTimeImage.gameObject.SetActive(false);
         }
 
-        private protected override Tween GetAnimation()
+        private protected override Sequence GetAnimation()
         {
             return AnimationSpawner.GetShakeAnimation(Text.rectTransform, 0.5f);
         }

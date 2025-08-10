@@ -9,7 +9,6 @@ namespace Assets.Sources.EnemyScripts
     [RequireComponent(typeof(SphereCollider))]
     public class EnemyZone : PauseableObject
     {
-        [SerializeField] private protected bool IsInitialized;
         private protected SphereCollider Collider;
 
         public event Action PlayerIn;
@@ -17,27 +16,20 @@ namespace Assets.Sources.EnemyScripts
 
         public Player Player { get; protected set; }
 
-        private protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
             Collider = GetComponent<SphereCollider>();
             Collider.isTrigger = true;
         }
 
         private protected virtual void OnTriggerEnter(Collider other)
         {
-            if (IsInitialized == false)
-                return;
-
             if (other.CompareTag(UserUtils.Player))
                 PlayerDetected(other);
         }
 
         private protected virtual void OnTriggerExit(Collider other)
         {
-            if (IsInitialized == false)
-                return;
-
             if (other.CompareTag(UserUtils.Player))
                 PlayerLosed(other);
         }

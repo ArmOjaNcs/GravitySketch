@@ -1,57 +1,47 @@
-using Assets.Sources.Utils;
 using DG.Tweening;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.UI
 {
-    public class UIAnimator : MonoBehaviour
+    public abstract class UIAnimator : MonoBehaviour
     {
-        [SerializeField] private RectTransform _rectTransform;
-        [SerializeField] private float _duration;
+        [SerializeField] private protected RectTransform RectTransform;
+        [SerializeField] private protected float Duration;
 
-        private CanvasGroup _canvasGroup;
-        private Sequence _showAnimation;
-        private Sequence _hideAnimation;
+        private protected CanvasGroup CanvasGroup;
+        private protected Sequence ShowAnimation;
+        private protected Sequence HideAnimation;
 
-        public event Action Hidden;
-
-        public bool IsShown { get; private set; }
+        public bool IsShown { get; protected set; }
 
         private void Awake()
         {
-            _canvasGroup = _rectTransform.GetComponent<CanvasGroup>();
+            CanvasGroup = RectTransform.GetComponent<CanvasGroup>();
             InitAnimations();
         }
 
         private void OnDestroy()
         {
-            _showAnimation?.Kill();
-            _hideAnimation?.Kill();
+            ShowAnimation?.Kill();
+            HideAnimation?.Kill();
         }
 
-        public void Show()
+        public virtual void Show()
         {
             IsShown = true;
-            _hideAnimation?.Pause();
+            HideAnimation?.Pause();
             gameObject.SetActive(true);
-            _showAnimation?.Restart();
-            _showAnimation.OnComplete(() => _canvasGroup.interactable = true);
+            ShowAnimation?.Restart();
         }
 
-        public void Hide()
+        public virtual void Hide()
         {
             IsShown = false;
-            _showAnimation?.Pause();
-            _canvasGroup.interactable = false;
-            _hideAnimation?.Restart();
-            _hideAnimation.OnComplete(() => Hidden?.Invoke());
+            ShowAnimation?.Pause();
+            CanvasGroup.interactable = false;
+            HideAnimation?.Restart();
         }
 
-        private void InitAnimations()
-        {
-            _showAnimation = AnimationSpawner.GetShowAnimation(_rectTransform, _duration);
-            _hideAnimation = AnimationSpawner.GetHideAnimation(_rectTransform, _duration);
-        }
+        private protected abstract void InitAnimations();
     }
 }

@@ -5,19 +5,19 @@ namespace Assets.Sources.UI
 {
     public abstract class PauseableAnimation : PauseableObject
     {
-        private protected Tween Animation;
+        private protected Sequence Animation;
         private protected bool WasPlayingBeforePause;
-
-        private protected override void Awake()
-        {
-            base.Awake();
-            Animation = GetAnimation();
-        }
 
         private protected virtual void OnDisable()
         {
             if (Animation.IsActive())
                 Animation.Kill();
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            Animation = GetAnimation();
         }
 
         public override void Pause()
@@ -42,6 +42,6 @@ namespace Assets.Sources.UI
             }
         }
 
-        private protected abstract Tween GetAnimation();
+        private protected abstract Sequence GetAnimation();
     }
 }

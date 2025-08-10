@@ -29,16 +29,9 @@ namespace Assets.Sources.EnemyScripts
         private bool _isRetreat;
         private bool _isActive;
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            _transform = transform;
-            _isInZone = true;
-        }
-
         private void Update()
         {
-            if(IsPaused || _isActive == false)
+            if(IsPaused || _isActive == false || IsInitialized == false)
                 return;
                 
             if (_agent.isActiveAndEnabled && _agent.isOnNavMesh)
@@ -78,6 +71,14 @@ namespace Assets.Sources.EnemyScripts
                     }
                 }
             }
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            _transform = transform;
+            _isInZone = true;
+            IsInitialized = true;
         }
 
         public override void Pause()

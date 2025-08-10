@@ -1,4 +1,5 @@
 using Assets.Sources.Audio;
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -9,10 +10,10 @@ namespace Assets.Sources.EnemyScripts
         private ObjectPool<Bullet> _pool;
         private BulletConfig _config;
 
-        public override void Initialize(EnemyAttackConfig config, Transform firePoint, 
-            AudioPlayerSpawner audioPlayerSpawner)
+        public override void InitFromConfig(EnemyAttackConfig config, Transform firePoint, 
+            AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
         {
-            base.Initialize(config, firePoint, audioPlayerSpawner);
+            base.InitFromConfig(config, firePoint, audioPlayerSpawner, pauseHandler);
 
             ShooterConfig shooterConfig = config.SafeCast<ShooterConfig>();
 
@@ -33,7 +34,10 @@ namespace Assets.Sources.EnemyScripts
             Bullet bullet = _pool.GetElement();
 
             if (bullet.IsInitialized == false)
-                bullet.Initialize(_config, this);
+            {
+                bullet.InitFromConfig(_config, this);
+                bullet.Init(PauseHandler);
+            }
 
             bullet.transform.position = FirePoint.position;
             bullet.gameObject.SetActive(true);

@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Assets.Sources.Dissolvable
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class DissolvableObject : PauseableRoutine
+    public abstract class DissolvableObject : PauseableRoutine
     {
         [SerializeField, Min(0)] private int _reward;
         [SerializeField, Min(0)] private int _size;
@@ -19,7 +19,6 @@ namespace Assets.Sources.Dissolvable
         private Transform _hole;
         private Rigidbody _rigidbody;
         private AudioPlayerSpawner _audioPlayerSpawner;
-        private bool _isInitiated;
         private bool _isDropped;
         private bool _wasPlayingBeforePause;
         private float _defaultMass;
@@ -35,12 +34,16 @@ namespace Assets.Sources.Dissolvable
         public int Reward => _reward;
         public bool IsDissolving { get; private set; }
 
-        private protected override void Awake()
+        private protected virtual void Awake()
         {
-            base.Awake();
-
             if (TryGetComponent(out Collider collider))
                 Collider = collider;
+
+            _transform = transform;
+            _rigidbody = GetComponent<Rigidbody>();
+            _rigidbody.isKinematic = true;
+            _rigidbody.mass = 1f;
+            _defaultMass = _rigidbody.mass;
         }
 
         private protected override void OnDisable()
@@ -49,14 +52,6 @@ namespace Assets.Sources.Dissolvable
                 DissolveAnimation.Kill();
 
             base.OnDisable();
-        }
-
-        private protected override void Start()
-        {
-            base.Start();
-
-            if (_isInitiated == false)
-                Init();
         }
 
         private protected virtual void OnCollisionEnter(Collision collision)
@@ -79,13 +74,19 @@ namespace Assets.Sources.Dissolvable
 
                 _previousCollisionsCount = _totalCollisionsCount;
                 _audioPlayerSpawner.GetAudioPlayer(_transform.position, UserUtils.MixerGroupSound)
-                                   .SetAudioClip(_collisionSound).Play();
+                                   .SetAudioClip(_collisionSound)?.Play();
             }
         }
 
         private protected virtual void OnCollisionExit(Collision collision)
         {
             _totalCollisionsCount--;
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            DissolveAnimation = AnimationSpawner.GetDissolveAnimation(transform, 3);
         }
 
         public void SetAudioPlayerSpawner(AudioPlayerSpawner audioPlayerSpawner)
@@ -126,13 +127,8 @@ namespace Assets.Sources.Dissolvable
             }
         }
 
-        public void Init(int size)
+        public void SetSize(int size)
         {
-            if (_isInitiated)
-                return;
-
-            Init();
-
             if (size < 0)
             {
                 _size = 0;
@@ -174,33 +170,13 @@ namespace Assets.Sources.Dissolvable
             _rigidbody.isKinematic = true;
             _rigidbody.interpolation = RigidbodyInterpolation.None;
             _transform.SetParent(hole);
-            DissolveAnimation.Restart();
+            DissolveAnimation?.Restart();
             Routine = StartCoroutine(UpdateRoutine(DissolveAnimation.Duration()));
         }
 
-        public void ResetMass()
-        {
-            _rigidbody.mass = 0.0001f;
-        }
+        public void ResetMass() => _rigidbody.mass = 0.0001f;
 
-        public void RecoverMass()
-        {
-            _rigidbody.mass = _defaultMass;
-        }
-
-        private protected virtual void Init()
-        {
-            if (_isInitiated)
-                return;
-
-            _transform = transform;
-            _rigidbody = GetComponent<Rigidbody>();
-            _rigidbody.isKinematic = true;
-            _rigidbody.mass = 1f;
-            _defaultMass = _rigidbody.mass;
-            DissolveAnimation = AnimationSpawner.GetDissolveAnimation(transform, 3);
-            _isInitiated = true;
-        }
+        public void RecoverMass() => _rigidbody.mass = _defaultMass;
 
         private int GetReward(int size)
         {

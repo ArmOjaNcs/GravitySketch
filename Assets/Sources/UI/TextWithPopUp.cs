@@ -6,9 +6,8 @@ using UnityEngine;
 
 namespace Assets.Sources.UI
 {
-    public class PopUpText : PauseableObject
+    public class PopUpText : PauseableAnimation
     {
-        [SerializeField] private float _duration;
         [SerializeField] private SmoothedFade _smoothedFade;
         [SerializeField] private Color _positiveDifference;
         [SerializeField] private Color _negativeDifference;
@@ -16,54 +15,28 @@ namespace Assets.Sources.UI
         [SerializeField] private TextMeshProUGUI _text;
 
         private float _previousValue;
-        private Tween _popUpAnimation;
 
         public float Difference { get; private set; }
 
-        private protected override void Awake()
+        public override void Init(PauseHandler pauseHandler)
         {
-            base.Awake();
-            _popUpAnimation = AnimationSpawner.
-                GetPopUpAnimation(_text.rectTransform, _yPosition, _duration);
-        }
-
-        private void OnDisable()
-        {
-            _popUpAnimation.Kill();
-        }
-
-        private void Start()
-        {
+            base.Init(pauseHandler);
+            _smoothedFade.Init(pauseHandler);
             _text.text = "";
             _smoothedFade.FadeOut();
-        }
-
-        public override void Pause()
-        {
-            base.Pause();
-
-            if (_popUpAnimation.IsPlaying())
-                _popUpAnimation.Pause();
-        }
-
-        public override void Resume()
-        {
-            base.Resume();
-
-            if (_popUpAnimation.IsComplete() == false)
-                _popUpAnimation.Play();
+            IsInitialized = true;
         }
 
         public void ShowText(float currentValue)
         {
-            if (IsPaused)
+            if (IsPaused || IsInitialized == false)
                 return;
 
             _smoothedFade.ShowElements();
             CalculateDifference(currentValue);
             SetDifferenceText();
-            _popUpAnimation.Restart();
-            _popUpAnimation.OnComplete(() => _smoothedFade.FadeOut());
+            Animation.Restart();
+            Animation.OnComplete(() => _smoothedFade.FadeOut());
         }
 
         public void SetPreviousValue(float value)
@@ -92,6 +65,11 @@ namespace Assets.Sources.UI
                 _text.text = $"{Difference}";
                 _text.color = _negativeDifference;
             }
+        }
+
+        private protected override Sequence GetAnimation()
+        {
+            return AnimationSpawner.GetPopUpAnimation(_text.rectTransform, 50, 1);
         }
     }
 }

@@ -1,4 +1,5 @@
 using Assets.Sources.Audio;
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -15,18 +16,9 @@ namespace Assets.Sources.EnemyScripts
         private Rigidbody _rigidbody;
         private Vector3 _currentVelocity;
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            _nozzleSound.Init();
-            _nozzleSound.AudioSource.playOnAwake = false;
-            _nozzleSound.AudioSource.loop = true;
-            _nozzleSound.AudioSource.spatialBlend = 1;
-        }
-
         private protected override void Update()
         {
-            if (IsPaused || IsInitialized == false)
+            if (IsCanLive() == false)
                 return;
 
             if (_isLaunched)
@@ -57,9 +49,9 @@ namespace Assets.Sources.EnemyScripts
                 Interact();
         }
 
-        public override void Initialize(MissileConfig missileConfig, EnemyAttackZone attackZone)
+        public override void InitFromConfig(MissileConfig missileConfig, EnemyAttackZone attackZone)
         {
-            base.Initialize(missileConfig, attackZone);
+            base.InitFromConfig(missileConfig, attackZone);
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.useGravity = false;
 
@@ -67,11 +59,21 @@ namespace Assets.Sources.EnemyScripts
 
             if (_config != null)
             {
-                IsInitialized = true;
+                IsConfigurated = true;
                 return;
             }
 
-            IsInitialized = false;
+            IsConfigurated = false;
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            _nozzleSound.Init(pauseHandler);
+            _nozzleSound.AudioSource.playOnAwake = false;
+            _nozzleSound.AudioSource.loop = true;
+            _nozzleSound.AudioSource.spatialBlend = 1;
+            IsInitialized = true;
         }
 
         public void Launch()

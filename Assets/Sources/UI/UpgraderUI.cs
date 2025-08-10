@@ -51,9 +51,9 @@ namespace Assets.Sources.UI
             _damage.text = UserUtils.Damage + _upgrader.Damage.ToString("F2");
         }
 
-        private protected override Tween GetAnimation()
+        private protected override Sequence GetAnimation()
         {
-            return AnimationSpawner.GetShakeAnimation(_textPivot, 1);
+            return AnimationSpawner.GetShakeAnimation(_textPivot, 0.5f);
         }
     }
 }

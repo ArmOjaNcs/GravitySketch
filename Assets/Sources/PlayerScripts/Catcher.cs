@@ -23,17 +23,9 @@ namespace Assets.Sources.PlayerScripts
 
         public float Damage => _growHandler.CurrentSize * UserUtils.PlayerDamageMultiplier;
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            _sensor = GetComponent<CapsuleCollider>();
-            _enemiesInGravityCatch = new List<Enemy>();
-            _objectsInGravityCatch = new List<GameObject>();
-        }
-
         private void Update()
         {
-            if (IsPaused)
+            if (IsPaused || IsInitialized == false)
                 return;
 
             _currentDamageTime += Time.deltaTime;
@@ -109,8 +101,24 @@ namespace Assets.Sources.PlayerScripts
             }
         }
 
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+
+            if (IsInitialized)
+                return;
+
+            _sensor = GetComponent<CapsuleCollider>();
+            _enemiesInGravityCatch = new List<Enemy>();
+            _objectsInGravityCatch = new List<GameObject>();
+            IsInitialized = true;
+        }
+
         public void SetDie()
         {
+            if (IsInitialized == false)
+                return;
+
             _sensor.enabled = false;
 
             foreach(GameObject gameObject in _objectsInGravityCatch)
@@ -119,6 +127,9 @@ namespace Assets.Sources.PlayerScripts
 
         public void RefreshSensor()
         {
+            if (IsInitialized == false)
+                return;
+
             _sensor.enabled = false;
             _sensor.enabled = true;
         }

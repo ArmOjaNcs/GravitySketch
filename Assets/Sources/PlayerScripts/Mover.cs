@@ -25,22 +25,6 @@ namespace Assets.Sources.PlayerScripts
 
         public float MoveSpeed => _moveSpeed;
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            _rigidbody = GetComponent<Rigidbody>();
-            _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-            _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionX;
-            _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionZ;
-            _rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationY;
-            _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
-            _rigidbody.useGravity = false;
-            _rigidbody.isKinematic = false;
-            _currentSpeed = _moveSpeed;
-            _transform = transform;
-            _defaultY = _transform.position.y;
-        }
-
         private void OnEnable()
         {
             _booster.BoostApplied += OnBoostApplied;
@@ -57,7 +41,7 @@ namespace Assets.Sources.PlayerScripts
 
         private void Update()
         {
-            if (IsPaused)
+            if (IsPaused || IsInitialized == false)
                 return;
 
             FixYPosition();
@@ -65,7 +49,7 @@ namespace Assets.Sources.PlayerScripts
 
         private void FixedUpdate()
         {
-            if (IsPaused)
+            if (IsPaused || IsInitialized == false)
                 return;
 
             Move();
@@ -74,7 +58,27 @@ namespace Assets.Sources.PlayerScripts
 
         private void LateUpdate()
         {
+            if (IsPaused || IsInitialized == false)
+                return;
+
             PositionChanged?.Invoke(_transform.position);
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            _rigidbody = GetComponent<Rigidbody>();
+            _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionX;
+            _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionZ;
+            _rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationY;
+            _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+            _rigidbody.useGravity = false;
+            _rigidbody.isKinematic = false;
+            _currentSpeed = _moveSpeed;
+            _transform = transform;
+            _defaultY = _transform.position.y;
+            IsInitialized = true;
         }
 
         public override void Pause()

@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Assets.Sources.Utils;
 using Assets.Sources.Dissolvable;
+using Assets.Sources.Pause;
 
 namespace Assets.Sources.Level
 {
@@ -10,6 +11,12 @@ namespace Assets.Sources.Level
         public event Action Exit;
 
         public bool IsDowned { get; private set; }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            IsInitialized = true;
+        }
 
         public override void DropDown()
         {

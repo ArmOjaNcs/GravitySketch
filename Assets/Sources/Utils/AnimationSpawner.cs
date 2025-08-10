@@ -31,6 +31,21 @@ namespace Assets.Sources.Utils
             return sequence;
         }
 
+        public static Sequence GetArrowAnimation(RectTransform transform)
+        {
+            Vector2 startAnchoredPos = transform.anchoredPosition;
+            Vector3 startScale = transform.localScale;
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(transform.DOAnchorPosX(startAnchoredPos.x - 50f, 0.75f))
+                    .Insert(0, transform.DOScale(startScale * 0.75f, 0.75f))
+                    .SetLoops(-1, LoopType.Yoyo)
+                    .SetLink(transform.gameObject)
+                    .SetEase(Ease.Linear)
+                    .SetAutoKill(false)
+                    .Pause();
+            return sequence;
+        }
+
         public static Tween GetDissolveAnimation(Transform transform, float duration = 0)
         {
             if (duration <= 0)
@@ -39,7 +54,7 @@ namespace Assets.Sources.Utils
             return transform.DOScale(0, duration).SetLink(transform.gameObject).Pause();
         }
 
-        public static Tween GetPopUpAnimation(RectTransform rectTransform, float offsetY, float duration = 0)
+        public static Sequence GetPopUpAnimation(RectTransform rectTransform, float offsetY, float duration = 0)
         {
             if (duration <= 0)
                 duration = BaseAnimationLength;
@@ -47,19 +62,51 @@ namespace Assets.Sources.Utils
             Vector2 startPos = rectTransform.anchoredPosition;
             Vector2 endPos = startPos + Vector2.up * offsetY;
 
-            return rectTransform.DOAnchorPos(endPos, duration)
-                .SetEase(Ease.OutQuad)
-                .From(startPos)
-                .SetAutoKill(false)
-                .Pause();
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(rectTransform.DOAnchorPos(endPos, duration).From(startPos))
+                    .SetEase(Ease.OutQuad)
+                    .SetAutoKill(false)
+                    .Pause();
+
+            return sequence;
         }
 
-        public static Tween GetShakeAnimation(RectTransform transform, float duration = 0)
+        public static Sequence GetShakeAnimation(RectTransform transform, float duration = 0)
         {
             if (duration <= 0)
                 duration = BaseAnimationLength;
 
-            return transform.DOShakeAnchorPos(duration, 10).SetEase(Ease.Linear).SetAutoKill(false).Pause();
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(transform.DOShakeAnchorPos(duration, 10).SetEase(Ease.Linear))
+                    .SetAutoKill(false)
+                    .Pause();
+            return sequence;
+        }
+
+        public static Sequence GetFadeAnimation(CanvasGroup canvasGroup, float startValue, float endValue, float duration = 0)
+        {
+            if (duration <= 0)
+                duration = BaseAnimationLength;
+
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(canvasGroup.DOFade(endValue, duration).From(startValue))
+                    .SetAutoKill(false)
+                    .SetEase(Ease.Linear)
+                    .Pause();
+
+            return sequence;
+        }
+
+        public static Tween GetLoadAnimation(RectTransform transform, float duration = 0)
+        {
+            if (duration <= 0)
+                duration = BaseAnimationLength;
+
+            return transform.DORotate(new Vector3(0, 0, 360), duration, RotateMode.FastBeyond360)
+                .SetAutoKill(false)
+                .SetLoops(-1)
+                .SetEase(Ease.Linear)
+                .SetLink(transform.gameObject);
         }
 
         public static Sequence GetShowAnimation(RectTransform transform, float duration)

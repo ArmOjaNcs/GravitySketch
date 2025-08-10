@@ -1,4 +1,5 @@
 using Assets.Sources.Audio;
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -9,10 +10,10 @@ namespace Assets.Sources.EnemyScripts
         private ObjectPool<ThrowableBomb> _pool;
         private BombConfig _config;
 
-        public override void Initialize(EnemyAttackConfig config, Transform firePoint, 
-            AudioPlayerSpawner audioPlayerSpawner)
+        public override void InitFromConfig(EnemyAttackConfig config, Transform firePoint, 
+            AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
         {
-            base.Initialize(config, firePoint, audioPlayerSpawner);
+            base.InitFromConfig(config, firePoint, audioPlayerSpawner, pauseHandler);
 
             BomberConfig bomberConfig = config.SafeCast<BomberConfig>();
 
@@ -34,7 +35,10 @@ namespace Assets.Sources.EnemyScripts
             ThrowableBomb bomb = _pool.GetElement();
    
             if (bomb.IsInitialized == false)
-                bomb.Initialize(_config, this);
+            {
+                bomb.InitFromConfig(_config, this);
+                bomb.Init(PauseHandler);
+            }
 
             bomb.transform.position = FirePoint.position;
             bomb.gameObject.SetActive(true);

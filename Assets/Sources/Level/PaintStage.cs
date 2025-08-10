@@ -1,7 +1,7 @@
 using Assets.Sources.ColorizerScripts;
 using Assets.Sources.Pause;
-using Assets.Sources.ScoreScripts;
 using Assets.Sources.Table;
+using Assets.Sources.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,15 +28,6 @@ namespace Assets.Sources.Level
         public bool IsReferenceShowing { get; private set; }
         public IReadOnlyList<IReadonlyTemplateCube> TemplateCubes => _template.TemplateCubes;
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            _materialReference.ResetEntriesCurrentIndex();
-            _colorizer.Init(this, CurrentColors);
-            _validator.Init(this);
-            _positionHandler.Init(this);
-        }
-
         private void OnEnable()
         {
             _validator.Finished += OnFinished;
@@ -51,13 +42,15 @@ namespace Assets.Sources.Level
             _autoPaint.onValueChanged.RemoveListener(OnAutoPaint);
         }
 
-        private void Update()
+        public void Init(PauseHandler pauseHandler)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
-                PauseableObjectsHandler.Pause();
-
-            if (Input.GetKeyDown(KeyCode.E))
-                PauseableObjectsHandler.Resume();
+            _materialReference.ResetEntriesCurrentIndex();
+            _colorizer.SetStage(this, CurrentColors);
+            _colorizer.Init(pauseHandler);
+            _validator.Init(this);
+            _referenceViewer.Init(pauseHandler);
+            _positionHandler.SetPaintStage(this);
+            _positionHandler.Init(pauseHandler);
         }
 
         public IReadonlyTemplateCube GetCubeByColor(Color color)
@@ -125,10 +118,12 @@ namespace Assets.Sources.Level
         {
             yield return new WaitForSeconds(2);
 
-            int finalScore = _validator.MatchScore + CurrentScore;
+            int finalScore = _validator.MatchScore + CurrentScore + _referenceViewer.ShowCount * UserUtils.ShowScore;
             UpdateProgress(CurrentLevelIndex, finalScore);
             TotalScoreUpdated?.Invoke(finalScore);
             SaveProgress();
         }
+
+        private void OnNextApplied() => LoadNextScene();
     }
 }

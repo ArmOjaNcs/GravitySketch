@@ -15,16 +15,6 @@ namespace Assets.Sources.Table
         private Transform _transform;
         private float _targetRadius;
         private float _currentRadius;
-        
-        private protected override void Awake()
-        {
-            base.Awake();
-            _targetRadius = _mover.transform.lossyScale.x / 2;
-            _material.SetFloat("_HoleRadius", _targetRadius);
-            _currentRadius = _targetRadius;
-            _transform = transform;
-            _renderer.material = _material;
-        }
 
         private void OnEnable()
         {
@@ -39,6 +29,17 @@ namespace Assets.Sources.Table
             _mover.PositionChanged -= OnPositionChanged;
             _grower.SizeChanged -= OnSizeChanged;
             _player.IsDead -= OnPlayerDead;
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            _targetRadius = _mover.transform.lossyScale.x / 2;
+            _material.SetFloat("_HoleRadius", _targetRadius);
+            _currentRadius = _targetRadius;
+            _transform = transform;
+            _renderer.material = _material;
+            IsInitialized = true;
         }
 
         private void OnPositionChanged(Vector3 position)

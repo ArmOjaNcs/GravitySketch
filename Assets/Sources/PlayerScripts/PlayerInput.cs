@@ -19,7 +19,7 @@ namespace Assets.Sources.PlayerScripts
 
         private void Update()
         {
-            if (IsPaused)
+            if (IsPaused || IsInitialized == false)
                 return;
 
             DirectionChanged?.Invoke(new Vector2(HorizontalInput, VerticalInput));
@@ -30,5 +30,7 @@ namespace Assets.Sources.PlayerScripts
 
             Rotated?.Invoke(Input.GetAxis("Mouse X"));
         }
+
+        public void StartInput() => IsInitialized = true;
     }
 }

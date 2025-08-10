@@ -17,9 +17,9 @@ namespace Assets.Sources.EnemyScripts
                 Renderer.enabled = true;
         }
 
-        public override void Initialize(MissileConfig missileConfig, EnemyAttackZone attackZone)
+        public override void InitFromConfig(MissileConfig missileConfig, EnemyAttackZone attackZone)
         {
-            base.Initialize(missileConfig, attackZone);
+            base.InitFromConfig(missileConfig, attackZone);
             Renderer = GetComponent<Renderer>();
             MPropertyBlock = new MaterialPropertyBlock();
             SetColor(missileConfig.Color);

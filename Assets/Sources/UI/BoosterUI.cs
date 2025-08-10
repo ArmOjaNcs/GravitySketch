@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using DG.Tweening;
 using UnityEngine;
@@ -22,6 +23,12 @@ namespace Assets.Sources.UI
             _booster.Reloading -= OnReloading;
             _booster.Reloaded -= OnReloaded;
             base.OnDisable();
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            IsInitialized = true;
         }
 
         private protected override void OnReloadImageUpdated()

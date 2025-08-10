@@ -1,4 +1,5 @@
 using Assets.Sources.Dissolvable;
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using DG.Tweening;
 using UnityEngine;
@@ -17,16 +18,17 @@ namespace Assets.Sources.SimpleCubeScripts
 
         public Color Color => _currentColor;
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            _idleAnimation = AnimationSpawner.GetIdleAnimation(transform);
-            _idleAnimation.Restart();
-        }
-
         private void OnEnable()
         {
             transform.parent = null;
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            _idleAnimation = AnimationSpawner.GetIdleAnimation(transform);
+            _idleAnimation.Restart();
+            IsInitialized = true;
         }
 
         public override void Pause()

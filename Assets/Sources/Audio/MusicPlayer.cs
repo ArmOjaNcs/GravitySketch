@@ -19,9 +19,7 @@ namespace Assets.Sources.Audio
 
         private void Awake()
         {
-            _indexOfClip = Random.Range(0, _music.Count);
-            _musicSource.clip = _music[_indexOfClip];
-            _isPlaying = true;
+            PlayRandomMusic();
         }
 
         private void OnEnable()
@@ -76,6 +74,13 @@ namespace Assets.Sources.Audio
             _musicSource.loop = false;
             _musicSource.Play();
             _isPlaying = false;
+        }
+
+        private void PlayRandomMusic()
+        {
+            _indexOfClip = Random.Range(0, _music.Count);
+            _musicSource.clip = _music[_indexOfClip];
+            _isPlaying = true;
         }
     }
 }

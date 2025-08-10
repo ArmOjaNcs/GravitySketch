@@ -20,31 +20,15 @@ namespace Assets.Sources.AnomalyScpipts
         private Rigidbody _rigidbody;
         private bool _isMove;
 
-        private protected override void Awake()
-        {
-            base.Awake();
-            _transform = transform;
-            _rigidbody = GetComponent<Rigidbody>();
-            _anomaly = GetComponent<Anomaly>();
-            _isMove = true;
-
-            if (_movePoints.Length < 1 || _movePoints[_index] == null)
-                Debug.LogError("Move points is empty");
-        }
-
-        private void OnEnable()
-        {
-            _anomaly.IsDowned += OnIsDowned;
-        }
-
         private void OnDisable()
         {
-            _anomaly.IsDowned -= OnIsDowned;
+            if(_anomaly != null)
+                _anomaly.IsDowned -= OnIsDowned;
         }
 
         private void Update()
         {
-            if (IsPaused)
+            if (IsPaused || IsInitialized == false)
                 return;
 
             ChangeTarget();
@@ -52,11 +36,30 @@ namespace Assets.Sources.AnomalyScpipts
 
         private void FixedUpdate()
         {
-            if (IsPaused)
+            if (IsPaused || IsInitialized == false)
                 return;
 
             if (_isMove)
                 MoveByPoint();
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            _transform = transform;
+            _rigidbody = GetComponent<Rigidbody>();
+            _anomaly = GetComponent<Anomaly>();
+            _anomaly.IsDowned += OnIsDowned;
+            _isMove = true;
+
+            if (_movePoints.Length < 1 || _movePoints[_index] == null)
+            {
+                Debug.LogError("Move points is empty");
+                IsInitialized = false;
+                return;
+            }
+
+            IsInitialized = true;
         }
 
         private void OnIsDowned() => _isMove = false;

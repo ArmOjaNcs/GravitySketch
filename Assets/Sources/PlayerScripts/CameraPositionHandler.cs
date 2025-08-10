@@ -24,11 +24,16 @@ namespace Assets.Sources.PlayerScripts
             _growHandler.Growing -= OnGrowing;
         }
 
-        private protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
             _cinemachineTransposer = _virtualCamera.GetCinemachineComponent<CinemachineTransposer>();
             _targetOffset = _cinemachineTransposer.m_FollowOffset;
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            IsInitialized = true;
         }
 
         private void OnGrowing()

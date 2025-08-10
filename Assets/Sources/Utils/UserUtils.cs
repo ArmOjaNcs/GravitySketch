@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -20,7 +21,11 @@ namespace Assets.Sources.Utils
         public const int PhysicalMissileLayer = 23;
         public const int RewardBySize = 100;
         public const int MatchScore = 500;
+        public const int ShowScore = 5000;
 
+        public const string TotalScore = "Total score: ";
+        public const string CollectScore = "Collect score: ";
+        public const string PaintScore = "Paint score: ";
         public const string Horizontal = nameof(Horizontal);
         public const string Vertical = nameof(Vertical);
         public const string DissolvableObject = nameof(DissolvableObject);
@@ -34,24 +39,33 @@ namespace Assets.Sources.Utils
         public const string DefenceTime = "Defence time ";
         public const string Damage = "Damage ";
         public const string Upgraded = "Upgraded!!!";
+        public const string Loading = "Loading...";
+        public const string ShowCounts = "Show counts: ";
+        public const string MainMenu = nameof(MainMenu);
+        public const string Radar = nameof(Radar);
+        public const string RadarPaint = nameof(RadarPaint);
         public const string MixerGroupSound = nameof(MixerGroupSound);
         public const string MixerGroupInterface = nameof(MixerGroupInterface);
 
+        public const float ShowTime = 0.1f;
+        public const float CalculateTime = 2f;
         public const float PlayerStartHealth = 100;
         public const float PlayerHealthByGrow = 5;
         public const float One = 1;
         public const float Two = 2;
+        public const float Three = 3;
         public const float HalfUnit = 0.5f;
+        public const float ThirdOfUnit = 0.33f;
         public const float TimeForShow = 5f;
         public const float MinPercentToComplete = 0.7f;
         public const float ExitTime = 3;
         public const float PlayerDamageMultiplier = 1.5f;
+        public const float LoadTime = 5f;
 
         public const char PlusSign = '+';
         public const char DefaultChar = '\0';
 
         private const float MinAlfa = 0.1f;
-        private const char MinusSign = '-';
 
         public static readonly int ColorID = Shader.PropertyToID("_Color");
 
@@ -109,19 +123,6 @@ namespace Assets.Sources.Utils
             return color;
         }
 
-        public static void SetTextValue(TextMeshProUGUI text, int value)
-        {
-            if (value <= 0)
-            {
-                text.text = value.ToString();
-                text.color = Color.red;
-                return;
-            }
-
-            text.text = PlusSign.ToString() + value.ToString();
-            text.color = Color.green;
-        }
-
         public static void SetActiveElements(bool isActive, List<GameObject> gameObjects = null)
         {
             if (gameObjects == null)
@@ -129,6 +130,21 @@ namespace Assets.Sources.Utils
 
             foreach (GameObject gameObj in gameObjects)
                 gameObj.SetActive(isActive);
+        }
+
+        public static string GetSceneName(int index)
+        {
+            switch (index)
+            {
+                case 0:
+                    return Radar;
+
+                case 1:
+                    return RadarPaint;
+
+                default:
+                    return string.Empty;
+            }
         }
     }
 }

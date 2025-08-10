@@ -1,3 +1,4 @@
+using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -9,9 +10,10 @@ namespace Assets.Sources.UI
 
         private const string Energy = "Energy ";
 
-        private protected override void Start()
+        public override void Init(PauseHandler pauseHandler)
         {
-            base.Start();
+            base.Init(pauseHandler);
+            _popUpText.Init(pauseHandler);
             StartText = Energy;
             IsNeedToSplit = true;
             SplitSign = '/';

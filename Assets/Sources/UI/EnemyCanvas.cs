@@ -1,6 +1,7 @@
 using UnityEngine;
 using Assets.Sources.Utils;
 using Assets.Sources.EnemyScripts;
+using Assets.Sources.Pause;
 
 namespace Assets.Sources.UI
 {
@@ -21,9 +22,11 @@ namespace Assets.Sources.UI
             _enemy.Detected -= OnDetected;
         }
 
-        private protected override void Start()
+        public override void Init(PauseHandler pauseHandler)
         {
+            base.Init(pauseHandler);
             UserUtils.SetActiveElements(false, Elements);
+            IsInitialized = true;
         }
 
         private void OnDetected(bool isDetected)
