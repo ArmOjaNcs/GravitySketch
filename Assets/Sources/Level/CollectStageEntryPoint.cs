@@ -29,8 +29,8 @@ namespace Assets.Sources.Level
         {
             _maskHandler.Init(PauseHandler);
             _playerInput.Init(PauseHandler);
-            _enemyFactory.Init(AudioPlayerSpawner, PauseHandler);
-            _collectStage.Init(PauseHandler);
+            _enemyFactory.Init(PauseHandler, AudioPlayerSpawner);
+            _collectStage.Init(PauseHandler, AudioPlayerSpawner);
 
             foreach (DissolvableObstacle obstacle in _obstacles)
             {

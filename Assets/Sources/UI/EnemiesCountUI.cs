@@ -3,13 +3,12 @@ using UnityEngine;
 using Assets.Sources.Utils;
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.PlayerScripts;
+using Assets.Sources.Audio;
 
 namespace Assets.Sources.UI
 {
     public class EnemiesCountUI : MonoBehaviour
     {
-        private const string EnemiesCount = "Enemies killed: ";
-
         [SerializeField] private EnemyFactory _enemyFactory;
         [SerializeField] private TakeOverLimit _takeOverLimit;
         [SerializeField] private TextMeshProUGUI _text;
@@ -41,7 +40,7 @@ namespace Assets.Sources.UI
 
             _text.color = UserUtils.GetColorByPercentage(percent);
 
-            _text.text = EnemiesCount + _takeOverLimit.EnemiesDissolvedCount + "/" + _totalEnemies + " "
+            _text.text = UserUtils.EnemiesCount + _takeOverLimit.EnemiesDissolvedCount + "/" + _totalEnemies + " "
                 + (percent * 100).ToString("F2") + "%";
         }
     }

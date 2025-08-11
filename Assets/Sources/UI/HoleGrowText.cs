@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Utils;
@@ -13,6 +14,7 @@ namespace Assets.Sources.UI
         [SerializeField] private TextMeshProUGUI _growText;
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private SmoothedFade _smoothedFade;
+        [SerializeField] private AudioPlayer _audioPlayer;
 
         private void OnEnable()
         {
@@ -30,6 +32,9 @@ namespace Assets.Sources.UI
             base.Init(pauseHandler);
             _growText.text = GrowUp;
             _growText.gameObject.SetActive(false);
+            _audioPlayer.Init(pauseHandler);
+            _audioPlayer.AudioSource.playOnAwake = false;
+            _audioPlayer.AudioSource.loop = false;
             _smoothedFade.Init(pauseHandler);
             _smoothedFade.SetStartAplpha(UserUtils.HalfUnit);
             _smoothedFade.FadeOut();
@@ -39,11 +44,13 @@ namespace Assets.Sources.UI
         private protected override void OnRoutineStart()
         {
             _smoothedFade.ShowElements();
+            _audioPlayer.Play();
         }
 
         private protected override void OnRoutineEnd()
         {
             _smoothedFade.FadeOut();
+            _audioPlayer.Stop();
         }
     }
 }

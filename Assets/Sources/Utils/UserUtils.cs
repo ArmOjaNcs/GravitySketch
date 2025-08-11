@@ -26,6 +26,8 @@ namespace Assets.Sources.Utils
         public const string TotalScore = "Total score: ";
         public const string CollectScore = "Collect score: ";
         public const string PaintScore = "Paint score: ";
+        public const string EnemiesCount = "Enemies killed: ";
+        public const string CubesCount = "Cubes collected: ";
         public const string Horizontal = nameof(Horizontal);
         public const string Vertical = nameof(Vertical);
         public const string DissolvableObject = nameof(DissolvableObject);
@@ -38,6 +40,7 @@ namespace Assets.Sources.Utils
         public const string BoostSpeed = "Boost speed ";
         public const string DefenceTime = "Defence time ";
         public const string Damage = "Damage ";
+        public const string Score = "Score ";
         public const string Upgraded = "Upgraded!!!";
         public const string Loading = "Loading...";
         public const string ShowCounts = "Show counts: ";

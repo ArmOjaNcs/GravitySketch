@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
@@ -37,12 +38,14 @@ namespace Assets.Sources.Level
             _pauseableRoutine.Updated -= OnRoutineUpdated;
         }
 
-        public void Init(PauseHandler pauseHandler)
+        public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
         {
             _exit.Init(pauseHandler);
+            _exit.SetAudioPlayerSpawner(audioPlayerSpawner);
             _exit.SetSize(0);
             _exit.gameObject.SetActive(false);
             _pauseableRoutine.Init(pauseHandler);
+            _takeOverLimit.SetAudioPlayerSpawner(audioPlayerSpawner);
         }
 
         private void OnRoutineUpdated()

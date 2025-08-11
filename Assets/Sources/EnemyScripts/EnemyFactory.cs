@@ -24,7 +24,7 @@ namespace Assets.Sources.EnemyScripts
 
         public int TotalEnemies { get; private set; }
 
-        public void Init(AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
+        public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
         {
             _audioPlayerSpawner = audioPlayerSpawner;
             _pauseHandler = pauseHandler;

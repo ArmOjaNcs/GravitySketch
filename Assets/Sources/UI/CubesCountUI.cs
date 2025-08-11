@@ -1,15 +1,13 @@
-﻿using UnityEngine;
-using Assets.Sources.Utils;
+﻿using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.SimpleCubeScripts;
-using Assets.Sources.Pause;
+using Assets.Sources.Utils;
+using UnityEngine;
 
 namespace Assets.Sources.UI
 {
     public class CubesCountUI : SmoothedText
     {
-        private const string CubesCount = "Cubes collected: ";
-
         [SerializeField] private CubesCollector _cubesCollector;
         [SerializeField] private SimpleCubeSpawner _simpleCubeSpawner;
 
@@ -27,7 +25,7 @@ namespace Assets.Sources.UI
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            StartText = CubesCount;
+            StartText = UserUtils.CubesCount;
             IsNeedToSplit = true;
             SplitSign = '/';
             MaxValue = _simpleCubeSpawner.TotalCubes;

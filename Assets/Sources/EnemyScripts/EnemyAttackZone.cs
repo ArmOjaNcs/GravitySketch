@@ -82,7 +82,7 @@ namespace Assets.Sources.EnemyScripts
 
         private protected AudioPlayer GetAudioPlayer()
         {
-            return _audioPlayerSpawner.GetAudioPlayer(FirePoint.position, UserUtils.MixerGroupSound);
+            return _audioPlayerSpawner.GetAudioPlayer(FirePoint.position);
         }
     }
 }

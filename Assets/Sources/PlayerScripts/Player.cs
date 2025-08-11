@@ -4,6 +4,7 @@ using Assets.Sources.Utils;
 using Assets.Sources.Dissolvable;
 using System.Collections.Generic;
 using Assets.Sources.Pause;
+using Assets.Sources.Audio;
 
 namespace Assets.Sources.PlayerScripts
 {
@@ -18,6 +19,7 @@ namespace Assets.Sources.PlayerScripts
         [SerializeField] private Health _health;
         [SerializeField] private TakeOverLimit _takeOverLimit;
         [SerializeField] private List<PauseableObject> _objects;
+        [SerializeField] private AudioPlayer _audioPlayer;
 
         private Transform _transform;
         private Rigidbody _rigidbody;
@@ -68,6 +70,10 @@ namespace Assets.Sources.PlayerScripts
         {
             foreach (PauseableObject pauseableObject in _objects)
                 pauseableObject.Init(pauseHandler);
+
+            _audioPlayer.Init(pauseHandler);
+            _audioPlayer.AudioSource.playOnAwake = false;
+            _audioPlayer.AudioSource.loop = false;
         }
 
         public void TakeDamage(float damage, Vector3 forcePosition, float force)
@@ -78,6 +84,7 @@ namespace Assets.Sources.PlayerScripts
             Vector3 forceVector = (Position - forcePosition).normalized;
             forceVector.y = 0;
             _health.TakeDamage(damage);
+            _audioPlayer.Play();
 
             if (_health.CurrentValue == 0)
             {

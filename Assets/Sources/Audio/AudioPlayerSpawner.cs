@@ -25,32 +25,43 @@ namespace Assets.Sources.Audio
             _pauseHandler = pauseHandler;
         }
 
-        public AudioPlayer GetAudioPlayer(Vector3 position, string mixerGroupName)
+        public AudioPlayer GetAudioPlayer(Vector3 position)
         {
-            if(_pauseHandler == null)
+            if (_pauseHandler == null)
                 return null;
 
             AudioPlayer audioPlayer = _pool.GetElement();
             Initialize(audioPlayer);
+            audioPlayer.AudioSource.spatialBlend = 1;
             audioPlayer.SetPosition(position);
+            audioPlayer.AudioSource.outputAudioMixerGroup = _soundGroup;
+           
+            return audioPlayer;
+        }
 
-            if (mixerGroupName.Equals(UserUtils.MixerGroupSound))
-                audioPlayer.AudioSource.outputAudioMixerGroup = _soundGroup;
-            else if (mixerGroupName.Equals(UserUtils.MixerGroupInterface))
-                audioPlayer.AudioSource.outputAudioMixerGroup = _interfaceGroup;
+        public AudioPlayer GetAudioPlayer()
+        {
+            if (_pauseHandler == null)
+                return null;
+
+            AudioPlayer audioPlayer = _pool.GetElement();
+            Initialize(audioPlayer);
+            audioPlayer.AudioSource.spatialBlend = 0;
+            audioPlayer.AudioSource.outputAudioMixerGroup = _interfaceGroup;
 
             return audioPlayer;
         }
 
         private void Initialize(AudioPlayer audioPlayer)
         {
-            audioPlayer.Init(_pauseHandler);
+            if(audioPlayer.IsInitialized == false)
+                audioPlayer.Init(_pauseHandler);
+
             audioPlayer.IsFinishable = true;
             audioPlayer.PlaybackIsFinished += OnPlaybackIsFinished;
             audioPlayer.AudioSource.playOnAwake = false;
             audioPlayer.AudioSource.loop = false;
             audioPlayer.gameObject.SetActive(true);
-            audioPlayer.AudioSource.spatialBlend = 1;
         }
 
         private void OnPlaybackIsFinished(AudioPlayer audioPlayer)

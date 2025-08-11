@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Utils;
@@ -9,6 +10,7 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private PlayerScore _playerScore;
         [SerializeField] private PopUpText _popUpText;
+        [SerializeField] private AudioPlayer _audioPlayer;
 
         private void OnEnable()
         {
@@ -25,7 +27,10 @@ namespace Assets.Sources.UI
         {
             base.Init(pauseHandler);
             _popUpText.Init(pauseHandler);
-            StartText = "Score ";
+            _audioPlayer.Init(pauseHandler);
+            _audioPlayer.AudioSource.playOnAwake = false;
+            _audioPlayer.AudioSource.loop = true;
+            StartText = UserUtils.Score;
             SplitSign = UserUtils.DefaultChar;
             IsNeedToSplit = false;
             Text.text = GetTotalText();
@@ -37,7 +42,14 @@ namespace Assets.Sources.UI
             TargetValue = _playerScore.Value;
             _popUpText.SetPreviousValue(0);
             _popUpText.ShowText(reward);
+            _audioPlayer.Play();
             OnUpdate();
+        }
+
+        private protected override void OnRoutineEnd()
+        {
+            _audioPlayer.Stop();
+            base.OnRoutineEnd();
         }
     }
 }
