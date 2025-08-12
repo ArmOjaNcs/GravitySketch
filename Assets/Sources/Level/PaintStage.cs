@@ -121,7 +121,12 @@ namespace Assets.Sources.Level
             int finalScore = _validator.MatchScore + CurrentScore + _referenceViewer.ShowCount * UserUtils.ShowScore;
             UpdateProgress(CurrentLevelIndex, finalScore);
             TotalScoreUpdated?.Invoke(finalScore);
-            SaveProgress();
+            int nextIndex = Index + (int)UserUtils.One;
+
+            if (UserUtils.TryGetSceneName(nextIndex, out string _))
+                SetCurrentIndex(nextIndex);
+            else
+                SaveProgress();
         }
 
         private void OnNextApplied() => LoadNextScene();

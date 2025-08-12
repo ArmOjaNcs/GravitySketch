@@ -22,6 +22,12 @@ namespace Assets.Sources.Level
         private float _currentEnemyDissolvedPercent;
         private float _currentCubesCountPercent;
 
+        private protected override void Awake()
+        {
+            base.Awake();
+            SetCurrentIndex(Index);
+        }
+
         private void OnEnable()
         {
             _exit.Exit += OnExitApplied;

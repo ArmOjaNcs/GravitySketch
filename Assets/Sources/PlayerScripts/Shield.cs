@@ -1,16 +1,17 @@
+using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using System;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
 {
-    [RequireComponent(typeof(MeshRenderer))]
     public class Shield : PlayerAbility
     {
         [SerializeField, Min(0)] private float _defendUpgradeDelta;
         [SerializeField, Min(1)] private float _maxDefendTime;
+        [SerializeField] private MeshRenderer _meshRenderer;
+        [SerializeField] private AudioPlayer _audioPlayer;
 
-        private MeshRenderer _meshRenderer;
         private bool _isDefended;
         private bool _isDefendApplied;
 
@@ -45,8 +46,10 @@ namespace Assets.Sources.PlayerScripts
         {
             base.Init(pauseHandler);
             CycleTime = ReloadTime + ActiveTime;
-            _meshRenderer = GetComponent<MeshRenderer>();
             _meshRenderer.enabled = false;
+            _audioPlayer.Init(pauseHandler);
+            _audioPlayer.AudioSource.playOnAwake = false;
+            _audioPlayer.AudioSource.loop = false;
             IsInitialized = true;
         }
 
@@ -55,6 +58,7 @@ namespace Assets.Sources.PlayerScripts
             if (_isDefendApplied)
                 return;
 
+            _audioPlayer.Play();
             _isDefendApplied = true;
             _isDefended = true;
             _meshRenderer.enabled = true;
@@ -67,6 +71,7 @@ namespace Assets.Sources.PlayerScripts
 
             if (CurrentActiveTime > ActiveTime && IsReloading == false)
             {
+                _audioPlayer.Stop();
                 _isDefended = false;
                 _meshRenderer.enabled = false;
                 IsReloading = true;

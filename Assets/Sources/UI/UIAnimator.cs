@@ -30,7 +30,7 @@ namespace Assets.Sources.UI
         {
             IsShown = true;
             HideAnimation?.Pause();
-            gameObject.SetActive(true);
+            RectTransform.gameObject.SetActive(true);
             ShowAnimation?.Restart();
         }
 

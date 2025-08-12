@@ -19,10 +19,12 @@ namespace Assets.Sources.Level
         public IReadOnlyList<Color> CurrentColors => _progress.CurrentColors;
         public int ColorsCount => _progress.ColorsCount;
 
-        private void Awake()
+        private protected virtual void Awake()
         {
             LoadProgress();
         }
+
+        public int GetLevelScore(int index) => _progress.GetLevelScore(index);
 
         private protected void SetIntermediateResult(int index, int value, List<Color> colors)
         {
@@ -43,8 +45,6 @@ namespace Assets.Sources.Level
         {
             _progress.UpdateLevelScore(levelIndex, score);
         }
-        
-        private protected int GetLevelScore(int index)=> _progress.GetLevelScore(index);
 
         private protected void LoadScene(string sceneName)
         {
@@ -56,9 +56,7 @@ namespace Assets.Sources.Level
 
         private protected void LoadNextScene()
         {
-            string nextSceneName = UserUtils.GetSceneName(Index + (int)UserUtils.One);
-
-            if (nextSceneName != string.Empty)
+            if (UserUtils.TryGetSceneName(Index + (int)UserUtils.One, out string nextSceneName))
                 SceneManager.LoadScene(nextSceneName);
             else
                 SceneManager.LoadScene(UserUtils.MainMenu);
@@ -66,12 +64,16 @@ namespace Assets.Sources.Level
 
         private protected void RestartScene()
         {
-            string sceneName = UserUtils.GetSceneName(Index);
-
-            if (sceneName != string.Empty)
+            if (UserUtils.TryGetSceneName(Index, out string sceneName))
                 SceneManager.LoadScene(sceneName);
             else
                 SceneManager.LoadScene(UserUtils.MainMenu);
+        }
+
+        private protected void SetCurrentIndex(int index)
+        {
+            _progress.SetCurrentIndex(index);
+            SaveProgress();
         }
     }
 }

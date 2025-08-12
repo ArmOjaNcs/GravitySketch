@@ -41,6 +41,8 @@ namespace Assets.Sources.Utils
         public const string DefenceTime = "Defence time ";
         public const string Damage = "Damage ";
         public const string Score = "Score ";
+        public const string Start = nameof(Start);
+        public const string Resume = nameof(Resume);
         public const string Upgraded = "Upgraded!!!";
         public const string Loading = "Loading...";
         public const string ShowCounts = "Show counts: ";
@@ -135,18 +137,21 @@ namespace Assets.Sources.Utils
                 gameObj.SetActive(isActive);
         }
 
-        public static string GetSceneName(int index)
+        public static bool TryGetSceneName(int index, out string sceneName)
         {
             switch (index)
             {
                 case 0:
-                    return Radar;
+                    sceneName = Radar;
+                    return true;
 
                 case 1:
-                    return RadarPaint;
+                    sceneName = RadarPaint;
+                    return true;
 
                 default:
-                    return string.Empty;
+                    sceneName = string.Empty;
+                    return false;
             }
         }
     }

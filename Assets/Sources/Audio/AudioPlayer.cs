@@ -29,11 +29,16 @@ namespace Assets.Sources.Audio
 
         private void Update()
         {
-            if (IsInitialized == false)
+            if (IsInitialized == false || _isPlaying == false || IsPaused)
                 return;
+            
+            if(IsFinishable == false)
+            {
+                if (AudioSource.isPlaying == false && _isPlaying && AudioSource.loop == false)
+                    Stop();
 
-            if (_isPlaying == false || IsPaused || IsFinishable == false)
                 return;
+            }
 
             if (AudioSource.isPlaying == false && _isFinished == false)
             {

@@ -35,6 +35,8 @@ namespace Assets.Sources.Save
             _currentColors = colors;
         }
 
+        public void SetCurrentIndex(int index) => _currentLevelIndex = index;
+
         public void UpdateLevelScore(int levelIndex, int score)
         {
             if (IsHasLevel(levelIndex, out LevelData levelScore))

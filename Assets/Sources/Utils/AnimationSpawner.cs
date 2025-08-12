@@ -43,6 +43,7 @@ namespace Assets.Sources.Utils
                     .SetEase(Ease.Linear)
                     .SetAutoKill(false)
                     .Pause();
+
             return sequence;
         }
 
@@ -80,16 +81,30 @@ namespace Assets.Sources.Utils
             sequence.Append(transform.DOShakeAnchorPos(duration, 10).SetEase(Ease.Linear))
                     .SetAutoKill(false)
                     .Pause();
+
             return sequence;
         }
 
-        public static Sequence GetFadeAnimation(CanvasGroup canvasGroup, float startValue, float endValue, float duration = 0)
+        public static Sequence GetFadeAnimation(CanvasGroup canvasGroup, float startValue, 
+            float endValue, float duration = 0)
         {
             if (duration <= 0)
                 duration = BaseAnimationLength;
 
             Sequence sequence = DOTween.Sequence();
             sequence.Append(canvasGroup.DOFade(endValue, duration).From(startValue))
+                    .SetAutoKill(false)
+                    .SetEase(Ease.Linear)
+                    .Pause();
+
+            return sequence;
+        }
+
+        public static Sequence GetMenuWindowAnimation(RectTransform transform, CanvasGroup canvasGroup, 
+            float startValue, float endValue, float duration = 0)
+        {
+            Sequence sequence = GetFadeAnimation(canvasGroup, startValue, endValue, duration);
+            sequence.Insert(0, transform.DOScale(endValue, duration).From(startValue))
                     .SetAutoKill(false)
                     .SetEase(Ease.Linear)
                     .Pause();
@@ -109,7 +124,7 @@ namespace Assets.Sources.Utils
                 .SetLink(transform.gameObject);
         }
 
-        public static Sequence GetShowAnimation(RectTransform transform, float duration)
+        public static Sequence GetOptionsShowAnimation(RectTransform transform, float duration)
         {
             float transformScaleX = transform.localScale.x;
 
@@ -129,7 +144,7 @@ namespace Assets.Sources.Utils
             return sequence;
         }
 
-        public static Sequence GetHideAnimation(RectTransform transform, float duration)
+        public static Sequence GetOptionsHideAnimation(RectTransform transform, float duration)
         {
             Vector3 originalScale = Vector3.one;
             float step = duration / 3;

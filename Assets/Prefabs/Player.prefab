@@ -116,12 +116,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7564291470060372366}
   - component: {fileID: 1301383409189284000}
-  - component: {fileID: 7716719852157930511}
   - component: {fileID: 8860967284326467675}
   - component: {fileID: 7294596397133496346}
   - component: {fileID: 8028719752814170741}
   - component: {fileID: 8809880259278948457}
-  - component: {fileID: 8801718523360963670}
   - component: {fileID: 6959142393651561561}
   - component: {fileID: 2298047807540663480}
   m_Layer: 10
@@ -171,25 +169,6 @@ MonoBehaviour:
   _moveSpeedOnUpgrade: 0.15
   _booster: {fileID: 0}
   _playerInput: {fileID: 5317013590292753909}
---- !u!114 &7716719852157930511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1200209369713199914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b71b78bc1210fa4097d7f0f376150ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerInput: {fileID: 5317013590292753909}
-  _boostSpeed: 10
-  _boostCount: 3
-  _boostTime: 0.7
-  _boostReloadTime: 5
-  _boostReloadUpgradeDelta: 0.1
-  _boostSpeedUpgradeDelta: 0.55
 --- !u!114 &8860967284326467675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98cd389b66048f849b5d6b75c31d9c06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Duration: 0
   _growHandler: {fileID: 8860967284326467675}
   _particleSystems:
   - {fileID: 1322260417155443210}
@@ -224,7 +204,6 @@ MonoBehaviour:
   - {fileID: 7860668728541090954}
   _sizeDelta: {x: 0.5, y: 0.5, z: 0.5}
   _growSize: 0.5
-  _growDuration: 1
   _catcher: {fileID: 6960725044979339580}
 --- !u!54 &8028719752814170741
 Rigidbody:
@@ -274,24 +253,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8801718523360963670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1200209369713199914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25cf9552f860f514e833d59334234d6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerInput: {fileID: 5317013590292753909}
-  _defendTime: 1
-  _reloadTime: 3
-  _defendUpgradeDelta: 0.1
-  _reloadUpgradeDelta: 0.05
-  _maxDefendTime: 5
 --- !u!33 &6959142393651561561
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -646,6 +607,8 @@ MonoBehaviour:
   Duration: 0
   _growText: {fileID: 1667752748889573859}
   _growHandler: {fileID: 8860967284326467675}
+  _smoothedFade: {fileID: 0}
+  _audioPlayer: {fileID: 0}
 --- !u!1 &2063893437333934117
 GameObject:
   m_ObjectHideFlags: 0
@@ -16203,8 +16166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mover: {fileID: 1301383409189284000}
-  _booster: {fileID: 7716719852157930511}
-  _shield: {fileID: 8801718523360963670}
+  _booster: {fileID: 0}
+  _shield: {fileID: 0}
   _growHandler: {fileID: 0}
   _catcher: {fileID: 0}
 --- !u!1 &6271201172230403423
@@ -19511,6 +19474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hole: {fileID: 4605038882554635098}
+  _dissolveSound: {fileID: 0}
 --- !u!65 &7587209317345159581
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using System;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace Assets.Sources.PlayerScripts
         [SerializeField, Min(0)] private float _boostSpeed;
         [SerializeField, Min(0)] private int _boostCount;
         [SerializeField, Min(0)] private float _boostSpeedUpgradeDelta;
+        [SerializeField] private AudioPlayer _audioPlayer;
 
         private bool _isBoostApplied;
         private bool _isBoosted;
@@ -46,10 +48,9 @@ namespace Assets.Sources.PlayerScripts
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-
-            if (IsInitialized)
-                return;
-
+            _audioPlayer.Init(pauseHandler);
+            _audioPlayer.AudioSource.playOnAwake = false;
+            _audioPlayer.AudioSource.loop = false;
             CurrentBoostCount = _boostCount;
             IsInitialized = true;
         }
@@ -86,6 +87,7 @@ namespace Assets.Sources.PlayerScripts
 
         private void StopBoost()
         {
+            _audioPlayer.Stop();
             _isBoostApplied = false;
             CurrentActiveTime = 0;
             BoostApplied?.Invoke(0);
@@ -102,6 +104,7 @@ namespace Assets.Sources.PlayerScripts
 
         private void ApplyBoost()
         {
+            _audioPlayer.Play();
             CurrentBoostCount--;
             BoostCountChanged?.Invoke();
             _isBoostApplied = true;

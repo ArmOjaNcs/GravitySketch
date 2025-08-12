@@ -1,5 +1,4 @@
 using Assets.Sources.Utils;
-using DG.Tweening;
 using System;
 using TMPro;
 using UnityEngine;
@@ -12,7 +11,6 @@ namespace Assets.Sources.UI
         [SerializeField] private int _index;
         [SerializeField] private Button _button;
         [SerializeField] private TextMeshProUGUI _score;
-        [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private Image _image;
         [SerializeField] private Sprite _colored;
         [SerializeField] private Sprite _frame;
@@ -24,7 +22,8 @@ namespace Assets.Sources.UI
 
         public void Init()
         {
-            Name = UserUtils.GetSceneName(_index);
+            UserUtils.TryGetSceneName(_index, out string sceneName);
+            Name = sceneName;
             _button.onClick.AddListener(OnClick);
             _score.text = "";
             _score.gameObject.SetActive(true);

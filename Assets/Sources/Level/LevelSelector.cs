@@ -1,30 +1,22 @@
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Sources.Level
 {
-    public class LevelSelector : LevelScore
+    public class LevelSelector : MonoBehaviour
     {
         [SerializeField] private LevelButton[] _levels;
         [SerializeField] private Button _play;
         [SerializeField] private TextMeshProUGUI _totalScore;
 
+        private LevelScore _levelScore;
         private LevelButton _currentButton;
-        
-        private void OnEnable()
-        {
-            _play.onClick.AddListener(OnPlayClicked);
 
-            for (int i = 0; i <= LevelsCount && i < _levels.Length; i++)
-            {
-                _levels[i].gameObject.SetActive(true);
-                _levels[i].Init();
-                _levels[i].Chosen += OnLevelChosen;
-            }
-        }
+        public event Action<string> PlayClicked;
 
         private void OnDisable()
         {
@@ -40,10 +32,19 @@ namespace Assets.Sources.Level
             }
         }
 
-        private void Start()
+        public void Init(LevelScore levelScore)
         {
-            _totalScore.text = UserUtils.TotalScore + TotalScore;
+            _levelScore = levelScore;
+            _totalScore.text = UserUtils.TotalScore + _levelScore.TotalScore;
+            _play.onClick.AddListener(OnPlayClicked);
             _play.gameObject.SetActive(false);
+
+            for (int i = 0; i <= _levelScore.LevelsCount && i < _levels.Length; i++)
+            {
+                _levels[i].gameObject.SetActive(true);
+                _levels[i].Init();
+                _levels[i].Chosen += OnLevelChosen;
+            }
         }
 
         private void OnLevelChosen(LevelButton level)
@@ -52,13 +53,13 @@ namespace Assets.Sources.Level
                 _currentButton.Hide();
 
             _currentButton = level;
-            level.SetScore(GetLevelScore(level.Index));
+            level.SetScore(_levelScore.GetLevelScore(level.Index));
             level.Show();
 
             if (_play.gameObject.activeSelf == false)
                 _play.gameObject.SetActive(true);
         }
 
-        private void OnPlayClicked() => LoadScene(_currentButton.Name);
+        private void OnPlayClicked() => PlayClicked?.Invoke(_currentButton.Name); 
     }
 }
