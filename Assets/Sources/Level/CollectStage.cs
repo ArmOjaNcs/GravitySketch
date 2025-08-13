@@ -58,6 +58,9 @@ namespace Assets.Sources.Level
             _exit.gameObject.SetActive(false);
             _pauseableRoutine.Init(pauseHandler);
             _takeOverLimit.SetAudioPlayerSpawner(audioPlayerSpawner);
+            _cubesCollector.InvokeCubesCountChanged();
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         private void OnRoutineUpdated()
@@ -69,8 +72,13 @@ namespace Assets.Sources.Level
 
         private void OnCubesCountChanged(int cubesCount)
         {
-            _currentCubesCountPercent = (float)cubesCount / _simpleCubeSpawner.TotalCubes;
-            UpdateExitStatus();
+            _exit.transform.position = _takeOverLimit.transform.position + Vector3.up * 70;
+            _exit.gameObject.SetActive(true);
+
+            if (_exit.IsDowned == false)
+                _exit.DropDown();
+            //_currentCubesCountPercent = (float)cubesCount / _simpleCubeSpawner.TotalCubes;
+            //UpdateExitStatus();
         }
 
         private void OnEnemyDissolved()
@@ -88,6 +96,8 @@ namespace Assets.Sources.Level
         {
             InvokeFinished();
             Window.Show();
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         }
 
         private bool IsCanFinish()

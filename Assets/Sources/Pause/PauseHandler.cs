@@ -1,5 +1,5 @@
-using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Sources.Pause
 {
@@ -24,6 +24,8 @@ namespace Assets.Sources.Pause
                     pauseable.Pause();
             }
 
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
             IsPaused = true;
         }
 

@@ -72,5 +72,5 @@ namespace Assets.Sources.Table
             return false;
         }
     }
-#endif
 }
+#endif

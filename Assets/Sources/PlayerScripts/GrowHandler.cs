@@ -12,13 +12,11 @@ namespace Assets.Sources.PlayerScripts
         private int _currentSize;
         private int _cubesOnNextGrow;
 
-        public event Action Dissolved;
         public event Action Growing;
 
         public int CurrentSize => _currentSize;
         public int CubesOnNextGrow => _cubesOnNextGrow;
         public int GrowDelta => _growDelta;
-        public bool IsCanGrowUp => _currentSize < _maxSize;
 
         private void OnEnable()
         {

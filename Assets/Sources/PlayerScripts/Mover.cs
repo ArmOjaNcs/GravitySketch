@@ -102,6 +102,9 @@ namespace Assets.Sources.PlayerScripts
                 _rigidbody.isKinematic = false;
                 _rigidbody.velocity = _currentVelocity;
             }
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         public void UpgradeMoveSpeed()

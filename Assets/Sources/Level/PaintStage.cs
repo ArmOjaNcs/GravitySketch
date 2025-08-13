@@ -60,6 +60,8 @@ namespace Assets.Sources.Level
             _referenceViewer.Init(pauseHandler);
             _positionHandler.SetPaintStage(this);
             _positionHandler.Init(pauseHandler);
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         }
 
         public IReadonlyTemplateCube GetCubeByColor(Color color)

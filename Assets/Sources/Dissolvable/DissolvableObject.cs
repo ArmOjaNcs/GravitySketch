@@ -48,8 +48,11 @@ namespace Assets.Sources.Dissolvable
 
         private protected override void OnDisable()
         {
-            if (DissolveAnimation != null)
+            if (DissolveAnimation.IsActive() && _isDropped)
+            {
                 DissolveAnimation.Kill();
+                Debug.Log("Animation is Killed");
+            }
 
             base.OnDisable();
         }
@@ -81,12 +84,6 @@ namespace Assets.Sources.Dissolvable
         private protected virtual void OnCollisionExit(Collision collision)
         {
             _totalCollisionsCount--;
-        }
-
-        public override void Init(PauseHandler pauseHandler)
-        {
-            base.Init(pauseHandler);
-            DissolveAnimation = AnimationSpawner.GetDissolveAnimation(transform, 3);
         }
 
         public void SetAudioPlayerSpawner(AudioPlayerSpawner audioPlayerSpawner)
@@ -154,6 +151,7 @@ namespace Assets.Sources.Dissolvable
 
             _isDropped = true;
             gameObject.layer = UserUtils.FallingLayer;
+            DissolveAnimation = AnimationSpawner.GetDissolveAnimation(transform, 3);
         }
 
         public virtual void Dissolve(Transform hole)

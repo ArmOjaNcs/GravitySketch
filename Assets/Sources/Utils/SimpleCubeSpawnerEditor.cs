@@ -20,5 +20,5 @@ namespace Assets.Sources.Utils
         }
     }
 
-#endif
 }
+#endif

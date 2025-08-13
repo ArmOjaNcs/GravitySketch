@@ -23,6 +23,14 @@ namespace Assets.Sources.SimpleCubeScripts
             transform.parent = null;
         }
 
+        private protected override void OnDisable()
+        {
+            base.OnDisable();
+
+            if (_idleAnimation.IsActive())
+                _idleAnimation.Kill();
+        }
+
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);

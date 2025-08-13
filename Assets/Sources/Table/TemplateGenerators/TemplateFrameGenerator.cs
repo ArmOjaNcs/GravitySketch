@@ -114,5 +114,5 @@ namespace Assets.Sources.Table
             return cube;
         }
     }
-#endif
 }
+#endif

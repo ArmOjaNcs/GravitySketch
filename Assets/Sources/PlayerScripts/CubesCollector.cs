@@ -28,7 +28,7 @@ namespace Assets.Sources.PlayerScripts
             _takeOverLimit.CubeAbsorbed -= OnCubeAbsorbed;
         }
 
-        private void Start()
+        public void InvokeCubesCountChanged()
         {
             CubesCountChanged?.Invoke(_holder.Count);
         }
