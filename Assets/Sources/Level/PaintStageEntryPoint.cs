@@ -6,7 +6,6 @@ namespace Assets.Sources.Level
 {
     public class PaintStageEntryPoint : StageEntryPoint
     {
-        [SerializeField] private PaintStage _paintStage;
         [SerializeField] private PaintInput _paintInput;
         [SerializeField] private ColorizerView _colorizerView;
         [SerializeField] private ColoringPositionHandler _coloringPositionHandler;
@@ -17,11 +16,11 @@ namespace Assets.Sources.Level
         {
             _paintInput.Init(PauseHandler);
             _coloringPositionHandler.SetPaintInput(_paintInput);
-            _paintStage.Init(PauseHandler);
             _colorizerView.Init(PauseHandler);
             _colorizedCubeSpawner.SetAudioPlayerSpawner(AudioPlayerSpawner);
             _colorizedCubeSpawner.Init(PauseHandler);
             _scoreView.Init(PauseHandler);
+            Stage.Init(PauseHandler);
         }
 
         private protected override void OnLoadWindowUpdated()

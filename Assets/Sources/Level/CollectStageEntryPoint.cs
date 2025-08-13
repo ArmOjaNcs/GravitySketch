@@ -15,22 +15,13 @@ namespace Assets.Sources.Level
         [SerializeField] private EnemyFactory _enemyFactory;
         [SerializeField] private List<DissolvableObstacle> _obstacles;
         [SerializeField] private SimpleCubeSpawner _simpleCubeSpawner;
-        [SerializeField] private Player _player;
         [SerializeField] private HoleMaskHandler _maskHandler;
-        [SerializeField] private CollectStage _collectStage;
-
-        private protected override void OnLoadWindowUpdated()
-        {
-            base.OnLoadWindowUpdated();
-            _playerInput.StartInput();
-        }
 
         private protected override void Initialize()
         {
             _maskHandler.Init(PauseHandler);
             _playerInput.Init(PauseHandler);
             _enemyFactory.Init(PauseHandler, AudioPlayerSpawner);
-            _collectStage.Init(PauseHandler, AudioPlayerSpawner);
 
             foreach (DissolvableObstacle obstacle in _obstacles)
             {
@@ -41,8 +32,14 @@ namespace Assets.Sources.Level
             foreach (PauseableObject pauseable in Objects)
                 pauseable.Init(PauseHandler);
 
+            Stage.Init(PauseHandler, AudioPlayerSpawner);
             _simpleCubeSpawner.Init(PauseHandler, AudioPlayerSpawner);
-            _player.Init(PauseHandler);
+        }
+
+        private protected override void OnLoadWindowUpdated()
+        {
+            base.OnLoadWindowUpdated();
+            _playerInput.StartInput();
         }
     }
 }

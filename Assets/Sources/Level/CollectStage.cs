@@ -8,13 +8,14 @@ using UnityEngine;
 
 namespace Assets.Sources.Level
 {
-    public class CollectStage : LevelScore
+    public class CollectStage : Stage
     {
         [SerializeField] private TakeOverLimit _takeOverLimit;
         [SerializeField] private CubesCollector _cubesCollector;
         [SerializeField] private EnemyFactory _enemyFactory;
         [SerializeField] private SimpleCubeSpawner _simpleCubeSpawner;
         [SerializeField] private PlayerScore _playerScore;
+        [SerializeField] private Player _player;
         [SerializeField] private LevelExit _exit;
         [SerializeField] private PauseableRoutine _pauseableRoutine;
         [SerializeField] private float _timeBeforeLoad;
@@ -28,24 +29,29 @@ namespace Assets.Sources.Level
             SetCurrentIndex(Index);
         }
 
-        private void OnEnable()
+        private protected override void OnEnable()
         {
+            base.OnEnable();
             _exit.Exit += OnExitApplied;
             _takeOverLimit.EnemyDissolved += OnEnemyDissolved;
             _cubesCollector.CubesCountChanged += OnCubesCountChanged;
             _pauseableRoutine.Updated += OnRoutineUpdated;
+            _player.IsDead += OnPlayerDead;
         }
 
-        private void OnDisable()
+        private protected override void OnDisable()
         {
+            base.OnDisable();
             _exit.Exit -= OnExitApplied;
             _takeOverLimit.EnemyDissolved -= OnEnemyDissolved;
             _cubesCollector.CubesCountChanged -= OnCubesCountChanged;
             _pauseableRoutine.Updated -= OnRoutineUpdated;
+            _player.IsDead -= OnPlayerDead;
         }
 
-        public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
+        public override void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
         {
+            _player.Init(pauseHandler);
             _exit.Init(pauseHandler);
             _exit.SetAudioPlayerSpawner(audioPlayerSpawner);
             _exit.SetSize(0);
@@ -76,6 +82,12 @@ namespace Assets.Sources.Level
         private void OnExitApplied()
         {
             _pauseableRoutine.UpdateView(_timeBeforeLoad);
+        }
+
+        private void OnPlayerDead()
+        {
+            InvokeFinished();
+            Window.Show();
         }
 
         private bool IsCanFinish()

@@ -20,5 +20,6 @@ namespace Assets.Sources.Pause
         }
 
         public void StartInput() => _isStarted = true;
+        public void StopInput() => _isStarted = false;
     }
 }

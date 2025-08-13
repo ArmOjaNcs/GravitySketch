@@ -13,6 +13,7 @@ namespace Assets.Sources.UI
 
         public event Action Opening;
         public event Action Closing;
+        public event Action Closed;
 
         private void OnEnable()
         {
@@ -37,7 +38,7 @@ namespace Assets.Sources.UI
             ShowAnimation = AnimationSpawner.GetMenuWindowAnimation(RectTransform, CanvasGroup, 0, UserUtils.One, Duration);
             ShowAnimation.OnComplete(() => CanvasGroup.interactable = true);
             HideAnimation = AnimationSpawner.GetMenuWindowAnimation(RectTransform, CanvasGroup, UserUtils.One, 0, Duration);
-            HideAnimation.OnComplete(() => RectTransform.gameObject.SetActive(false));
+            HideAnimation.OnComplete(() => OnAnimationComplete());
         }
 
         private void OnStartClicked()
@@ -51,6 +52,12 @@ namespace Assets.Sources.UI
         {
             Closing?.Invoke();
             Hide();
+        }
+
+        private void OnAnimationComplete()
+        {
+            Closed?.Invoke();
+            RectTransform.gameObject.SetActive(false);
         }
     }
 }

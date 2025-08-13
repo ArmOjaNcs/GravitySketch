@@ -25,5 +25,7 @@ namespace Assets.Sources.UI
             base.Hide();
             HideAnimation.OnComplete(() => Hidden?.Invoke());
         }
+
+        public void BaseHide()=> base.Hide();
     }
 }

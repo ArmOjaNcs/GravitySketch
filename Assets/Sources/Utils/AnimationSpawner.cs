@@ -103,6 +103,9 @@ namespace Assets.Sources.Utils
         public static Sequence GetMenuWindowAnimation(RectTransform transform, CanvasGroup canvasGroup, 
             float startValue, float endValue, float duration = 0)
         {
+            if (duration <= 0)
+                duration = BaseAnimationLength;
+
             Sequence sequence = GetFadeAnimation(canvasGroup, startValue, endValue, duration);
             sequence.Insert(0, transform.DOScale(endValue, duration).From(startValue))
                     .SetAutoKill(false)

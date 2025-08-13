@@ -1,3 +1,4 @@
+using Assets.Sources.Audio;
 using Assets.Sources.ColorizerScripts;
 using Assets.Sources.Pause;
 using Assets.Sources.Table;
@@ -11,7 +12,7 @@ using UnityEngine.UI;
 
 namespace Assets.Sources.Level
 {
-    public class PaintStage : LevelScore
+    public class PaintStage : Stage
     {
         [SerializeField] private Colorizer _colorizer;
         [SerializeField] private Validator _validator;
@@ -20,6 +21,8 @@ namespace Assets.Sources.Level
         [SerializeField] private TemplateMaterialReference _materialReference;
         [SerializeField] private Template _template;
         [SerializeField] private Toggle _autoPaint;
+        [SerializeField] private GameObject _totalScore;
+        [SerializeField] private Button _toNextLevel;
 
         private bool _isFinished;
 
@@ -28,21 +31,27 @@ namespace Assets.Sources.Level
         public bool IsReferenceShowing { get; private set; }
         public IReadOnlyList<IReadonlyTemplateCube> TemplateCubes => _template.TemplateCubes;
 
-        private void OnEnable()
+        private protected override void OnEnable()
         {
+            base.OnEnable();
             _validator.Finished += OnFinished;
             _referenceViewer.IsShowing += OnShowing;
             _autoPaint.onValueChanged.AddListener(OnAutoPaint);
+            _totalScore.SetActive(false);
+            _toNextLevel.onClick.AddListener(OnNextApplied);
+            _toNextLevel.gameObject.SetActive(false);
         }
 
-        private void OnDisable()
+        private protected override void OnDisable()
         {
+            base.OnDisable();
             _validator.Finished -= OnFinished;
             _referenceViewer.IsShowing -= OnShowing;
             _autoPaint.onValueChanged.RemoveListener(OnAutoPaint);
+            _toNextLevel.onClick.RemoveListener(OnNextApplied);
         }
 
-        public void Init(PauseHandler pauseHandler)
+        public override void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner = null)
         {
             _materialReference.ResetEntriesCurrentIndex();
             _colorizer.SetStage(this, CurrentColors);
@@ -87,7 +96,7 @@ namespace Assets.Sources.Level
         {
             if (_isFinished == false)
             {
-                StartCoroutine(WaitingBeforeFinish());
+                StartCoroutine(FinishRoutine());
                 _isFinished = true;
             }
         }
@@ -114,21 +123,41 @@ namespace Assets.Sources.Level
             _referenceViewer.SetAutoPaint(isAutoPaint);
         }
 
-        private IEnumerator WaitingBeforeFinish()
+        private IEnumerator FinishRoutine()
         {
-            yield return new WaitForSeconds(2);
+            InvokeFinished();
+            int nextIndex = Index + (int)UserUtils.One;
+            
+            if (UserUtils.TryGetSceneName(nextIndex, out string _))
+            {
+                SetCurrentIndex(nextIndex);
+                _toNextLevel.gameObject.SetActive(true);
+            }
+            else
+            {
+                SaveProgress();
+                _toNextLevel.gameObject.SetActive(false);
+            }
 
+            yield return new WaitForSeconds(UserUtils.Two);
+            _totalScore.SetActive(true);
+            Window.Show();
             int finalScore = _validator.MatchScore + CurrentScore + _referenceViewer.ShowCount * UserUtils.ShowScore;
             UpdateProgress(CurrentLevelIndex, finalScore);
             TotalScoreUpdated?.Invoke(finalScore);
-            int nextIndex = Index + (int)UserUtils.One;
-
-            if (UserUtils.TryGetSceneName(nextIndex, out string _))
-                SetCurrentIndex(nextIndex);
-            else
-                SaveProgress();
         }
 
-        private void OnNextApplied() => LoadNextScene();
+        private void OnNextApplied()
+        {
+            Window.Closed += LoadNext;
+            Window.Hide();
+            HidePauseMenu();
+        }
+
+        private void LoadNext()
+        {
+            Window.Closed -= LoadNext;
+            LoadNextScene();
+        }
     }
 }
