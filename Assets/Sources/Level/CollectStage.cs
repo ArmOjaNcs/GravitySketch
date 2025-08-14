@@ -72,13 +72,8 @@ namespace Assets.Sources.Level
 
         private void OnCubesCountChanged(int cubesCount)
         {
-            _exit.transform.position = _takeOverLimit.transform.position + Vector3.up * 70;
-            _exit.gameObject.SetActive(true);
-
-            if (_exit.IsDowned == false)
-                _exit.DropDown();
-            //_currentCubesCountPercent = (float)cubesCount / _simpleCubeSpawner.TotalCubes;
-            //UpdateExitStatus();
+            _currentCubesCountPercent = (float)cubesCount / _simpleCubeSpawner.TotalCubes;
+            UpdateExitStatus();
         }
 
         private void OnEnemyDissolved()
