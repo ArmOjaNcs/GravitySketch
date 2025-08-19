@@ -16,12 +16,8 @@ namespace Assets.Sources.UI
         [SerializeField] private Validator _validator;
         [SerializeField] private Colorizer _colorizer;
 
-        private void Start()
-        {
-            _totalScore.text = "";
-            _collectScore.text = UserUtils.CollectScore + _paintStage.CurrentScore;
-            Text.text = UserUtils.PaintScore;
-        }
+        private string _totalScoreText = string.Empty;
+        private string _paintScoreText = string.Empty;
 
         private void OnEnable()
         {
@@ -39,7 +35,12 @@ namespace Assets.Sources.UI
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            StartText = UserUtils.PaintScore;
+            _paintScoreText = Text.text + " ";
+            StartText = _paintScoreText;
+            _totalScoreText = _totalScore.text + " ";
+            _totalScore.text = "";
+            _collectScore.text += " ";
+            _collectScore.text += _paintStage.CurrentScore;
             IsNeedToSplit = false;
             IsInitialized = true;
         }
@@ -58,7 +59,7 @@ namespace Assets.Sources.UI
         private IEnumerator ShowFinalResult(int totalScore)
         {
             float elapsedTime = 0;
-            float totalTime = UserUtils.TotalScore.Length * UserUtils.ShowTime;
+            float totalTime = _totalScoreText.Length * UserUtils.ShowTime;
             int index = 0;
             string message = string.Empty;
 
@@ -68,9 +69,9 @@ namespace Assets.Sources.UI
 
                 if (elapsedTime > UserUtils.ShowTime * index)
                 {
-                    if (index < UserUtils.TotalScore.Length)
+                    if (index < _totalScoreText.Length)
                     {
-                        message += UserUtils.TotalScore[index];
+                        message += _totalScoreText[index];
                         _totalScore.text = message;
                         index++;
                     }
@@ -91,7 +92,7 @@ namespace Assets.Sources.UI
                 elapsedTime += Time.deltaTime;
                 float normalizedPosition = elapsedTime / UserUtils.CalculateTime;
                 float result = Mathf.Lerp(_paintStage.CurrentScore, totalScore, normalizedPosition);
-                _totalScore.text = UserUtils.TotalScore + Mathf.Round(result);
+                _totalScore.text = _totalScoreText + Mathf.Round(result);
 
                 yield return null;
             }

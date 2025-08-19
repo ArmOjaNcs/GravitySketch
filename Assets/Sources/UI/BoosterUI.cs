@@ -61,8 +61,8 @@ namespace Assets.Sources.UI
 
         private void OnReloaded()
         {
-            Text.color = ReloadTimeImage.Color;
-            Animation.OnComplete(() => Text.color = Color.black);
+            _emblem.color = ReloadTimeImage.Color;
+            Animation.OnComplete(() => _emblem.color = Color.white);
             Animation.Restart();
         }
     }

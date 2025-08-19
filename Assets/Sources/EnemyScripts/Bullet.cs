@@ -13,9 +13,11 @@ namespace Assets.Sources.EnemyScripts
 
         private protected BulletConfig BulletConfig;
 
-        private protected void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(UserUtils.Obstacle) || other.CompareTag(UserUtils.DissolvableObject))
+            if (other.CompareTag(UserUtils.Obstacle) 
+                || other.CompareTag(UserUtils.DissolvableObject) 
+                || other.gameObject.layer == UserUtils.ShieldLayer)
                 Interact();
         }
 

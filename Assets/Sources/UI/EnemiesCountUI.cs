@@ -1,9 +1,8 @@
-using TMPro;
-using UnityEngine;
-using Assets.Sources.Utils;
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.PlayerScripts;
-using Assets.Sources.Audio;
+using Assets.Sources.Utils;
+using TMPro;
+using UnityEngine;
 
 namespace Assets.Sources.UI
 {
@@ -14,6 +13,7 @@ namespace Assets.Sources.UI
         [SerializeField] private TextMeshProUGUI _text;
 
         private int _totalEnemies;
+        private string _enemiesCount = string.Empty;
 
         private void OnEnable()
         {
@@ -27,6 +27,7 @@ namespace Assets.Sources.UI
 
         private void Start()
         {
+            _enemiesCount = _text.text + " ";
             OnEnemyDissolved();
         }
 
@@ -40,7 +41,7 @@ namespace Assets.Sources.UI
 
             _text.color = UserUtils.GetColorByPercentage(percent);
 
-            _text.text = UserUtils.EnemiesCount + _takeOverLimit.EnemiesDissolvedCount + "/" + _totalEnemies + " "
+            _text.text = _enemiesCount + _takeOverLimit.EnemiesDissolvedCount + "/" + _totalEnemies + " "
                 + (percent * 100).ToString("F2") + "%";
         }
     }

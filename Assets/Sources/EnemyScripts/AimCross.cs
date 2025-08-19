@@ -14,6 +14,7 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private Color _endColor;
 
         private RectTransform _rectTransform;
+        private Transform _playerTransform;
         private Vector3 _defaultScale;
         private Vector3 _defaultEffectScale;
         private Vector3 _initialScale;
@@ -72,13 +73,16 @@ namespace Assets.Sources.EnemyScripts
             if (IsAiming || _isShoot)
                 return;
 
+            if (_playerTransform == null)
+                _playerTransform = AttackZone.Player.transform;
+
             OnEnable();
             _rectTransform.localScale = Vector3.one;
 
             _initialScale = new Vector3(
-                _defaultScale.x / transform.lossyScale.x * AttackZone.Player.transform.lossyScale.x,
-                _defaultScale.y / transform.lossyScale.y * AttackZone.Player.transform.lossyScale.y,
-                _defaultScale.z / transform.lossyScale.z * AttackZone.Player.transform.lossyScale.z
+                _defaultScale.x / transform.lossyScale.x * _playerTransform.lossyScale.x,
+                _defaultScale.y / transform.lossyScale.y * _playerTransform.lossyScale.y,
+                _defaultScale.z / transform.lossyScale.z * _playerTransform.lossyScale.z
                 );
 
             _rectTransform.localScale = _initialScale;
@@ -88,11 +92,25 @@ namespace Assets.Sources.EnemyScripts
 
         private protected override void Interact()
         {
+            if (IsInteracted)
+                return;
+
+            IsInteracted = true;
+
             Shoot?.Invoke();
             Effect.transform.SetParent(null);
+
+            if (IsHitPlayer())
+            {
+                if (AttackZone.Player.IsDefended)
+                    Effect.transform.position += new Vector3(0, AttackZone.Player.Radius, 0);
+                else
+                    AttackZone.Player.TakeDamage(Damage, transform.position, Force);
+            }
+
             Effect.transform.localScale = _defaultEffectScale;
             Effect.transform.rotation = Quaternion.identity;
-            base.Interact();
+            PlayEffect();
         }
 
         private protected override void Live()

@@ -1,5 +1,6 @@
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
+using Assets.Sources.Utils;
 using System;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Assets.Sources.PlayerScripts
 
         private bool _isDefended;
         private bool _isDefendApplied;
+        private GameObject _forceField;
 
         public event Action DefendApplied;
         public event Action Reloading;
@@ -50,6 +52,7 @@ namespace Assets.Sources.PlayerScripts
             _audioPlayer.Init(pauseHandler);
             _audioPlayer.AudioSource.playOnAwake = false;
             _audioPlayer.AudioSource.loop = false;
+            _forceField = _meshRenderer.gameObject;
             IsInitialized = true;
         }
 
@@ -62,6 +65,7 @@ namespace Assets.Sources.PlayerScripts
             _isDefendApplied = true;
             _isDefended = true;
             _meshRenderer.enabled = true;
+            _forceField.layer = UserUtils.ShieldLayer;
             DefendApplied?.Invoke();
         }
 
@@ -74,6 +78,7 @@ namespace Assets.Sources.PlayerScripts
                 _audioPlayer.Stop();
                 _isDefended = false;
                 _meshRenderer.enabled = false;
+                _forceField.layer = UserUtils.PlayerPhysicsLayer;
                 IsReloading = true;
                 Reloading?.Invoke();
             }
@@ -96,8 +101,8 @@ namespace Assets.Sources.PlayerScripts
         {
             ActiveTime += _defendUpgradeDelta;
             CycleTime -= ReloadUpgradeDelta;
-            ActiveTime = Mathf.Clamp(ActiveTime, 0, _maxDefendTime);
-            CycleTime = Mathf.Clamp(CycleTime, ActiveTime + 1, float.MaxValue);
+            //ActiveTime = Mathf.Clamp(ActiveTime, 0, _maxDefendTime);
+            //CycleTime = Mathf.Clamp(CycleTime, ActiveTime + 1, float.MaxValue);
         }
     }
 }

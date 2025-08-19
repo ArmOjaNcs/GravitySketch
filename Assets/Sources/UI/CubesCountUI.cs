@@ -25,7 +25,7 @@ namespace Assets.Sources.UI
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            StartText = UserUtils.CubesCount;
+            StartText = Text.text + " ";
             IsNeedToSplit = true;
             SplitSign = '/';
             MaxValue = _simpleCubeSpawner.TotalCubes;

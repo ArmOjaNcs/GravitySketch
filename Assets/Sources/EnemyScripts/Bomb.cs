@@ -41,6 +41,12 @@ namespace Assets.Sources.EnemyScripts
         {
             if(gameObject.layer == UserUtils.DefaultLayer)
             {
+                if (gameObject.layer == UserUtils.ShieldLayer)
+                {
+                    Interact();
+                    return;
+                }
+
                 if (collision.gameObject.CompareTag(UserUtils.Obstacle) ||
                collision.gameObject.CompareTag(UserUtils.DissolvableObject))
                 {

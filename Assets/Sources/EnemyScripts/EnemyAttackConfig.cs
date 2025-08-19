@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
@@ -6,6 +7,6 @@ namespace Assets.Sources.EnemyScripts
     {
         public float AttackRate;
         public abstract EnemyType Type { get; }
-        public abstract System.Type ZoneComponentType { get; }
+        public abstract Type ZoneComponentType { get; }
     }
 }

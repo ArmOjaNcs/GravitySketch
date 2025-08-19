@@ -10,6 +10,7 @@ namespace Assets.Sources.EnemyScripts
     {
         [Header("PatrolZone")]
         [SerializeField] private List<EnemyPatrolZone> _patrolZones;
+        [SerializeField] private EnemyPatrolZone _bossPatrolZone;
 
         [Header("Enemy settings")]
         [SerializeField] private Enemy _enemy;
@@ -17,12 +18,15 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private List<EnemyConfig> _sniperConfigs;
         [SerializeField] private List<EnemyConfig> _bomberConfigs;
         [SerializeField] private List<EnemyConfig> _rocketerConfigs;
+        [SerializeField] private EnemyConfig _bossConfig;
+        [SerializeField] private List<EnemyAttackConfig> _bossAttackConfigs;
         [SerializeField] private LayerMask _tableLayer;
 
         private AudioPlayerSpawner _audioPlayerSpawner;
         private PauseHandler _pauseHandler;
 
         public int TotalEnemies { get; private set; }
+        public bool IsBossSpawned { get; private set; }
 
         public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
         {
@@ -34,6 +38,23 @@ namespace Assets.Sources.EnemyScripts
 
             TotalEnemies = _patrolZones.Sum(pz => pz.EnemiesCount);
             CreateEnemy();
+        }
+
+        public Enemy CreateBoss()
+        {
+            Enemy enemy = SpawnEnemyInZone(_bossPatrolZone, _bossConfig);
+
+            foreach (EnemyAttackConfig enemyAttackConfig in _bossAttackConfigs)
+            {
+                var zone = (IEnemyAttack)enemy.AttackZone.AddComponent(enemyAttackConfig.ZoneComponentType);
+                zone.InitFromConfig(enemyAttackConfig, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
+            }
+
+            enemy.SetSize(_bossConfig.Level);
+            var config = _bossAttackConfigs.FirstOrDefault(c => c.GetType() == typeof(BomberConfig));
+            enemy.RetreatZone.InitFromConfig(config, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
+            IsBossSpawned = true;
+            return enemy;
         }
 
         private void CreateEnemy()
@@ -72,16 +93,7 @@ namespace Assets.Sources.EnemyScripts
                             break;
                     }
 
-                    TryGetFreePosition(10, patrolZone, out Vector3 freePosition);
-                    Enemy enemy = Instantiate(_enemy, freePosition, Quaternion.identity);
-                    EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();
-                    enemyMover.SetMovePointsHolder(patrolZone.MovePointsHolder);
-                    enemyMover.Init(_pauseHandler);
-                    enemy.InitializeFromConfig(config);
-                    enemy.Init(_pauseHandler);
-                    enemy.SetAudioPlayerSpawner(_audioPlayerSpawner);
-                    enemyMover.SetDistance(currentLevel * 5);
-                    patrolZone.AddEnemy(enemyMover);
+                    Enemy enemy = SpawnEnemyInZone(patrolZone, config);
 
                     if (config.AttackConfig != null)
                     {
@@ -96,6 +108,21 @@ namespace Assets.Sources.EnemyScripts
                     created++;
                 }
             }
+        }
+
+        private Enemy SpawnEnemyInZone(EnemyPatrolZone patrolZone, EnemyConfig config)
+        {
+            TryGetFreePosition(10, patrolZone, out Vector3 freePosition);
+            Enemy enemy = Instantiate(_enemy, freePosition, Quaternion.identity);
+            EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();
+            enemyMover.SetMovePointsHolder(patrolZone.MovePointsHolder);
+            enemyMover.Init(_pauseHandler);
+            enemy.InitializeFromConfig(config);
+            enemy.Init(_pauseHandler);
+            enemy.SetAudioPlayerSpawner(_audioPlayerSpawner);
+            enemyMover.SetDistance(config.Level * 5);
+            patrolZone.AddEnemy(enemyMover);
+            return enemy;
         }
 
         private bool IsSpawnAreaFree(Vector3 position)

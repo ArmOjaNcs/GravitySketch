@@ -17,6 +17,8 @@ namespace Assets.Sources.Utils
         public const int DefaultLayer = 0;
         public const int NormalLayer = 7;
         public const int FallingLayer = 8;
+        public const int PlayerPhysicsLayer = 10;
+        public const int ShieldLayer = 26;
         public const int ObstacleLayer = 12;
         public const int PhysicalMissileLayer = 23;
         public const int RewardBySize = 100;
@@ -36,6 +38,7 @@ namespace Assets.Sources.Utils
         public const string Dissolved = nameof(Dissolved);
         public const string Untagged = nameof(Untagged);
         public const string Player = nameof(Player);
+        public const string MovePoint = nameof(MovePoint);
         public const string MoveSpeed = "Move speed ";
         public const string BoostSpeed = "Boost speed ";
         public const string DefenceTime = "Defence time ";

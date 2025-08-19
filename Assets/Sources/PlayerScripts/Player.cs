@@ -30,6 +30,7 @@ namespace Assets.Sources.PlayerScripts
         public Vector3 Position => _transform == null ? transform.position : _transform.position;
         public float Radius => _sphereCollider.radius * _transform.localScale.x;
         public float CurrentSize => _growHandler.CurrentSize;
+        public bool IsDefended => _shield.IsDefended;
 
         private void Awake()
         {

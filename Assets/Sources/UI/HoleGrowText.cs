@@ -9,8 +9,6 @@ namespace Assets.Sources.UI
 {
     public class HoleGrowText : PauseableRoutine
     {
-        private const string GrowUp = "Grow UP";
-
         [SerializeField] private TextMeshProUGUI _growText;
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private SmoothedFade _smoothedFade;
@@ -30,7 +28,6 @@ namespace Assets.Sources.UI
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            _growText.text = GrowUp;
             _growText.gameObject.SetActive(false);
             _audioPlayer.Init(pauseHandler);
             _audioPlayer.AudioSource.playOnAwake = false;

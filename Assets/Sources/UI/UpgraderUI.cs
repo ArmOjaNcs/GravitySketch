@@ -17,6 +17,11 @@ namespace Assets.Sources.UI
         [SerializeField] private TextMeshProUGUI _upgraded;
         [SerializeField] private RectTransform _textPivot;
 
+        private string _moveSpeedText = string.Empty;
+        private string _boostSpeedText = string.Empty;
+        private string _defenceTimeText = string.Empty;
+        private string _damageText = string.Empty;
+
         private void OnEnable()
         {
             _upgrader.Upgraded += OnUpgraded;
@@ -30,8 +35,11 @@ namespace Assets.Sources.UI
 
         private void Start()
         {
-            _upgraded.text = UserUtils.Upgraded;
             _upgraded.gameObject.SetActive(false);
+            _moveSpeedText = _moveSpeed.text + " ";
+            _boostSpeedText = _boostSpeed.text + " ";
+            _defenceTimeText = _defenceTime.text + " ";
+            _damageText = _damage.text + " ";
             UpdateUI();
         }
 
@@ -45,10 +53,10 @@ namespace Assets.Sources.UI
 
         private void UpdateUI()
         {
-            _moveSpeed.text = UserUtils.MoveSpeed + _upgrader.MoveSpeed.ToString("F2");
-            _boostSpeed.text = UserUtils.BoostSpeed + _upgrader.BoostSpeed.ToString("F2");
-            _defenceTime.text = UserUtils.DefenceTime + _upgrader.DefendTime.ToString("F2");
-            _damage.text = UserUtils.Damage + _upgrader.Damage.ToString("F2");
+            _moveSpeed.text = _moveSpeedText + _upgrader.MoveSpeed.ToString("F2");
+            _boostSpeed.text = _boostSpeedText + _upgrader.BoostSpeed.ToString("F2");
+            _defenceTime.text = _defenceTimeText + _upgrader.DefendTime.ToString("F2");
+            _damage.text = _damageText + _upgrader.Damage.ToString("F2");
         }
 
         private protected override Sequence GetAnimation()

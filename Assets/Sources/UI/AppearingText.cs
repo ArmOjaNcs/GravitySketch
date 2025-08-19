@@ -1,5 +1,4 @@
 using Assets.Sources.Pause;
-using Assets.Sources.Utils;
 using System;
 using TMPro;
 using UnityEngine;
@@ -10,6 +9,7 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private TextMeshProUGUI _text;
 
+        private string _totalText = string.Empty;
         private string _currentText = string.Empty;
         private int _currentIndex;
         private float _step;
@@ -18,6 +18,9 @@ namespace Assets.Sources.UI
 
         private protected override void OnRoutineStart()
         {
+            if (_totalText == string.Empty)
+                _totalText = _text.text;
+
             _currentText = string.Empty;
             _text.text = _currentText;
         }
@@ -26,8 +29,8 @@ namespace Assets.Sources.UI
         {
             if(ElapsedTime > _currentIndex * _step)
             {
-                _currentIndex = Mathf.Clamp(_currentIndex, 0, UserUtils.Loading.Length - 1);
-                _currentText += UserUtils.Loading[_currentIndex];
+                _currentIndex = Mathf.Clamp(_currentIndex, 0, _totalText.Length - 1);
+                _currentText += _totalText[_currentIndex];
                 _text.text = _currentText;
                 _currentIndex++;
                 SignAdded?.Invoke();
@@ -42,7 +45,7 @@ namespace Assets.Sources.UI
 
         public override void UpdateView(float duration)
         {
-            _step = duration / UserUtils.Loading.Length;
+            _step = duration / _totalText.Length;
             base.UpdateView(duration);
         }
     }

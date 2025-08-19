@@ -1,10 +1,9 @@
-using System;
-using System.Collections;
-using UnityEngine;
-using Assets.Sources.Utils;
 using Assets.Sources.Dissolvable;
-using Assets.Sources.PlayerScripts;
 using Assets.Sources.Pause;
+using Assets.Sources.PlayerScripts;
+using Assets.Sources.Utils;
+using System;
+using UnityEngine;
 
 namespace Assets.Sources.AnomalyScpipts
 {
@@ -15,10 +14,11 @@ namespace Assets.Sources.AnomalyScpipts
 
         [SerializeField] private float _damageRate;
         [SerializeField] private ParticleSystem _effect;
+        [SerializeField] private PauseableRoutine _routine;
 
         private Player _player;
         private Rigidbody _playerRigidbody;
-        private Coroutine _coroutine;
+        private bool _isAttack;
         private bool _isDowned;
 
         public event Action IsDowned;
@@ -31,9 +31,15 @@ namespace Assets.Sources.AnomalyScpipts
             CollidersHolder.SetActive(false);
         }
 
+        private protected override void OnDisable()
+        {
+            base.OnDisable();
+            _routine.Updated -= OnRoutineUpdated;
+        }
+
         private protected override void OnCollisionEnter(Collision collision)
         {
-            if (_isDowned || _coroutine != null || IsInitialized == false)
+            if (_isDowned || _isAttack || IsInitialized == false)
                 return;
 
             if (collision.gameObject.tag == UserUtils.Player)
@@ -44,15 +50,28 @@ namespace Assets.Sources.AnomalyScpipts
                 if (_playerRigidbody == null)
                     _playerRigidbody = collision.gameObject.GetComponent<Rigidbody>();
 
-                if (_player.CurrentSize <= Size)
-                    _coroutine = StartCoroutine(AttackPlayerRoutine());
+                if (_player.CurrentSize <= Size && _player.IsDefended == false)
+                {
+                    _player.TakeDamage(Damage, transform.position, Force);
+                    _isAttack = true;
+                    _routine.UpdateView(_damageRate);
+                }
             }
         }
 
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
+            _routine.Init(pauseHandler);
+            _routine.Updated += OnRoutineUpdated;
             IsInitialized = true;
+        }
+
+        private void OnRoutineUpdated()
+        {
+            _isAttack = false;
+            Collider.enabled = false;
+            Collider.enabled = true;
         }
 
         public override void Pause()
@@ -75,28 +94,6 @@ namespace Assets.Sources.AnomalyScpipts
             IsDowned?.Invoke();
             Collider.isTrigger = true;
             CollidersHolder.SetActive(true);
-        }
-
-        private IEnumerator AttackPlayerRoutine()
-        {
-            float elapsedTime = 0;
-            Collider.enabled = false;
-            _player.TakeDamage(Damage, transform.position, Force);
-
-            while (elapsedTime < _damageRate)
-            {
-                if (IsPaused)
-                {
-                    yield return null;
-                    continue;
-                }
-
-                elapsedTime += Time.deltaTime;
-                yield return null;
-            }
-
-            _coroutine = null;
-            Collider.enabled = true;
         }
     }
 }

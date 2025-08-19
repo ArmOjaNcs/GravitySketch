@@ -6,8 +6,6 @@ namespace Assets.Sources.UI
 {
     public class BoostCountUI : MonoBehaviour
     {
-        private const string Boosts = "Boost ";
-
         [SerializeField] private Booster _booster;
         [SerializeField] private TextMeshProUGUI _boostCount;
 
@@ -23,12 +21,12 @@ namespace Assets.Sources.UI
 
         private void Start()
         {
-            OnBoostCountChanged();
+            _boostCount.text = _booster.BoostCount.ToString();
         }
 
         private void OnBoostCountChanged()
         {
-            _boostCount.text = Boosts + _booster.CurrentBoostCount.ToString();
+            _boostCount.text = _booster.CurrentBoostCount.ToString();
         }
     }
 }

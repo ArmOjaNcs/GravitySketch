@@ -22,6 +22,7 @@ namespace Assets.Sources.Level
         [SerializeField] private Template _template;
         [SerializeField] private Toggle _autoPaint;
         [SerializeField] private GameObject _totalScore;
+        [SerializeField] private GameObject _panel;
         [SerializeField] private Button _toNextLevel;
 
         private bool _isFinished;
@@ -37,9 +38,7 @@ namespace Assets.Sources.Level
             _validator.Finished += OnFinished;
             _referenceViewer.IsShowing += OnShowing;
             _autoPaint.onValueChanged.AddListener(OnAutoPaint);
-            _totalScore.SetActive(false);
             _toNextLevel.onClick.AddListener(OnNextApplied);
-            _toNextLevel.gameObject.SetActive(false);
         }
 
         private protected override void OnDisable()
@@ -60,6 +59,9 @@ namespace Assets.Sources.Level
             _referenceViewer.Init(pauseHandler);
             _positionHandler.SetPaintStage(this);
             _positionHandler.Init(pauseHandler);
+            _totalScore.SetActive(false);
+            _panel.SetActive(false);
+            _toNextLevel.gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         }

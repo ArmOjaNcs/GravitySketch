@@ -1,15 +1,16 @@
 using Assets.Sources.PlayerScripts;
 using TMPro;
 using UnityEngine;
+using YG;
 
 namespace Assets.Sources.UI
 {
     public class HoleSizeText : MonoBehaviour
     {
-        private const string Size = "Size: ";
-
-        [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private GrowHandler _growHandler;
+        [SerializeField] private TextMeshProUGUI _text;
+
+        private string _size = string.Empty;
 
         private void OnEnable()
         {
@@ -23,12 +24,13 @@ namespace Assets.Sources.UI
 
         private void Start()
         {
+            _size = _text.text + " ";
             OnGrowing();
         }
 
         private void OnGrowing()
         {
-            _text.text = Size + _growHandler.CurrentSize;
+            _text.text = _size + _growHandler.CurrentSize;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Assets.Sources.Level
         [SerializeField] private PauseableRoutine _pauseableRoutine;
         [SerializeField] private float _timeBeforeLoad;
 
+        private Enemy _boss;
         private float _currentEnemyDissolvedPercent;
         private float _currentCubesCountPercent;
 
@@ -103,14 +104,19 @@ namespace Assets.Sources.Level
 
         private void UpdateExitStatus()
         {
-            if (IsCanFinish() && _exit.IsDowned == false)
+            if (IsCanFinish() && _enemyFactory.IsBossSpawned == false)
             {
-                _exit.transform.position = _takeOverLimit.transform.position + Vector3.up * 70;
-                _exit.gameObject.SetActive(true);
-
-                if (_exit.IsDowned == false)
-                    _exit.DropDown();
+                _boss = _enemyFactory.CreateBoss();
+                _boss.Finished += OnBossFinished;
             }
+        }
+
+        private void OnBossFinished()
+        {
+            _boss.Finished -= OnBossFinished;
+            _exit.transform.position = _takeOverLimit.transform.position + Vector3.up * 70;
+            _exit.gameObject.SetActive(true);
+            _exit.DropDown();
         }
     }
 }

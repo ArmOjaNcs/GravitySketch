@@ -6,10 +6,10 @@ namespace Assets.Sources.UI
 {
     public class PlayerCubesOnNextGrowUI : MonoBehaviour
     {
-        private const string CubesOnNextSize = "Cubes on next size: ";
-
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private GrowHandler _growHandler;
+
+        private string _cubesOnNextSize = string.Empty;
 
         private void OnEnable()
         {
@@ -23,12 +23,13 @@ namespace Assets.Sources.UI
 
         private void Start()
         {
+            _cubesOnNextSize = _text.text + " ";
             OnGrowing();
         }
 
         private void OnGrowing()
         {
-            _text.text = CubesOnNextSize + _growHandler.CubesOnNextGrow;
+            _text.text = _cubesOnNextSize + _growHandler.CubesOnNextGrow;
         }
     }
 }

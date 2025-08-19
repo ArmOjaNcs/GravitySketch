@@ -1,8 +1,8 @@
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using DG.Tweening;
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Sources.UI
 {
@@ -10,7 +10,7 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private protected SmoothedImage ActiveTimeImage;
         [SerializeField] private protected SmoothedImage ReloadTimeImage;
-        [SerializeField] private protected TextMeshProUGUI Text;
+        [SerializeField] private protected Image _emblem;
 
         private protected virtual void OnEnable()
         {
@@ -36,7 +36,7 @@ namespace Assets.Sources.UI
 
         private protected override Sequence GetAnimation()
         {
-            return AnimationSpawner.GetShakeAnimation(Text.rectTransform, 0.5f);
+            return AnimationSpawner.GetShakeAnimation(_emblem.rectTransform, 0.5f);
         }
 
         private protected abstract void OnActiveImageUpdated();

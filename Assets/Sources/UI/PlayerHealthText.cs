@@ -8,13 +8,11 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private PopUpText _popUpText;
 
-        private const string Energy = "Energy ";
-
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
             _popUpText.Init(pauseHandler);
-            StartText = Energy;
+            StartText = Text.text + " ";
             IsNeedToSplit = true;
             SplitSign = '/';
             MaxValue = Health.MaxValue;

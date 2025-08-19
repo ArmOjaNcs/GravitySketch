@@ -114,7 +114,6 @@ namespace Assets.Sources.EnemyScripts
             _target = _movePointsHolder.GetMovePoint();
             DeactivateStopZone();
             ConfirmTarget();
-            Debug.Log("OutZone");
         }
 
         public void SetInZone()
@@ -122,7 +121,6 @@ namespace Assets.Sources.EnemyScripts
             _isInZone = true;
             ActivateStopZone();
             _moveZone.Refresh();
-            Debug.Log("InZone");
         }
 
         public void Activate()
@@ -179,7 +177,6 @@ namespace Assets.Sources.EnemyScripts
             _isPlayerTarget = false;
             _target = _movePointsHolder.GetMovePoint();
             ConfirmTarget();
-            Debug.Log("Player Losed. Target tag:" + _target.tag);
         }
 
         private void OnMoveIn()
@@ -225,7 +222,7 @@ namespace Assets.Sources.EnemyScripts
 
         private void ControlDistance()
         {
-            if (_target.CompareTag("MovePoint") == false)
+            if (_target.CompareTag(UserUtils.MovePoint) == false)
                 return;
 
             float sqrtDistance = (_target.position - _transform.position).sqrMagnitude;

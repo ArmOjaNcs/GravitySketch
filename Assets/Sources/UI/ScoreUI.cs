@@ -30,7 +30,7 @@ namespace Assets.Sources.UI
             _audioPlayer.Init(pauseHandler);
             _audioPlayer.AudioSource.playOnAwake = false;
             _audioPlayer.AudioSource.loop = true;
-            StartText = UserUtils.Score;
+            StartText = Text.text + " ";
             SplitSign = UserUtils.DefaultChar;
             IsNeedToSplit = false;
             Text.text = GetTotalText();

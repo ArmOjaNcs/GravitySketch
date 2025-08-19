@@ -133,22 +133,16 @@ namespace Assets.Sources.EnemyScripts
                 return;
 
             IsInteracted = true;
-            Collider[] hits = Physics.OverlapSphere(transform.position, Radius);
 
-            foreach (Collider hit in hits)
-            {
-                if (hit.CompareTag(UserUtils.Player))
-                {
-                    Player player = AttackZone.Player;
-
-                    if (player != null)
-                        player.TakeDamage(Damage, transform.position, Force);
-
-                    break;
-                }
-            }
+            if (IsHitPlayer())
+                AttackZone.Player.TakeDamage(Damage, transform.position, Force);
 
             Effect.transform.SetParent(null);
+            PlayEffect();
+        }
+
+        private protected void PlayEffect()
+        {
             Effect.Play();
             AudioPlayer.Play();
         }
@@ -156,6 +150,19 @@ namespace Assets.Sources.EnemyScripts
         private protected bool IsCanLive()
         {
             return IsInitialized && IsPaused == false && IsConfigurated;
+        }
+
+        private protected bool IsHitPlayer()
+        {
+            Collider[] hits = Physics.OverlapSphere(transform.position, Radius);
+
+            foreach (Collider hit in hits)
+            {
+                if (hit.CompareTag(UserUtils.Player))
+                    return true;
+            }
+
+            return false;
         }
     }
 }

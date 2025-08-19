@@ -35192,6 +35192,7 @@ GameObject:
   - component: {fileID: 6808716251448231177}
   - component: {fileID: 5538747546583878545}
   - component: {fileID: 6596212786805928281}
+  - component: {fileID: 7000994890787370357}
   m_Layer: 20
   m_Name: 'Anomaly '
   m_TagString: DissolvableObstacle
@@ -35275,6 +35276,7 @@ MonoBehaviour:
   CollidersHolder: {fileID: 6144138461419954114}
   _damageRate: 0.5
   _effect: {fileID: 748460947323569538}
+  _routine: {fileID: 7000994890787370357}
 --- !u!54 &6596212786805928281
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -35302,3 +35304,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7000994890787370357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9025686841619518339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fcb672823f68494080a854914d14d01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
