@@ -17,10 +17,9 @@ namespace Assets.Sources.Level
             _paintInput.Init(PauseHandler);
             _coloringPositionHandler.SetPaintInput(_paintInput);
             _colorizerView.Init(PauseHandler);
-            _colorizedCubeSpawner.SetAudioPlayerSpawner(AudioPlayerSpawner);
             _colorizedCubeSpawner.Init(PauseHandler);
             _scoreView.Init(PauseHandler);
-            Stage.Init(PauseHandler);
+            Stage.Init(PauseHandler, AudioPlayerSpawner);
         }
 
         private protected override void OnLoadWindowUpdated()

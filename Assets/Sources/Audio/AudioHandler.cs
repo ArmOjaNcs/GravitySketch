@@ -11,8 +11,10 @@ namespace Assets.Sources.Audio
         [SerializeField] private AudioSlider _soundVolume;
         [SerializeField] private AudioSlider _interfaceVolume;
         [SerializeField] private AudioToggle _totalVolumeStatus;
+        [SerializeField] private AudioSource _toggleSource;
 
         private AudioSettings _settings;
+        private bool _isInitialized;
 
         private void OnEnable()
         {
@@ -51,12 +53,19 @@ namespace Assets.Sources.Audio
             _interfaceVolume.SetSliderValue(_settings.InterfaceVolume);
             _totalVolumeStatus.Init();
             _totalVolumeStatus.SetOn(_settings.ToggleStatus);
+            _isInitialized = true;
         }
 
         private void OnTotalVolumeChanged(float volume) => _settings.SetTotalVolume(volume);
         private void OnMusicVolumeChanged(float volume) => _settings.SetMusicVolume(volume); 
         private void OnSoundVolumeChanged(float volume) => _settings.SetSoundVolume(volume);
         private void OnInterfaceVolumeChanged(float volume) => _settings.SetInterfaceVolume(volume);
-        private void OnVolumeStatusValueChanged(bool isOn) => _settings.SetToggleStatus(isOn);
+        private void OnVolumeStatusValueChanged(bool isOn)
+        {
+            _settings.SetToggleStatus(isOn);
+
+            if(_isInitialized) 
+                _toggleSource.Play();
+        }
     }
 }

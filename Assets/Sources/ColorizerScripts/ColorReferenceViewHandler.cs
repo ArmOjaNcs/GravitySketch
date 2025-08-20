@@ -10,6 +10,7 @@ namespace Assets.Sources.ColorizerScripts
     {
         [SerializeField] private Button _showButton;
         [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private AudioSource _buttonSound;
         [SerializeField, Range(1,10)] private int _showCounts;
 
         private bool _isAutoPaint;
@@ -43,6 +44,7 @@ namespace Assets.Sources.ColorizerScripts
             if (_isAutoPaint || Routine != null || IsPaused || _showCounts == 0)
                 return;
 
+            _buttonSound.Play();
             _showCounts--;
             _text.text = _showCounts.ToString();
             OnUpdate();

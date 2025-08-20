@@ -24,6 +24,7 @@ namespace Assets.Sources.Level
         [SerializeField] private GameObject _totalScore;
         [SerializeField] private GameObject _panel;
         [SerializeField] private Button _toNextLevel;
+        [SerializeField] private AudioClip _toggleSound;
 
         private bool _isFinished;
 
@@ -50,12 +51,13 @@ namespace Assets.Sources.Level
             _toNextLevel.onClick.RemoveListener(OnNextApplied);
         }
 
-        public override void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner = null)
+        public override void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
         {
+            base.Init(pauseHandler, audioPlayerSpawner);
             _materialReference.ResetEntriesCurrentIndex();
             _colorizer.SetStage(this, CurrentColors);
             _colorizer.Init(pauseHandler);
-            _validator.Init(this);
+            _validator.Init(this, audioPlayerSpawner);
             _referenceViewer.Init(pauseHandler);
             _positionHandler.SetPaintStage(this);
             _positionHandler.Init(pauseHandler);
@@ -122,6 +124,7 @@ namespace Assets.Sources.Level
 
         private void OnAutoPaint(bool isAutoPaint)
         {
+            AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(_toggleSound).Play();
             _colorizer.SetAutoPaint(isAutoPaint);
             _positionHandler.SetAutoPaint(isAutoPaint);
             _referenceViewer.SetAutoPaint(isAutoPaint);
@@ -153,6 +156,7 @@ namespace Assets.Sources.Level
 
         private void OnNextApplied()
         {
+            AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(ButtonSound).Play();
             Window.Closed += LoadNext;
             Window.Hide();
             HidePauseMenu();

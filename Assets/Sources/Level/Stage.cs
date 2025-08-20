@@ -13,7 +13,11 @@ namespace Assets.Sources.Level
         [SerializeField] private protected Button ToMainMenu;
         [SerializeField] private protected Button Restart;
         [SerializeField] private protected MenuWindow Window;
+        [SerializeField] private protected AudioClip ButtonSound;
         [SerializeField] private PauseMenu _pauseMenu;
+
+        private protected PauseHandler PauseHandler;
+        private protected AudioPlayerSpawner AudioPlayerSpawner;
 
         public event Action Finished;
 
@@ -33,7 +37,11 @@ namespace Assets.Sources.Level
             _pauseMenu.Closing -= OnPauseMenuClosing;
         }
 
-        public abstract void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner = null);
+        public virtual void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
+        {
+            PauseHandler = pauseHandler;
+            AudioPlayerSpawner = audioPlayerSpawner;
+        }
 
         private protected void HidePauseMenu()
         {
@@ -45,6 +53,7 @@ namespace Assets.Sources.Level
 
         private void OnMainMenuApplied()
         {
+            AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(ButtonSound).Play();
             Finished?.Invoke();
             Window.Closed += LoadMainMenu;
             Window.Hide();
@@ -59,6 +68,7 @@ namespace Assets.Sources.Level
 
         private void OnRestartApplied()
         {
+            AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(ButtonSound).Play();
             Finished?.Invoke();
             Window.Closed += RestartStage;
             Window.Hide();

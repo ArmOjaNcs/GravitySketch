@@ -1,10 +1,9 @@
+using Assets.Sources.Pause;
+using Assets.Sources.Table;
+using Assets.Sources.Utils;
 using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using Assets.Sources.Utils;
-using Assets.Sources.Table;
-using Assets.Sources.Pause;
-using Assets.Sources.Audio;
 
 namespace Assets.Sources.ColorizerScripts
 {
@@ -21,7 +20,6 @@ namespace Assets.Sources.ColorizerScripts
 
         private ObjectPool<ColorizedCube> _pool;
         private PauseHandler _pauseHandler;
-        private AudioPlayerSpawner _audioPlayerSpawner;
 
         public event Action<int, bool> IndexApplied;
 
@@ -43,15 +41,10 @@ namespace Assets.Sources.ColorizerScripts
             _colorizer.PaintApplied -= OnPaintApplied;
         }
 
-        public void SetAudioPlayerSpawner(AudioPlayerSpawner audioPlayerSpawner) 
-            => _audioPlayerSpawner = audioPlayerSpawner;
-
         public override void Init(PauseHandler pauseHandler)
         {
             _pauseHandler = pauseHandler;
-
-            if (_audioPlayerSpawner != null)
-                IsInitialized = true;
+            IsInitialized = true;
         }
 
         private void OnPaintApplied(IReadonlyTemplateCube templateCube, Color color, bool isAutoPaint)
@@ -78,7 +71,14 @@ namespace Assets.Sources.ColorizerScripts
         private void OnCubeFinished(ColorizedCube cube)
         {
             cube.Finished -= OnCubeFinished;
+            cube.EffectFinished += OnCubeEffectFinished;
+            cube.DisableRenderer();
             IndexApplied?.Invoke(cube.GetTargetIndex(), cube.IsAutoPaint);
+        }
+
+        private void OnCubeEffectFinished(ColorizedCube cube)
+        {
+            cube.EffectFinished -= OnCubeEffectFinished;
             cube.gameObject.SetActive(false);
         }
 

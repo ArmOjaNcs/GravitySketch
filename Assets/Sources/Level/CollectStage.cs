@@ -52,6 +52,7 @@ namespace Assets.Sources.Level
 
         public override void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
         {
+            base.Init(pauseHandler, audioPlayerSpawner);
             _player.Init(pauseHandler);
             _exit.Init(pauseHandler);
             _exit.SetAudioPlayerSpawner(audioPlayerSpawner);

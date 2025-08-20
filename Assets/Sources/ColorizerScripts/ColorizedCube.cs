@@ -2,12 +2,16 @@ using Assets.Sources.Pause;
 using Assets.Sources.Table;
 using System;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 namespace Assets.Sources.ColorizerScripts
 {
     [RequireComponent(typeof(MeshRenderer))]
     public class ColorizedCube : PauseableObject
     {
+        [SerializeField] private ParticleSystem _effect;
+
+        private MainModule _mainModule;
         private Vector3 _rotateDirection;
         private float _speed;
         private MeshRenderer _meshRenderer;
@@ -19,16 +23,33 @@ namespace Assets.Sources.ColorizerScripts
         private Color _currentColor;
 
         public event Action<ColorizedCube> Finished;
+        public event Action<ColorizedCube> EffectFinished;
 
         public bool IsAutoPaint { get; private set; }
+
+        private void OnEnable()
+        {
+            if(_meshRenderer != null)
+                _meshRenderer.enabled = true;
+        }
 
         private void Update()
         {
             if (IsInitialized == false)
                 return;
 
-            if (_isCanMove && isActiveAndEnabled && IsPaused == false)
-                MoveToTarget();
+            if (isActiveAndEnabled && IsPaused == false)
+            {
+                if (_isCanMove)
+                {
+                    MoveToTarget();
+                }
+                else
+                {
+                    if (_effect.isPlaying == false)
+                        EffectFinished?.Invoke(this);
+                }    
+            }
         }
 
         public override void Init(PauseHandler pauseHandler)
@@ -37,7 +58,20 @@ namespace Assets.Sources.ColorizerScripts
             _meshRenderer = GetComponent<MeshRenderer>();
             _transform = transform;
             _mpb = new MaterialPropertyBlock();
+            _mainModule = _effect.main;
             IsInitialized = true;
+        }
+
+        public override void Pause()
+        {
+            base.Pause();
+            _effect.Pause();
+        }
+
+        public override void Resume()
+        {
+            base.Resume();
+            _effect.Play();
         }
 
         public void SetStartSettings(ColorizedCubeData colorizedCubeData, bool isAutoPaint)
@@ -56,7 +90,11 @@ namespace Assets.Sources.ColorizerScripts
             _meshRenderer.SetPropertyBlock(_mpb);
         }
 
-        public void StartMove() => _isCanMove = true;
+        public void StartMove()
+        {
+            _mainModule.startColor = _currentColor;
+            _isCanMove = true;
+        }
 
         public int GetTargetIndex()
         {
@@ -64,6 +102,12 @@ namespace Assets.Sources.ColorizerScripts
                 throw new ArgumentNullException(nameof(_target));
 
             return _target.Index;
+        }
+
+        public void DisableRenderer()
+        {
+            if (_meshRenderer != null)
+                _meshRenderer.enabled = false;
         }
 
         public Color GetColor() => _currentColor;

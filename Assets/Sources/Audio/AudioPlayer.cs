@@ -12,6 +12,7 @@ namespace Assets.Sources.Audio
         private Transform _transform;
         private bool _isFinished;
         private bool _isPlaying;
+        private bool _isUI;
 
         public event Action<AudioPlayer> PlaybackIsFinished;
 
@@ -20,6 +21,7 @@ namespace Assets.Sources.Audio
         private void OnEnable()
         {
             _isFinished = false;
+            _isUI = false;
         }
 
         private void OnDisable()
@@ -48,6 +50,12 @@ namespace Assets.Sources.Audio
             }
         }
 
+        public AudioPlayer SetUI()
+        {
+            _isUI = true;
+            return this;
+        }
+
         public void SetPosition(Vector3 position) => _transform.position = position;
 
         public AudioPlayer SetAudioClip(AudioClip clip)
@@ -69,6 +77,9 @@ namespace Assets.Sources.Audio
 
         public override void Pause()
         {
+            if (_isUI)
+                return;
+
             base.Pause();
 
             if (_isPlaying)
@@ -77,6 +88,9 @@ namespace Assets.Sources.Audio
 
         public override void Resume()
         {
+            if (_isUI)
+                return;
+
             base.Resume();
 
             if (_isPlaying)
