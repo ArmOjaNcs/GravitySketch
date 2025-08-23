@@ -15,6 +15,7 @@ namespace Assets.Sources.UI
         [SerializeField] private PaintStage _paintStage;
         [SerializeField] private Validator _validator;
         [SerializeField] private Colorizer _colorizer;
+        [SerializeField] private AudioSource _calculateSound;
 
         private string _totalScoreText = string.Empty;
         private string _paintScoreText = string.Empty;
@@ -86,6 +87,7 @@ namespace Assets.Sources.UI
         private IEnumerator CalculateTotalScore(int totalScore)
         {
             float elapsedTime = 0;
+            _calculateSound.Play();
 
             while (elapsedTime < UserUtils.CalculateTime)
             {
@@ -96,6 +98,8 @@ namespace Assets.Sources.UI
 
                 yield return null;
             }
+
+            _calculateSound.Stop();
         }
     }
 }

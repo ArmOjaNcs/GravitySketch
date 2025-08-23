@@ -134,7 +134,7 @@ namespace Assets.Sources.Level
         {
             InvokeFinished();
             int nextIndex = Index + (int)UserUtils.One;
-            
+
             if (UserUtils.TryGetSceneName(nextIndex, out string _))
             {
                 SetCurrentIndex(nextIndex);
@@ -146,7 +146,10 @@ namespace Assets.Sources.Level
                 _toNextLevel.gameObject.SetActive(false);
             }
 
-            yield return new WaitForSeconds(UserUtils.Two);
+            yield return new WaitForSeconds(UserUtils.One);
+            AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(FinalSound).Play();
+
+            yield return new WaitForSeconds(UserUtils.One);
             _totalScore.SetActive(true);
             Window.Show();
             int finalScore = _validator.MatchScore + CurrentScore + _referenceViewer.ShowCount * UserUtils.ShowScore;

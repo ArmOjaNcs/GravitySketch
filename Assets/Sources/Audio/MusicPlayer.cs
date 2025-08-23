@@ -13,6 +13,7 @@ namespace Assets.Sources.Audio
         [SerializeField] private AudioClip _gameOverClip;
         [SerializeField] private Button _next;
         [SerializeField] private Button _previous;
+        [SerializeField] private AudioSource _buttonSource;
 
         private int _indexOfClip;
         private bool _isPlaying;
@@ -52,6 +53,7 @@ namespace Assets.Sources.Audio
 
         public void ChangeToNextClip()
         {
+            _buttonSource.Play();
             _indexOfClip = ++_indexOfClip % _music.Count;
             _musicSource.clip = _music[_indexOfClip];
             _musicSource.Play();
@@ -59,6 +61,7 @@ namespace Assets.Sources.Audio
 
         public void ChangeToPreviousClip()
         {
+            _buttonSource.Play();
             _indexOfClip = --_indexOfClip;
 
             if (_indexOfClip < 0)

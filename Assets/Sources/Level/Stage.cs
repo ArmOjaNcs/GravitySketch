@@ -14,6 +14,7 @@ namespace Assets.Sources.Level
         [SerializeField] private protected Button Restart;
         [SerializeField] private protected MenuWindow Window;
         [SerializeField] private protected AudioClip ButtonSound;
+        [SerializeField] private protected AudioClip FinalSound;
         [SerializeField] private PauseMenu _pauseMenu;
 
         private protected PauseHandler PauseHandler;

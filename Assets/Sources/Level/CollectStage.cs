@@ -86,6 +86,7 @@ namespace Assets.Sources.Level
 
         private void OnExitApplied()
         {
+            AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(FinalSound).Play();
             _pauseableRoutine.UpdateView(_timeBeforeLoad);
         }
 
