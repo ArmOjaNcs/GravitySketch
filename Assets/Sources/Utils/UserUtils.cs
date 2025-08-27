@@ -25,7 +25,7 @@ namespace Assets.Sources.Utils
         public const int MatchScore = 500;
         public const int ShowScore = 5000;
 
-        public const string TotalScore = "Total score: ";
+        public const string TotalScore = "Total score";
         public const string CollectScore = "Collect score: ";
         public const string PaintScore = "Paint score: ";
         public const string EnemiesCount = "Enemies killed: ";
@@ -45,7 +45,7 @@ namespace Assets.Sources.Utils
         public const string Damage = "Damage ";
         public const string Score = "Score ";
         public const string Start = nameof(Start);
-        public const string Resume = nameof(Resume);
+        public const string Continue = nameof(Continue);
         public const string Upgraded = "Upgraded!!!";
         public const string Loading = "Loading...";
         public const string ShowCounts = "Show counts: ";

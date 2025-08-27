@@ -2,7 +2,8 @@
 {
     Properties
     {
-        _Color ("Color", Color) = (1,1,1,1)
+        _MainTex ("Texture", 2D) = "white" {}      // текстура (например дерево)
+        _Color ("Tint Color", Color) = (1,1,1,1)   // множитель цвета
         _HolePosition ("Hole Position", Vector) = (0,0,0,0)
         _HoleRadius ("Hole Radius", Float) = 1.0
     }
@@ -16,29 +17,37 @@
         #pragma surface surf Standard fullforwardshadows
         #pragma target 3.0
 
+        sampler2D _MainTex;
         fixed4 _Color;
         float4 _HolePosition;
         float _HoleRadius;
 
         struct Input
         {
-            float3 worldPos;
+            float2 uv_MainTex;   // координаты для текстуры
+            float3 worldPos;     // позиция в мире (для дырки)
         };
 
         void surf(Input IN, inout SurfaceOutputStandard o)
         {
+            // расстояние от текущего пикселя до центра дыры
             float dist = distance(IN.worldPos.xz, _HolePosition.xz);
+
+            // вырезаем дырку
             if (dist < _HoleRadius)
             {
-                clip(-1); // Аналог discard
+                clip(-1);
             }
 
-            o.Albedo = _Color.rgb;
-            o.Alpha = _Color.a;
+            // получаем цвет из текстуры и умножаем на цвет-множитель
+            fixed4 tex = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+
+            o.Albedo = tex.rgb;
+            o.Alpha  = tex.a;
         }
         ENDCG
 
-        // ShadowCaster pass to ensure shadows work
+        // --- ShadowCaster, чтобы дырка вырезалась и в тенях ---
         Pass
         {
             Name "ShadowCaster"
@@ -80,7 +89,7 @@
                 float dist = distance(i.worldPos.xz, _HolePosition.xz);
                 if (dist < _HoleRadius)
                 {
-                    clip(-1); // вырезаем дыру в shadow caster тоже
+                    clip(-1); // вырезаем дыру в тенях
                 }
                 return 0;
             }

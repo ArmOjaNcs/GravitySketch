@@ -49,10 +49,7 @@ namespace Assets.Sources.Dissolvable
         private protected override void OnDisable()
         {
             if (DissolveAnimation.IsActive() && _isDropped)
-            {
                 DissolveAnimation.Kill();
-                Debug.Log("Animation is Killed");
-            }
 
             base.OnDisable();
         }

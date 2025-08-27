@@ -1,8 +1,8 @@
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.Pause;
+using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
-using YG;
 
 namespace Assets.Sources.UI
 {
@@ -14,9 +14,6 @@ namespace Assets.Sources.UI
         [SerializeField] private TextMeshProUGUI _nameText;
         [SerializeField] private Enemy _enemy;
 
-        private LanguageYG _levelTextLanguage;
-        private LanguageYG _nameTextLanguage;
-
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
@@ -25,15 +22,10 @@ namespace Assets.Sources.UI
             MaxValue = Health.MaxValue;
             CurrentValue = Health.CurrentValue;
             Text.text = GetTotalText();
-            _levelText.text = Level + " " + _enemy.Size;
-            _nameText.text = _enemy.Name;
+            string levelTranslation = Translator.Get(Level);
+            _levelText.text = levelTranslation + " " + _enemy.Size;
+            _nameText.text = Translator.Get(_enemy.Name);
             IsInitialized = true;
-            //_levelTextLanguage = _levelText.gameObject.GetComponent<LanguageYG>();
-            //_nameTextLanguage = _nameText.gameObject.GetComponent<LanguageYG>();
-            //_levelTextLanguage.text = _levelText.text;
-            //_levelTextLanguage.Translate(3);
-            //_nameTextLanguage.text = _nameText.text;
-            //_nameTextLanguage.Translate(3);
         }
     }
 }

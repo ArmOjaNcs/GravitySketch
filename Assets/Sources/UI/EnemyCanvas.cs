@@ -8,6 +8,7 @@ namespace Assets.Sources.UI
     public class EnemyCanvas : SmoothedFade
     {
         [SerializeField] private Enemy _enemy;
+        [SerializeField] private BillboardUI _billboardUI;
 
         private bool _fadeRoutineStarted;
 
@@ -26,6 +27,7 @@ namespace Assets.Sources.UI
         {
             base.Init(pauseHandler);
             UserUtils.SetActiveElements(false, Elements);
+            _billboardUI.IsStop(true);
             IsInitialized = true;
         }
 
@@ -47,6 +49,7 @@ namespace Assets.Sources.UI
                 if (Routine != null)
                     StopCoroutine(Routine);
 
+                _billboardUI.IsStop(false);
                 UserUtils.SetActiveElements(true, Elements);
                 CanvasGroup.alpha = 1f;
             }
@@ -54,6 +57,12 @@ namespace Assets.Sources.UI
             {
                 UpdateView(Duration);
             }
+        }
+
+        private protected override void OnRoutineEnd()
+        {
+            base.OnRoutineEnd();
+            _billboardUI.IsStop(true);
         }
     }
 }

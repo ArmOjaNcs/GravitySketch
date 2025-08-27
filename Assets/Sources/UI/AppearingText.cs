@@ -1,4 +1,5 @@
 using Assets.Sources.Pause;
+using Assets.Sources.Utils;
 using System;
 using TMPro;
 using UnityEngine;
@@ -18,9 +19,6 @@ namespace Assets.Sources.UI
 
         private protected override void OnRoutineStart()
         {
-            if (_totalText == string.Empty)
-                _totalText = _text.text;
-
             _currentText = string.Empty;
             _text.text = _currentText;
         }
@@ -45,7 +43,10 @@ namespace Assets.Sources.UI
 
         public override void UpdateView(float duration)
         {
-            _step = duration / _totalText.Length;
+            if (_totalText == string.Empty)
+                _totalText = Translator.Get(_text.text);
+
+            _step = duration / (_totalText.Length - 1);
             base.UpdateView(duration);
         }
     }

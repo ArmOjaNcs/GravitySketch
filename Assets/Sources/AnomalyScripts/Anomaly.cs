@@ -39,6 +39,8 @@ namespace Assets.Sources.AnomalyScpipts
 
         private protected override void OnCollisionEnter(Collision collision)
         {
+            base.OnCollisionEnter(collision);
+           
             if (_isDowned || _isAttack || IsInitialized == false)
                 return;
 

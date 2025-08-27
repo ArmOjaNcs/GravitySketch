@@ -17,6 +17,11 @@ namespace Assets.Sources.Audio
 
         public event Action<bool> ValueChanged;
 
+        private void OnEnable()
+        {
+            _toggle.onValueChanged.AddListener(SetFloat);
+        }
+
         private void OnDisable()
         {
             _toggle.onValueChanged.RemoveListener(SetFloat);

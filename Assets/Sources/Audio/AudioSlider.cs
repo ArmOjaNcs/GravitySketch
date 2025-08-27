@@ -18,6 +18,11 @@ namespace Assets.Sources.Audio
 
         public float CurrentVolume => GetCorrectVolume(_slider.value);
 
+        private void OnEnable()
+        {
+            _slider.onValueChanged.AddListener(SetVolume);
+        }
+
         private void OnDisable()
         {
             _slider.onValueChanged.RemoveListener(SetVolume);

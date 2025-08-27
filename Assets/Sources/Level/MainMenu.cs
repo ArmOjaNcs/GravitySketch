@@ -3,6 +3,7 @@ using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 namespace Assets.Sources.Level
 {
@@ -13,27 +14,19 @@ namespace Assets.Sources.Level
         [SerializeField] private MenuWindow _default;
         [SerializeField] private MenuWindow[] _windows;
         [SerializeField] private Button _start;
-
-        private protected override void Awake()
-        {
-            base.Awake();
-
-            if (LevelsCount == 0)
-                _startButtonText.text = UserUtils.Start;
-            else
-                _startButtonText.text = UserUtils.Resume;
-
-            _levelSelector.Init(this);
-            _levelSelector.PlayClicked += OnPlayClicked;
-        }
+        [SerializeField] private Button[] _buttons;
+        [SerializeField] private AudioSource _buttonSound;
 
         private void OnEnable()
         {
-            foreach(MenuWindow menuWindow in _windows)
+            foreach (MenuWindow menuWindow in _windows)
             {
                 menuWindow.Opening += OnWindowOpening;
                 menuWindow.Closing += OnWindowClosing;
             }
+
+            foreach (Button button in _buttons)
+                button.onClick.AddListener(OnButtonClick);
 
             _start.onClick.AddListener(OnStartClicked);
         }
@@ -48,10 +41,18 @@ namespace Assets.Sources.Level
                 menuWindow.Opening -= OnWindowOpening;
                 menuWindow.Closing -= OnWindowClosing;
             }
+
+            foreach (Button button in _buttons)
+                button.onClick.RemoveListener(OnButtonClick);
         }
 
         private void Start()
         {
+            if (YandexGame.EnvironmentData == null)
+                YandexGame.GetDataEvent += OnYGReady;
+            else
+                OnYGReady();
+
             _default.Show();
         }
 
@@ -64,6 +65,23 @@ namespace Assets.Sources.Level
         {
             UserUtils.TryGetSceneName(CurrentLevelIndex, out string sceneName);
             LoadScene(sceneName);
+        }
+
+        private void OnButtonClick() => _buttonSound.Play();
+
+        private void OnYGReady()
+        {
+            string text = string.Empty;
+
+            if (LevelsCount == 0)
+                text = UserUtils.Start;
+            else
+                text = UserUtils.Continue;
+
+            Translator.UpdateLang();
+            _startButtonText.text = Translator.Get(text);
+            _levelSelector.Init(this);
+            _levelSelector.PlayClicked += OnPlayClicked;
         }
     }
 }

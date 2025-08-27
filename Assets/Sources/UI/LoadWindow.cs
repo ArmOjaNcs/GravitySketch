@@ -45,8 +45,8 @@ namespace Assets.Sources.UI
         private void OnLoadTextUpdated()
         {
             _count++;
-            
-            if(_count <= UserUtils.Three)
+
+            if (_count <= UserUtils.Three)
                 _loadText.UpdateView(UserUtils.LoadTime / UserUtils.Three);
             else
                 _loadAnimation.Pause();

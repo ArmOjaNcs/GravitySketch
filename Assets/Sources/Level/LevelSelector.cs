@@ -35,7 +35,8 @@ namespace Assets.Sources.Level
         public void Init(LevelScore levelScore)
         {
             _levelScore = levelScore;
-            _totalScore.text = UserUtils.TotalScore + _levelScore.TotalScore;
+            string translatedText = Translator.Get(UserUtils.TotalScore);
+            _totalScore.text = translatedText + " " + _levelScore.TotalScore;
             _play.onClick.AddListener(OnPlayClicked);
             _play.gameObject.SetActive(false);
 
