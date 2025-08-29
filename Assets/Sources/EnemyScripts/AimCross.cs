@@ -22,6 +22,7 @@ namespace Assets.Sources.EnemyScripts
         private float _currentDelayTime;
         private AimCrossConfig _config;
         private bool _isShoot;
+        private bool _isDeactivated;
 
         public event Action Shoot;
 
@@ -40,6 +41,25 @@ namespace Assets.Sources.EnemyScripts
             _currentAimingTime = 0;
         }
 
+        private protected override void Update()
+        {
+            if (_isDeactivated)
+            {
+                if(_image.gameObject.activeSelf)
+                    _image.gameObject.SetActive(false);
+
+                if (Effect.isPlaying == false)
+                {
+                    Effect.gameObject.SetActive(false);
+                    gameObject.SetActive(false);
+                }
+
+                return;
+            }
+
+            base.Update();
+        }
+
         public override void InitFromConfig(MissileConfig config, EnemyAttackZone attackZone)
         {
             base.InitFromConfig(config, attackZone);
@@ -52,6 +72,18 @@ namespace Assets.Sources.EnemyScripts
             if (_config != null)
             {
                 _defaultEffectScale = Effect.transform.lossyScale;
+                var enemyAttackZone = attackZone.SafeCast<EnemySniperZone>();
+
+                if(enemyAttackZone != null)
+                {
+                    enemyAttackZone.Deactivated += OnDeactivated;
+                }
+                else
+                {
+                    IsConfigurated = false;
+                    return;
+                }
+
                 IsConfigurated = true;
                 return;
             }
@@ -90,6 +122,12 @@ namespace Assets.Sources.EnemyScripts
             IsAiming = true;
         }
 
+        private void OnDeactivated(EnemySniperZone enemySniperZone)
+        {
+            enemySniperZone.Deactivated -= OnDeactivated;
+            _isDeactivated = true;
+        }
+
         private protected override void Interact()
         {
             if (IsInteracted)
@@ -105,7 +143,7 @@ namespace Assets.Sources.EnemyScripts
                 if (AttackZone.Player.IsDefended)
                     Effect.transform.position += new Vector3(0, AttackZone.Player.Radius, 0);
                 else
-                    AttackZone.Player.TakeDamage(Damage, transform.position, Force);
+                    AttackZone.Player.TakeDamage(Damage);
             }
 
             Effect.transform.localScale = _defaultEffectScale;

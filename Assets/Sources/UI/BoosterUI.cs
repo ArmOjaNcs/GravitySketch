@@ -1,5 +1,6 @@
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
+using Assets.Sources.Utils;
 using DG.Tweening;
 using UnityEngine;
 
@@ -48,14 +49,14 @@ namespace Assets.Sources.UI
                 return;
 
             ActiveTimeImage.gameObject.SetActive(true);
-            ActiveTimeImage.SetValue(1);
+            ActiveTimeImage.SetValue(UserUtils.HalfUnit);
             ActiveTimeImage.UpdateView(_booster.BoostTime, 0);
         }
 
         private void OnReloading()
         {
             ReloadTimeImage.gameObject.SetActive(true);
-            ReloadTimeImage.SetValue(1);
+            ReloadTimeImage.SetValue(UserUtils.HalfUnit);
             ReloadTimeImage.UpdateView(_booster.BoostReloadTime, 0);
         }
 

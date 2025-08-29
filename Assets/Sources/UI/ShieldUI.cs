@@ -1,5 +1,6 @@
 ﻿using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
+using Assets.Sources.Utils;
 using DG.Tweening;
 using UnityEngine;
 
@@ -34,7 +35,7 @@ namespace Assets.Sources.UI
         private void OnDefendStart()
         {
             ActiveTimeImage.gameObject.SetActive(true);
-            ActiveTimeImage.SetValue(1);
+            ActiveTimeImage.SetValue(UserUtils.HalfUnit);
             ActiveTimeImage.UpdateView(_shield.DefendTime, 0);
             _backgroundFade.ShowElements();
         }
@@ -42,7 +43,7 @@ namespace Assets.Sources.UI
         private void OnReloadingStart()
         {
             ReloadTimeImage.gameObject.SetActive(true);
-            ReloadTimeImage.SetValue(1);
+            ReloadTimeImage.SetValue(UserUtils.HalfUnit);
             float reloadDuration = _shield.CycleTime - _shield.DefendTime;
             ReloadTimeImage.UpdateView(reloadDuration, 0);
         }

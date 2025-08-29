@@ -22,10 +22,10 @@ namespace Assets.Sources.PlayerScripts
         [SerializeField] private AudioPlayer _audioPlayer;
 
         private Transform _transform;
-        private Rigidbody _rigidbody;
         private SphereCollider _sphereCollider;
 
         public event Action IsDead;
+        public event Action Damaged;
 
         public Vector3 Position => _transform == null ? transform.position : _transform.position;
         public float Radius => _sphereCollider.radius * _transform.localScale.x;
@@ -35,7 +35,6 @@ namespace Assets.Sources.PlayerScripts
         private void Awake()
         {
             _transform = transform;
-            _rigidbody = GetComponent<Rigidbody>();
             _sphereCollider = GetComponent<SphereCollider>();
             _health.Initialize(UserUtils.PlayerStartHealth);
         }
@@ -77,25 +76,21 @@ namespace Assets.Sources.PlayerScripts
             _audioPlayer.AudioSource.loop = false;
         }
 
-        public void TakeDamage(float damage, Vector3 forcePosition, float force)
+        public void TakeDamage(float damage)
         {
             if (damage <= 0 || _shield.IsDefended)
                 return;
 
-            Vector3 forceVector = (Position - forcePosition).normalized;
-            forceVector.y = 0;
             _health.TakeDamage(damage);
             _audioPlayer.Play();
+            Damaged?.Invoke();
 
             if (_health.CurrentValue == 0)
             {
                 _catcher.SetDie();
                 IsDead?.Invoke();
                 gameObject.SetActive(false);
-                return;
             }
-
-            _rigidbody.AddForceAtPosition(forceVector * force, forcePosition, ForceMode.Impulse);
         }
 
         private void OnMedAidAbsorbed(float healPower)

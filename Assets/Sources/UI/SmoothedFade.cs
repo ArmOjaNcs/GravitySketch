@@ -14,7 +14,7 @@ namespace Assets.Sources.UI
 
         private protected float StartAlpha;
         private protected float StartValue;
- 
+
         public void ShowElements()
         {
             if (Routine != null)
@@ -56,7 +56,7 @@ namespace Assets.Sources.UI
         private protected override void OnRoutineIteration(float cycleDuration) 
         {
             float progress = ElapsedTime / cycleDuration;
-            CanvasGroup.alpha = Mathf.Lerp(StartValue, 0f, progress);
+            CanvasGroup.alpha = Mathf.Lerp(StartValue, TargetValue, progress);
         }
 
         private protected override void OnRoutineEnd()

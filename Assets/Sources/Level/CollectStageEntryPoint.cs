@@ -1,3 +1,4 @@
+using Assets.Sources.AnomalyScpipts;
 using Assets.Sources.Dissolvable;
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.Pause;
@@ -14,8 +15,29 @@ namespace Assets.Sources.Level
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private EnemyFactory _enemyFactory;
         [SerializeField] private List<DissolvableObstacle> _obstacles;
+        [SerializeField] private List<DissolvableObject> _dissolvableObjects;
         [SerializeField] private SimpleCubeSpawner _simpleCubeSpawner;
         [SerializeField] private HoleMaskHandler _maskHandler;
+        [SerializeField] private GrowHandler _growHandler;
+
+        private void OnEnable()
+        {
+            _growHandler.Growing += OnGrowing;
+        }
+
+        private void OnDisable()
+        {
+            _growHandler.Growing -= OnGrowing;
+        }
+
+        private void OnGrowing()
+        {
+            foreach (DissolvableObstacle obstacle in _obstacles)
+            {
+                if (obstacle.Size < _growHandler.CurrentSize)
+                    obstacle.DropDown();
+            }
+        }
 
         private protected override void Initialize()
         {
@@ -27,6 +49,12 @@ namespace Assets.Sources.Level
             {
                 obstacle.SetAudioPlayerSpawner(AudioPlayerSpawner);
                 obstacle.Init(PauseHandler);
+            }
+
+            foreach (DissolvableObject @object in _dissolvableObjects)
+            {
+                @object.SetAudioPlayerSpawner(AudioPlayerSpawner);
+                @object.Init(PauseHandler);
             }
 
             foreach (PauseableObject pauseable in Objects)

@@ -80,6 +80,20 @@ namespace Assets.Sources.Utils
                     { "tr", "Yükleniyor..." },
                     { "en", "Loading..." }
                 }
+            },
+             { "Great!!!", new Dictionary<string, string>()
+                {
+                    { "ru", "Отлично!!!" },
+                    { "tr", "Harika!!!" },
+                    { "en", "Great!!!" }
+                }
+            },
+             { "Game over", new Dictionary<string, string>()
+                {
+                    { "ru", "Конец игры" },
+                    { "tr", "Oyun bitti" },
+                    { "en", "Game over" }
+                }
             }
         };
 

@@ -1,6 +1,7 @@
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
+using System;
 using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
@@ -10,8 +11,12 @@ namespace Assets.Sources.EnemyScripts
         private AimCross _cross;
         private bool _isCanShoot = true;
 
+        public event Action<EnemySniperZone> Deactivated;
+
         private void OnDisable()
         {
+            Deactivated?.Invoke(this);
+
             if(_cross != null)
                 _cross.Shoot -= OnShoot;
         }

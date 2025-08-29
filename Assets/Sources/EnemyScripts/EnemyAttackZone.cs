@@ -1,8 +1,7 @@
+using Assets.Sources.Audio;
+using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using UnityEngine;
-using Assets.Sources.Audio;
-using Assets.Sources.Utils;
-using Assets.Sources.Pause;
 
 namespace Assets.Sources.EnemyScripts
 {

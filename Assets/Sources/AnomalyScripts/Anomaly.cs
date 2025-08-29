@@ -10,8 +10,6 @@ namespace Assets.Sources.AnomalyScpipts
     [RequireComponent(typeof(SphereCollider))]
     public class Anomaly : DissolvableObstacle
     {
-        private const float Force = 200;
-
         [SerializeField] private float _damageRate;
         [SerializeField] private ParticleSystem _effect;
         [SerializeField] private PauseableRoutine _routine;
@@ -54,7 +52,7 @@ namespace Assets.Sources.AnomalyScpipts
 
                 if (_player.CurrentSize <= Size && _player.IsDefended == false)
                 {
-                    _player.TakeDamage(Damage, transform.position, Force);
+                    _player.TakeDamage(Damage);
                     _isAttack = true;
                     _routine.UpdateView(_damageRate);
                 }

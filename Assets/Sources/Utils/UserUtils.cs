@@ -32,6 +32,8 @@ namespace Assets.Sources.Utils
         public const string CubesCount = "Cubes collected: ";
         public const string Horizontal = nameof(Horizontal);
         public const string Vertical = nameof(Vertical);
+        public const string Great = "Great!!!";
+        public const string GameOver = "Game over";
         public const string DissolvableObject = nameof(DissolvableObject);
         public const string DissolvableObstacle = nameof(DissolvableObstacle);
         public const string Obstacle = nameof(Obstacle);

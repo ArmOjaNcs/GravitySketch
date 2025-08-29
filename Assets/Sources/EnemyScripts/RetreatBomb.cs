@@ -15,7 +15,6 @@ namespace Assets.Sources.EnemyScripts
         {
             Transform.localScale /= UserUtils.Two;
             Damage /= UserUtils.Two;
-            Force /= UserUtils.Two;
             Radius /= UserUtils.Two;
         }
     }

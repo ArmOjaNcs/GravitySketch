@@ -4,6 +4,7 @@ using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.SimpleCubeScripts;
 using Assets.Sources.Utils;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Sources.Level
@@ -18,6 +19,7 @@ namespace Assets.Sources.Level
         [SerializeField] private Player _player;
         [SerializeField] private LevelExit _exit;
         [SerializeField] private PauseableRoutine _pauseableRoutine;
+        [SerializeField] private TextMeshProUGUI _finalText;
         [SerializeField] private float _timeBeforeLoad;
 
         private Enemy _boss;
@@ -61,14 +63,20 @@ namespace Assets.Sources.Level
             _pauseableRoutine.Init(pauseHandler);
             _takeOverLimit.SetAudioPlayerSpawner(audioPlayerSpawner);
             _cubesCollector.InvokeCubesCountChanged();
+            _finalText.gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
 
         private void OnRoutineUpdated()
         {
-            SetIntermediateResult(Index, _playerScore.Value, _cubesCollector.GetAllCollors());
-            SaveProgress();
+            Window.Closed += OnWindowClosed;
+            Window.Hide();
+        }
+
+        private void OnWindowClosed()
+        {
+            Window.Closed -= OnWindowClosed;
             LoadNextScene();
         }
 
@@ -86,13 +94,23 @@ namespace Assets.Sources.Level
 
         private void OnExitApplied()
         {
+            SetIntermediateResult(Index, _playerScore.Value, _cubesCollector.GetAllCollors());
+            SaveProgress();
             AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(FinalSound).Play();
             _pauseableRoutine.UpdateView(_timeBeforeLoad);
+            _finalText.text = Translator.Get(UserUtils.Great);
+            _finalText.gameObject.SetActive(true);
+            ToMainMenu.gameObject.SetActive(false);
+            Restart.gameObject.SetActive(false);
+            Window.Show();
         }
 
         private void OnPlayerDead()
         {
             InvokeFinished();
+            _finalText.text = Translator.Get(UserUtils.GameOver);
+            _finalText.color = Color.red;
+            _finalText.gameObject.SetActive(true);
             Window.Show();
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;

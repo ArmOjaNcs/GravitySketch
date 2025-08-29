@@ -1,6 +1,5 @@
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
-using Assets.Sources.PlayerScripts;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -18,7 +17,6 @@ namespace Assets.Sources.EnemyScripts
         private protected float LifeTime;
         private protected float Radius;
         private protected float Damage;
-        private protected float Force;
         private protected float Duration;
         private protected bool IsInteracted;
         private protected bool IsConfigurated;
@@ -63,7 +61,6 @@ namespace Assets.Sources.EnemyScripts
             LifeTime = missileConfig.LifeTime;
             Damage = missileConfig.Damage;
             Radius = missileConfig.Radius;
-            Force = missileConfig.Force;
             Transform.localScale = missileConfig.Scale;
             Effect = Instantiate(missileConfig.Effect, transform).GetComponent<ParticleSystem>();
             Effect.transform.localPosition = Vector3.zero;
@@ -135,7 +132,7 @@ namespace Assets.Sources.EnemyScripts
             IsInteracted = true;
 
             if (IsHitPlayer())
-                AttackZone.Player.TakeDamage(Damage, transform.position, Force);
+                AttackZone.Player.TakeDamage(Damage);
 
             Effect.transform.SetParent(null);
             PlayEffect();
