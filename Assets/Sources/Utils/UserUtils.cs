@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 using Random = UnityEngine.Random;
 
 namespace Assets.Sources.Utils
@@ -37,7 +38,7 @@ namespace Assets.Sources.Utils
         public const string DissolvableObject = nameof(DissolvableObject);
         public const string DissolvableObstacle = nameof(DissolvableObstacle);
         public const string Obstacle = nameof(Obstacle);
-        public const string Dissolved = nameof(Dissolved);
+        public const string Dropped = nameof(Dropped);
         public const string Untagged = nameof(Untagged);
         public const string Player = nameof(Player);
         public const string MovePoint = nameof(MovePoint);
@@ -158,6 +159,26 @@ namespace Assets.Sources.Utils
                     sceneName = string.Empty;
                     return false;
             }
+        }
+
+        public static Vector3 GetCorrectScale(Vector3 defaultScale, Vector3 targetLossyScale)
+        {
+            Vector3 correctedScale = new Vector3(
+               defaultScale.x / One * targetLossyScale.x,
+               defaultScale.y / One * targetLossyScale.y,
+               defaultScale.z / One * targetLossyScale.z
+               );
+
+            correctedScale *= 1.2f;
+
+            return correctedScale;
+        }
+
+        public static float GetCorrectRadius(float radius)
+        {
+            radius *= 1.2f;
+            radius /= Two;
+            return radius;
         }
     }
 }

@@ -56,6 +56,10 @@ namespace Assets.Sources.AnomalyScpipts
                     _isAttack = true;
                     _routine.UpdateView(_damageRate);
                 }
+                else if (Size < _player.CurrentSize)
+                {
+                    DropDown();
+                }
             }
         }
 

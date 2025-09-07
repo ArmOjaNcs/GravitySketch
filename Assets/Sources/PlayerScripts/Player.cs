@@ -49,23 +49,6 @@ namespace Assets.Sources.PlayerScripts
             _takeOverLimit.MedAidAbsorbed -= OnMedAidAbsorbed;
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.CompareTag(UserUtils.DissolvableObstacle))
-            {
-                DissolvableObstacle obstacle = collision.gameObject.GetComponentInParent<DissolvableObstacle>();
-
-                if (obstacle != null)
-                {
-                    if (_growHandler.CurrentSize > obstacle.Size)
-                    {
-                        obstacle.DropDown();
-                        _catcher.RefreshSensor();
-                    }
-                }
-            }
-        }
-
         public void Init(PauseHandler pauseHandler)
         {
             foreach (PauseableObject pauseableObject in _objects)

@@ -1,5 +1,6 @@
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
+using Assets.Sources.Utils;
 using UnityEngine;
 
 namespace Assets.Sources.Table
@@ -34,7 +35,7 @@ namespace Assets.Sources.Table
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            _targetRadius = _mover.transform.lossyScale.x / 2;
+            _targetRadius = UserUtils.GetCorrectRadius(_mover.transform.lossyScale.x);
             _material.SetFloat("_HoleRadius", _targetRadius);
             _currentRadius = _targetRadius;
             _transform = transform;
@@ -49,7 +50,7 @@ namespace Assets.Sources.Table
 
         private void OnSizeChanged(float sizeDelta)
         {
-            _targetRadius += sizeDelta / 2;
+            _targetRadius += UserUtils.GetCorrectRadius(sizeDelta);
             UpdateView(Duration);
         }
 

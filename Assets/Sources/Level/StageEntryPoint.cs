@@ -11,24 +11,11 @@ namespace Assets.Sources.Level
     public abstract class StageEntryPoint : MonoBehaviour
     {
         [SerializeField] private protected Stage Stage;
-        [SerializeField] private PauseInput _pauseInput;
         [SerializeField] private protected List<PauseableObject> Objects;
         [SerializeField] private protected AudioPlayerSpawner AudioPlayerSpawner;
-        [SerializeField] private PauseMenu _pauseMenu;
         [SerializeField] private LoadWindow _loadWindow;
 
         private protected PauseHandler PauseHandler;
-
-        private void OnEnable()
-        {
-            Stage.Finished += OnStageFinished;
-            
-        }
-
-        private void OnDisable()
-        {
-            Stage.Finished -= OnStageFinished;
-        }
 
         private void Start()
         {
@@ -40,7 +27,6 @@ namespace Assets.Sources.Level
         private IEnumerator StartStage()
         {
             PauseHandler = new PauseHandler();
-            _pauseMenu.Init(PauseHandler, _pauseInput);
             _loadWindow.Init(PauseHandler);
             _loadWindow.Updated += OnLoadWindowUpdated;
             AudioPlayerSpawner.SetPauseHandler(PauseHandler);
@@ -50,11 +36,8 @@ namespace Assets.Sources.Level
             _loadWindow.FadeOut();
         }
 
-        private protected void StopPauseInput() => _pauseInput.StopInput();
-
-        private protected virtual void OnLoadWindowUpdated() => _pauseInput.StartInput();
+        private protected virtual void OnLoadWindowUpdated() => Stage.Begin();
 
         private protected abstract void Initialize();
-        private void OnStageFinished() => StopPauseInput();
     }
 }

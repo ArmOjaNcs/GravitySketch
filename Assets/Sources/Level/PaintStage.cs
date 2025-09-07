@@ -1,6 +1,7 @@
 using Assets.Sources.Audio;
 using Assets.Sources.ColorizerScripts;
 using Assets.Sources.Pause;
+using Assets.Sources.PlayerScripts;
 using Assets.Sources.Table;
 using Assets.Sources.Utils;
 using System;
@@ -15,6 +16,7 @@ namespace Assets.Sources.Level
     public class PaintStage : Stage
     {
         [SerializeField] private Colorizer _colorizer;
+        [SerializeField] private TakeOverLimit _takeOverLimit;
         [SerializeField] private Validator _validator;
         [SerializeField] private ColoringPositionHandler _positionHandler;
         [SerializeField] private ColorReferenceViewHandler _referenceViewer;
@@ -25,6 +27,8 @@ namespace Assets.Sources.Level
         [SerializeField] private GameObject _panel;
         [SerializeField] private Button _toNextLevel;
         [SerializeField] private AudioClip _toggleSound;
+        [SerializeField] private GameObject _hole;
+        [SerializeField] private GameObject[] _interfaceElements;
 
         private bool _isFinished;
 
@@ -64,6 +68,7 @@ namespace Assets.Sources.Level
             _totalScore.SetActive(false);
             _panel.SetActive(false);
             _toNextLevel.gameObject.SetActive(false);
+            _takeOverLimit.SetAudioPlayerSpawner(audioPlayerSpawner);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         }
@@ -132,7 +137,7 @@ namespace Assets.Sources.Level
 
         private IEnumerator FinishRoutine()
         {
-            InvokeFinished();
+            Finish();
             int nextIndex = Index + (int)UserUtils.One;
 
             if (UserUtils.TryGetSceneName(nextIndex, out string _))
@@ -148,6 +153,10 @@ namespace Assets.Sources.Level
 
             yield return new WaitForSeconds(UserUtils.One);
             AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(FinalSound).Play();
+            _template.DropDown(PauseHandler);
+
+            foreach(GameObject interfaceElement in _interfaceElements)
+                interfaceElement.SetActive(false);
 
             yield return new WaitForSeconds(UserUtils.One);
             _totalScore.SetActive(true);
@@ -155,6 +164,7 @@ namespace Assets.Sources.Level
             int finalScore = _validator.MatchScore + CurrentScore + _referenceViewer.ShowCount * UserUtils.ShowScore;
             UpdateProgress(CurrentLevelIndex, finalScore);
             TotalScoreUpdated?.Invoke(finalScore);
+            _hole.SetActive(true);
         }
 
         private void OnNextApplied()

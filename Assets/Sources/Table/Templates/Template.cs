@@ -1,5 +1,10 @@
+using Assets.Sources.Audio;
+using Assets.Sources.Dissolvable;
+using Assets.Sources.Pause;
+using Assets.Sources.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Sources.Table
@@ -35,6 +40,21 @@ namespace Assets.Sources.Table
                 }
 
             return null;
+        }
+
+        public void DropDown(PauseHandler pauseHandler)
+        {
+            foreach (TemplateCube templateCube in _templateCubes)
+            {
+                if(templateCube.Type == CubeType.Border || templateCube.IsMarked)
+                {
+                    templateCube.AddComponent<DissolvableObstacle>();
+                    DissolvableObstacle dissolvableObstacle = templateCube.GetComponent<DissolvableObstacle>();
+                    dissolvableObstacle.Init(pauseHandler);
+                    dissolvableObstacle.SetDissolveAnimationTime(UserUtils.One);
+                    dissolvableObstacle.DropDown();
+                }
+            }
         }
     }
 }

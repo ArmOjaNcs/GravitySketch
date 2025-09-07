@@ -107,7 +107,7 @@ namespace Assets.Sources.Level
 
         private void OnPlayerDead()
         {
-            InvokeFinished();
+            Finish();
             _finalText.text = Translator.Get(UserUtils.GameOver);
             _finalText.color = Color.red;
             _finalText.gameObject.SetActive(true);

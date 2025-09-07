@@ -101,8 +101,6 @@ namespace Assets.Sources.PlayerScripts
         {
             ActiveTime += _defendUpgradeDelta;
             CycleTime -= ReloadUpgradeDelta;
-            //ActiveTime = Mathf.Clamp(ActiveTime, 0, _maxDefendTime);
-            //CycleTime = Mathf.Clamp(CycleTime, ActiveTime + 1, float.MaxValue);
         }
     }
 }

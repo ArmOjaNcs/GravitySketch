@@ -19,7 +19,7 @@ namespace Assets.Sources.Dissolvable
             base.DropDown();
 
             SetLayerRecursively(gameObject, UserUtils.NormalLayer);
-            SetTagRecursively(gameObject, UserUtils.Dissolved);
+            SetTagRecursively(gameObject, UserUtils.Dropped);
         }
 
         public override void Dissolve(Transform hole)

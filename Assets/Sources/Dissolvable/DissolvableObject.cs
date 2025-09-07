@@ -22,6 +22,7 @@ namespace Assets.Sources.Dissolvable
         private bool _isDropped;
         private bool _wasPlayingBeforePause;
         private float _defaultMass;
+        private float _dissolveAnimationTime;
         private int _totalCollisionsCount;
         private int _previousCollisionsCount;
 
@@ -81,6 +82,14 @@ namespace Assets.Sources.Dissolvable
         private protected virtual void OnCollisionExit(Collision collision)
         {
             _totalCollisionsCount--;
+        }
+
+        public void SetDissolveAnimationTime(float animationTime)
+        {
+            if (animationTime <= 0)
+                return;
+
+            _dissolveAnimationTime = animationTime;
         }
 
         public void SetAudioPlayerSpawner(AudioPlayerSpawner audioPlayerSpawner)
@@ -148,7 +157,11 @@ namespace Assets.Sources.Dissolvable
 
             _isDropped = true;
             gameObject.layer = UserUtils.FallingLayer;
-            DissolveAnimation = AnimationSpawner.GetDissolveAnimation(transform, 3);
+
+            if (Mathf.Approximately(_dissolveAnimationTime, 0))
+                _dissolveAnimationTime = UserUtils.Three;
+
+            DissolveAnimation = AnimationSpawner.GetDissolveAnimation(transform, _dissolveAnimationTime);
         }
 
         public virtual void Dissolve(Transform hole)

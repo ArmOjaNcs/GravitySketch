@@ -4,8 +4,8 @@ namespace Assets.Sources.UI
 {
     public class BillboardUI : MonoBehaviour
     {
-        [SerializeField] private Transform _parent;
-        [SerializeField] private Vector3 _offset = new Vector3(0, 2f, 0);
+        [SerializeField] private protected Transform Parent;
+        [SerializeField] private protected Vector3 Offset = new Vector3(0, 2f, 0);
 
         private Transform _cameraTransform;
         private bool _isStop;
@@ -21,10 +21,15 @@ namespace Assets.Sources.UI
             if (_isStop)
                 return;
 
-            transform.position = _parent.position + _offset;
-            transform.forward = _cameraTransform.forward;
+            FollowByParrent();
         }
 
         public void IsStop(bool isStop) => _isStop = isStop;
+
+        private protected virtual void FollowByParrent()
+        {
+            transform.position = Parent.position + Offset;
+            transform.forward = _cameraTransform.forward;
+        }
     }
 }

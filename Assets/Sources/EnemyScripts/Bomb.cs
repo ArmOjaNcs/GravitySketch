@@ -41,14 +41,15 @@ namespace Assets.Sources.EnemyScripts
         {
             if(gameObject.layer == UserUtils.DefaultLayer)
             {
-                if (gameObject.layer == UserUtils.ShieldLayer)
+                if(collision.gameObject.layer == UserUtils.ShieldLayer)
                 {
                     Interact();
                     return;
                 }
-
+                
                 if (collision.gameObject.CompareTag(UserUtils.Obstacle) ||
-               collision.gameObject.CompareTag(UserUtils.DissolvableObject))
+               collision.gameObject.CompareTag(UserUtils.DissolvableObstacle)
+               || collision.gameObject.CompareTag(UserUtils.Dropped))
                 {
                     gameObject.layer = UserUtils.PhysicalMissileLayer;
                     _collider.enabled = false;

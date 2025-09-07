@@ -57,7 +57,7 @@ namespace Assets.Sources.PlayerScripts
                     medAid.Dissolve(_hole);
                 }
             }
-            else if (other.gameObject.CompareTag(UserUtils.Dissolved))
+            else if (other.gameObject.CompareTag(UserUtils.Dropped))
             {
                 DissolvableObstacle dissolvableObstacle = other.transform.GetComponentInParent<DissolvableObstacle>();
 

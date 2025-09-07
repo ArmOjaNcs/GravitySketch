@@ -27,14 +27,14 @@ namespace Assets.Sources.Utils
             },
             { "Destroyer", new Dictionary<string, string>()
                 {
-                    { "ru", "Штурмовик" },
+                    { "ru", "Разрушитель" },
                     { "tr", "Yok edici" },
                     { "en", "Destroyer" }
                 }
             },
             { "Stormtrooper", new Dictionary<string, string>()
                 {
-                    { "ru", "Разрушитель" },
+                    { "ru", "Штурмовик" },
                     { "tr", "Stormtrooper'ın" },
                     { "en", "Stormtrooper" }
                 }

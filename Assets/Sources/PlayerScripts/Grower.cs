@@ -16,6 +16,7 @@ namespace Assets.Sources.PlayerScripts
         private Vector3 _targetScale;
 
         public event Action<float> SizeChanged;
+        public event Action ScaleChanged;
 
         private void OnEnable()
         {
@@ -64,6 +65,8 @@ namespace Assets.Sources.PlayerScripts
                 particle.transform.localScale = Vector3.Lerp(particle.transform.localScale,
                     _targetScale, progress);
             }
+
+            ScaleChanged?.Invoke();
         }
 
         private protected override void OnRoutineEnd()
@@ -72,6 +75,8 @@ namespace Assets.Sources.PlayerScripts
 
             foreach (var particle in _particleSystems)
                 particle.transform.localScale = _targetScale;
+
+            ScaleChanged?.Invoke();
         }
     }
 }

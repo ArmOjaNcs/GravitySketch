@@ -1,107 +1,46 @@
 using UnityEngine;
 using Assets.Sources.Pause;
+using Assets.Sources.PlayerScripts;
 
 namespace Assets.Sources.AnomalyScpipts
 {
     [RequireComponent(typeof(Anomaly))]
-    public class AnomalyMover : PauseableObject
+    public class AnomalyMover : PointMover
     {
-        [SerializeField] private Transform[] _movePoints;
-        [SerializeField] private float _minSqrtDistance;
-        [SerializeField] private float _speed;
-        [SerializeField] private bool _isRestart;
-
         private Anomaly _anomaly;
-        private Transform _transform;
-        private int _index;
-        private int _sign;
-        private Vector3 _targetPosition;
-        private float _sqrtDistance;
-        private Rigidbody _rigidbody;
         private bool _isMove;
 
         private void OnDisable()
         {
             if(_anomaly != null)
-                _anomaly.IsDowned -= OnIsDowned;
+                _anomaly.IsDowned -= OnDowned;
         }
 
-        private void Update()
+        private protected override void Update()
         {
-            if (IsPaused || IsInitialized == false)
+            if (_isMove == false)
                 return;
 
-            ChangeTarget();
+            base.Update();
         }
 
-        private void FixedUpdate()
+        private protected override void FixedUpdate()
         {
-            if (IsPaused || IsInitialized == false)
+            if (_isMove == false)
                 return;
 
-            if (_isMove)
-                MoveByPoint();
+            base.FixedUpdate();
         }
 
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            _transform = transform;
-            _rigidbody = GetComponent<Rigidbody>();
+            
             _anomaly = GetComponent<Anomaly>();
-            _anomaly.IsDowned += OnIsDowned;
+            _anomaly.IsDowned += OnDowned;
             _isMove = true;
-
-            if (_movePoints.Length < 1 || _movePoints[_index] == null)
-            {
-                Debug.LogError("Move points is empty");
-                IsInitialized = false;
-                return;
-            }
-
-            IsInitialized = true;
         }
 
-        private void OnIsDowned() => _isMove = false;
-
-        private void MoveByPoint()
-        {
-            Vector3 target = _movePoints[_index].position;
-            target.y = _rigidbody.position.y;
-
-            _rigidbody.MovePosition(Vector3.MoveTowards(_rigidbody.position, target, _speed * Time.fixedDeltaTime));
-        }
-
-        private void ChangeTarget()
-        {
-            if (_movePoints[_index] != null)
-            {
-                _targetPosition = _movePoints[_index].position;
-                _targetPosition.y = _transform.position.y;
-            }
-
-            _sqrtDistance = (_targetPosition - _transform.position).sqrMagnitude;
-
-            if (_sqrtDistance < _minSqrtDistance)
-            {
-                if (_isRestart == false)
-                {
-                    if (_index == _movePoints.Length - 1)
-                        _sign = -1;
-
-                    if (_index == 0)
-                        _sign = 1;
-
-                    _index += 1 * _sign;
-                }
-                else
-                {
-                    _index++;
-                }
-
-                if (_isRestart)
-                    _index = _index % _movePoints.Length;
-            }
-        }
+        private void OnDowned() => _isMove = false;
     }
 }

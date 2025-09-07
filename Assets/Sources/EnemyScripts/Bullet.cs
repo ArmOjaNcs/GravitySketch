@@ -13,14 +13,6 @@ namespace Assets.Sources.EnemyScripts
 
         private protected BulletConfig BulletConfig;
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag(UserUtils.Obstacle) 
-                || other.CompareTag(UserUtils.DissolvableObject) 
-                || other.gameObject.layer == UserUtils.ShieldLayer)
-                Interact();
-        }
-
         private protected override void Update()
         {
             if (IsCanLive() == false)
@@ -30,6 +22,15 @@ namespace Assets.Sources.EnemyScripts
 
             if(_isMoving)
                 Move();
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag(UserUtils.Obstacle)
+                || other.CompareTag(UserUtils.DissolvableObstacle)
+                || other.CompareTag(UserUtils.Dropped)
+                || other.gameObject.layer == UserUtils.ShieldLayer)
+                Interact();
         }
 
         public override void InitFromConfig(MissileConfig missileConfig, EnemyAttackZone attackZone)

@@ -109,15 +109,8 @@ namespace Assets.Sources.EnemyScripts
                 _playerTransform = AttackZone.Player.transform;
 
             OnEnable();
-            _rectTransform.localScale = Vector3.one;
 
-            _initialScale = new Vector3(
-                _defaultScale.x / transform.lossyScale.x * _playerTransform.lossyScale.x,
-                _defaultScale.y / transform.lossyScale.y * _playerTransform.lossyScale.y,
-                _defaultScale.z / transform.lossyScale.z * _playerTransform.lossyScale.z
-                );
-
-            _rectTransform.localScale = _initialScale;
+            _initialScale = UserUtils.GetCorrectScale(_defaultScale, _playerTransform.localScale);
 
             IsAiming = true;
         }

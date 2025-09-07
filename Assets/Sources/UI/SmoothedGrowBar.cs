@@ -1,4 +1,3 @@
-using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Utils;
@@ -12,12 +11,14 @@ namespace Assets.Sources.UI
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private CubesCollector _cubesCollector;
         [SerializeField] private SmoothedFade _smoothedFade;
+        [SerializeField] private GrowBarBillboard _growBarBillboard;
 
         private float _startImageValue;
 
         private void OnEnable()
         {
             _cubesCollector.CubesCountChanged += OnCubesUpdate;
+            _smoothedFade.Updated += OnFadeUpdated;
         }
 
         private protected override void OnDisable()
@@ -25,6 +26,7 @@ namespace Assets.Sources.UI
             base.OnDisable();
 
             _cubesCollector.CubesCountChanged -= OnCubesUpdate;
+            _smoothedFade.Updated -= OnFadeUpdated;
         }
 
         public override void Init(PauseHandler pauseHandler)
@@ -34,6 +36,7 @@ namespace Assets.Sources.UI
             _smoothedFade.Init(pauseHandler);
             _smoothedFade.FadeOut();
             _smoothedFade.SetStartAplpha(UserUtils.HalfUnit);
+            _growBarBillboard.IsStop(true);
             IsInitialized = true;
         }
 
@@ -43,9 +46,15 @@ namespace Assets.Sources.UI
             int previousGrowThreshold = _growHandler.CubesOnNextGrow - _growHandler.GrowDelta;
             TargetValue = ((float)cubesCount - previousGrowThreshold) / _growHandler.GrowDelta;
             SetValue(_startImageValue);
+            _growBarBillboard.IsStop(false);
             OnUpdate();
             _startImageValue = ((float)cubesCount - previousGrowThreshold) / _growHandler.GrowDelta;
 
+        }
+
+        private void OnFadeUpdated()
+        {
+            _growBarBillboard.IsStop(true);
         }
 
         private protected override IEnumerator UpdateRoutine(float duration)
