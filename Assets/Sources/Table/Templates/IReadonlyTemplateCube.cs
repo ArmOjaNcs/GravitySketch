@@ -5,6 +5,7 @@ namespace Assets.Sources.Table
     public interface IReadonlyTemplateCube
     {
         public bool IsMarked { get; }
+        public bool IsColored { get; }
         public CubeType Type { get; }
         public int Index { get; }
         public Color Color { get; }

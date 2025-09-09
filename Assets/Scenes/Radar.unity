@@ -19036,6 +19036,11 @@ MonoBehaviour:
   _size: 0
   _collisionSound: {fileID: 8300000, guid: 19f89c6e740e7447f9e12a8310d3e973, type: 3}
   _meshRenderer: {fileID: 232625468}
+--- !u!4 &233631996 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2567762440859826680, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
+  m_PrefabInstance: {fileID: 1691209321627127330}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &238042589
 GameObject:
   m_ObjectHideFlags: 0
@@ -164270,9 +164275,41 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1935933550}
+    - target: {fileID: 2185480353958969764, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185480353958969764, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2185480353958969764, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3081820501559384911, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
+      propertyPath: _hole
+      value: 
+      objectReference: {fileID: 233631996}
     - target: {fileID: 5263088345829629420, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7940527027263944172, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
+      propertyPath: _hole
+      value: 
+      objectReference: {fileID: 233631996}
+    - target: {fileID: 8494049955829519427, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494049955829519427, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494049955829519427, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9047163394445262607, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
       propertyPath: _objects.Array.data[2]

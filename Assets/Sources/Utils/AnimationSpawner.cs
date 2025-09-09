@@ -47,6 +47,21 @@ namespace Assets.Sources.Utils
             return sequence;
         }
 
+        public static Sequence GetAimAnimation(RectTransform transform)
+        {
+            Vector2 startAnchoredPos = transform.anchoredPosition;
+            Vector3 startScale = transform.localScale;
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(transform.DOScale(startScale * 0.75f, 0.75f))
+                    .SetLoops(-1, LoopType.Yoyo)
+                    .SetLink(transform.gameObject)
+                    .SetEase(Ease.Linear)
+                    .SetAutoKill(false)
+                    .Pause();
+
+            return sequence;
+        }
+
         public static Tween GetDissolveAnimation(Transform transform, float duration = 0)
         {
             if (duration <= 0)

@@ -3,6 +3,7 @@ using Assets.Sources.ColorizerScripts;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Table;
+using Assets.Sources.UI;
 using Assets.Sources.Utils;
 using System;
 using System.Collections;
@@ -25,10 +26,11 @@ namespace Assets.Sources.Level
         [SerializeField] private Toggle _autoPaint;
         [SerializeField] private GameObject _totalScore;
         [SerializeField] private GameObject _panel;
+        [SerializeField] private GameObject _aim;
         [SerializeField] private Button _toNextLevel;
         [SerializeField] private AudioClip _toggleSound;
         [SerializeField] private GameObject _hole;
-        [SerializeField] private GameObject[] _interfaceElements;
+        [SerializeField] private SmoothedFade _interfaceFade;
 
         private bool _isFinished;
 
@@ -69,8 +71,10 @@ namespace Assets.Sources.Level
             _panel.SetActive(false);
             _toNextLevel.gameObject.SetActive(false);
             _takeOverLimit.SetAudioPlayerSpawner(audioPlayerSpawner);
+            _interfaceFade.Init(pauseHandler);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
+            _hole.SetActive(false);
         }
 
         public IReadonlyTemplateCube GetCubeByColor(Color color)
@@ -138,6 +142,7 @@ namespace Assets.Sources.Level
         private IEnumerator FinishRoutine()
         {
             Finish();
+            _aim.SetActive(false);
             int nextIndex = Index + (int)UserUtils.One;
 
             if (UserUtils.TryGetSceneName(nextIndex, out string _))
@@ -155,8 +160,7 @@ namespace Assets.Sources.Level
             AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(FinalSound).Play();
             _template.DropDown(PauseHandler);
 
-            foreach(GameObject interfaceElement in _interfaceElements)
-                interfaceElement.SetActive(false);
+            _interfaceFade.FadeOut();
 
             yield return new WaitForSeconds(UserUtils.One);
             _totalScore.SetActive(true);

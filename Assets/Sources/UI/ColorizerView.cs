@@ -2,6 +2,7 @@ using Assets.Sources.ColorizerScripts;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,6 +15,8 @@ namespace Assets.Sources.UI
         [SerializeField] private Image[] _colors;
         [SerializeField] private Image _arrow;
         [SerializeField] private Colorizer _colorizer;
+
+        public event Action<Color> PaintColorChanged;
 
         private void OnEnable()
         {
@@ -53,6 +56,8 @@ namespace Assets.Sources.UI
                 if (_colors[0].isActiveAndEnabled == false)
                     _arrow.gameObject.SetActive(false);
             }
+
+            PaintColorChanged?.Invoke(_colors[0].color);
         }
 
         private protected override Sequence GetAnimation()

@@ -1,4 +1,3 @@
-using Assets.Sources.Audio;
 using Assets.Sources.Dissolvable;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
@@ -51,7 +50,7 @@ namespace Assets.Sources.Table
                     templateCube.AddComponent<DissolvableObstacle>();
                     DissolvableObstacle dissolvableObstacle = templateCube.GetComponent<DissolvableObstacle>();
                     dissolvableObstacle.Init(pauseHandler);
-                    dissolvableObstacle.SetDissolveAnimationTime(UserUtils.One);
+                    dissolvableObstacle.SetDissolveAnimationTime(UserUtils.HalfUnit);
                     dissolvableObstacle.DropDown();
                 }
             }

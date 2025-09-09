@@ -13,6 +13,7 @@ namespace Assets.Sources.Table
         private static MaterialPropertyBlock _mpb;
 
         public bool IsMarked { get; private set; }
+        public bool IsColored => _isColored;
         public CubeType Type { get; private set; }
         public int Index { get; private set; }
         public Vector3 Position => (_transform != null) ? _transform.position : transform.position;

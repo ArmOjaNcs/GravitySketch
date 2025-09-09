@@ -16,6 +16,8 @@ namespace Assets.Sources.PlayerScripts
         {
             _transform = transform;
             _material.SetFloat("_HoleRadius", _radius);
+            _material.SetVector("_HolePosition", new Vector4(_transform.position.x,
+                    _transform.position.y, _transform.position.z, 0));
         }
 
         private void Update()

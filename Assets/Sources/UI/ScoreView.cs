@@ -16,6 +16,7 @@ namespace Assets.Sources.UI
         [SerializeField] private Validator _validator;
         [SerializeField] private Colorizer _colorizer;
         [SerializeField] private AudioSource _calculateSound;
+        [SerializeField] private SmoothedFade[] _finalFadeGroup;
 
         private string _totalScoreText = string.Empty;
         private string _paintScoreText = string.Empty;
@@ -36,6 +37,10 @@ namespace Assets.Sources.UI
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
+            
+            foreach (SmoothedFade smoothedFade in _finalFadeGroup)
+                smoothedFade.Init(pauseHandler);
+
             _paintScoreText = Text.text + " ";
             StartText = _paintScoreText;
             _totalScoreText = _totalScore.text + " ";
@@ -82,6 +87,11 @@ namespace Assets.Sources.UI
             }
 
             yield return CalculateTotalScore(totalScore);
+
+            yield return new WaitForSeconds(UserUtils.Three);
+
+            foreach (SmoothedFade smoothedFade in _finalFadeGroup)
+                smoothedFade.FadeOut();
         }
 
         private IEnumerator CalculateTotalScore(int totalScore)

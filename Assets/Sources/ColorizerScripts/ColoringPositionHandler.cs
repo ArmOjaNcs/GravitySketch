@@ -1,6 +1,7 @@
 using Assets.Sources.Level;
 using Assets.Sources.Pause;
 using Assets.Sources.Table;
+using Assets.Sources.UI;
 using System;
 using UnityEngine;
 
@@ -9,10 +10,11 @@ namespace Assets.Sources.ColorizerScripts
     public class ColoringPositionHandler : PauseableObject
     {
         [Header("Gameplay")]
-        [SerializeField] private Color _highlightColor;
+        [SerializeField] private Aim _aim;
 
         [Header("Input")]
         [SerializeField] private Camera _playerCamera;
+        [SerializeField] private ColorizerView _colorizerView;
         [SerializeField] private LayerMask _cubeLayer;
         [SerializeField] private float _maxRayDistance = 1000f;
 
@@ -21,13 +23,21 @@ namespace Assets.Sources.ColorizerScripts
         private IReadonlyTemplateCube _currentHighlighted;
         private bool _isAutoPaint;
         private bool _isColoring;
+        private Color _paintColor;
 
         public event Action<IReadonlyTemplateCube> PositionApplied;
+
+        private void OnEnable()
+        {
+            _colorizerView.PaintColorChanged += OnPaintColorChanged;
+        }
 
         private void OnDisable()
         {
             if (_input != null)
                 _input.Coloring -= OnColoring;
+
+            _colorizerView.PaintColorChanged -= OnPaintColorChanged;
         }
 
         private void Update()
@@ -37,6 +47,18 @@ namespace Assets.Sources.ColorizerScripts
 
             if (_isAutoPaint == false && _stage.IsReferenceShowing == false)
                 HandleHoverAndPaint();
+        }
+
+        public override void Init(PauseHandler pauseHandler)
+        {
+            base.Init(pauseHandler);
+            _aim.Init(pauseHandler);
+            _aim.StartAnimaton();
+
+            if (_input == null || _stage == null)
+                return;
+
+            IsInitialized = true;
         }
 
         public void SetPaintInput(PaintInput input)
@@ -57,17 +79,17 @@ namespace Assets.Sources.ColorizerScripts
                 return;
 
             if (cube != _currentHighlighted)
-            {
-                if (IsCanHighlight())
-                    _currentHighlighted.StopHighlight();
-
                 _currentHighlighted = cube;
 
-                if (IsCanHighlight())
-                {
-                    _currentHighlighted.EnableRendering();
-                    _currentHighlighted.Highlight(_highlightColor);
-                }
+            if (_currentHighlighted.IsColored)
+            {
+                _aim.SetColor(Color.red);
+                _aim.SetPosition(_currentHighlighted.Position + Vector3.up);
+            }
+            else
+            {
+                _aim.SetColor(_paintColor);
+                _aim.SetPosition(_currentHighlighted.Position);
             }
 
             if (IsCanApplyPosition())
@@ -97,19 +119,6 @@ namespace Assets.Sources.ColorizerScripts
             return IsHitCube(out IReadonlyTemplateCube cube) && _currentHighlighted != null && _isColoring;
         }
 
-        private bool IsCanHighlight()
-        {
-            return _currentHighlighted != null;
-        }
-
-        public override void Init(PauseHandler pauseHandler)
-        {
-            base.Init(pauseHandler);
-
-            if (_input == null || _stage == null)
-                return;
-
-            IsInitialized = true;
-        }
+        private void OnPaintColorChanged(Color color) => _paintColor = color;
     }
 }
