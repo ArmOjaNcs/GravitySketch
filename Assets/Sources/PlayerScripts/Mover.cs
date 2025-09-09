@@ -45,6 +45,7 @@ namespace Assets.Sources.PlayerScripts
                 return;
 
             FixYPosition();
+            PositionChanged?.Invoke(_transform.position);
         }
 
         private void FixedUpdate()
@@ -54,14 +55,6 @@ namespace Assets.Sources.PlayerScripts
 
             Move();
             Rotate();
-        }
-
-        private void LateUpdate()
-        {
-            if (IsPaused || IsInitialized == false)
-                return;
-
-            PositionChanged?.Invoke(_transform.position);
         }
 
         public override void Init(PauseHandler pauseHandler)

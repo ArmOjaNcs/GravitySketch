@@ -71,6 +71,9 @@ namespace Assets.Sources.Table
 
         private void SetColor(Color color)
         {
+            if (_mpb == null)
+                _mpb = new MaterialPropertyBlock();
+
             _mpb.SetColor("_Color", color);
             _meshRenderer.SetPropertyBlock(_mpb);
         }
