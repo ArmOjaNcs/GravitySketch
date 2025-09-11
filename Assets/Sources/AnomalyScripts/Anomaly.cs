@@ -1,8 +1,8 @@
 using Assets.Sources.Dissolvable;
+using Assets.Sources.EnemyScripts;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Utils;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.AnomalyScpipts
@@ -10,16 +10,16 @@ namespace Assets.Sources.AnomalyScpipts
     [RequireComponent(typeof(SphereCollider))]
     public class Anomaly : DissolvableObstacle
     {
-        [SerializeField] private float _damageRate;
+        private const float DamageRate = 0.5f;
+
         [SerializeField] private ParticleSystem _effect;
         [SerializeField] private PauseableRoutine _routine;
+        [SerializeField] private PointMover _mover;
 
         private Player _player;
         private Rigidbody _playerRigidbody;
         private bool _isAttack;
         private bool _isDowned;
-
-        public event Action IsDowned;
 
         private int Damage => Size;
 
@@ -54,7 +54,7 @@ namespace Assets.Sources.AnomalyScpipts
                 {
                     _player.TakeDamage(Damage);
                     _isAttack = true;
-                    _routine.UpdateView(_damageRate);
+                    _routine.UpdateView(DamageRate);
                 }
                 else if (Size < _player.CurrentSize)
                 {
@@ -68,7 +68,16 @@ namespace Assets.Sources.AnomalyScpipts
             base.Init(pauseHandler);
             _routine.Init(pauseHandler);
             _routine.Updated += OnRoutineUpdated;
+            _mover.Init(pauseHandler);
             IsInitialized = true;
+        }
+
+        public void InitFromConfig(AnomalyConfig anomalyConfig)
+        {
+            transform.localScale = anomalyConfig.Scale;
+            transform.position = anomalyConfig.StartPosition;
+            SetSize(anomalyConfig.Size);
+            _mover.InitFromConfig(anomalyConfig.PointMoverConfig);
         }
 
         private void OnRoutineUpdated()
@@ -95,7 +104,7 @@ namespace Assets.Sources.AnomalyScpipts
             base.DropDown();
 
             _isDowned = true;
-            IsDowned?.Invoke();
+            _mover.Stop();
             Collider.isTrigger = true;
             CollidersHolder.SetActive(true);
         }

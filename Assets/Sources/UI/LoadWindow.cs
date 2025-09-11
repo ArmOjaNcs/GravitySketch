@@ -9,7 +9,7 @@ namespace Assets.Sources.UI
 {
     public class LoadWindow : SmoothedFade
     {
-        [SerializeField] private TemplateMaterialReference _materialReference;
+        [SerializeField] private TemplateColorReference _materialReference;
         [SerializeField] private Image _loadImage;
         [SerializeField] private AppearingText _loadText;
         [SerializeField] private float _animationDuration;

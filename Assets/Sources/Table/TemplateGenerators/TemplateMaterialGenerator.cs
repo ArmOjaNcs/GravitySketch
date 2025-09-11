@@ -19,7 +19,7 @@ namespace Assets.Sources.Table
                 return;
             }
 
-            var materialReference = ScriptableObject.CreateInstance<TemplateMaterialReference>();
+            var materialReference = ScriptableObject.CreateInstance<TemplateColorReference>();
 
             for (int y = 0; y < UserUtils.ImageResolution; y++)
             {

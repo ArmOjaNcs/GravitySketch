@@ -3,6 +3,7 @@ using Assets.Sources.Pause;
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Sources.Level
@@ -59,7 +60,7 @@ namespace Assets.Sources.Level
             _pauseInput.Paused -= OnPaused;
         }
 
-        private void OnMainMenuApplied()
+        private protected virtual void OnMainMenuApplied()
         {
             AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(ButtonSound).Play();
             Finish();
@@ -71,10 +72,10 @@ namespace Assets.Sources.Level
         private void LoadMainMenu()
         {
             Window.Closed -= LoadMainMenu;
-            LoadScene(UserUtils.MainMenu);
+            SceneManager.LoadScene(UserUtils.MainMenu);
         }
 
-        private void OnRestartApplied()
+        private protected virtual void OnRestartApplied()
         {
             AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(ButtonSound).Play();
             Finish();
@@ -108,7 +109,8 @@ namespace Assets.Sources.Level
         private void RestartStage()
         {
             Window.Closed -= RestartStage;
-            RestartScene();
+            string sceneName = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(sceneName);
         }
 
         private void OnPauseMenuClosed() => PauseHandler.Resume();

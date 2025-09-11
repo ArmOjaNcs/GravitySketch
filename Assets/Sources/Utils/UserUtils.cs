@@ -50,7 +50,11 @@ namespace Assets.Sources.Utils
         public const string ShowCounts = "Show counts: ";
         public const string MainMenu = nameof(MainMenu);
         public const string Radar = nameof(Radar);
+        public const string Telescope = nameof(Telescope);
         public const string RadarPaint = nameof(RadarPaint);
+        public const string TelescopePaint = nameof(TelescopePaint);
+        public const string CollectScene = nameof(CollectScene);
+        public const string PaintScene = nameof(PaintScene);
         public const string MixerGroupSound = nameof(MixerGroupSound);
         public const string MixerGroupInterface = nameof(MixerGroupInterface);
 
@@ -73,6 +77,26 @@ namespace Assets.Sources.Utils
         public const char DefaultChar = '\0';
 
         private const float MinAlfa = 0.1f;
+
+        private static Dictionary<string, string> StageTransitions = new Dictionary<string, string>()
+        {
+            {Radar, RadarPaint},
+            {RadarPaint, Telescope},
+            {Telescope, TelescopePaint},
+            {TelescopePaint, Telescope}
+        };
+
+        private static Dictionary<string, string> CollectStages = new Dictionary<string, string>()
+        {
+            {RadarPaint, Radar},
+            {TelescopePaint, Telescope},
+        };
+
+        private static Dictionary<string, string> PaintStages = new Dictionary<string, string>()
+        {
+            {Radar, RadarPaint},
+            {Telescope, TelescopePaint},
+        };
 
         public static readonly int ColorID = Shader.PropertyToID("_Color");
 
@@ -139,22 +163,43 @@ namespace Assets.Sources.Utils
                 gameObj.SetActive(isActive);
         }
 
-        public static bool TryGetSceneName(int index, out string sceneName)
+        public static bool CompareCollectStageName(string collectStageName)
         {
-            switch (index)
+            switch (collectStageName)
             {
-                case 0:
-                    sceneName = Radar;
+                case Radar:
                     return true;
 
-                case 1:
-                    sceneName = RadarPaint;
+                case Telescope:
                     return true;
 
                 default:
-                    sceneName = string.Empty;
                     return false;
             }
+        }
+
+        public static string GetCollectStageName(string paintStageName)
+        {
+            return CollectStages[paintStageName];
+        }
+
+        public static string GetPaintStageName(string collectStageName)
+        {
+            return PaintStages[collectStageName];
+        }
+
+        public static bool TryGetNextStageName(string stageName, out string nextStageName)
+        {
+            string collectStageName = CollectStages[stageName];
+
+            if (StageTransitions[stageName].Equals(collectStageName))
+            {
+                nextStageName = string.Empty;
+                return false;
+            }
+
+            nextStageName = StageTransitions[stageName];
+            return true;
         }
 
         public static Vector3 GetCorrectScale(Vector3 defaultScale, Vector3 targetLossyScale)

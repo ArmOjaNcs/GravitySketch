@@ -12,10 +12,8 @@ namespace Assets.Sources.Table
         [Header("Cube settings")]
         [SerializeField] private int _count = 12;
         [SerializeField] private float _radius = 5f;
-        [SerializeField] private List<Material> _materials;
-        [SerializeField] private Barrier _barrierPrefab;
+        [SerializeField] private GameObject _barrierPrefab;
         [SerializeField] private Transform _parentTransform;
-
         [SerializeField] private bool _clearOldCubes = true;
 
 #if UNITY_EDITOR
@@ -49,11 +47,10 @@ namespace Assets.Sources.Table
             {
                 float angle = i * angleStep * Mathf.Deg2Rad;
                 Vector3 position = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * _radius;
-                Barrier barrier = Instantiate(_barrierPrefab);
+                GameObject barrier = Instantiate(_barrierPrefab);
                 barrier.transform.SetParent(_parentTransform);
                 barrier.transform.localPosition = position;
                 barrier.transform.localRotation = Quaternion.identity;
-                barrier.MeshRenderer.material = _materials[Random.Range(0, _materials.Count)];
             }
 
             Debug.Log($"{_count} cubes spawned by radius {_radius}.");

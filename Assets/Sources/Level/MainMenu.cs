@@ -2,6 +2,7 @@ using Assets.Sources.UI;
 using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using YG;
 
@@ -59,13 +60,13 @@ namespace Assets.Sources.Level
         private void OnWindowOpening() => _default.Hide();
         private void OnWindowClosing() => _default.Show();
 
-        private void OnPlayClicked(string sceneName) => LoadScene(sceneName);
-
-        private void OnStartClicked()
+        private void OnPlayClicked(string stageName)
         {
-            UserUtils.TryGetSceneName(CurrentLevelIndex, out string sceneName);
-            LoadScene(sceneName);
+            Progress.SetStageName(stageName);
+            SceneManager.LoadScene(UserUtils.CollectScene);
         }
+
+        private void OnStartClicked() => SceneManager.LoadScene(UserUtils.CollectScene);
 
         private void OnButtonClick() => _buttonSound.Play();
 

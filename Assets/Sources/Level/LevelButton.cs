@@ -8,22 +8,19 @@ namespace Assets.Sources.UI
 {
     public class LevelButton : UIAnimator, IDisposable
     {
-        [SerializeField] private int _index;
         [SerializeField] private Button _button;
         [SerializeField] private TextMeshProUGUI _score;
         [SerializeField] private Image _image;
         [SerializeField] private Sprite _colored;
         [SerializeField] private Sprite _frame;
+        [SerializeField] private string _name;
 
         public event Action<LevelButton> Chosen;
 
-        public string Name { get; private set; }
-        public int Index => _index;
+        public string Name => _name;
 
         public void Init()
         {
-            UserUtils.TryGetSceneName(_index, out string sceneName);
-            Name = sceneName;
             _button.onClick.AddListener(OnClick);
             _score.text = "";
             _score.gameObject.SetActive(true);

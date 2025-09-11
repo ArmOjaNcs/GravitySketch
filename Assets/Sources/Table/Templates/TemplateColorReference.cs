@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 namespace Assets.Sources.Table
 {
     [CreateAssetMenu(fileName = "TemplateColorReference", menuName = "ScriptableObjects/TemplateColorReference")]
-    public class TemplateMaterialReference : ScriptableObject
+    public class TemplateColorReference : ScriptableObject
     {
         [Serializable]
         private class ColorEntry

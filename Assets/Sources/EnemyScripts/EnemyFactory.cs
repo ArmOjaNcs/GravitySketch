@@ -8,30 +8,26 @@ namespace Assets.Sources.EnemyScripts
 {
     public class EnemyFactory : MonoBehaviour
     {
-        [Header("PatrolZone")]
-        [SerializeField] private List<EnemyPatrolZone> _patrolZones;
-        [SerializeField] private EnemyPatrolZone _bossPatrolZone;
-
-        [Header("Enemy settings")]
         [SerializeField] private Enemy _enemy;
-        [SerializeField] private List<EnemyConfig> _shooterConfigs;
-        [SerializeField] private List<EnemyConfig> _sniperConfigs;
-        [SerializeField] private List<EnemyConfig> _bomberConfigs;
-        [SerializeField] private List<EnemyConfig> _rocketerConfigs;
-        [SerializeField] private EnemyConfig _bossConfig;
-        [SerializeField] private List<EnemyAttackConfig> _bossAttackConfigs;
         [SerializeField] private LayerMask _tableLayer;
 
+        private EnemyPatrolZone _bossPatrolZone;
+        private List<EnemyPatrolZone> _patrolZones = new();
+        private EnemyFactoryConfig _config;
         private AudioPlayerSpawner _audioPlayerSpawner;
         private PauseHandler _pauseHandler;
 
         public int TotalEnemies { get; private set; }
         public bool IsBossSpawned { get; private set; }
 
-        public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
+        public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner, 
+            EnemyFactoryConfig enemyFactoryConfig, List<EnemyPatrolZone> enemyPatrolZones, EnemyPatrolZone bossPatrolZone)
         {
             _audioPlayerSpawner = audioPlayerSpawner;
             _pauseHandler = pauseHandler;
+            _config = enemyFactoryConfig;
+            _patrolZones = enemyPatrolZones;
+            _bossPatrolZone = bossPatrolZone;
 
             foreach (EnemyPatrolZone patrolZone in _patrolZones)
                 patrolZone.Initialize();
@@ -42,16 +38,16 @@ namespace Assets.Sources.EnemyScripts
 
         public Enemy CreateBoss()
         {
-            Enemy enemy = SpawnEnemyInZone(_bossPatrolZone, _bossConfig);
+            Enemy enemy = SpawnEnemyInZone(_bossPatrolZone, _config.BossConfig);
 
-            foreach (EnemyAttackConfig enemyAttackConfig in _bossAttackConfigs)
+            foreach (EnemyAttackConfig enemyAttackConfig in _config.BossAttackConfigs)
             {
                 var zone = (IEnemyAttack)enemy.AttackZone.AddComponent(enemyAttackConfig.ZoneComponentType);
                 zone.InitFromConfig(enemyAttackConfig, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
             }
 
-            enemy.SetSize(_bossConfig.Level);
-            var config = _bossAttackConfigs.FirstOrDefault(c => c.GetType() == typeof(BomberConfig));
+            enemy.SetSize(_config.BossConfig.Level);
+            var config = _config.BossAttackConfigs.FirstOrDefault(c => c.GetType() == typeof(BomberConfig));
             enemy.RetreatZone.InitFromConfig(config, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
             IsBossSpawned = true;
             return enemy;
@@ -77,19 +73,19 @@ namespace Assets.Sources.EnemyScripts
                     switch (configIndex)
                     {
                         case 0:
-                            config = _shooterConfigs.FirstOrDefault(c => c.Level == currentLevel);
+                            config = _config.ShooterConfigs.FirstOrDefault(c => c.Level == currentLevel);
                             break;
 
                         case 1:
-                            config = _sniperConfigs.FirstOrDefault(c => c.Level == currentLevel);
+                            config = _config.SniperConfigs.FirstOrDefault(c => c.Level == currentLevel);
                             break;
 
                         case 2:
-                            config = _bomberConfigs.FirstOrDefault(c => c.Level == currentLevel);
+                            config = _config.BomberConfigs.FirstOrDefault(c => c.Level == currentLevel);
                             break;
 
                         case 3:
-                            config = _rocketerConfigs.FirstOrDefault(c => c.Level == currentLevel);
+                            config = _config.RocketerConfigs.FirstOrDefault(c => c.Level == currentLevel);
                             break;
                     }
 
@@ -102,7 +98,7 @@ namespace Assets.Sources.EnemyScripts
                     }
 
                     enemy.SetSize(config.Level);
-                    config = _bomberConfigs.FirstOrDefault(c => c.Level == currentLevel);
+                    config = _config.BomberConfigs.FirstOrDefault(c => c.Level == currentLevel);
                     enemy.RetreatZone.InitFromConfig(config.AttackConfig, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
 
                     created++;

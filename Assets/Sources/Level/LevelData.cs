@@ -6,15 +6,15 @@ namespace Assets.Sources.Level
     [Serializable]
     public class LevelData
     {
-        [SerializeField] private int _index;
+        [SerializeField] private string _name;
         [SerializeField] private int _score;
 
-        public LevelData(int levelIndex)
+        public LevelData(string name)
         {
-            _index = levelIndex;
+            _name = name;
         }
 
-        public int Index => _index;
+        public string Name => _name;
         public int Score => _score;
 
         public void UpdateScore(int score)

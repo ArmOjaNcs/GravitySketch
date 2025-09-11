@@ -18,11 +18,6 @@ namespace Assets.Sources.SimpleCubeScripts
 
         public Color Color => _currentColor;
 
-        private void OnEnable()
-        {
-            transform.parent = null;
-        }
-
         private protected override void OnDisable()
         {
             base.OnDisable();
@@ -36,6 +31,7 @@ namespace Assets.Sources.SimpleCubeScripts
             base.Init(pauseHandler);
             _idleAnimation = AnimationSpawner.GetIdleAnimation(transform);
             _idleAnimation.Restart();
+            transform.parent = null;
             IsInitialized = true;
         }
 

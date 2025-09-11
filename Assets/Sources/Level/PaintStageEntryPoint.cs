@@ -12,6 +12,8 @@ namespace Assets.Sources.Level
         [SerializeField] private ColorizedCubeSpawner _colorizedCubeSpawner;
         [SerializeField] private ScoreView _scoreView;
 
+
+
         private protected override void Initialize()
         {
             _paintInput.Init(PauseHandler);

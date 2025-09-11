@@ -54,7 +54,7 @@ namespace Assets.Sources.Level
                 _currentButton.Hide();
 
             _currentButton = level;
-            level.SetScore(_levelScore.GetLevelScore(level.Index));
+            level.SetScore(_levelScore.GetLevelScore(level.Name));
             level.Show();
 
             if (_play.gameObject.activeSelf == false)

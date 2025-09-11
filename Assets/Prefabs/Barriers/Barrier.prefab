@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6779789949426287569}
   - component: {fileID: 4772648981859937487}
   - component: {fileID: 730112027328472155}
-  - component: {fileID: 6906246539926419394}
   m_Layer: 0
   m_Name: Barrier
   m_TagString: Untagged
@@ -63,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,17 +105,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 200, z: 1}
   m_Center: {x: 0, y: 90, z: 0}
---- !u!114 &6906246539926419394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 986703769099525567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 940ea3ed8c505684d9cd6ad72217e231, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _meshRenderer: {fileID: 4772648981859937487}
-  _collider: {fileID: 730112027328472155}

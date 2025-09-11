@@ -35189,10 +35189,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1085692275639043651}
   - component: {fileID: 2889815944275727553}
-  - component: {fileID: 6808716251448231177}
   - component: {fileID: 5538747546583878545}
   - component: {fileID: 6596212786805928281}
   - component: {fileID: 7000994890787370357}
+  - component: {fileID: 8006680821460868504}
   m_Layer: 20
   m_Name: 'Anomaly '
   m_TagString: DissolvableObstacle
@@ -35238,25 +35238,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2.581421
   m_Center: {x: -0.008317947, y: 0, z: -0.008323669}
---- !u!114 &6808716251448231177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9025686841619518339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26908bca11f0d87438b0f838862ad386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movePoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _minSqrtDistance: 2
-  _speed: 10
-  _isRestart: 0
 --- !u!114 &5538747546583878545
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35272,11 +35253,11 @@ MonoBehaviour:
   Duration: 0
   _reward: 3000
   _size: 20
-  _collisionSound: {fileID: 0}
+  _collisionSound: {fileID: 8300000, guid: 77eb1a98729384a43babfbbebd397a07, type: 3}
   CollidersHolder: {fileID: 6144138461419954114}
-  _damageRate: 0.5
   _effect: {fileID: 748460947323569538}
   _routine: {fileID: 7000994890787370357}
+  _mover: {fileID: 8006680821460868504}
 --- !u!54 &6596212786805928281
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -35317,3 +35298,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Duration: 0
+--- !u!114 &8006680821460868504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9025686841619518339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 872689dfda845f947977ade85dda1df1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movePoints: []
+  _speed: 0
+  _isRestart: 0

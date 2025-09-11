@@ -1,4 +1,5 @@
 using Assets.Sources.Level;
+using Assets.Sources.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,63 +13,67 @@ namespace Assets.Sources.Save
         [SerializeField] private int _totalScore;
         [SerializeField] private List<LevelData> _levels;
         [SerializeField] private List<Color> _currentColors;
-        [SerializeField] private int _currentLevelIndex;
         [SerializeField] private int _currentScore;
+        [SerializeField] private string _stageName;
 
         public PlayerProgress()
         {
             _levels = new List<LevelData>();
             _currentColors = new List<Color>();
+            _stageName = UserUtils.Radar;
         }
 
         public int TotalScore => _totalScore;
-        public int CurrentLevelIndex => _currentLevelIndex;
         public int LevelsCount => _levels.Count;
         public int CurrentScore => _currentScore;
         public IReadOnlyList<Color> CurrentColors => _currentColors;
         public int ColorsCount => _currentColors.Count;
+        public string StageName => _stageName;
 
-        public void SetIntermediateResult(int levelIndex, int score, List<Color> colors)
+        public void SetIntermediateResult(int score, List<Color> colors)
         {
-            _currentLevelIndex = levelIndex;
             _currentScore = score;
             _currentColors = colors;
         }
 
-        public void SetCurrentIndex(int index) => _currentLevelIndex = index;
-
-        public void UpdateLevelScore(int levelIndex, int score)
+        public void UpdateLevelScore(string levelName, int score)
         {
-            if (IsHasLevel(levelIndex, out LevelData levelScore))
+            if (IsHasLevel(levelName, out LevelData levelScore))
             {
                 levelScore.UpdateScore(score);
                 UpdateTotalScore();
             }
             else
             {
-                LevelData levelToAdd = new LevelData(levelIndex);
+                LevelData levelToAdd = new LevelData(StageName);
                 levelToAdd.UpdateScore(score);
                 _levels.Add(levelToAdd);
                 UpdateTotalScore();
             }
         }
 
-        public int GetLevelScore(int levelIndex)
+        public int GetLevelScore(string levelName)
         {
             foreach (var level in _levels)
             {
-                if (level.Index == levelIndex)
+                if (level.Name.Equals(levelName))
                     return level.Score;
             }
 
             return 0;
         }
 
-        private bool IsHasLevel(int levelIndex, out LevelData levelScore)
+        public void SetStageName(string name)
         {
-            levelScore = _levels.Find(levelScore => levelScore.Index == levelIndex);
+            if(UserUtils.CompareCollectStageName(name))
+                _stageName = name;
+        }
 
-            if (levelScore != null)
+        private bool IsHasLevel(string levelName, out LevelData levelData)
+        {
+            levelData = _levels.Find(levelScore => levelScore.Name.Equals(levelName));
+
+            if (levelData != null)
                 return true;
 
             return false;

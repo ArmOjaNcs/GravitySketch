@@ -8,24 +8,20 @@ namespace Assets.Sources.SimpleCubeScripts
 {
     public class SimpleCubeSpawner : MonoBehaviour
     {
-        [Header("References")]
         [SerializeField] private SimpleCube _cubePrefab;
-        [SerializeField] private TemplateMaterialReference _materialReference;
-        [SerializeField] private List<SpawnArea> _spawnAreas = new List<SpawnArea>();
-
-        [Header("Settings")]
         [SerializeField] private float _spacing = 1.5f;
         [SerializeField] private float _yPosition = 0f;
 
         [HideInInspector]
         [SerializeField] private List<SimpleCube> _spawnedCubes = new List<SimpleCube>();
 
+        private TemplateColorReference _materialReference;
+        private List<SpawnArea> _spawnAreas = new List<SpawnArea>();
         private PauseHandler _pauseHandler;
         private AudioPlayerSpawner _audioPlayerSpawner;
 
         public int TotalCubes => _materialReference.GetTotalCount();
 
-#if UNITY_EDITOR
         public void PrepareQueue()
         {
             ClearAllCubes();
@@ -72,20 +68,20 @@ namespace Assets.Sources.SimpleCubeScripts
 
             Debug.Log($"Spawned {spawnIndex} cubes in editor. Colors will be assigned at runtime.");
         }
-#endif
 
-        public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
+        public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner, 
+            List<SpawnArea> spawnAreas, TemplateColorReference materialReference)
         {
             _pauseHandler = pauseHandler;
             _audioPlayerSpawner = audioPlayerSpawner;
-            ApplyColorsOnStart();
-            SetAudioPlayerSpawner();
-
-            foreach (SimpleCube simpleCube in _spawnedCubes)
-                simpleCube.Init(pauseHandler);
+            _materialReference = materialReference;
+            _spawnAreas = spawnAreas;
+            PrepareQueue();
+            InitCubes();
+            ApplyColors();
         }
 
-        private void ApplyColorsOnStart()
+        private void ApplyColors()
         {
             List<Color> colors = _materialReference.GetAllColors();
             List<Color> shuffledColors = ShuffleColors(colors);
@@ -104,10 +100,13 @@ namespace Assets.Sources.SimpleCubeScripts
             }
         }
 
-        private void SetAudioPlayerSpawner()
+        private void InitCubes()
         {
             foreach (SimpleCube cube in _spawnedCubes)
+            {
+                cube.Init(_pauseHandler);
                 cube.SetAudioPlayerSpawner(_audioPlayerSpawner);
+            }
         }
 
         private Vector3 CalculatePosition(int gridSize, int row, int col)

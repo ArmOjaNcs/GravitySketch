@@ -2,10 +2,12 @@ using Assets.Sources.Audio;
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
+using Assets.Sources.Save;
 using Assets.Sources.SimpleCubeScripts;
 using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Sources.Level
 {
@@ -21,16 +23,10 @@ namespace Assets.Sources.Level
         [SerializeField] private PauseableRoutine _pauseableRoutine;
         [SerializeField] private TextMeshProUGUI _finalText;
         [SerializeField] private float _timeBeforeLoad;
-
+        
         private Enemy _boss;
         private float _currentEnemyDissolvedPercent;
         private float _currentCubesCountPercent;
-
-        private protected override void Awake()
-        {
-            base.Awake();
-            SetCurrentIndex(Index);
-        }
 
         private protected override void OnEnable()
         {
@@ -77,7 +73,9 @@ namespace Assets.Sources.Level
         private void OnWindowClosed()
         {
             Window.Closed -= OnWindowClosed;
-            LoadNextScene();
+            Progress.SetStageName(UserUtils.GetPaintStageName(StageName));
+            SaveSystem.SavePlayerProgress(Progress);
+            SceneManager.LoadScene(UserUtils.PaintScene);
         }
 
         private void OnCubesCountChanged(int cubesCount)
@@ -94,8 +92,8 @@ namespace Assets.Sources.Level
 
         private void OnExitApplied()
         {
-            SetIntermediateResult(Index, _playerScore.Value, _cubesCollector.GetAllCollors());
-            SaveProgress();
+            Progress.SetIntermediateResult(_playerScore.Value, _cubesCollector.GetAllCollors());
+            SaveSystem.SavePlayerProgress(Progress);
             AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(FinalSound).Play();
             _pauseableRoutine.UpdateView(_timeBeforeLoad);
             _finalText.text = Translator.Get(UserUtils.Great);

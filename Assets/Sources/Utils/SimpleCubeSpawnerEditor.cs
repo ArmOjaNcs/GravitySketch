@@ -19,6 +19,5 @@ namespace Assets.Sources.Utils
                 spawner.PrepareQueue();
         }
     }
-
 }
 #endif

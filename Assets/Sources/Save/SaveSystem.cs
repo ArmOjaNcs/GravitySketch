@@ -16,12 +16,12 @@ namespace Assets.Sources.Save
 
         public static PlayerProgress LoadPlayerProgress()
         {
-            if (PlayerPrefs.HasKey(PlayerProgressKey))
-            {
-                string json = PlayerPrefs.GetString(PlayerProgressKey);
+            //if (PlayerPrefs.HasKey(PlayerProgressKey))
+            //{
+            //    string json = PlayerPrefs.GetString(PlayerProgressKey);
 
-                return JsonUtility.FromJson<PlayerProgress>(json);
-            }
+            //    return JsonUtility.FromJson<PlayerProgress>(json);
+            //}
 
             return new PlayerProgress();
         }

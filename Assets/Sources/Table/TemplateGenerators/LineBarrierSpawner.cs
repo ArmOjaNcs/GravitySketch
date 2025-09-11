@@ -3,11 +3,10 @@ using UnityEngine;
 
 namespace Assets.Sources.Table
 {
-    public class LineCubeSpawner : MonoBehaviour
+    public class LineBarrierSpawner : MonoBehaviour
     {
         [SerializeField] private int _count = 12;
-        [SerializeField] private List<Material> _materials;
-        [SerializeField] private Barrier _barrierPrefab;
+        [SerializeField] private GameObject _barrierPrefab;
         [SerializeField] private Transform _parentTransform;
         [SerializeField] private bool _clearOldCubes = true;
 
@@ -16,6 +15,7 @@ namespace Assets.Sources.Table
         public void SpawnCubesInLine()
         {
             List<GameObject> childrenToDestroy = new List<GameObject>();
+            float colliderBoundsX = 0;
 
             if (_barrierPrefab == null)
             {
@@ -38,10 +38,17 @@ namespace Assets.Sources.Table
 
             for (int i = 0; i < _count; i++)
             {
-                Barrier barrier = Instantiate(_barrierPrefab, _parentTransform);
-                Vector3 position = Vector3.right * barrier.Collider.bounds.size.x * i;
+                GameObject barrier = Instantiate(_barrierPrefab, _parentTransform);
+
+                if(Mathf.Approximately(colliderBoundsX, 0))
+                {
+                    BoxCollider barrierCollider = barrier.GetComponent<BoxCollider>();
+                    colliderBoundsX = barrierCollider.bounds.size.x;
+                    Debug.Log($"collider bounds X = {barrierCollider.bounds.size.x}");
+                }
+                    
+                Vector3 position = Vector3.right * colliderBoundsX * i;
                 barrier.transform.localPosition = position;
-                barrier.MeshRenderer.material = _materials[Random.Range(0, _materials.Count)];
             }
 
             Debug.Log($"{_count} cubes spawned in line");

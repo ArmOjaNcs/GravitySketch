@@ -2,6 +2,7 @@ using Assets.Sources.Audio;
 using Assets.Sources.ColorizerScripts;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
+using Assets.Sources.Save;
 using Assets.Sources.Table;
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
@@ -10,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Assets.Sources.Level
@@ -21,7 +23,7 @@ namespace Assets.Sources.Level
         [SerializeField] private Validator _validator;
         [SerializeField] private ColoringPositionHandler _positionHandler;
         [SerializeField] private ColorReferenceViewHandler _referenceViewer;
-        [SerializeField] private TemplateMaterialReference _materialReference;
+        [SerializeField] private TemplateColorReference _colorReference;
         [SerializeField] private Template _template;
         [SerializeField] private Toggle _autoPaint;
         [SerializeField] private GameObject _totalScore;
@@ -33,6 +35,7 @@ namespace Assets.Sources.Level
         [SerializeField] private SmoothedFade _interfaceFade;
 
         private bool _isFinished;
+        private string _nextStageName = string.Empty;
 
         public event Action<int> TotalScoreUpdated;
 
@@ -60,7 +63,7 @@ namespace Assets.Sources.Level
         public override void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
         {
             base.Init(pauseHandler, audioPlayerSpawner);
-            _materialReference.ResetEntriesCurrentIndex();
+            _colorReference.ResetEntriesCurrentIndex();
             _colorizer.SetStage(this, CurrentColors);
             _colorizer.Init(pauseHandler);
             _validator.Init(this, audioPlayerSpawner);
@@ -79,9 +82,9 @@ namespace Assets.Sources.Level
 
         public IReadonlyTemplateCube GetCubeByColor(Color color)
         {
-            while (_materialReference.HasFreeIndex(color))
+            while (_colorReference.HasFreeIndex(color))
             {
-                if (_materialReference.TryGetIndexByColor(color, out int index))
+                if (_colorReference.TryGetIndexByColor(color, out int index))
                 {
                     IReadonlyTemplateCube templateCube = TemplateCubes.First(tc => tc.Index == index);
 
@@ -104,7 +107,7 @@ namespace Assets.Sources.Level
 
         public Color GetColor(int index)
         {
-            return _materialReference.GetColor(index);
+            return _colorReference.GetColor(index);
         }
 
         private void OnFinished()
@@ -122,7 +125,7 @@ namespace Assets.Sources.Level
 
             if (isShowing)
             {
-                _materialReference.HighlightAllCubes(TemplateCubes);
+                _colorReference.HighlightAllCubes(TemplateCubes);
             }
             else
             {
@@ -143,18 +146,14 @@ namespace Assets.Sources.Level
         {
             Finish();
             _aim.SetActive(false);
-            int nextIndex = Index + (int)UserUtils.One;
 
-            if (UserUtils.TryGetSceneName(nextIndex, out string _))
+            if (UserUtils.TryGetNextStageName(StageName, out string nextStageName))
             {
-                SetCurrentIndex(nextIndex);
                 _toNextLevel.gameObject.SetActive(true);
+                _nextStageName = nextStageName;
             }
             else
-            {
-                SaveProgress();
                 _toNextLevel.gameObject.SetActive(false);
-            }
 
             yield return new WaitForSeconds(UserUtils.One);
             AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(FinalSound).Play();
@@ -166,13 +165,35 @@ namespace Assets.Sources.Level
             _totalScore.SetActive(true);
             Window.Show();
             int finalScore = _validator.MatchScore + CurrentScore + _referenceViewer.ShowCount * UserUtils.ShowScore;
-            UpdateProgress(CurrentLevelIndex, finalScore);
+            Progress.UpdateLevelScore(UserUtils.GetCollectStageName(StageName), finalScore);
             TotalScoreUpdated?.Invoke(finalScore);
             _hole.SetActive(true);
         }
 
+        private protected override void OnMainMenuApplied()
+        {
+            if (_isFinished)
+            {
+                if(_nextStageName != string.Empty)
+                    Progress.SetStageName(_nextStageName);
+                else
+                    Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
+            }
+
+            SaveSystem.SavePlayerProgress(Progress);
+            base.OnMainMenuApplied();
+        }
+
+        private protected override void OnRestartApplied()
+        {
+            SaveSystem.SavePlayerProgress(Progress);
+            base.OnRestartApplied();
+        }
+
         private void OnNextApplied()
         {
+            Progress.SetStageName(_nextStageName);
+            SaveSystem.SavePlayerProgress(Progress);
             AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(ButtonSound).Play();
             Window.Closed += LoadNext;
             Window.Hide();
@@ -182,7 +203,7 @@ namespace Assets.Sources.Level
         private void LoadNext()
         {
             Window.Closed -= LoadNext;
-            LoadNextScene();
+            SceneManager.LoadScene(UserUtils.CollectScene);
         }
     }
 }

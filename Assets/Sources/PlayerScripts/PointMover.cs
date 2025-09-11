@@ -1,3 +1,4 @@
+using Assets.Sources.EnemyScripts;
 using Assets.Sources.Pause;
 using UnityEngine;
 
@@ -5,21 +6,22 @@ namespace Assets.Sources.PlayerScripts
 {
     public class PointMover : PauseableObject
     {
-        [SerializeField] private Transform[] _movePoints;
-        [SerializeField] private float _minSqrtDistance;
-        [SerializeField] private float _speed;
-        [SerializeField] private bool _isRestart;
+        private const float MinSqrtDistance = 2;
 
-        private protected Transform Transform;
+        private Vector3[] _movePoints;
+        private float _speed;
+        private bool _isRestart;
+        private Transform _transform;
         private int _index;
         private int _sign;
         private Vector3 _targetPosition;
         private float _sqrtDistance;
         private Rigidbody _rigidbody;
+        private bool _isMove;
 
         private protected virtual void Update()
         {
-            if (IsPaused || IsInitialized == false)
+            if (IsPaused || IsInitialized == false || _isMove == false)
                 return;
 
             ChangeTarget();
@@ -27,7 +29,7 @@ namespace Assets.Sources.PlayerScripts
 
         private protected virtual void FixedUpdate()
         {
-            if (IsPaused || IsInitialized == false)
+            if (IsPaused || IsInitialized == false || _isMove == false)
                 return;
 
             MoveByPoint();
@@ -36,7 +38,7 @@ namespace Assets.Sources.PlayerScripts
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            Transform = transform;
+            _transform = transform;
             _rigidbody = GetComponent<Rigidbody>();
 
             if (_movePoints.Length < 1 || _movePoints[_index] == null)
@@ -49,9 +51,19 @@ namespace Assets.Sources.PlayerScripts
             IsInitialized = true;
         }
 
+        public void InitFromConfig(PointMoverConfig pointMoverConfig)
+        {
+            _movePoints = pointMoverConfig.MovePoints;
+            _speed = pointMoverConfig.Speed;
+            _isRestart = pointMoverConfig.IsRestart;
+            _isMove = true;
+        }
+
+        public void Stop() => _isMove = false;
+
         private void MoveByPoint()
         {
-            Vector3 target = _movePoints[_index].position;
+            Vector3 target = _movePoints[_index];
             target.y = _rigidbody.position.y;
 
             _rigidbody.MovePosition(Vector3.MoveTowards(_rigidbody.position, target, _speed * Time.fixedDeltaTime));
@@ -61,13 +73,13 @@ namespace Assets.Sources.PlayerScripts
         {
             if (_movePoints[_index] != null)
             {
-                _targetPosition = _movePoints[_index].position;
-                _targetPosition.y = Transform.position.y;
+                _targetPosition = _movePoints[_index];
+                _targetPosition.y = _transform.position.y;
             }
 
-            _sqrtDistance = (_targetPosition - Transform.position).sqrMagnitude;
+            _sqrtDistance = (_targetPosition - _transform.position).sqrMagnitude;
 
-            if (_sqrtDistance < _minSqrtDistance)
+            if (_sqrtDistance < MinSqrtDistance)
             {
                 if (_isRestart == false)
                 {
