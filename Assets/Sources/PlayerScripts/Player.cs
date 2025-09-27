@@ -1,10 +1,9 @@
-using System;
-using UnityEngine;
-using Assets.Sources.Utils;
-using Assets.Sources.Dissolvable;
-using System.Collections.Generic;
-using Assets.Sources.Pause;
 using Assets.Sources.Audio;
+using Assets.Sources.Pause;
+using Assets.Sources.Utils;
+using System;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
 {
@@ -71,9 +70,17 @@ namespace Assets.Sources.PlayerScripts
             if (_health.CurrentValue == 0)
             {
                 _catcher.SetDie();
+                Die();
                 IsDead?.Invoke();
-                gameObject.SetActive(false);
             }
+        }
+
+        private void Die()
+        {
+            foreach (PauseableObject pauseableObject in _objects)
+                pauseableObject.enabled = false;
+
+            enabled = false;
         }
 
         private void OnMedAidAbsorbed(float healPower)

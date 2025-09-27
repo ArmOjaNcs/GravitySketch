@@ -31,6 +31,8 @@ namespace Assets.Sources.Table
 
         public void InitTemplateCubes(IReadOnlyList<TemplateCube> templateCubes)
         {
+            Debug.Log($"template cubes count {templateCubes.Count} _indexedTypes.Count {_indexedTypes.Count}");
+            
             for (int index = 0; index < templateCubes.Count; index++)
             {
                 templateCubes[index].Init(_indexedTypes[index].Type, _indexedTypes[index].Index);

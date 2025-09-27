@@ -47,7 +47,7 @@ namespace Assets.Sources.EnemyScripts
             }
 
             enemy.SetSize(_config.BossConfig.Level);
-            var config = _config.BossAttackConfigs.FirstOrDefault(c => c.GetType() == typeof(BomberConfig));
+            var config = _config.BossConfig.AttackConfig;
             enemy.RetreatZone.InitFromConfig(config, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
             IsBossSpawned = true;
             return enemy;

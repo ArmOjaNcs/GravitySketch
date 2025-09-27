@@ -23,8 +23,6 @@ namespace Assets.Sources.Level
         [SerializeField] private Validator _validator;
         [SerializeField] private ColoringPositionHandler _positionHandler;
         [SerializeField] private ColorReferenceViewHandler _referenceViewer;
-        [SerializeField] private TemplateColorReference _colorReference;
-        [SerializeField] private Template _template;
         [SerializeField] private Toggle _autoPaint;
         [SerializeField] private GameObject _totalScore;
         [SerializeField] private GameObject _panel;
@@ -34,6 +32,8 @@ namespace Assets.Sources.Level
         [SerializeField] private GameObject _hole;
         [SerializeField] private SmoothedFade _interfaceFade;
 
+        private TemplateColorReference _colorReference;
+        private Template _template;
         private bool _isFinished;
         private string _nextStageName = string.Empty;
 
@@ -78,6 +78,13 @@ namespace Assets.Sources.Level
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
             _hole.SetActive(false);
+        }
+
+        public void SetTemplate(Template template, TemplateColorReference colorReference)
+        {
+            _template = template;
+            _template.Init();
+            _colorReference = colorReference;
         }
 
         public IReadonlyTemplateCube GetCubeByColor(Color color)
@@ -153,7 +160,9 @@ namespace Assets.Sources.Level
                 _nextStageName = nextStageName;
             }
             else
+            {
                 _toNextLevel.gameObject.SetActive(false);
+            }
 
             yield return new WaitForSeconds(UserUtils.One);
             AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(FinalSound).Play();
@@ -174,10 +183,12 @@ namespace Assets.Sources.Level
         {
             if (_isFinished)
             {
-                if(_nextStageName != string.Empty)
+                if (_nextStageName != string.Empty)
                     Progress.SetStageName(_nextStageName);
-                else
-                    Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
+            }
+            else
+            {
+                Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
             }
 
             SaveSystem.SavePlayerProgress(Progress);
@@ -203,7 +214,7 @@ namespace Assets.Sources.Level
         private void LoadNext()
         {
             Window.Closed -= LoadNext;
-            SceneManager.LoadScene(UserUtils.CollectScene);
+            SceneManager.LoadScene(UserUtils.Collect);
         }
     }
 }

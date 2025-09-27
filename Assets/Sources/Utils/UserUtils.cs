@@ -53,8 +53,8 @@ namespace Assets.Sources.Utils
         public const string Telescope = nameof(Telescope);
         public const string RadarPaint = nameof(RadarPaint);
         public const string TelescopePaint = nameof(TelescopePaint);
-        public const string CollectScene = nameof(CollectScene);
-        public const string PaintScene = nameof(PaintScene);
+        public const string Collect = nameof(Collect);
+        public const string Paint = nameof(Paint);
         public const string MixerGroupSound = nameof(MixerGroupSound);
         public const string MixerGroupInterface = nameof(MixerGroupInterface);
 
@@ -72,6 +72,9 @@ namespace Assets.Sources.Utils
         public const float ExitTime = 3;
         public const float PlayerDamageMultiplier = 1.5f;
         public const float LoadTime = 5f;
+        public const float DamageRate = 0.5f;
+        public const float GrowDuration = 1f;
+        public const float ActiveDuration = 2f;
 
         public const char PlusSign = '+';
         public const char DefaultChar = '\0';
@@ -90,6 +93,8 @@ namespace Assets.Sources.Utils
         {
             {RadarPaint, Radar},
             {TelescopePaint, Telescope},
+            {Radar, Radar},
+            {Telescope, Telescope}
         };
 
         private static Dictionary<string, string> PaintStages = new Dictionary<string, string>()

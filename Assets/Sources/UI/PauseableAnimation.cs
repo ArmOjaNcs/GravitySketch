@@ -42,6 +42,12 @@ namespace Assets.Sources.UI
             }
         }
 
+        public void Play()
+        {
+            if (Animation.IsActive())
+                Animation.Restart();
+        }
+
         private protected abstract Sequence GetAnimation();
     }
 }

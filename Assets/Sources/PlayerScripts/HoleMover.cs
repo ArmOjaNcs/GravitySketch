@@ -7,14 +7,15 @@ namespace Assets.Sources.PlayerScripts
         [SerializeField] private Camera _camera;
         [SerializeField] private float _fixedY = 0f;
         [SerializeField] private float _speed = 10f;
-        [SerializeField] private Material _material;
         [SerializeField] private float _radius;
 
+        private Material _material;
         private Transform _transform;
 
-        private void Awake()
+        public void Init(Material material)
         {
             _transform = transform;
+            _material = material;
             _material.SetFloat("_HoleRadius", _radius);
             _material.SetVector("_HolePosition", new Vector4(_transform.position.x,
                     _transform.position.y, _transform.position.z, 0));

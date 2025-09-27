@@ -18,7 +18,7 @@ namespace Assets.Sources.Table
 
         public IReadOnlyList<IReadonlyTemplateCube> TemplateCubes => _templateCubes;
 
-        private void Awake()
+        public void Init()
         {
             _templateCubes = GetComponentsInChildren<TemplateCube>().ToList();
             _frameReference.InitTemplateCubes(_templateCubes);

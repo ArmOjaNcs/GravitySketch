@@ -5060,7 +5060,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 4e-45, z: 4.1742e-41, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -19840,7 +19840,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ddac23d301cbfca45bcbe217c05f0141, type: 2}
+  - {fileID: 2100000, guid: 8fce5540653d6d8439e52364661e10c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -35310,6 +35310,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 872689dfda845f947977ade85dda1df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movePoints: []
-  _speed: 0
-  _isRestart: 0

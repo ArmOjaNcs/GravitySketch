@@ -80,11 +80,12 @@ namespace Assets.Sources.Table
             foreach (TemplateCube cube in templateCubes)
             {
                 int index = cube.Index;
-
+                
                 foreach (ColorEntry entry in _entries)
-                {
+                {       
                     if (entry.HasIndex(index))
                     {
+                        Debug.Log($"index in entries");
                         cube.EnableRendering();
                         cube.Highlight(entry.Color);
                         break;

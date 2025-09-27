@@ -20,7 +20,7 @@ namespace Assets.Sources.Save
         {
             _levels = new List<LevelData>();
             _currentColors = new List<Color>();
-            _stageName = UserUtils.Radar;
+            _stageName = UserUtils.Telescope;
         }
 
         public int TotalScore => _totalScore;
@@ -65,8 +65,7 @@ namespace Assets.Sources.Save
 
         public void SetStageName(string name)
         {
-            if(UserUtils.CompareCollectStageName(name))
-                _stageName = name;
+            _stageName = name;
         }
 
         private bool IsHasLevel(string levelName, out LevelData levelData)

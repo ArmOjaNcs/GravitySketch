@@ -2672,9 +2672,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Duration: 0
   _growHandler: {fileID: 1168810030503728227}
-  _particleSystems:
-  - {fileID: 8479218051233629792}
-  - {fileID: 2358523384243032433}
   _sizeDelta: {x: 0.5, y: 0.5, z: 0.5}
   _growSize: 0.5
   _catcher: {fileID: 2321790583895922526}
@@ -5891,7 +5888,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 670
+  m_VersionIndex: 673
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -6948,6 +6945,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9119541180028949647}
     m_Modifications:
+    - target: {fileID: 975123129514131721, guid: 76fe95da98d9a5842b2ed6bc15dff6b7, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1049896722202700160, guid: 76fe95da98d9a5842b2ed6bc15dff6b7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7012,6 +7013,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6385899972070168088, guid: 76fe95da98d9a5842b2ed6bc15dff6b7, type: 3}
+      propertyPath: scalingMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6400618624818807867, guid: 76fe95da98d9a5842b2ed6bc15dff6b7, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -7041,11 +7046,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76fe95da98d9a5842b2ed6bc15dff6b7, type: 3}
---- !u!198 &2358523384243032433 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 975123129514131721, guid: 76fe95da98d9a5842b2ed6bc15dff6b7, type: 3}
-  m_PrefabInstance: {fileID: 3257085306124832888}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2567762440859826680 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1049896722202700160, guid: 76fe95da98d9a5842b2ed6bc15dff6b7, type: 3}
@@ -7054,10 +7054,5 @@ Transform:
 --- !u!4 &8020497710488050903 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4791256024525720751, guid: 76fe95da98d9a5842b2ed6bc15dff6b7, type: 3}
-  m_PrefabInstance: {fileID: 3257085306124832888}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8479218051233629792 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 6385899972070168088, guid: 76fe95da98d9a5842b2ed6bc15dff6b7, type: 3}
   m_PrefabInstance: {fileID: 3257085306124832888}
   m_PrefabAsset: {fileID: 0}

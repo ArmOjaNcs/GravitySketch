@@ -54,6 +54,7 @@ namespace Assets.Sources.Level
             else
                 OnYGReady();
 
+            Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
             _default.Show();
         }
 
@@ -63,10 +64,10 @@ namespace Assets.Sources.Level
         private void OnPlayClicked(string stageName)
         {
             Progress.SetStageName(stageName);
-            SceneManager.LoadScene(UserUtils.CollectScene);
+            SceneManager.LoadScene(UserUtils.Collect);
         }
 
-        private void OnStartClicked() => SceneManager.LoadScene(UserUtils.CollectScene);
+        private void OnStartClicked() => SceneManager.LoadScene(UserUtils.Collect);
 
         private void OnButtonClick() => _buttonSound.Play();
 

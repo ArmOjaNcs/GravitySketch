@@ -130,6 +130,28 @@ namespace Assets.Sources.Utils
             return sequence;
         }
 
+        public static Sequence GetTrapGrowUpAnimation(Transform transform, float defaultSize)
+        {
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(transform.DOScale(defaultSize, UserUtils.GrowDuration).From(0))
+                    .SetAutoKill(false)
+                    .SetEase(Ease.Linear)
+                    .Pause();
+
+            return sequence;
+        }
+
+        public static Sequence GetTrapGrowDownAnimation(Transform transform, float defaultSize)
+        {
+            Sequence sequence = DOTween.Sequence();
+            sequence.Append(transform.DOScale(0, UserUtils.GrowDuration).From(defaultSize))
+                    .SetAutoKill(false)
+                    .SetEase(Ease.Linear)
+                    .Pause();
+
+            return sequence;
+        }
+
         public static Tween GetLoadAnimation(RectTransform transform, float duration = 0)
         {
             if (duration <= 0)

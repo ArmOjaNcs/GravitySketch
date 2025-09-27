@@ -5,12 +5,10 @@ namespace Assets.Sources.Table
     [RequireComponent(typeof(BoxCollider), typeof(MeshRenderer))]
     public class TemplateCube : MonoBehaviour, IReadonlyTemplateCube
     {
-        [SerializeField] private MeshRenderer _meshRenderer;
-
-        private bool _isInitiated;
+        private MeshRenderer _meshRenderer;
         private bool _isColored;
         private Transform _transform;
-        private static MaterialPropertyBlock _mpb;
+        private MaterialPropertyBlock _mpb;
 
         public bool IsMarked { get; private set; }
         public bool IsColored => _isColored;
@@ -19,23 +17,15 @@ namespace Assets.Sources.Table
         public Vector3 Position => (_transform != null) ? _transform.position : transform.position;
         public Color Color { get; private set; }
 
-        private void Awake()
-        {
-            _transform = transform;
-            Color = _meshRenderer.material.color;
-
-            if (_mpb == null)
-                _mpb = new MaterialPropertyBlock();
-        }
-
         public void Init(CubeType type, int index)
         {
-            if (_isInitiated)
-                return;
-
+           // Debug.Log($"cube inited type {type} index {index}");
+            _meshRenderer = GetComponent<MeshRenderer>();
+            _transform = transform;
+            Color = _meshRenderer.sharedMaterial.color;
+            SetColor(Color);
             Type = type;
             Index = index;
-            _isInitiated = true;
         }
 
         public void SetColored(Color color)
@@ -57,14 +47,22 @@ namespace Assets.Sources.Table
                 _meshRenderer.enabled = false;
         }
 
-        public void EnableRendering() => _meshRenderer.enabled = true;
+        public void EnableRendering()
+        {
+            _meshRenderer.enabled = true;
+        }
 
-        public void Highlight(Color color) => SetColor(color);
+        public void Highlight(Color color)
+        {
+            SetColor(color);
+        }
 
         public void StopHighlight()
         {
             if (Type == CubeType.In)
+            {
                 DisableRendering();
+            }
         }
 
         public void Mark() => IsMarked = true;

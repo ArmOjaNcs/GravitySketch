@@ -7,7 +7,6 @@ namespace Assets.Sources.PlayerScripts
     public class Grower : PauseableRoutine
     {
         [SerializeField] private GrowHandler _growHandler;
-        [SerializeField] private ParticleSystem[] _particleSystems;
         [SerializeField] private Vector3 _sizeDelta;
         [SerializeField] private float _growSize;
         [SerializeField] private Catcher _catcher;
@@ -59,23 +58,12 @@ namespace Assets.Sources.PlayerScripts
         {
             float progress = ElapsedTime / Duration;
             _player.localScale = Vector3.Lerp(_player.localScale, _targetScale, progress);
-
-            foreach (ParticleSystem particle in _particleSystems)
-            {
-                particle.transform.localScale = Vector3.Lerp(particle.transform.localScale,
-                    _targetScale, progress);
-            }
-
             ScaleChanged?.Invoke();
         }
 
         private protected override void OnRoutineEnd()
         {
             _player.localScale = _targetScale;
-
-            foreach (var particle in _particleSystems)
-                particle.transform.localScale = _targetScale;
-
             ScaleChanged?.Invoke();
         }
     }

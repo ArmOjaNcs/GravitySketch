@@ -8,14 +8,15 @@ namespace Assets.Sources.Table
     public class HoleMaskHandler : PauseableRoutine
     {
         [SerializeField] private Mover _mover;
-        [SerializeField] private Material _material;
-        [SerializeField] private Renderer _renderer;
         [SerializeField] private Grower _grower;
         [SerializeField] private Player _player;
 
+        private Renderer _renderer;
+        private Material _material;
         private Transform _transform;
         private float _targetRadius;
         private float _currentRadius;
+        private bool _isPlayerDead;
 
         private void OnEnable()
         {
@@ -36,10 +37,21 @@ namespace Assets.Sources.Table
         {
             base.Init(pauseHandler);
             _targetRadius = UserUtils.GetCorrectRadius(_mover.transform.lossyScale.x);
-            _material.SetFloat("_HoleRadius", _targetRadius);
             _currentRadius = _targetRadius;
             _transform = transform;
+            IsInitialized = true;
+        }
+
+        public void Init(PauseHandler pauseHandler, Renderer renderer, Material material)
+        {
+            base.Init(pauseHandler);
+            _targetRadius = UserUtils.GetCorrectRadius(_mover.transform.lossyScale.x);
+            _material = material;
+            _material.SetFloat("_HoleRadius", _targetRadius);
+            _renderer = renderer;
             _renderer.material = _material;
+            _currentRadius = _targetRadius;
+            _transform = transform;
             IsInitialized = true;
         }
 
@@ -56,6 +68,7 @@ namespace Assets.Sources.Table
 
         private void OnPlayerDead()
         {
+            _isPlayerDead = true;
             _targetRadius = 0;
             UpdateView(Duration);
         }
@@ -71,6 +84,9 @@ namespace Assets.Sources.Table
         {
             base.OnRoutineEnd();
             _currentRadius = _targetRadius;
+
+            if(_isPlayerDead)
+                _player.gameObject.SetActive(false);
         }
     }
 }

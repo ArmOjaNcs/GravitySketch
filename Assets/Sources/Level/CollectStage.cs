@@ -75,7 +75,7 @@ namespace Assets.Sources.Level
             Window.Closed -= OnWindowClosed;
             Progress.SetStageName(UserUtils.GetPaintStageName(StageName));
             SaveSystem.SavePlayerProgress(Progress);
-            SceneManager.LoadScene(UserUtils.PaintScene);
+            SceneManager.LoadScene(UserUtils.Paint);
         }
 
         private void OnCubesCountChanged(int cubesCount)

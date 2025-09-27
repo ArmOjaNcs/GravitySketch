@@ -19,6 +19,10 @@ namespace Assets.Sources.Level
         [SerializeField] private CollectStageConfig _config;
         [SerializeField] private TemplateColorReference _colorReference;
         [SerializeField] private FenceColorizer _fenceColorizer;
+        [SerializeField] private List<VortexTrap> _vortexTraps;
+        [SerializeField] private Material _tableMaterial;
+        [SerializeField] private Renderer _renderer;
+        [SerializeField] private Vector3 _playerStartPosition;
 
         public List<EnemyPatrolZone> EnemyPatrolZones => _enemyPatrolZones;
         public List<SpawnArea> SpawnAreas => _spawnAreas;
@@ -28,5 +32,9 @@ namespace Assets.Sources.Level
         public CollectStageConfig Config => _config;
         public TemplateColorReference ColorReference => _colorReference;
         public FenceColorizer FenceColorizer => _fenceColorizer;
+        public List<VortexTrap> VortexTraps => _vortexTraps;
+        public Material TableMaterial => _tableMaterial;
+        public Renderer Renderer => _renderer;
+        public Vector3 PlayerStartPosition => _playerStartPosition;
     }
 }

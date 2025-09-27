@@ -4,8 +4,6 @@ using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.SimpleCubeScripts;
 using Assets.Sources.Table;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.Sources.Level
@@ -15,8 +13,6 @@ namespace Assets.Sources.Level
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private EnemyFactory _enemyFactory;
         [SerializeField] private AnomalySpawner _anomalySpawner;
-        [SerializeField] private List<DissolvableObstacle> _obstacles;
-        [SerializeField] private List<DissolvableObject> _dissolvableObjects;
         [SerializeField] private SimpleCubeSpawner _simpleCubeSpawner;
         [SerializeField] private HoleMaskHandler _maskHandler;
         [SerializeField] private GrowHandler _growHandler;
@@ -36,7 +32,7 @@ namespace Assets.Sources.Level
 
         private void OnGrowing()
         {
-            foreach (DissolvableObstacle obstacle in _obstacles)
+            foreach (DissolvableObstacle obstacle in _collectStagePrefab.DissolvableObstacles)
             {
                 if (obstacle.Size < _growHandler.CurrentSize)
                     obstacle.DropDown();
@@ -48,7 +44,7 @@ namespace Assets.Sources.Level
             GameObject prefab = Resources.Load<GameObject>(Stage.StageName);
             prefab = Instantiate(prefab);
             _collectStagePrefab = prefab.GetComponent<CollectStagePrefab>();
-            _maskHandler.Init(PauseHandler);
+            _maskHandler.Init(PauseHandler, _collectStagePrefab.Renderer, _collectStagePrefab.TableMaterial);
             _playerInput.Init(PauseHandler);
             _enemyFactory.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.Config.EnemyFactoryConfig, 
                 _collectStagePrefab.EnemyPatrolZones, _collectStagePrefab.BossPatrolZone);
@@ -71,8 +67,13 @@ namespace Assets.Sources.Level
             foreach (PauseableObject pauseable in Objects)
                 pauseable.Init(PauseHandler);
 
+            foreach (VortexTrap vortexTrap in _collectStagePrefab.VortexTraps)
+                vortexTrap.Init(PauseHandler, AudioPlayerSpawner);
+
+            _player.gameObject.SetActive(false);
+            _player.transform.position = _collectStagePrefab.PlayerStartPosition;
+            _player.gameObject.SetActive(true);
             Stage.Init(PauseHandler, AudioPlayerSpawner);
-            _player.transform.position = _collectStagePrefab.Config.PlayerStartPosition;
             _collectStagePrefab.FenceColorizer.ColorizeFence(_collectStagePrefab.ColorReference);
         }
 
