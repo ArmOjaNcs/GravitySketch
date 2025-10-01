@@ -11,6 +11,7 @@ namespace Assets.Sources.PlayerScripts
 
         private Material _material;
         private Transform _transform;
+        private bool _isInitialized;
 
         public void Init(Material material)
         {
@@ -19,11 +20,13 @@ namespace Assets.Sources.PlayerScripts
             _material.SetFloat("_HoleRadius", _radius);
             _material.SetVector("_HolePosition", new Vector4(_transform.position.x,
                     _transform.position.y, _transform.position.z, 0));
+            _isInitialized = true;
         }
 
         private void Update()
         {
-            FollowByMouse();
+            if(_isInitialized)
+                FollowByMouse();
         }
 
         private void FollowByMouse()

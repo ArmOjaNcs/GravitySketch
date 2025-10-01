@@ -20,18 +20,18 @@ namespace Assets.Sources.Level
         private protected override void Initialize()
         {
             GameObject prefab = Resources.Load<GameObject>(Stage.StageName);
-            _paintStagePrefab = prefab.GetComponent<PaintStagePrefab>();
             Debug.Log($"Stage name {Stage.StageName}");
+            prefab = Instantiate(prefab);
+            _paintStagePrefab = prefab.GetComponent<PaintStagePrefab>();
             _holeMover.Init(_paintStagePrefab.TableMaterial);
             _tableRenderer.material = _paintStagePrefab.TableMaterial;
-            prefab = Instantiate(prefab);
-            PaintStage paintStage = Stage.GetComponent<PaintStage>();
-            paintStage.SetTemplate(_paintStagePrefab.Template, _paintStagePrefab.ColorReference);
             _paintInput.Init(PauseHandler);
             _coloringPositionHandler.SetPaintInput(_paintInput);
             _colorizerView.Init(PauseHandler);
             _colorizedCubeSpawner.Init(PauseHandler);
             _scoreView.Init(PauseHandler);
+            PaintStage paintStage = Stage.GetComponent<PaintStage>();
+            paintStage.SetTemplate(_paintStagePrefab.Template, _paintStagePrefab.ColorReference);
             paintStage.Init(PauseHandler, AudioPlayerSpawner);
         }
 

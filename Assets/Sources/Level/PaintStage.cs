@@ -63,7 +63,6 @@ namespace Assets.Sources.Level
         public override void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
         {
             base.Init(pauseHandler, audioPlayerSpawner);
-            _colorReference.ResetEntriesCurrentIndex();
             _colorizer.SetStage(this, CurrentColors);
             _colorizer.Init(pauseHandler);
             _validator.Init(this, audioPlayerSpawner);
@@ -85,6 +84,7 @@ namespace Assets.Sources.Level
             _template = template;
             _template.Init();
             _colorReference = colorReference;
+            _colorReference.ResetEntriesCurrentIndex();
         }
 
         public IReadonlyTemplateCube GetCubeByColor(Color color)
