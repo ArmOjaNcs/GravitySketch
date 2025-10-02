@@ -42,13 +42,15 @@ namespace Assets.Sources.Save
             {
                 levelScore.UpdateScore(score);
                 UpdateTotalScore();
+                Debug.Log($"level is in list, score updated, level name {levelName} new score {score}");
             }
             else
             {
-                LevelData levelToAdd = new LevelData(StageName);
+                LevelData levelToAdd = new LevelData(levelName);
                 levelToAdd.UpdateScore(score);
                 _levels.Add(levelToAdd);
                 UpdateTotalScore();
+                Debug.Log($"level is NOT in list, score updated, level name {levelToAdd.Name} new score {score}");
             }
         }
 
@@ -66,6 +68,7 @@ namespace Assets.Sources.Save
         public void SetStageName(string name)
         {
             _stageName = name;
+            Debug.Log($"stage name setted as {_stageName}");
         }
 
         private bool IsHasLevel(string levelName, out LevelData levelData)

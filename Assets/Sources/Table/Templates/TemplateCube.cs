@@ -20,8 +20,8 @@ namespace Assets.Sources.Table
         public void Init(CubeType type, int index)
         {
            // Debug.Log($"cube inited type {type} index {index}");
-            _meshRenderer = GetComponent<MeshRenderer>();
             _transform = transform;
+            _meshRenderer = GetComponent<MeshRenderer>();
             Color = _meshRenderer.sharedMaterial.color;
             SetColor(Color);
             Type = type;
@@ -69,11 +69,18 @@ namespace Assets.Sources.Table
 
         private void SetColor(Color color)
         {
-            if (_mpb == null)
-                _mpb = new MaterialPropertyBlock();
-
+            SetRenderer();
             _mpb.SetColor("_Color", color);
             _meshRenderer.SetPropertyBlock(_mpb);
+        }
+
+        private void SetRenderer()
+        {
+            if (_meshRenderer == null)
+                _meshRenderer = GetComponent<MeshRenderer>();
+
+            if (_mpb == null)
+                _mpb = new MaterialPropertyBlock();
         }
     }
 }

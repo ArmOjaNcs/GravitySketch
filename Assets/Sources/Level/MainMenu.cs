@@ -1,3 +1,4 @@
+using Assets.Sources.Save;
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
 using TMPro;
@@ -55,6 +56,7 @@ namespace Assets.Sources.Level
                 OnYGReady();
 
             Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
+            SaveSystem.SavePlayerProgress(Progress);
             _default.Show();
         }
 
@@ -64,6 +66,7 @@ namespace Assets.Sources.Level
         private void OnPlayClicked(string stageName)
         {
             Progress.SetStageName(stageName);
+            SaveSystem.SavePlayerProgress(Progress);
             SceneManager.LoadScene(UserUtils.Collect);
         }
 

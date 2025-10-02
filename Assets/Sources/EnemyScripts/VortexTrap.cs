@@ -11,7 +11,6 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private float _damage;
         [SerializeField] private float _inactiveDuration;
         [SerializeField] private EnemyZone _zone;
-        [SerializeField] private AudioClip _attackSound;
         [SerializeField] private AudioClip _activeSound;
         [SerializeField] private PauseableRoutine _attackRoutine;
         [SerializeField] private PauseableRoutine _lifeRoutine;
@@ -119,7 +118,7 @@ namespace Assets.Sources.EnemyScripts
             SubscribeOnCurrentAction();
             _lifeRoutine.UpdateView(UserUtils.GrowDuration);
             _activePlayer = GetAudioPlayer();
-            _activePlayer.SetAudioClip(_activeSound)?.Play();
+            _activePlayer.SetAudioClip(_activeSound).Play();
             _isActive = true;
             _effect.Play();
             _growUpAnimation.Play();
@@ -132,8 +131,6 @@ namespace Assets.Sources.EnemyScripts
 
             if (_isPlayerInZone && _zone.Player.isActiveAndEnabled)
                 _zone.Player.TakeDamage(_damage);
-
-            GetAudioPlayer().SetAudioClip(_attackSound)?.Play();
         }
 
         private AudioPlayer GetAudioPlayer() => _audioPlayerSpawner.GetAudioPlayer(_transform.position);

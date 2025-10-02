@@ -53,7 +53,7 @@ namespace Assets.Sources.Table
                 }
             }
 
-            string assetPath = "Assets/Resources/ScriptableAssets/TelescopeFrame.asset";
+            string assetPath = "Assets/Resources/ScriptableAssets/UFOFrame.asset";
             AssetDatabase.CreateAsset(frameReference, assetPath);
             EditorUtility.SetDirty(frameReference);
             AssetDatabase.SaveAssets();

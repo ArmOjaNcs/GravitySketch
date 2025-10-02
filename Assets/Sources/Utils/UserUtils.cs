@@ -83,24 +83,24 @@ namespace Assets.Sources.Utils
 
         private static Dictionary<string, string> StageTransitions = new Dictionary<string, string>()
         {
-            {Radar, RadarPaint},
-            {RadarPaint, Telescope},
             {Telescope, TelescopePaint},
-            {TelescopePaint, Telescope}
+            {TelescopePaint, Radar},
+            {Radar, RadarPaint},
+            {RadarPaint, Radar},
         };
 
         private static Dictionary<string, string> CollectStages = new Dictionary<string, string>()
         {
-            {RadarPaint, Radar},
             {TelescopePaint, Telescope},
+            {RadarPaint, Radar},
+            {Telescope, Telescope},
             {Radar, Radar},
-            {Telescope, Telescope}
         };
 
         private static Dictionary<string, string> PaintStages = new Dictionary<string, string>()
         {
-            {Radar, RadarPaint},
             {Telescope, TelescopePaint},
+            {Radar, RadarPaint},
         };
 
         public static readonly int ColorID = Shader.PropertyToID("_Color");

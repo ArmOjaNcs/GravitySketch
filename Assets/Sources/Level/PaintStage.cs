@@ -173,7 +173,7 @@ namespace Assets.Sources.Level
             yield return new WaitForSeconds(UserUtils.One);
             _totalScore.SetActive(true);
             Window.Show();
-            int finalScore = _validator.MatchScore + CurrentScore + _referenceViewer.ShowCount * UserUtils.ShowScore;
+            int finalScore = _validator.MatchScore + CurrentScore;
             Progress.UpdateLevelScore(UserUtils.GetCollectStageName(StageName), finalScore);
             TotalScoreUpdated?.Invoke(finalScore);
             _hole.SetActive(true);

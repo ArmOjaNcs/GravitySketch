@@ -35,7 +35,7 @@ namespace Assets.Sources.Table
                 }
             }
 
-            string assetPath = "Assets/Resources/ScriptableAssets/TelescopeColorReference.asset";
+            string assetPath = "Assets/Resources/ScriptableAssets/UFOColorReference.asset";
             AssetDatabase.CreateAsset(materialReference, assetPath);
             EditorUtility.SetDirty(materialReference);
             AssetDatabase.SaveAssets();
