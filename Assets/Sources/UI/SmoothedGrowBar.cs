@@ -42,6 +42,9 @@ namespace Assets.Sources.UI
 
         private void OnCubesUpdate(int cubesCount)
         {
+            if (_growHandler.IsCanGrow == false)
+                return;
+
             _smoothedFade.ShowElements();
             int previousGrowThreshold = _growHandler.CubesOnNextGrow - _growHandler.GrowDelta;
             TargetValue = ((float)cubesCount - previousGrowThreshold) / _growHandler.GrowDelta;

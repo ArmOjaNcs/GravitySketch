@@ -21280,7 +21280,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.013910791, y: -0.848224, z: -0.00037422674, w: -0.529455}
   m_LocalPosition: {x: 129.14, y: 1, z: 123.84}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8896055749113273639}
@@ -21983,7 +21983,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1164462573198855525}
-  - component: {fileID: 8684299546579686990}
   m_Layer: 0
   m_Name: dice_blue2
   m_TagString: Untagged
@@ -22001,20 +22000,12 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.103963055, y: -0.10396312, z: 0.6994224, w: 0.6994224}
   m_LocalPosition: {x: 210, y: 1, z: 90.6}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9058691730921032828}
   m_Father: {fileID: 5731538313428392458}
   m_LocalEulerAnglesHint: {x: 0, y: -16.909, z: 90}
---- !u!33 &8684299546579686990
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3096195009599390393}
-  m_Mesh: {fileID: -4971961649800977272, guid: 22a89d4e32bfa13439d233bebdd256a7, type: 3}
 --- !u!1 &3099102744331594121
 GameObject:
   m_ObjectHideFlags: 0
@@ -22398,8 +22389,8 @@ MonoBehaviour:
   m_TileSize: 256
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.6666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 0fe3158cf824c4348a14fdada7a5e57b, type: 2}
+  m_MinRegionArea: 1
+  m_NavMeshData: {fileID: 23800000, guid: 23c660c917207a245a09ad9a7b888690, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &3143708558681820329
 GameObject:
@@ -36397,8 +36388,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.000000014901159, w: 1}
   m_LocalPosition: {x: 0.185, y: -0, z: 0}
-  m_LocalScale: {x: 1.0236002, y: 1.0236001, z: 1.0236}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1164462573198855525}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -45731,8 +45722,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.2661223, z: -0, w: 0.9639393}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 6946180859867761300}
   m_LocalEulerAnglesHint: {x: 0, y: 30.867, z: 0}

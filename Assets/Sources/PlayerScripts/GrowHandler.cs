@@ -17,6 +17,7 @@ namespace Assets.Sources.PlayerScripts
         public int CurrentSize => _currentSize;
         public int CubesOnNextGrow => _cubesOnNextGrow;
         public int GrowDelta => _growDelta;
+        public bool IsCanGrow => _currentSize < _maxSize;
 
         private void OnEnable()
         {
@@ -31,12 +32,6 @@ namespace Assets.Sources.PlayerScripts
         private void Awake()
         {
             _cubesOnNextGrow = _growDelta;
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.O) && _currentSize < _maxSize)
-                GrowUp();
         }
 
         private void OnCubesCountChanged(int cubesCount)

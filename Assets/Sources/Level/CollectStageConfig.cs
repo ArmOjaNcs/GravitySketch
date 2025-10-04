@@ -9,6 +9,5 @@ namespace Assets.Sources.Level
     {
         public List<AnomalyConfig> AnomalyConfigs;
         public EnemyFactoryConfig EnemyFactoryConfig;
-        public Vector3 PlayerStartPosition;
     }
 }
