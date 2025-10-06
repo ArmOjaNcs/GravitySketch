@@ -10,6 +10,7 @@ namespace Assets.Sources.EnemyScripts
     {
         [SerializeField] private float _damage;
         [SerializeField] private float _inactiveDuration;
+        [SerializeField] private float _activeDuration;
         [SerializeField] private EnemyZone _zone;
         [SerializeField] private AudioClip _activeSound;
         [SerializeField] private PauseableRoutine _attackRoutine;
@@ -88,7 +89,7 @@ namespace Assets.Sources.EnemyScripts
             UnsubscribeOnCurrentAction();
             _currentSubscription = OnActiveRoutineUpdated;
             SubscribeOnCurrentAction();
-            _lifeRoutine.UpdateView(UserUtils.ActiveDuration);
+            _lifeRoutine.UpdateView(_activeDuration);
         }
 
         private void OnActiveRoutineUpdated()

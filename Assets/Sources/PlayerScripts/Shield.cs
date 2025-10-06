@@ -1,6 +1,5 @@
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
-using Assets.Sources.Utils;
 using System;
 using UnityEngine;
 
@@ -10,12 +9,11 @@ namespace Assets.Sources.PlayerScripts
     {
         [SerializeField, Min(0)] private float _defendUpgradeDelta;
         [SerializeField, Min(1)] private float _maxDefendTime;
-        [SerializeField] private MeshRenderer _meshRenderer;
+        [SerializeField] private ParticleSystem _effect;
         [SerializeField] private AudioPlayer _audioPlayer;
 
         private bool _isDefended;
         private bool _isDefendApplied;
-        private GameObject _forceField;
 
         public event Action DefendApplied;
         public event Action Reloading;
@@ -48,12 +46,25 @@ namespace Assets.Sources.PlayerScripts
         {
             base.Init(pauseHandler);
             CycleTime = ReloadTime + ActiveTime;
-            _meshRenderer.enabled = false;
+            _effect.Stop();
             _audioPlayer.Init(pauseHandler);
             _audioPlayer.AudioSource.playOnAwake = false;
             _audioPlayer.AudioSource.loop = false;
-            _forceField = _meshRenderer.gameObject;
             IsInitialized = true;
+        }
+
+        public override void Pause()
+        {
+            base.Pause();
+            _effect.Pause();
+        }
+
+        public override void Resume()
+        {
+            base.Resume();
+
+            if (IsDefended)
+                _effect.Play();
         }
 
         private void OnDefended()
@@ -64,8 +75,7 @@ namespace Assets.Sources.PlayerScripts
             _audioPlayer.Play();
             _isDefendApplied = true;
             _isDefended = true;
-            _meshRenderer.enabled = true;
-            _forceField.layer = UserUtils.ShieldLayer;
+            _effect.Play();
             DefendApplied?.Invoke();
         }
 
@@ -76,9 +86,8 @@ namespace Assets.Sources.PlayerScripts
             if (CurrentActiveTime > ActiveTime && IsReloading == false)
             {
                 _audioPlayer.Stop();
+                _effect.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
                 _isDefended = false;
-                _meshRenderer.enabled = false;
-                _forceField.layer = UserUtils.PlayerPhysicsLayer;
                 IsReloading = true;
                 Reloading?.Invoke();
             }

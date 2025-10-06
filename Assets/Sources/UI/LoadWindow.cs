@@ -9,7 +9,7 @@ namespace Assets.Sources.UI
 {
     public class LoadWindow : SmoothedFade
     {
-        [SerializeField] private TemplateColorReference _materialReference;
+        [SerializeField] private TemplateColorReference _colorReference;
         [SerializeField] private Image _loadImage;
         [SerializeField] private AppearingText _loadText;
         [SerializeField] private float _animationDuration;
@@ -27,7 +27,7 @@ namespace Assets.Sources.UI
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            _loadImage.color = _materialReference.GetRandomColor();
+            _loadImage.color = _colorReference.GetRandomColor();
             _loadAnimation = AnimationSpawner.GetLoadAnimation(_loadImage.rectTransform, _animationDuration);
             _loadText.Init(pauseHandler);
             _loadText.Updated += OnLoadTextUpdated;
@@ -39,7 +39,7 @@ namespace Assets.Sources.UI
 
         private void OnSignAdded()
         {
-            _loadImage.color = _materialReference.GetRandomColor();
+            _loadImage.color = _colorReference.GetRandomColor();
         }
 
         private void OnLoadTextUpdated()

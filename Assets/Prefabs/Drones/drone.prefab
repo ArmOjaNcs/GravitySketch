@@ -796,7 +796,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -914,6 +914,8 @@ MonoBehaviour:
   _moveZone: {fileID: 5533796482752983148}
   _attackZone: {fileID: 1574935265392766337}
   _retreatZone: {fileID: 5927630647916472225}
+  _stuckSqrSpeedThreshold: 0.2
+  _stuckTimeThreshold: 2
 --- !u!82 &433388600058686785
 AudioSource:
   m_ObjectHideFlags: 0

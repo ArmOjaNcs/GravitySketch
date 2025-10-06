@@ -151,7 +151,7 @@ namespace Assets.Sources.EnemyScripts
 
         private protected bool IsHitPlayer()
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position, Radius);
+            Collider[] hits = Physics.OverlapSphere(Transform.position, Radius);
 
             foreach (Collider hit in hits)
             {

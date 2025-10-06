@@ -28,8 +28,7 @@ namespace Assets.Sources.EnemyScripts
         {
             if (other.CompareTag(UserUtils.Obstacle)
                 || other.CompareTag(UserUtils.DissolvableObstacle)
-                || other.CompareTag(UserUtils.Dropped)
-                || other.gameObject.layer == UserUtils.ShieldLayer)
+                || other.CompareTag(UserUtils.Dropped))
                 Interact();
         }
 

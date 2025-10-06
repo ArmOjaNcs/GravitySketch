@@ -14,7 +14,11 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private EnemyZone _moveZone;
         [SerializeField] private GameObject _attackZone;
         [SerializeField] private EnemyRetreatZone _retreatZone;
+        [SerializeField] private float _stuckSqrSpeedThreshold = 0.2f; 
+        [SerializeField] private float _stuckTimeThreshold = 2f;       
 
+        private float _stuckTimer;
+        private Vector3 _lastPosition;
         private MovePointsHolder _movePointsHolder;
         private Transform _target;
         private Transform _transform;
@@ -44,6 +48,9 @@ namespace Assets.Sources.EnemyScripts
                     RotateTowards(_target.position);
 
                 ControlDistance();
+
+                if (_isPlayerTarget == false && _isRetreat == false && _isStopped == false)
+                    ControlStuck();
 
                 if (_isPlayerTarget && _isInZone)
                 {
@@ -77,6 +84,7 @@ namespace Assets.Sources.EnemyScripts
         {
             base.Init(pauseHandler);
             _transform = transform;
+            _lastPosition = _transform.position;
             _isInZone = true;
             IsInitialized = true;
         }
@@ -231,6 +239,32 @@ namespace Assets.Sources.EnemyScripts
             {
                 _target = _movePointsHolder.GetMovePoint();
                 ConfirmTarget();
+            }
+        }
+
+        private void ControlStuck()
+        {
+            if (_agent == null || !_agent.isActiveAndEnabled || !_agent.isOnNavMesh)
+                return;
+
+            Vector3 delta = _transform.position - _lastPosition;
+            float sqrSpeed = delta.sqrMagnitude / (Time.deltaTime * Time.deltaTime);
+            _lastPosition = _transform.position;
+
+            if (sqrSpeed < _stuckSqrSpeedThreshold)
+            {
+                _stuckTimer += Time.deltaTime;
+
+                if (_stuckTimer >= _stuckTimeThreshold)
+                {
+                    _target = _movePointsHolder.GetMovePoint();
+                    ConfirmTarget();
+                    _stuckTimer = 0f;
+                }
+            }
+            else
+            {
+                _stuckTimer = 0f;
             }
         }
 

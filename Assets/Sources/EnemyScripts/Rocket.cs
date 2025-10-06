@@ -46,8 +46,7 @@ namespace Assets.Sources.EnemyScripts
         {
             if (collision.gameObject.CompareTag(UserUtils.Obstacle)
                || collision.gameObject.CompareTag(UserUtils.DissolvableObstacle)
-               || collision.gameObject.CompareTag(UserUtils.Dropped)
-               || collision.gameObject.layer == UserUtils.ShieldLayer)
+               || collision.gameObject.CompareTag(UserUtils.Dropped))
                 Interact();
         }
 

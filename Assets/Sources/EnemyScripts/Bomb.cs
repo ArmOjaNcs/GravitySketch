@@ -40,13 +40,7 @@ namespace Assets.Sources.EnemyScripts
         private void OnCollisionEnter(Collision collision)
         {
             if(gameObject.layer == UserUtils.DefaultLayer)
-            {
-                if(collision.gameObject.layer == UserUtils.ShieldLayer)
-                {
-                    Interact();
-                    return;
-                }
-                
+            {   
                 if (collision.gameObject.CompareTag(UserUtils.Obstacle) ||
                collision.gameObject.CompareTag(UserUtils.DissolvableObstacle)
                || collision.gameObject.CompareTag(UserUtils.Dropped))

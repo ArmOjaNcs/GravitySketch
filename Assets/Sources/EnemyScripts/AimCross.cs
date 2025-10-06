@@ -45,7 +45,7 @@ namespace Assets.Sources.EnemyScripts
         {
             if (_isDeactivated)
             {
-                if(_image.gameObject.activeSelf)
+                if (_image.gameObject.activeSelf)
                     _image.gameObject.SetActive(false);
 
                 if (Effect.isPlaying == false)
@@ -74,7 +74,7 @@ namespace Assets.Sources.EnemyScripts
                 _defaultEffectScale = Effect.transform.lossyScale;
                 var enemyAttackZone = attackZone.SafeCast<EnemySniperZone>();
 
-                if(enemyAttackZone != null)
+                if (enemyAttackZone != null)
                 {
                     enemyAttackZone.Deactivated += OnDeactivated;
                 }
@@ -132,12 +132,7 @@ namespace Assets.Sources.EnemyScripts
             Effect.transform.SetParent(null);
 
             if (IsHitPlayer())
-            {
-                if (AttackZone.Player.IsDefended)
-                    Effect.transform.position += new Vector3(0, AttackZone.Player.Radius, 0);
-                else
-                    AttackZone.Player.TakeDamage(Damage);
-            }
+                AttackZone.Player.TakeDamage(Damage);
 
             Effect.transform.localScale = _defaultEffectScale;
             Effect.transform.rotation = Quaternion.identity;

@@ -69,7 +69,6 @@ namespace Assets.Sources.PlayerScripts
 
             if (_health.CurrentValue == 0)
             {
-                _catcher.SetDie();
                 Die();
                 IsDead?.Invoke();
             }
@@ -78,8 +77,9 @@ namespace Assets.Sources.PlayerScripts
         private void Die()
         {
             foreach (PauseableObject pauseableObject in _objects)
-                pauseableObject.enabled = false;
+                pauseableObject.gameObject.SetActive(false);
 
+            _catcher.SetDie();
             enabled = false;
         }
 
