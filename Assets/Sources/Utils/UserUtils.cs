@@ -55,6 +55,10 @@ namespace Assets.Sources.Utils
         public const string TelescopePaint = nameof(TelescopePaint);
         public const string UFO = nameof(UFO);
         public const string UFOPaint = nameof(UFOPaint);
+        public const string Shuttle = nameof(Shuttle);
+        public const string ShuttlePaint = nameof(ShuttlePaint);
+        public const string Planet = nameof(Planet);
+        public const string PlanetPaint = nameof(PlanetPaint);
         public const string Collect = nameof(Collect);
         public const string Paint = nameof(Paint);
         public const string MixerGroupSound = nameof(MixerGroupSound);
@@ -88,9 +92,13 @@ namespace Assets.Sources.Utils
             {Telescope, TelescopePaint},
             {TelescopePaint, Radar},
             {Radar, RadarPaint},
-            {RadarPaint, Radar},
-            {UFO, UFO},
-            {UFOPaint, UFO},
+            {RadarPaint, UFO},
+            {UFO, UFOPaint},
+            {UFOPaint, Shuttle},
+            {Shuttle, ShuttlePaint},
+            {ShuttlePaint, Planet},
+            {Planet, PlanetPaint},
+            {PlanetPaint, Planet}
         };
 
         private static Dictionary<string, string> CollectStages = new Dictionary<string, string>()
@@ -98,9 +106,13 @@ namespace Assets.Sources.Utils
             {TelescopePaint, Telescope},
             {RadarPaint, Radar},
             {UFOPaint, UFO},
+            {ShuttlePaint, Shuttle},
+            {PlanetPaint, Planet},
             {Telescope, Telescope},
             {Radar, Radar},
             {UFO, UFO},
+            {Shuttle, Shuttle},
+            {Planet, Planet}
         };
 
         private static Dictionary<string, string> PaintStages = new Dictionary<string, string>()
@@ -108,6 +120,8 @@ namespace Assets.Sources.Utils
             {Telescope, TelescopePaint},
             {Radar, RadarPaint},
             {UFO, UFOPaint},
+            {Shuttle, ShuttlePaint},
+            {Planet, PlanetPaint}
         };
 
         public static readonly int ColorID = Shader.PropertyToID("_Color");

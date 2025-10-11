@@ -53,7 +53,7 @@ namespace Assets.Sources.Table
                 }
             }
 
-            string assetPath = "Assets/Resources/ScriptableAssets/EarthFrame.asset";
+            string assetPath = "Assets/Resources/ScriptableAssets/PlanetFrame.asset";
             AssetDatabase.CreateAsset(frameReference, assetPath);
             EditorUtility.SetDirty(frameReference);
             AssetDatabase.SaveAssets();
