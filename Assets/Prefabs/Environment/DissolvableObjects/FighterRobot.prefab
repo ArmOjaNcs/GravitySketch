@@ -1305,6 +1305,7 @@ GameObject:
   - component: {fileID: 3087657473616717673}
   - component: {fileID: 3173473548551638837}
   - component: {fileID: 809517540316262280}
+  - component: {fileID: 342282115603236152}
   m_Layer: 0
   m_Name: FighterRobot
   m_TagString: Untagged
@@ -1391,6 +1392,22 @@ MonoBehaviour:
   _size: 14
   _collisionSound: {fileID: 8300000, guid: 3a3e77b10b2fb894d9aa080eb5f4f7d9, type: 3}
   CollidersHolder: {fileID: 3315930297729057187}
+--- !u!208 &342282115603236152
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4851239304194618400}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.5, y: 2.5, z: 0.75}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &5009706038546404428
 GameObject:
   m_ObjectHideFlags: 0
