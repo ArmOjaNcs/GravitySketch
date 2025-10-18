@@ -7,8 +7,8 @@ namespace Assets.Sources.EnemyScripts
     public class EnemyPatrolZone : MonoBehaviour
     {
         [SerializeField, Min(0)] private int _enemiesCount;
-        [SerializeField, Range(3, 15)] private int _maxLevel;
-        [SerializeField, Range(3, 15)] private int _minLevel;
+        [SerializeField, Range(3, 25)] private int _maxLevel;
+        [SerializeField, Range(3, 25)] private int _minLevel;
         [SerializeField] private MovePointsHolder _movePointsHolder;
 
         private List<EnemyMover> _enemies = new List<EnemyMover>();
