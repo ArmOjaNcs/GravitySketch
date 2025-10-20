@@ -8,6 +8,6 @@ namespace Assets.Sources.Level
     public class CollectStageConfig : ScriptableObject
     {
         public List<AnomalyConfig> AnomalyConfigs;
-        public EnemyFactoryConfig EnemyFactoryConfig;
+        public BossConfig BossConfig;
     }
 }

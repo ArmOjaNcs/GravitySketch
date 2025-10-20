@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f071f06fc31003243b5f7dbc42416dd4, type: 3}
+  m_Name: BossConfig
+  m_EditorClassIdentifier: 
+  Level: 16
+  Health: 700
+  Name: Boss
+  MoveZoneScale: {x: 45, y: 45, z: 45}
+  StopZoneScale: {x: 25, y: 25, z: 25}
+  RetreatZoneScale: {x: 20, y: 20, z: 20}
+  AttackZoneScale: {x: 45, y: 45, z: 45}
+  Speed: 18
+  Acceleration: 15
+  Scale: {x: 1.8, y: 1.8, z: 1.8}
+  AttackConfig: {fileID: 11400000, guid: 685eb0ef0c401744ab634911de1c800c, type: 2}

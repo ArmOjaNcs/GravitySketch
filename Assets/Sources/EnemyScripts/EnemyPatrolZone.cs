@@ -9,7 +9,6 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField, Min(0)] private int _enemiesCount;
         [SerializeField, Range(3, 25)] private int _maxLevel;
         [SerializeField, Range(3, 25)] private int _minLevel;
-        [SerializeField] private MovePointsHolder _movePointsHolder;
 
         private List<EnemyMover> _enemies = new List<EnemyMover>();
         private BoxCollider _collider;
@@ -18,7 +17,6 @@ namespace Assets.Sources.EnemyScripts
         public int EnemiesCount => _enemiesCount;
         public int MaxLevel => _maxLevel;
         public int MinLevel => _minLevel;
-        public MovePointsHolder MovePointsHolder => _movePointsHolder;
 
         private void OnTriggerEnter(Collider other)
         {

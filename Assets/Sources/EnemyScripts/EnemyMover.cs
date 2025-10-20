@@ -14,13 +14,14 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private EnemyZone _moveZone;
         [SerializeField] private GameObject _attackZone;
         [SerializeField] private EnemyRetreatZone _retreatZone;
-        [SerializeField] private float _stuckSqrSpeedThreshold = 0.2f; 
-        [SerializeField] private float _stuckTimeThreshold = 2f;       
+        [SerializeField] private float _stuckSqrSpeedThreshold = 0.2f;
+        [SerializeField] private float _stuckTimeThreshold = 2f;
 
         private float _stuckTimer;
         private Vector3 _lastPosition;
-        private MovePointsHolder _movePointsHolder;
+        private EnemyPatrolZone _patrolZone;
         private Transform _target;
+        private Vector3 _currentPoint;
         private Transform _transform;
         private NavMeshAgent _agent;
         private Vector3 _currentVelocity;
@@ -35,21 +36,21 @@ namespace Assets.Sources.EnemyScripts
 
         private void Update()
         {
-            if(IsPaused || _isActive == false || IsInitialized == false)
+            if (IsPaused || _isActive == false || IsInitialized == false)
                 return;
-                
+
             if (_agent.isActiveAndEnabled && _agent.isOnNavMesh)
             {
                 if (_isPlayerTarget == false)
                     if (_agent.updateRotation == false)
                         _agent.updateRotation = true;
 
-                if (_agent.updateRotation == false)
+                if (_isPlayerTarget)
                     RotateTowards(_target.position);
 
                 ControlDistance();
 
-                if (_isPlayerTarget == false && _isRetreat == false && _isStopped == false)
+                if (_isPlayerTarget == false)
                     ControlStuck();
 
                 if (_isPlayerTarget && _isInZone)
@@ -99,7 +100,7 @@ namespace Assets.Sources.EnemyScripts
         public override void Resume()
         {
             base.Resume();
-            Debug.Log("isactive!" + _isActive);
+
             if (_isActive)
             {
                 _agent.SafeEnable();
@@ -119,7 +120,7 @@ namespace Assets.Sources.EnemyScripts
         public void ReturnToZone()
         {
             _isInZone = false;
-            _target = _movePointsHolder.GetMovePoint();
+            GetCurrentPoint();
             DeactivateStopZone();
             ConfirmTarget();
         }
@@ -141,7 +142,7 @@ namespace Assets.Sources.EnemyScripts
             _attackZone.SetActive(true);
             Subscribe();
             _agent.enabled = true;
-            _target = _movePointsHolder.GetMovePoint();
+            GetCurrentPoint();
             ConfirmTarget();
             _isActive = true;
         }
@@ -156,7 +157,13 @@ namespace Assets.Sources.EnemyScripts
             _isActive = false;
         }
 
-        public void SetMovePointsHolder(MovePointsHolder movePointsHolder) => _movePointsHolder = movePointsHolder;
+        public void SetPatrolZone(EnemyPatrolZone patrolZone) => _patrolZone = patrolZone;
+
+        private void GetCurrentPoint()
+        {
+            _currentPoint = _patrolZone.GetRandomPointInZone();
+            _currentPoint.y = _transform.position.y;
+        }
 
         private void Subscribe()
         {
@@ -183,7 +190,7 @@ namespace Assets.Sources.EnemyScripts
         private void OnMoveOut()
         {
             _isPlayerTarget = false;
-            _target = _movePointsHolder.GetMovePoint();
+            GetCurrentPoint();
             ConfirmTarget();
         }
 
@@ -192,7 +199,9 @@ namespace Assets.Sources.EnemyScripts
             if (_isInZone == false)
                 return;
 
-            _target = _moveZone.Player.transform;
+            if (_target == null)
+                _target = _moveZone.Player.transform;
+
             _isPlayerTarget = true;
         }
 
@@ -230,21 +239,21 @@ namespace Assets.Sources.EnemyScripts
 
         private void ControlDistance()
         {
-            if (_target.CompareTag(UserUtils.MovePoint) == false)
+            if (_isPlayerTarget)
                 return;
 
-            float sqrtDistance = (_target.position - _transform.position).sqrMagnitude;
+            float sqrtDistance = (_currentPoint - _transform.position).sqrMagnitude;
 
             if (sqrtDistance < _minSqrtDistanceToTarget)
             {
-                _target = _movePointsHolder.GetMovePoint();
+                GetCurrentPoint();
                 ConfirmTarget();
             }
         }
 
         private void ControlStuck()
         {
-            if (_agent == null || !_agent.isActiveAndEnabled || !_agent.isOnNavMesh)
+            if (_agent == null || _agent.isActiveAndEnabled == false || _agent.isOnNavMesh == false)
                 return;
 
             Vector3 delta = _transform.position - _lastPosition;
@@ -257,7 +266,7 @@ namespace Assets.Sources.EnemyScripts
 
                 if (_stuckTimer >= _stuckTimeThreshold)
                 {
-                    _target = _movePointsHolder.GetMovePoint();
+                    GetCurrentPoint();
                     ConfirmTarget();
                     _stuckTimer = 0f;
                 }
@@ -272,7 +281,11 @@ namespace Assets.Sources.EnemyScripts
         {
             if (_agent != null && _agent.isActiveAndEnabled && _agent.isOnNavMesh)
             {
-                _agent.destination = _target.position;
+                if (_isPlayerTarget)
+                    _agent.destination = _target.position;
+                else
+                    _agent.destination = _currentPoint;
+
                 _agent.isStopped = false;
             }
         }

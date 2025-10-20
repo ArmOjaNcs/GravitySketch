@@ -10,7 +10,5 @@ namespace Assets.Sources.EnemyScripts
         public List<EnemyConfig> SniperConfigs;
         public List<EnemyConfig> BomberConfigs;
         public List<EnemyConfig> RocketerConfigs;
-        public EnemyConfig BossConfig;
-        public List<EnemyAttackConfig> BossAttackConfigs;
     }
 }

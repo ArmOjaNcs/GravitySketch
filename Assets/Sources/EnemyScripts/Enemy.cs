@@ -40,7 +40,6 @@ namespace Assets.Sources.EnemyScripts
             _fansSoundPlayer.AudioSource.playOnAwake = false;
             _fansSoundPlayer.AudioSource.loop = true;
             _fansSoundPlayer.AudioSource.spatialBlend = 1;
-            //Collider.isTrigger = true;
             ApplyRandomColors();
 
             foreach (PauseableObject pauseableObject in _pauseableObjects)

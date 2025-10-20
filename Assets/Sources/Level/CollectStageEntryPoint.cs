@@ -17,6 +17,7 @@ namespace Assets.Sources.Level
         [SerializeField] private HoleMaskHandler _maskHandler;
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private Player _player;
+        [SerializeField] private EnemyFactoryConfig _factoryConfig;
 
         private CollectStagePrefab _collectStagePrefab;
 
@@ -46,7 +47,7 @@ namespace Assets.Sources.Level
             _collectStagePrefab = prefab.GetComponent<CollectStagePrefab>();
             _maskHandler.Init(PauseHandler, _collectStagePrefab.Renderer, _collectStagePrefab.TableMaterial);
             _playerInput.Init(PauseHandler);
-            _enemyFactory.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.Config.EnemyFactoryConfig, 
+            _enemyFactory.Init(PauseHandler, AudioPlayerSpawner, _factoryConfig, _collectStagePrefab.Config.BossConfig, 
                 _collectStagePrefab.EnemyPatrolZones, _collectStagePrefab.BossPatrolZone);
             _anomalySpawner.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.Config.AnomalyConfigs);
             _simpleCubeSpawner.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.SpawnAreas,

@@ -14,6 +14,7 @@ namespace Assets.Sources.EnemyScripts
         private EnemyPatrolZone _bossPatrolZone;
         private List<EnemyPatrolZone> _patrolZones = new();
         private EnemyFactoryConfig _config;
+        private BossConfig _bossConfig;
         private AudioPlayerSpawner _audioPlayerSpawner;
         private PauseHandler _pauseHandler;
 
@@ -21,11 +22,12 @@ namespace Assets.Sources.EnemyScripts
         public bool IsBossSpawned { get; private set; }
 
         public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner, 
-            EnemyFactoryConfig enemyFactoryConfig, List<EnemyPatrolZone> enemyPatrolZones, EnemyPatrolZone bossPatrolZone)
+            EnemyFactoryConfig enemyFactoryConfig, BossConfig bossConfig, List<EnemyPatrolZone> enemyPatrolZones, EnemyPatrolZone bossPatrolZone)
         {
             _audioPlayerSpawner = audioPlayerSpawner;
             _pauseHandler = pauseHandler;
             _config = enemyFactoryConfig;
+            _bossConfig = bossConfig;
             _patrolZones = enemyPatrolZones;
             _bossPatrolZone = bossPatrolZone;
 
@@ -38,16 +40,16 @@ namespace Assets.Sources.EnemyScripts
 
         public Enemy CreateBoss()
         {
-            Enemy enemy = SpawnEnemyInZone(_bossPatrolZone, _config.BossConfig);
+            Enemy enemy = SpawnEnemyInZone(_bossPatrolZone, _bossConfig.Config);
 
-            foreach (EnemyAttackConfig enemyAttackConfig in _config.BossAttackConfigs)
+            foreach (EnemyAttackConfig enemyAttackConfig in _bossConfig.AttackConfigs)
             {
                 var zone = (IEnemyAttack)enemy.AttackZone.AddComponent(enemyAttackConfig.ZoneComponentType);
                 zone.InitFromConfig(enemyAttackConfig, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
             }
 
-            enemy.SetSize(_config.BossConfig.Level);
-            var config = _config.BossConfig.AttackConfig;
+            enemy.SetSize(_bossConfig.Config.Level);
+            var config = _bossConfig.Config.AttackConfig;
             enemy.RetreatZone.InitFromConfig(config, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
             IsBossSpawned = true;
             return enemy;
@@ -111,7 +113,7 @@ namespace Assets.Sources.EnemyScripts
             TryGetFreePosition(10, patrolZone, out Vector3 freePosition);
             Enemy enemy = Instantiate(_enemy, freePosition, Quaternion.identity);
             EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();
-            enemyMover.SetMovePointsHolder(patrolZone.MovePointsHolder);
+            enemyMover.SetPatrolZone(patrolZone);
             enemyMover.Init(_pauseHandler);
             enemy.InitializeFromConfig(config);
             enemy.Init(_pauseHandler);
