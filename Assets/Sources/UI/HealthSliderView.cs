@@ -24,7 +24,6 @@ namespace Assets.Sources.UI
         {
             base.Init(pauseHandler);
             Slider.value = Health.CurrentValue / Health.MaxValue;
-            Debug.Log($"health slider {Slider.value} healt {Health.MaxValue}");
             IsInitialized = true;
         }
 

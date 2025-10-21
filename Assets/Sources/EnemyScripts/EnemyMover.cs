@@ -28,6 +28,7 @@ namespace Assets.Sources.EnemyScripts
         private float _minSqrtDistanceToTarget = 20;
         private float _currentUpdateTime;
         private float _rotationSpeed = 5;
+        private float _retreatDistance;
         private bool _isPlayerTarget;
         private bool _isInZone;
         private bool _isStopped;
@@ -109,7 +110,7 @@ namespace Assets.Sources.EnemyScripts
             }
         }
 
-        public void SetDistance(float distance)
+        public void SetPatrolDistance(float distance)
         {
             if (distance <= 0)
                 return;
@@ -117,9 +118,18 @@ namespace Assets.Sources.EnemyScripts
             _minSqrtDistanceToTarget = distance;
         }
 
+        public void SetRetreatDistance(float distance)
+        {
+            if (distance <= 0)
+                return;
+
+            _retreatDistance = distance;
+        }
+
         public void ReturnToZone()
         {
             _isInZone = false;
+            _isPlayerTarget = false;
             GetCurrentPoint();
             DeactivateStopZone();
             ConfirmTarget();
@@ -217,9 +227,9 @@ namespace Assets.Sources.EnemyScripts
             position.y = _moveZone.Player.Position.y;
             Vector3 retreatDirection = (position - _moveZone.Player.Position).normalized;
             retreatDirection.y = 0;
-            Vector3 retreatTarget = _transform.position + retreatDirection * (10f + _moveZone.Player.Radius);
+            Vector3 retreatTarget = _transform.position + retreatDirection * (_retreatDistance + _moveZone.Player.Radius);
 
-            if (NavMesh.SamplePosition(retreatTarget, out NavMeshHit hit, 10f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(retreatTarget, out NavMeshHit hit, _retreatDistance, NavMesh.AllAreas))
             {
                 _agent.destination = hit.position;
             }

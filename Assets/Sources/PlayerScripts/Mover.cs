@@ -19,7 +19,6 @@ namespace Assets.Sources.PlayerScripts
         private Vector3 _moveDirection;
         private Vector3 _currentVelocity;
         private float _rotateAxis;
-        private float _defaultY;
 
         public event Action<Vector3> PositionChanged;
 
@@ -44,7 +43,6 @@ namespace Assets.Sources.PlayerScripts
             if (IsPaused || IsInitialized == false)
                 return;
 
-            FixYPosition();
             PositionChanged?.Invoke(_transform.position);
         }
 
@@ -65,12 +63,11 @@ namespace Assets.Sources.PlayerScripts
             _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionX;
             _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionZ;
             _rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationY;
-            _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+            _rigidbody.interpolation = RigidbodyInterpolation.None;
             _rigidbody.useGravity = false;
             _rigidbody.isKinematic = false;
             _currentSpeed = _moveSpeed;
             _transform = transform;
-            _defaultY = _transform.position.y;
             IsInitialized = true;
         }
 
@@ -122,31 +119,26 @@ namespace Assets.Sources.PlayerScripts
 
         private void Move()
         {
-            Vector3 localMovement = new Vector3(_moveDirection.x, 0, _moveDirection.y).normalized;
-            Vector3 forwardDirection = _transform.forward.normalized;
-            Vector3 rightDirection = _transform.right.normalized;
+            if (_moveDirection.sqrMagnitude < 0.001f)
+            {
+                _rigidbody.velocity = Vector3.zero;
+                return;
+            }
 
-            Vector3 worldDirection = (forwardDirection * localMovement.z + rightDirection * localMovement.x);
-            worldDirection.y = _defaultY;
+            Vector3 localMovement = new Vector3(_moveDirection.x, 0, _moveDirection.y).normalized;
+            Vector3 worldDirection = _transform.TransformDirection(localMovement);
 
             _rigidbody.velocity = worldDirection * _currentSpeed;
         }
 
         private void Rotate()
         {
+            if (Mathf.Abs(_rotateAxis) < 0.001f)
+                return;
+
             float rotationAmount = _rotateAxis * _rotationSpeed * Time.fixedDeltaTime;
             Quaternion deltaRotation = Quaternion.Euler(0, rotationAmount, 0);
             _rigidbody.MoveRotation(_rigidbody.rotation * deltaRotation);
-        }
-
-        private void FixYPosition()
-        {
-            if (Mathf.Abs(_rigidbody.position.y - _defaultY) > 0.0001f)
-            {
-                Vector3 fixedYposition = _rigidbody.position;
-                fixedYposition.y = _defaultY;
-                _rigidbody.MovePosition(fixedYposition);
-            }
         }
     }
 }
