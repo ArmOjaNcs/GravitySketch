@@ -37,6 +37,11 @@ namespace Assets.Sources.Dissolvable
 
         private protected virtual void Awake()
         {
+            SetPhysicalIndicators();
+        }
+
+        private protected void SetPhysicalIndicators()
+        {
             if (TryGetComponent(out Collider collider))
                 Collider = collider;
 

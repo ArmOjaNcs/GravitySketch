@@ -15,7 +15,6 @@ namespace Assets.Sources.AnomalyScpipts
         [SerializeField] private PointMover _mover;
 
         private Player _player;
-        private Rigidbody _playerRigidbody;
         private bool _isAttack;
         private bool _isDowned;
 
@@ -23,7 +22,7 @@ namespace Assets.Sources.AnomalyScpipts
 
         private protected override void Awake()
         {
-            base.Awake();
+            SetPhysicalIndicators();
             CollidersHolder.SetActive(false);
         }
 
@@ -45,10 +44,7 @@ namespace Assets.Sources.AnomalyScpipts
                 if (_player == null)
                     _player = collision.gameObject.GetComponent<Player>();
 
-                if (_playerRigidbody == null)
-                    _playerRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-
-                if (_player.CurrentSize <= Size && _player.IsDefended == false)
+                if (_player.CurrentSize <= Size)
                 {
                     _player.TakeDamage(Damage);
                     _isAttack = true;
