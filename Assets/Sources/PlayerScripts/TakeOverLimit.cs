@@ -1,11 +1,10 @@
+using Assets.Sources.Dissolvable;
+using Assets.Sources.EnemyScripts;
+using Assets.Sources.Level;
+using Assets.Sources.SimpleCubeScripts;
+using Assets.Sources.Utils;
 using System;
 using UnityEngine;
-using Assets.Sources.Utils;
-using Assets.Sources.EnemyScripts;
-using Assets.Sources.SimpleCubeScripts;
-using Assets.Sources.Dissolvable;
-using Assets.Sources.Level;
-using Assets.Sources.Audio;
 
 namespace Assets.Sources.PlayerScripts
 {
@@ -13,9 +12,7 @@ namespace Assets.Sources.PlayerScripts
     public class TakeOverLimit : MonoBehaviour
     {
         [SerializeField] private Transform _hole;
-        [SerializeField] private AudioClip _dissolveSound;
 
-        private AudioPlayerSpawner _audioPlayerSpawner;
         private Transform _transform;
 
         public event Action<SimpleCube> CubeAbsorbed;
@@ -32,8 +29,6 @@ namespace Assets.Sources.PlayerScripts
 
         private void OnTriggerEnter(Collider other)
         {
-            PlaySound();
-
             if (other.TryGetComponent(out SimpleCube simpleCube))
             {
                 CubeAbsorbed?.Invoke(simpleCube);
@@ -72,14 +67,6 @@ namespace Assets.Sources.PlayerScripts
                 if (levelExit.IsDissolving == false)
                     levelExit.Dissolve(_hole);
             }
-        }
-
-        public void SetAudioPlayerSpawner(AudioPlayerSpawner audioPlayerSpawner) 
-            => _audioPlayerSpawner = audioPlayerSpawner;
-
-        private void PlaySound()
-        {
-            _audioPlayerSpawner.GetAudioPlayer(_transform.position).SetAudioClip(_dissolveSound).Play();
         }
     }
 }

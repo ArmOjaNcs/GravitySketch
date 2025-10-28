@@ -8,7 +8,7 @@ namespace Assets.Sources.PlayerScripts
     public class Shield : PlayerAbility
     {
         [SerializeField, Min(0)] private float _defendUpgradeDelta;
-        [SerializeField, Min(1)] private float _maxDefendTime;
+        [SerializeField, Min(2)] private float _minReloadTime;
         [SerializeField] private ParticleSystem _effect;
         [SerializeField] private AudioPlayer _audioPlayer;
 
@@ -109,7 +109,12 @@ namespace Assets.Sources.PlayerScripts
         public override void Upgrade()
         {
             ActiveTime += _defendUpgradeDelta;
-            CycleTime -= ReloadUpgradeDelta;
+            ReloadTime -= ReloadUpgradeDelta;
+            
+            if(ReloadTime < _minReloadTime)
+                ReloadTime = _minReloadTime;
+
+            CycleTime = ReloadTime + ActiveTime;
         }
     }
 }

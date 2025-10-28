@@ -29225,19 +29225,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1085692275639043651, guid: 28ec0942234519349907e129427d378f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1085692275639043651, guid: 28ec0942234519349907e129427d378f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1085692275639043651, guid: 28ec0942234519349907e129427d378f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1085692275639043651, guid: 28ec0942234519349907e129427d378f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.4
+      value: 14.3
       objectReference: {fileID: 0}
     - target: {fileID: 1085692275639043651, guid: 28ec0942234519349907e129427d378f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -29245,7 +29245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1085692275639043651, guid: 28ec0942234519349907e129427d378f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 154.4
+      value: -119.3
       objectReference: {fileID: 0}
     - target: {fileID: 1085692275639043651, guid: 28ec0942234519349907e129427d378f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -55881,7 +55881,7 @@ MonoBehaviour:
   ReloadTime: 4.5
   ReloadUpgradeDelta: 0.1
   _defendUpgradeDelta: 0.1
-  _maxDefendTime: 5
+  _minReloadTime: 0
   _effect: {fileID: 1347325407636402180}
   _audioPlayer: {fileID: 1498850546740155677}
 --- !u!1 &4179214083714901153
@@ -67989,7 +67989,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hole: {fileID: 4200482132933287515}
-  _dissolveSound: {fileID: 8300000, guid: 77eb1a98729384a43babfbbebd397a07, type: 3}
 --- !u!4 &8937478296566088780
 Transform:
   m_ObjectHideFlags: 0

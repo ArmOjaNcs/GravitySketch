@@ -35,7 +35,8 @@ namespace Assets.Sources.Audio
             audioPlayer.AudioSource.spatialBlend = 1;
             audioPlayer.SetPosition(position);
             audioPlayer.AudioSource.outputAudioMixerGroup = _soundGroup;
-           
+            audioPlayer.AudioSource.volume = 0.7f;
+
             return audioPlayer;
         }
 
@@ -48,6 +49,7 @@ namespace Assets.Sources.Audio
             Initialize(audioPlayer);
             audioPlayer.AudioSource.spatialBlend = 0;
             audioPlayer.AudioSource.outputAudioMixerGroup = _interfaceGroup;
+            audioPlayer.AudioSource.volume = 0.5f;
 
             return audioPlayer;
         }

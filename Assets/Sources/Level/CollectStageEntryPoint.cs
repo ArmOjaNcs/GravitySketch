@@ -5,6 +5,7 @@ using Assets.Sources.PlayerScripts;
 using Assets.Sources.SimpleCubeScripts;
 using Assets.Sources.Table;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Assets.Sources.Level
 {
@@ -20,6 +21,7 @@ namespace Assets.Sources.Level
         [SerializeField] private EnemyFactoryConfig _factoryConfig;
 
         private CollectStagePrefab _collectStagePrefab;
+        private NavMeshDataInstance _navMeshInstance;
 
         private void OnEnable()
         {
@@ -53,6 +55,17 @@ namespace Assets.Sources.Level
             _simpleCubeSpawner.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.SpawnAreas,
                _collectStagePrefab.ColorReference);
 
+            if (_collectStagePrefab.NavMeshData != null)
+            {
+                _navMeshInstance = NavMesh.AddNavMeshData(_collectStagePrefab.NavMeshData,
+                    _collectStagePrefab.transform.position,
+                    _collectStagePrefab.transform.rotation);
+            }
+            else
+            {
+                Debug.LogWarning($"[{_collectStagePrefab.name}] NavMeshData not assigned!");
+            }
+
             foreach (DissolvableObstacle obstacle in _collectStagePrefab.DissolvableObstacles)
             {
                 obstacle.SetAudioPlayerSpawner(AudioPlayerSpawner);
@@ -82,6 +95,12 @@ namespace Assets.Sources.Level
         {
             base.OnLoadWindowUpdated();
             _playerInput.StartInput();
+        }
+
+        private void OnDestroy()
+        {
+            if (_navMeshInstance.valid)
+                _navMeshInstance.Remove();
         }
     }
 }

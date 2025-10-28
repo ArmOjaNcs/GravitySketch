@@ -335,7 +335,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -811276410319328373, guid: 46833e38173150a46941afbb5caa45f1, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6019c90821e3e60479c1baae11ca2508, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -643,7 +643,7 @@ MonoBehaviour:
   ReloadTime: 4.5
   ReloadUpgradeDelta: 0.1
   _defendUpgradeDelta: 0.1
-  _maxDefendTime: 5
+  _minReloadTime: 2
   _effect: {fileID: 417366621899505190}
   _audioPlayer: {fileID: 267011225008921407}
 --- !u!82 &6734775309127272930
@@ -658,7 +658,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -811276410319328373, guid: 46833e38173150a46941afbb5caa45f1, type: 2}
   m_audioClip: {fileID: 8300000, guid: 2ccaa1cfe61aedf49b04e03ea15b5138, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -12420,7 +12420,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 2
 --- !u!135 &5280792663501412537
@@ -12509,7 +12509,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -811276410319328373, guid: 46833e38173150a46941afbb5caa45f1, type: 2}
   m_audioClip: {fileID: 8300000, guid: b6428d4edb06344ba829da4edd9967c1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -15609,7 +15609,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 691
+  m_VersionIndex: 694
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -26146,7 +26146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hole: {fileID: 2567762440859826680}
-  _dissolveSound: {fileID: 8300000, guid: 77eb1a98729384a43babfbbebd397a07, type: 3}
 --- !u!65 &3105849140479878737
 BoxCollider:
   m_ObjectHideFlags: 0

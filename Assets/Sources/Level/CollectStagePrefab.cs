@@ -6,6 +6,7 @@ using Assets.Sources.Table;
 using Assets.Sources.Utils;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Assets.Sources.Level
 {
@@ -23,6 +24,7 @@ namespace Assets.Sources.Level
         [SerializeField] private Material _tableMaterial;
         [SerializeField] private Renderer _renderer;
         [SerializeField] private Vector3 _playerStartPosition;
+        [SerializeField] private NavMeshData _navMeshData;
 
         public List<EnemyPatrolZone> EnemyPatrolZones => _enemyPatrolZones;
         public List<SpawnArea> SpawnAreas => _spawnAreas;
@@ -36,5 +38,6 @@ namespace Assets.Sources.Level
         public Material TableMaterial => _tableMaterial;
         public Renderer Renderer => _renderer;
         public Vector3 PlayerStartPosition => _playerStartPosition;
+        public NavMeshData NavMeshData => _navMeshData;
     }
 }

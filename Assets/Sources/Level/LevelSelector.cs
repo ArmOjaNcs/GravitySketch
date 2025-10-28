@@ -40,11 +40,18 @@ namespace Assets.Sources.Level
             _play.onClick.AddListener(OnPlayClicked);
             _play.gameObject.SetActive(false);
 
-            for (int i = 0; i <= _levelScore.LevelsCount && i < _levels.Length; i++)
+            //for (int i = 0; i <= _levelScore.LevelsCount && i < _levels.Length; i++)
+            //{
+            //    _levels[i].gameObject.SetActive(true);
+            //    _levels[i].Init();
+            //    _levels[i].Chosen += OnLevelChosen;
+            //}
+
+            foreach(LevelButton level in _levels)
             {
-                _levels[i].gameObject.SetActive(true);
-                _levels[i].Init();
-                _levels[i].Chosen += OnLevelChosen;
+                level.gameObject.SetActive(true);
+                level.Init();
+                level.Chosen += OnLevelChosen;
             }
         }
 

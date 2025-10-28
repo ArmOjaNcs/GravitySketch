@@ -71,7 +71,7 @@ namespace Assets.Sources.Dissolvable
             if (_collisionSound != null && _isDropped)
             {
                 _totalCollisionsCount++;
-               
+
                 if (_previousCollisionsCount >= _totalCollisionsCount)
                 {
                     _previousCollisionsCount = _totalCollisionsCount;

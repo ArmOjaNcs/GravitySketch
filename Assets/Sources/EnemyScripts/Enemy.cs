@@ -122,7 +122,7 @@ namespace Assets.Sources.EnemyScripts
 
         private void StopFans()
         {
-            foreach(Animator animator in _fansAnimators)
+            foreach (Animator animator in _fansAnimators)
                 animator.enabled = false;
         }
 

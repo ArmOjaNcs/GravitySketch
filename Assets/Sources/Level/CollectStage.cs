@@ -57,7 +57,6 @@ namespace Assets.Sources.Level
             _exit.SetSize(0);
             _exit.gameObject.SetActive(false);
             _pauseableRoutine.Init(pauseHandler);
-            _takeOverLimit.SetAudioPlayerSpawner(audioPlayerSpawner);
             _cubesCollector.InvokeCubesCountChanged();
             _finalText.gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;

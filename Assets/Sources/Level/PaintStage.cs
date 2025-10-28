@@ -19,7 +19,6 @@ namespace Assets.Sources.Level
     public class PaintStage : Stage
     {
         [SerializeField] private Colorizer _colorizer;
-        [SerializeField] private TakeOverLimit _takeOverLimit;
         [SerializeField] private Validator _validator;
         [SerializeField] private ColoringPositionHandler _positionHandler;
         [SerializeField] private ColorReferenceViewHandler _referenceViewer;
@@ -72,7 +71,6 @@ namespace Assets.Sources.Level
             _totalScore.SetActive(false);
             _panel.SetActive(false);
             _toNextLevel.gameObject.SetActive(false);
-            _takeOverLimit.SetAudioPlayerSpawner(audioPlayerSpawner);
             _interfaceFade.Init(pauseHandler);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
