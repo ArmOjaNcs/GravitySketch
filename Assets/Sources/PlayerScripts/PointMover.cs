@@ -40,7 +40,7 @@ namespace Assets.Sources.PlayerScripts
             base.Init(pauseHandler);
             _transform = transform;
             _rigidbody = GetComponent<Rigidbody>();
-            _rigidbody.interpolation = RigidbodyInterpolation.None;
+            _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
 
             if (_movePoints.Length < 1 || _movePoints[_index] == null)
             {

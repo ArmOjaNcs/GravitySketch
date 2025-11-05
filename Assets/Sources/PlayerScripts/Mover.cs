@@ -15,10 +15,13 @@ namespace Assets.Sources.PlayerScripts
 
         private Rigidbody _rigidbody;
         private float _currentSpeed;
+        private float _accelerationSpeed;
+        private float _accelerationTime = 1;
         private Transform _transform;
         private Vector3 _moveDirection;
         private Vector3 _currentVelocity;
         private float _rotateAxis;
+        private bool _isBoosted;
 
         public event Action<Vector3> PositionChanged;
 
@@ -75,7 +78,7 @@ namespace Assets.Sources.PlayerScripts
         {
             base.Pause();
 
-            if(_rigidbody != null)
+            if (_rigidbody != null)
             {
                 _currentVelocity = _rigidbody.velocity;
                 _rigidbody.velocity = Vector3.zero;
@@ -110,7 +113,10 @@ namespace Assets.Sources.PlayerScripts
                 return;
             }
 
-            _currentSpeed = Mathf.Approximately(boostSpeed, 0) ? _moveSpeed : boostSpeed;
+            _isBoosted = Mathf.Approximately(boostSpeed, 0) ? false : true;
+
+            if (_isBoosted)
+                _currentSpeed = boostSpeed;
         }
 
         private void OnDirectionChanged(Vector2 moveDirection) => _moveDirection = moveDirection;
@@ -122,11 +128,22 @@ namespace Assets.Sources.PlayerScripts
             if (_moveDirection.sqrMagnitude < 0.001f)
             {
                 _rigidbody.velocity = Vector3.zero;
+                _accelerationSpeed = 0;
                 return;
             }
 
             Vector3 localMovement = new Vector3(_moveDirection.x, 0, _moveDirection.y).normalized;
             Vector3 worldDirection = _transform.TransformDirection(localMovement);
+
+            if (_accelerationSpeed < _moveSpeed)
+            {
+                float newSpeed = _accelerationSpeed;
+                _accelerationSpeed = Mathf.MoveTowards(newSpeed, _moveSpeed, 
+                    Time.fixedDeltaTime * (_moveSpeed / _accelerationTime));
+            }
+
+            if (_isBoosted == false)
+                _currentSpeed = _accelerationSpeed;
 
             _rigidbody.velocity = worldDirection * _currentSpeed;
         }
@@ -135,9 +152,9 @@ namespace Assets.Sources.PlayerScripts
         {
             if (Mathf.Abs(_rotateAxis) < 0.001f)
             {
-                //_rigidbody.angularVelocity = Vector3.zero;
-                Vector3 currentAv = _rigidbody.angularVelocity;
-                _rigidbody.angularVelocity = Vector3.MoveTowards(currentAv, Vector3.zero, 20 * Time.fixedDeltaTime);
+                Vector3 currentAngularVelocity = _rigidbody.angularVelocity;
+                _rigidbody.angularVelocity = Vector3.MoveTowards(currentAngularVelocity, Vector3.zero,
+                    5 * Time.fixedDeltaTime);
                 return;
             }
 
