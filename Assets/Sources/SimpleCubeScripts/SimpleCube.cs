@@ -60,7 +60,6 @@ namespace Assets.Sources.SimpleCubeScripts
             _meshRenderer.GetPropertyBlock(_MPBlock);
             _MPBlock.SetColor("_Color", color);
             _meshRenderer.SetPropertyBlock(_MPBlock);
-            Debug.Log("colorSeted");
         }
 
         public override void DropDown()

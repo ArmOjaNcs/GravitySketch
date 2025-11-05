@@ -60,18 +60,18 @@ namespace Assets.Sources.PlayerScripts
 
         public void TakeDamage(float damage)
         {
-            if (damage <= 0 || _shield.IsDefended)
-                return;
+            //if (damage <= 0 || _shield.IsDefended)
+            //    return;
 
-            _health.TakeDamage(damage);
-            _audioPlayer.Play();
-            Damaged?.Invoke();
+            //_health.TakeDamage(damage);
+            //_audioPlayer.Play();
+            //Damaged?.Invoke();
 
-            if (_health.CurrentValue == 0)
-            {
-                Die();
-                IsDead?.Invoke();
-            }
+            //if (_health.CurrentValue == 0)
+            //{
+            //    Die();
+            //    IsDead?.Invoke();
+            //}
         }
 
         private void Die()

@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4316,8 +4315,8 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 0
-  m_BlendUpdateMethod: 0
+  m_UpdateMethod: 1
+  m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
     m_Time: 2
@@ -5581,7 +5580,7 @@ MonoBehaviour:
   m_ZDamping: 1
   m_AngularDampingMode: 0
   m_PitchDamping: 0
-  m_YawDamping: 0.25
+  m_YawDamping: 0
   m_RollDamping: 0
   m_AngularDamping: 0
 --- !u!1 &1875292571
@@ -7120,6 +7119,14 @@ PrefabInstance:
     - target: {fileID: 5263088345829629420, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6794092608525304355, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
+      propertyPath: _rotationSpeed
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 8564001559945299263, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9047163394445262607, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
       propertyPath: _objects.Array.data[2]

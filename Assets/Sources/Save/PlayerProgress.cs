@@ -68,7 +68,6 @@ namespace Assets.Sources.Save
         public void SetStageName(string name)
         {
             _stageName = name;
-            Debug.Log($"stage name setted as {_stageName}");
         }
 
         private bool IsHasLevel(string levelName, out LevelData levelData)

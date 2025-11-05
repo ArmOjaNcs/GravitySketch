@@ -34,6 +34,8 @@ namespace Assets.Sources.EnemyScripts
         private bool _isStopped;
         private bool _isRetreat;
         private bool _isActive;
+        private float _retreatTimer;
+        private float _retreatUpdateInterval = 0.2f;
 
         private void Update()
         {
@@ -213,6 +215,7 @@ namespace Assets.Sources.EnemyScripts
                 _target = _moveZone.Player.transform;
 
             _isPlayerTarget = true;
+            ConfirmTarget();
         }
 
         private void RetreatFromPlayer()
@@ -222,6 +225,13 @@ namespace Assets.Sources.EnemyScripts
 
             if (_agent.isStopped)
                 _agent.isStopped = false;
+
+            _retreatTimer += Time.deltaTime;
+
+            if (_retreatTimer < _retreatUpdateInterval)
+                return;
+
+            _retreatTimer = 0f;
 
             Vector3 position = _transform.position;
             position.y = _moveZone.Player.Position.y;

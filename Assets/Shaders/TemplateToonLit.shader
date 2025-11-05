@@ -1,4 +1,4 @@
-﻿Shader "Custom/TemplateFastLit"
+﻿﻿Shader "Custom/TemplateFastLit"
 {
   Properties
     {

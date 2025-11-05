@@ -156,7 +156,7 @@ namespace Assets.Sources.Dissolvable
             if (_rigidbody != null)
             {
                 _rigidbody.isKinematic = false;
-                _rigidbody.interpolation = RigidbodyInterpolation.None;
+                _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
                 _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             }
 
@@ -181,6 +181,7 @@ namespace Assets.Sources.Dissolvable
             _hole = hole;
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.isKinematic = true;
+            _rigidbody.interpolation = RigidbodyInterpolation.None;
             _transform.SetParent(hole);
             DissolveAnimation?.Restart();
             Routine = StartCoroutine(UpdateRoutine(DissolveAnimation.Duration()));

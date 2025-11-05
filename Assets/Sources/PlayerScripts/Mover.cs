@@ -63,7 +63,7 @@ namespace Assets.Sources.PlayerScripts
             _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionX;
             _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionZ;
             _rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationY;
-            _rigidbody.interpolation = RigidbodyInterpolation.None;
+            _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             _rigidbody.useGravity = false;
             _rigidbody.isKinematic = false;
             _currentSpeed = _moveSpeed;
@@ -134,11 +134,15 @@ namespace Assets.Sources.PlayerScripts
         private void Rotate()
         {
             if (Mathf.Abs(_rotateAxis) < 0.001f)
+            {
+                //_rigidbody.angularVelocity = Vector3.zero;
+                Vector3 currentAv = _rigidbody.angularVelocity;
+                _rigidbody.angularVelocity = Vector3.MoveTowards(currentAv, Vector3.zero, 20 * Time.fixedDeltaTime);
                 return;
+            }
 
-            float rotationAmount = _rotateAxis * _rotationSpeed * Time.fixedDeltaTime;
-            Quaternion deltaRotation = Quaternion.Euler(0, rotationAmount, 0);
-            _rigidbody.MoveRotation(_rigidbody.rotation * deltaRotation);
+            float radPerSec = _rotateAxis * _rotationSpeed * Mathf.Deg2Rad;
+            _rigidbody.angularVelocity = Vector3.up * radPerSec;
         }
     }
 }
