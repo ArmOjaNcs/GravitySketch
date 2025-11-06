@@ -215,12 +215,11 @@ namespace Assets.Sources.EnemyScripts
                 _target = _moveZone.Player.transform;
 
             _isPlayerTarget = true;
-            ConfirmTarget();
         }
 
         private void RetreatFromPlayer()
         {
-            if (_moveZone.Player == null)
+            if (_moveZone.Player == null || _agent == null || _agent.isOnNavMesh == false)
                 return;
 
             if (_agent.isStopped)
@@ -233,15 +232,51 @@ namespace Assets.Sources.EnemyScripts
 
             _retreatTimer = 0f;
 
-            Vector3 position = _transform.position;
-            position.y = _moveZone.Player.Position.y;
-            Vector3 retreatDirection = (position - _moveZone.Player.Position).normalized;
-            retreatDirection.y = 0;
-            Vector3 retreatTarget = _transform.position + retreatDirection * (_retreatDistance + _moveZone.Player.Radius);
+            Vector3 enemyPos = _transform.position;
+            Vector3 playerPos = _moveZone.Player.Position;
+            Vector3 baseDir = (enemyPos - playerPos).normalized;
+            baseDir.y = 0;
 
-            if (NavMesh.SamplePosition(retreatTarget, out NavMeshHit hit, _retreatDistance, NavMesh.AllAreas))
+            float checkAngleStep = 45f;      
+            int maxChecks = 5;               
+            float checkDistance = _retreatDistance + _moveZone.Player.Radius;
+
+            Vector3 bestPoint = Vector3.zero;
+            float bestScore = float.MinValue;
+
+            for (int i = 0; i < maxChecks; i++)
             {
-                _agent.destination = hit.position;
+                float angle = (i - maxChecks / 2) * checkAngleStep;
+                Quaternion rot = Quaternion.Euler(0, angle, 0);
+                Vector3 dir = rot * baseDir;
+                Vector3 candidate = enemyPos + dir * checkDistance;
+
+                if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, _retreatDistance, NavMesh.AllAreas))
+                {
+                    float score = (hit.position - playerPos).sqrMagnitude;
+                    score -= Mathf.Abs(angle) * 0.1f; 
+
+                    if (score > bestScore)
+                    {
+                        bestScore = score;
+                        bestPoint = hit.position;
+                    }
+                }
+            }
+
+            if (bestScore > float.MinValue)
+            {
+                _agent.destination = bestPoint;
+            }
+            else
+            {
+                Vector3 fallbackTarget = enemyPos + baseDir * checkDistance;
+
+                if (NavMesh.SamplePosition(fallbackTarget, out NavMeshHit fallbackHit, 
+                    _retreatDistance, NavMesh.AllAreas))
+                {
+                    _agent.destination = fallbackHit.position;
+                }
             }
         }
 

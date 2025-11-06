@@ -142,7 +142,9 @@ namespace Assets.Sources.PlayerScripts
                     Time.fixedDeltaTime * (_moveSpeed / _accelerationTime));
             }
 
-            if (_isBoosted == false)
+            if (_isBoosted)
+                _accelerationSpeed = _moveSpeed;
+            else
                 _currentSpeed = _accelerationSpeed;
 
             _rigidbody.velocity = worldDirection * _currentSpeed;
