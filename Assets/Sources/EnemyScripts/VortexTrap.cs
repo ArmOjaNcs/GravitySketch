@@ -107,7 +107,7 @@ namespace Assets.Sources.EnemyScripts
             _currentSubscription = OnInactiveRoutineUpdated;
             SubscribeOnCurrentAction();
             _lifeRoutine.UpdateView(_inactiveDuration);
-            _activePlayer.Stop();
+            _activePlayer?.Stop();
             _isActive = false;
             _effect.Pause();
         }
@@ -119,7 +119,7 @@ namespace Assets.Sources.EnemyScripts
             SubscribeOnCurrentAction();
             _lifeRoutine.UpdateView(UserUtils.GrowDuration);
             _activePlayer = GetAudioPlayer();
-            _activePlayer.SetAudioClip(_activeSound).Play();
+            _activePlayer?.SetAudioClip(_activeSound)?.Play();
             _isActive = true;
             _effect.Play();
             _growUpAnimation.Play();

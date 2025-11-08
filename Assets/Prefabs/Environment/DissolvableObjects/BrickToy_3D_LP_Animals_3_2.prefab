@@ -635,7 +635,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6522238031733627355}
-  - component: {fileID: 3836373852873239063}
+  - component: {fileID: 3953141987146182064}
   m_Layer: 0
   m_Name: Collider (14)
   m_TagString: Untagged
@@ -652,14 +652,14 @@ Transform:
   m_GameObject: {fileID: 1822365023371249857}
   serializedVersion: 2
   m_LocalRotation: {x: 0.24436478, y: -0, z: -0, w: 0.9696834}
-  m_LocalPosition: {x: 0, y: 0.43, z: -1.51}
+  m_LocalPosition: {x: 0, y: 0.495, z: -1.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2582320270374278178}
   m_LocalEulerAnglesHint: {x: 28.289, y: 0, z: 0}
---- !u!136 &3836373852873239063
-CapsuleCollider:
+--- !u!65 &3953141987146182064
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -676,11 +676,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.44254684
-  m_Height: 1.2969518
-  m_Direction: 2
-  m_Center: {x: -0.007610321, y: 0.047686994, z: -0.110606916}
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.61691135, z: 1.1643643}
+  m_Center: {x: 0, y: 0.05541557, z: 0.042837292}
 --- !u!1 &1995472894282876558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1747,8 +1745,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4594641258948312108}
   - component: {fileID: 5425568060644743073}
-  - component: {fileID: 1947654919586688068}
   - component: {fileID: 1912274958626269499}
+  - component: {fileID: 1885084702054818720}
   m_Layer: 0
   m_Name: BrickToy_3D_LP_Animals_3_2
   m_TagString: Untagged
@@ -1764,7 +1762,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3236212896279696220}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.5123012, z: -0, w: 0.8588059}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 133.8, y: 2.74, z: 61.8}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
@@ -1802,7 +1800,7 @@ Transform:
   - {fileID: 5214787722777574170}
   - {fileID: 2582320270374278178}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -61.634, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5425568060644743073
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1830,23 +1828,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1947654919586688068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3236212896279696220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Duration: 0
-  _reward: 6000
-  _size: 20
-  _collisionSound: {fileID: 8300000, guid: 3a3e77b10b2fb894d9aa080eb5f4f7d9, type: 3}
-  CollidersHolder: {fileID: 8296867301421437071}
 --- !u!208 &1912274958626269499
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1863,6 +1844,23 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0.1, y: 0.2, z: 0.5}
   m_TimeToStationary: 0.5
+--- !u!114 &1885084702054818720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3236212896279696220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 3500
+  _size: 20
+  _collisionSound: {fileID: 8300000, guid: f8475a42c7d404e49a4a5a54fc887e19, type: 3}
+  CollidersHolder: {fileID: 8296867301421437071}
 --- !u!1 &3301948762542396705
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
 {
-    [RequireComponent(typeof(AudioPlayer))]
     public abstract class EnemyMissile : PauseableObject
     {
-        private protected AudioPlayer AudioPlayer;
+        [SerializeField] private AudioClip _impactSound;
+
         private protected EnemyAttackZone AttackZone;
         private protected Transform Transform;
         private protected ParticleSystem Effect;
@@ -66,20 +66,6 @@ namespace Assets.Sources.EnemyScripts
             Effect.transform.localPosition = Vector3.zero;
             Effect.Stop();
             Duration = Effect.main.duration;
-        }
-
-        public override void Init(PauseHandler pauseHandler)
-        {
-            base.Init(pauseHandler);
-
-            if (IsInitialized)
-                return;
-
-            AudioPlayer = GetComponent<AudioPlayer>();
-            AudioPlayer.Init(pauseHandler);
-            AudioPlayer.AudioSource.playOnAwake = false;
-            AudioPlayer.AudioSource.loop = false;
-            AudioPlayer.AudioSource.spatialBlend = 1;
         }
 
         public override void Pause()
@@ -141,7 +127,7 @@ namespace Assets.Sources.EnemyScripts
         private protected void PlayEffect()
         {
             Effect.Play();
-            AudioPlayer.Play();
+            AttackZone.GetAudioPlayer(Transform.position)?.SetAudioClip(_impactSound)?.Play();
         }
 
         private protected bool IsCanLive()

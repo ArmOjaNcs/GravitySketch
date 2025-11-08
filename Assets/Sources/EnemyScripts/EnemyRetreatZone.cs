@@ -58,7 +58,7 @@ namespace Assets.Sources.EnemyScripts
         {
             base.Attack();
 
-            AudioPlayer.Play();
+            AudioPlayer?.Play();
             _isCanDrop = false;
             _bomb.transform.position = FirePoint.position;
             _bomb.gameObject.SetActive(true);

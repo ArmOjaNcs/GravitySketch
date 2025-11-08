@@ -12,44 +12,44 @@ namespace Assets.Sources.SimpleCubeScripts
     {
         [SerializeField] private MeshRenderer _meshRenderer;
 
-        private Sequence _idleAnimation;
+        //private Sequence _idleAnimation;
         private MaterialPropertyBlock _MPBlock;
         private Color _currentColor;
 
         public Color Color => _currentColor;
 
-        private protected override void OnDisable()
-        {
-            base.OnDisable();
+        //private protected override void OnDisable()
+        //{
+        //    base.OnDisable();
 
-            if (_idleAnimation.IsActive())
-                _idleAnimation.Kill();
-        }
+        //    if (_idleAnimation.IsActive())
+        //        _idleAnimation.Kill();
+        //}
 
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            _idleAnimation = AnimationSpawner.GetIdleAnimation(transform);
-            _idleAnimation.Restart();
+            //_idleAnimation = AnimationSpawner.GetIdleAnimation(transform);
+            //_idleAnimation.Restart();
             transform.parent = null;
             IsInitialized = true;
         }
 
-        public override void Pause()
-        {
-            base.Pause();
+        //public override void Pause()
+        //{
+        //    base.Pause();
 
-            if(_idleAnimation.IsActive())
-                _idleAnimation.Pause();
-        }
+        //    if(_idleAnimation.IsActive())
+        //        _idleAnimation.Pause();
+        //}
 
-        public override void Resume()
-        {
-            base.Resume();
+        //public override void Resume()
+        //{
+        //    base.Resume();
 
-            if (_idleAnimation.IsActive())
-                _idleAnimation.Play();
-        }
+        //    if (_idleAnimation.IsActive())
+        //        _idleAnimation.Play();
+        //}
 
         public void SetColor(Color color)
         {
@@ -62,12 +62,12 @@ namespace Assets.Sources.SimpleCubeScripts
             _meshRenderer.SetPropertyBlock(_MPBlock);
         }
 
-        public override void DropDown()
-        {
-            base.DropDown();
+        //public override void DropDown()
+        //{
+        //    base.DropDown();
 
-            _idleAnimation.Pause();
-            _idleAnimation.Kill();
-        }
+        //    _idleAnimation.Pause();
+        //    _idleAnimation.Kill();
+        //}
     }
 }

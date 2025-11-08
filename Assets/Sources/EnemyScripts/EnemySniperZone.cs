@@ -72,7 +72,7 @@ namespace Assets.Sources.EnemyScripts
 
         private void OnShoot()
         {
-            AudioPlayer.Play();
+            AudioPlayer?.Play();
         }
     }
 }

@@ -93,7 +93,7 @@ namespace Assets.Sources.Level
         {
             Progress.SetIntermediateResult(_playerScore.Value, _cubesCollector.GetAllCollors());
             SaveSystem.SavePlayerProgress(Progress);
-            AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(FinalSound).Play();
+            AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(FinalSound)?.Play();
             _pauseableRoutine.UpdateView(_timeBeforeLoad);
             _finalText.text = Translator.Get(UserUtils.Great);
             _finalText.gameObject.SetActive(true);

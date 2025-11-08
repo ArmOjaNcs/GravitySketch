@@ -49,7 +49,7 @@ namespace Assets.Sources.Level
 
             if (expectedColor == actualColor)
             {
-                _audioPlayerSpawner.GetAudioPlayer().SetAudioClip(_validSound).Play();
+                _audioPlayerSpawner.GetAudioPlayer()?.SetAudioClip(_validSound)?.Play();
 
                 if (isAutoPaint)
                     MatchScore += UserUtils.MatchScore / 2;
@@ -60,7 +60,7 @@ namespace Assets.Sources.Level
             }
             else
             {
-                _audioPlayerSpawner.GetAudioPlayer().SetAudioClip(_invalidSound).Play();
+                _audioPlayerSpawner.GetAudioPlayer()?.SetAudioClip(_invalidSound)?.Play();
             }
 
             if (_colorizer.ColorsCount == 0)

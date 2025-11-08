@@ -1,7 +1,6 @@
 using Assets.Sources.Audio;
 using Assets.Sources.ColorizerScripts;
 using Assets.Sources.Pause;
-using Assets.Sources.PlayerScripts;
 using Assets.Sources.Save;
 using Assets.Sources.Table;
 using Assets.Sources.UI;
@@ -141,7 +140,7 @@ namespace Assets.Sources.Level
 
         private void OnAutoPaint(bool isAutoPaint)
         {
-            AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(_toggleSound).Play();
+            AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(_toggleSound)?.Play();
             _colorizer.SetAutoPaint(isAutoPaint);
             _positionHandler.SetAutoPaint(isAutoPaint);
             _referenceViewer.SetAutoPaint(isAutoPaint);
@@ -163,7 +162,7 @@ namespace Assets.Sources.Level
             }
 
             yield return new WaitForSeconds(UserUtils.One);
-            AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(FinalSound).Play();
+            AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(FinalSound)?.Play();
             _template.DropDown(PauseHandler);
 
             _interfaceFade.FadeOut();
@@ -203,7 +202,7 @@ namespace Assets.Sources.Level
         {
             Progress.SetStageName(_nextStageName);
             SaveSystem.SavePlayerProgress(Progress);
-            AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(ButtonSound).Play();
+            AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
             Window.Closed += LoadNext;
             Window.Hide();
             HidePauseMenu();

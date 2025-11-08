@@ -41,7 +41,7 @@ namespace Assets.Sources.EnemyScripts
 
             bullet.transform.position = FirePoint.position;
             bullet.gameObject.SetActive(true);
-            AudioPlayer.Play();
+            AudioPlayer?.Play();
             bullet.Send(FirePoint.position, Player.Position);
         }
 

@@ -50,6 +50,11 @@ namespace Assets.Sources.EnemyScripts
 
         public virtual void Return(GameObject gameObject) => gameObject.SetActive(false);
 
+        public AudioPlayer GetAudioPlayer(Vector3 position)
+        {
+            return _audioPlayerSpawner.GetAudioPlayer(position);
+        }
+
         private protected override void PlayerDetected(Collider playerCollider)
         {
             base.PlayerDetected(playerCollider);
@@ -61,8 +66,8 @@ namespace Assets.Sources.EnemyScripts
             if (Player == null)
                 return;
 
-            AudioPlayer = GetAudioPlayer();
-            AudioPlayer.SetAudioClip(AudioClip);
+            AudioPlayer = GetAudioPlayer(FirePoint.position);
+            AudioPlayer?.SetAudioClip(AudioClip);
             CurrentTime = 0;
         }
 
@@ -78,10 +83,5 @@ namespace Assets.Sources.EnemyScripts
         }
 
         private protected abstract void SetAudioClip();
-
-        private protected AudioPlayer GetAudioPlayer()
-        {
-            return _audioPlayerSpawner.GetAudioPlayer(FirePoint.position);
-        }
     }
 }

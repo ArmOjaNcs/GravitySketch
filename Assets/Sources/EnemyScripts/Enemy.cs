@@ -9,7 +9,6 @@ using Assets.Sources.Pause;
 namespace Assets.Sources.EnemyScripts
 {
     [RequireComponent(typeof(BoxCollider))]
-    [RequireComponent(typeof(AudioPlayer))]
     public class Enemy : DissolvableObject
     {
         [SerializeField] private Health _health;
@@ -22,8 +21,6 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private Animator[] _fansAnimators;
         [SerializeField] private PauseableObject[] _pauseableObjects;
 
-        private AudioPlayer _fansSoundPlayer;
-
         public event Action<bool> Detected;
 
         public GameObject AttackZone => _attackZone;
@@ -35,18 +32,12 @@ namespace Assets.Sources.EnemyScripts
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            _fansSoundPlayer = GetComponent<AudioPlayer>();
-            _fansSoundPlayer.Init(pauseHandler);
-            _fansSoundPlayer.AudioSource.playOnAwake = false;
-            _fansSoundPlayer.AudioSource.loop = true;
-            _fansSoundPlayer.AudioSource.spatialBlend = 1;
             ApplyRandomColors();
 
             foreach (PauseableObject pauseableObject in _pauseableObjects)
                 pauseableObject.Init(pauseHandler);
 
             ActivateFans();
-            _fansSoundPlayer.Play();
             IsInitialized = true;
         }
 
@@ -72,7 +63,6 @@ namespace Assets.Sources.EnemyScripts
             _mover.Deactivate();
             Collider.isTrigger = false;
             StopFans();
-            _fansSoundPlayer.Stop();
         }
 
         public void TakeDamage(float damage = 1)

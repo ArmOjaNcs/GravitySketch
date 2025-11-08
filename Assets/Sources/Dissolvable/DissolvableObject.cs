@@ -79,7 +79,7 @@ namespace Assets.Sources.Dissolvable
                 }
 
                 _previousCollisionsCount = _totalCollisionsCount;
-                _audioPlayerSpawner.GetAudioPlayer(_transform.position)
+                _audioPlayerSpawner.GetAudioPlayer(_transform.position)?
                                    .SetAudioClip(_collisionSound)?.Play();
             }
         }

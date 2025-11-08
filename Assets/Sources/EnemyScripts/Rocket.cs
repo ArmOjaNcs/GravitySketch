@@ -8,8 +8,9 @@ namespace Assets.Sources.EnemyScripts
     public class Rocket : Bullet
     {
         [SerializeField] private ParticleSystem _flame;
-        [SerializeField] private AudioPlayer _nozzleSound;
+        [SerializeField] private AudioClip _nozzleSound;
 
+        private AudioPlayer _nozzleSoundPlayer;
         private RocketConfig _config;
         private Vector3 _delayedTargetPosition;
         private bool _isLaunched;
@@ -67,22 +68,18 @@ namespace Assets.Sources.EnemyScripts
             IsConfigurated = false;
         }
 
-        public override void Init(PauseHandler pauseHandler)
-        {
-            base.Init(pauseHandler);
-            _nozzleSound.Init(pauseHandler);
-            _nozzleSound.AudioSource.playOnAwake = false;
-            _nozzleSound.AudioSource.loop = true;
-            _nozzleSound.AudioSource.spatialBlend = 1;
-            IsInitialized = true;
-        }
-
         public void Launch()
         {
             _delayedTargetPosition = AttackZone.Player.Position;
             _isLaunched = true;
             _flame.Play();
-            _nozzleSound.Play();
+            _nozzleSoundPlayer = AttackZone.GetAudioPlayer(Transform.position);
+
+            if (_nozzleSoundPlayer == null)
+                return;
+
+            _nozzleSoundPlayer.transform.SetParent(Transform);
+            _nozzleSoundPlayer.SetAudioClip(_nozzleSound).Play();
         }
 
         public override void Pause()
@@ -116,7 +113,13 @@ namespace Assets.Sources.EnemyScripts
             Effect.transform.localScale = Vector3.one + Vector3.one * Transform.localScale.x;
             _isLaunched = false;
             _flame.Stop();
-            _nozzleSound.Stop();
+
+            if (_nozzleSoundPlayer != null)
+            {
+                _nozzleSoundPlayer.transform.SetParent(null);
+                _nozzleSoundPlayer.Stop();
+            }
+             
             base.Interact();
         }
 

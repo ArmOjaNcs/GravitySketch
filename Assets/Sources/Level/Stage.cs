@@ -62,7 +62,7 @@ namespace Assets.Sources.Level
 
         private protected virtual void OnMainMenuApplied()
         {
-            AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(ButtonSound).Play();
+            AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
             Finish();
             Window.Closed += LoadMainMenu;
             Window.Hide();
@@ -77,7 +77,7 @@ namespace Assets.Sources.Level
 
         private protected virtual void OnRestartApplied()
         {
-            AudioPlayerSpawner.GetAudioPlayer().SetUI().SetAudioClip(ButtonSound).Play();
+            AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
             Finish();
             Window.Closed += RestartStage;
             Window.Hide();

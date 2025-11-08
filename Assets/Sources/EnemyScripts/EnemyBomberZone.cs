@@ -42,7 +42,7 @@ namespace Assets.Sources.EnemyScripts
 
             bomb.transform.position = FirePoint.position;
             bomb.gameObject.SetActive(true);
-            AudioPlayer.Play();
+            AudioPlayer?.Play();
             bomb.AddForces(FirePoint.position);
         }
 

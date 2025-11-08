@@ -509,6 +509,7 @@ GameObject:
   - component: {fileID: 8465455901157368805}
   - component: {fileID: 7673905303189848336}
   - component: {fileID: 4283140737150545486}
+  - component: {fileID: 397621066688635136}
   m_Layer: 12
   m_Name: crown
   m_TagString: DissolvableObstacle
@@ -626,6 +627,22 @@ MonoBehaviour:
   _size: 33
   _collisionSound: {fileID: 8300000, guid: 6655916d35767124ca328d7fbd3617b0, type: 3}
   CollidersHolder: {fileID: 2535965202055400733}
+--- !u!208 &397621066688635136
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667910056928156545}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.28500003, y: 0.133, z: 0.28500003}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.001, y: 0.132, z: 0.0050000004}
+  m_TimeToStationary: 0.5
 --- !u!1 &1684248456202395326
 GameObject:
   m_ObjectHideFlags: 0

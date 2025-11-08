@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 3118543079498104574}
   - component: {fileID: 8473262938777761105}
   - component: {fileID: 8345653318580255923}
+  - component: {fileID: 4434774419138761457}
   m_Layer: 0
   m_Name: MathToy
   m_TagString: Untagged
@@ -269,3 +270,19 @@ MonoBehaviour:
   _size: 21
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 3300788843148941091}
+--- !u!208 &4434774419138761457
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8268303311058067085}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.18200001, y: 0.13000001, z: 0.081}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.13100001, z: 0}
+  m_TimeToStationary: 0.5

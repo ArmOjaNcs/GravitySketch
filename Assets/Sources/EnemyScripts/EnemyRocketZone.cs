@@ -40,7 +40,7 @@ namespace Assets.Sources.EnemyScripts
 
             rocket.transform.position = FirePoint.position;
             rocket.gameObject.SetActive(true);
-            AudioPlayer.Play();
+            AudioPlayer?.Play();
             rocket.Launch();
         }
 
