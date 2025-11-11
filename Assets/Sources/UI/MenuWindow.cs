@@ -22,6 +22,9 @@ namespace Assets.Sources.UI
 
             if (_back != null)
                 _back.onClick.AddListener(OnBackClicked);
+
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         }
 
         private void OnDisable()

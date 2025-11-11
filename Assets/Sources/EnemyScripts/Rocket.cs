@@ -1,5 +1,3 @@
-using Assets.Sources.Audio;
-using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using UnityEngine;
 
@@ -8,9 +6,7 @@ namespace Assets.Sources.EnemyScripts
     public class Rocket : Bullet
     {
         [SerializeField] private ParticleSystem _flame;
-        [SerializeField] private AudioClip _nozzleSound;
 
-        private AudioPlayer _nozzleSoundPlayer;
         private RocketConfig _config;
         private Vector3 _delayedTargetPosition;
         private bool _isLaunched;
@@ -73,13 +69,6 @@ namespace Assets.Sources.EnemyScripts
             _delayedTargetPosition = AttackZone.Player.Position;
             _isLaunched = true;
             _flame.Play();
-            _nozzleSoundPlayer = AttackZone.GetAudioPlayer(Transform.position);
-
-            if (_nozzleSoundPlayer == null)
-                return;
-
-            _nozzleSoundPlayer.transform.SetParent(Transform);
-            _nozzleSoundPlayer.SetAudioClip(_nozzleSound).Play();
         }
 
         public override void Pause()
@@ -114,12 +103,6 @@ namespace Assets.Sources.EnemyScripts
             _isLaunched = false;
             _flame.Stop();
 
-            if (_nozzleSoundPlayer != null)
-            {
-                _nozzleSoundPlayer.transform.SetParent(null);
-                _nozzleSoundPlayer.Stop();
-            }
-             
             base.Interact();
         }
 

@@ -12,6 +12,8 @@ namespace Assets.Sources.EnemyScripts
         private bool _blinkState;
         private Vector3 _currentVelocity;
         private Collider _collider;
+        private float _defaultMass;
+        private float _minMass = 0.0001f;
 
         private protected BombConfig BombConfig;
         private protected Rigidbody Rigidbody;
@@ -22,6 +24,9 @@ namespace Assets.Sources.EnemyScripts
 
             if(BombConfig != null)
                 SetColor(BombConfig.Color);
+
+            if (Rigidbody != null)
+                Rigidbody.mass = _defaultMass;
 
             _blinkTimer = 0;
             _blinkState = false;
@@ -39,6 +44,9 @@ namespace Assets.Sources.EnemyScripts
 
         private void OnCollisionEnter(Collision collision)
         {
+            if (Rigidbody.mass > _minMass)
+                Rigidbody.mass = _minMass;
+
             if(gameObject.layer == UserUtils.DefaultLayer)
             {   
                 if (collision.gameObject.CompareTag(UserUtils.Obstacle) ||
@@ -84,6 +92,7 @@ namespace Assets.Sources.EnemyScripts
             Rigidbody = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
             BombConfig = config.SafeCast<BombConfig>();
+            _defaultMass = Rigidbody.mass;
 
             if(config != null)
             {

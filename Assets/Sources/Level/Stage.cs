@@ -12,6 +12,7 @@ namespace Assets.Sources.Level
     {
         [SerializeField] private protected Button ToMainMenu;
         [SerializeField] private protected Button Restart;
+        [SerializeField] private protected Button Back;
         [SerializeField] private protected MenuWindow Window;
         [SerializeField] private protected AudioClip ButtonSound;
         [SerializeField] private protected AudioClip FinalSound;
@@ -25,6 +26,7 @@ namespace Assets.Sources.Level
         {
             ToMainMenu.onClick.AddListener(OnMainMenuApplied);
             Restart.onClick.AddListener(OnRestartApplied);
+            Back.onClick.AddListener(OnBackApplied);
             _pauseMenuAnimator.Hidden += OnPauseMenuClosed;
             _pauseInput.Paused += OnPaused;
         }
@@ -33,6 +35,7 @@ namespace Assets.Sources.Level
         {
             ToMainMenu.onClick.RemoveListener(OnMainMenuApplied);
             Restart.onClick.RemoveListener(OnRestartApplied);
+            Back.onClick.RemoveListener(OnBackApplied);
             _pauseMenuAnimator.Hidden -= OnPauseMenuClosed;
             _pauseInput.Paused -= OnPaused;
         }
@@ -104,6 +107,12 @@ namespace Assets.Sources.Level
                     Window.Show();
                 }
             }
+        }
+
+        private void OnBackApplied()
+        {
+            AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
+            OnPaused();
         }
 
         private void RestartStage()
