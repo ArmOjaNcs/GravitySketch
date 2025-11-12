@@ -7,6 +7,13 @@ namespace Assets.Sources.Utils
     public class FenceColorizer : MonoBehaviour
     {
         [SerializeField] private List<GameObject> _fence;
+        [SerializeField] private TemplateColorReference _templateColorReference = null;
+
+        private void Awake()
+        {
+            if(_templateColorReference != null)
+                ColorizeFence(_templateColorReference);
+        }
 
         public void ColorizeFence(TemplateColorReference templateColorReference)
         {
