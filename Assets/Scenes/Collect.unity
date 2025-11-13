@@ -3754,7 +3754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cubePrefab: {fileID: 8862142247830744672, guid: 0af9e89fe61f575409ca79ae518e3d6b, type: 3}
-  _spacing: 0.5
+  _spacing: 2
   _yPosition: 0
   _spawnedCubes:
   - {fileID: 0}
@@ -6406,6 +6406,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1935933550}
+    - target: {fileID: 868575198631599310, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
+      propertyPath: m_VersionIndex
+      value: 700
+      objectReference: {fileID: 0}
     - target: {fileID: 1519374228044621130, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -6413,14 +6417,6 @@ PrefabInstance:
     - target: {fileID: 5263088345829629420, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6794092608525304355, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
-      propertyPath: _rotationSpeed
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 8564001559945299263, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9047163394445262607, guid: 0b77c3d6e2623e34c987c3b051caac51, type: 3}
       propertyPath: _objects.Array.data[2]
@@ -7385,6 +7381,14 @@ PrefabInstance:
       propertyPath: _colorReference
       value: 
       objectReference: {fileID: 11400000, guid: b05e2ad0c6681e9458b2194e23267d69, type: 2}
+    - target: {fileID: 9141096043759974293, guid: ef1dade7684b03e47b73d8c46b6d4a0b, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141096043759974293, guid: ef1dade7684b03e47b73d8c46b6d4a0b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2e3401f299f38b641a0c3ece3febec47, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
