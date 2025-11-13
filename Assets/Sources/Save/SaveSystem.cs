@@ -5,6 +5,7 @@ namespace Assets.Sources.Save
     public static class SaveSystem
     {
         private const string PlayerProgressKey = "PlayerProgress";
+        private const string InputBindingsKey = "InputBindings";
         private const string AudioSettingsKey = "AudioSettings";
 
         public static void SavePlayerProgress(PlayerProgress progress)
@@ -26,6 +27,24 @@ namespace Assets.Sources.Save
             }
 
             return new PlayerProgress();
+        }
+
+        public static void SaveInputBindings(InputBindings bindings)
+        {
+            string json = JsonUtility.ToJson(bindings);
+            PlayerPrefs.SetString(InputBindingsKey, json);
+            PlayerPrefs.Save();
+        }
+
+        public static InputBindings LoadInputBindings()
+        {
+            if (PlayerPrefs.HasKey(InputBindingsKey))
+            {
+                string json = PlayerPrefs.GetString(InputBindingsKey);
+                return JsonUtility.FromJson<InputBindings>(json);
+            }
+
+            return new InputBindings(); 
         }
 
         public static void SaveAudioSettings(AudioSettings audioSettings)

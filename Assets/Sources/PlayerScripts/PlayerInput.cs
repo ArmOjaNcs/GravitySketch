@@ -1,7 +1,7 @@
+using Assets.Sources.Pause;
+using Assets.Sources.Save;
 using System;
 using UnityEngine;
-using Assets.Sources.Utils;
-using Assets.Sources.Pause;
 
 namespace Assets.Sources.PlayerScripts
 {
@@ -12,23 +12,45 @@ namespace Assets.Sources.PlayerScripts
         public event Action Defended;
         public event Action<float> Rotated;
 
-        private float HorizontalInput => Input.GetAxis(UserUtils.Horizontal);
-        private float VerticalInput => Input.GetAxis(UserUtils.Vertical);
-        private bool IsBoosted => Input.GetKeyDown(KeyCode.Mouse1);
-        private bool IsDefended => Input.GetKeyDown(KeyCode.Mouse0);
+        private InputBindings _bindings;
+
+        private void Awake()
+        {
+            _bindings = SaveSystem.LoadInputBindings();
+        }
 
         private void Update()
         {
-            if (IsPaused || IsInitialized == false)
+            if (IsPaused || !IsInitialized)
                 return;
 
-            DirectionChanged?.Invoke(new Vector2(HorizontalInput, VerticalInput));
-            Boosted?.Invoke(IsBoosted);
+            Vector2 dir = Vector2.zero;
 
-            if (IsDefended)
+            if (Input.GetKey(_bindings.MoveUp)) dir.y += 1;
+
+            if (Input.GetKey(_bindings.MoveDown)) dir.y -= 1;
+
+            if (Input.GetKey(_bindings.MoveLeft)) dir.x -= 1;
+
+            if (Input.GetKey(_bindings.MoveRight)) dir.x += 1;
+
+            DirectionChanged?.Invoke(dir.normalized);
+
+            Boosted?.Invoke(Input.GetKeyDown(_bindings.Boost));
+
+            if (Input.GetKeyDown(_bindings.Defend))
                 Defended?.Invoke();
 
-            Rotated?.Invoke(Input.GetAxis("Mouse X"));
+            float rotation = 0;
+
+            if (Input.GetKey(_bindings.RotateLeft)) rotation -= 1;
+
+            if (Input.GetKey(_bindings.RotateRight)) rotation += 1;
+
+            if (_bindings.UseMouseRotation)
+                rotation += Mathf.Clamp(Input.GetAxis("Mouse X"), -1f, 1f);
+
+            Rotated?.Invoke(rotation);
         }
 
         public void StartInput() => IsInitialized = true;
