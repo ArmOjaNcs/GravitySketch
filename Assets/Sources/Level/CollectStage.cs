@@ -8,6 +8,7 @@ using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Assets.Sources.Level
 {
@@ -22,6 +23,11 @@ namespace Assets.Sources.Level
         [SerializeField] private LevelExit _exit;
         [SerializeField] private PauseableRoutine _pauseableRoutine;
         [SerializeField] private TextMeshProUGUI _finalText;
+        [SerializeField] private FixedJoystick _moveJoystick;
+        [SerializeField] private FixedJoystick _rotateJoystick;
+        [SerializeField] private Button _shieldAbilityButton;
+        [SerializeField] private Button _boostAbilityButton;
+        [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private float _timeBeforeLoad;
         
         private Enemy _boss;
@@ -51,6 +57,8 @@ namespace Assets.Sources.Level
         public override void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
         {
             base.Init(pauseHandler, audioPlayerSpawner);
+            _playerInput.InitBindings(Bindings, _moveJoystick, _rotateJoystick,
+                _shieldAbilityButton, _boostAbilityButton);
             _player.Init(pauseHandler);
             _exit.Init(pauseHandler);
             _exit.SetAudioPlayerSpawner(audioPlayerSpawner);
@@ -59,14 +67,25 @@ namespace Assets.Sources.Level
             _pauseableRoutine.Init(pauseHandler);
             _cubesCollector.InvokeCubesCountChanged();
             _finalText.gameObject.SetActive(false);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
         }
 
         private void OnRoutineUpdated()
         {
             Window.Closed += OnWindowClosed;
             Window.Hide();
+        }
+
+        private protected override void OnVirtualJoystickValueChanged(bool value)
+        {
+            _shieldAbilityButton.interactable = value;
+            _shieldAbilityButton.enabled = value;
+            _boostAbilityButton.interactable = value;
+            _boostAbilityButton.enabled = value;
+            _moveJoystick.gameObject.SetActive(value);
+            _rotateJoystick.gameObject.SetActive(value);
+            base.OnVirtualJoystickValueChanged(value);
         }
 
         private void OnWindowClosed()

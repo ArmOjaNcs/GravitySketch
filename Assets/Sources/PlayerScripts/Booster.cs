@@ -13,7 +13,6 @@ namespace Assets.Sources.PlayerScripts
         [SerializeField] private AudioPlayer _audioPlayer;
 
         private bool _isBoostApplied;
-        private bool _isBoosted;
         private bool _isReloading;
 
         public event Action<float> BoostApplied;
@@ -70,10 +69,7 @@ namespace Assets.Sources.PlayerScripts
                 if (CurrentReloadTime > ReloadTime)
                     ReloadBoost();
             }
-
-            if (_isBoosted && _isBoostApplied == false && CurrentBoostCount > 0)
-                ApplyBoost();
-
+       
             if (_isBoostApplied)
             {
                 CurrentActiveTime += Time.deltaTime;
@@ -83,7 +79,13 @@ namespace Assets.Sources.PlayerScripts
             }
         }
 
-        private void OnBoosted(bool isBoosted) => _isBoosted = isBoosted;
+        private void OnBoosted() => TryStartBoost();
+
+        private void TryStartBoost()
+        {
+            if (_isBoostApplied == false && CurrentBoostCount > 0)
+                ApplyBoost();
+        }
 
         private void StopBoost()
         {

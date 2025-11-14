@@ -1,4 +1,5 @@
 using Assets.Sources.Save;
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Assets.Sources.Level
 {
-    public class InputSettingsMenu : MonoBehaviour
+    public class InputSettingsMenu : MonoBehaviour, IDisposable
     {
         [Header("Buttons")]
         [SerializeField] private Button _moveUpButton;
@@ -22,14 +23,20 @@ namespace Assets.Sources.Level
 
         [Header("Options")]
         [SerializeField] private Toggle _useMouseRotationToggle;
+        [SerializeField] private Toggle _virtualJoystickToggle;
 
         [Header("UI")]
         [SerializeField] private TextMeshProUGUI _messageText;
+
+        [Header("Visuals")]
+        [SerializeField] private Color _waitingColor = Color.yellow;
 
         private InputBindings _bindings;
         private Button _waitingButton;
         private string _waitingField;
         private Coroutine _currentRebindRoutine;
+        private bool _isStarted;
+        private Color _originalColor;
 
         private void Start()
         {
@@ -49,9 +56,38 @@ namespace Assets.Sources.Level
 
             _useMouseRotationToggle.isOn = _bindings.UseMouseRotation;
             _useMouseRotationToggle.onValueChanged.AddListener(OnMouseToggleChanged);
+            _virtualJoystickToggle.isOn = _bindings.UseJoystick;
+            _virtualJoystickToggle.onValueChanged.AddListener(OnJoystickToggleChanged);
 
             _messageText.enabled = false;
             UpdateLabels();
+            _isStarted = true;
+        }
+
+        private void OnDestroy()
+        {
+            Dispose();
+        }
+
+        public void Dispose()
+        {
+            if (_isStarted == false)
+                return;
+
+            _moveUpButton.onClick.RemoveListener(() => StartRebind(_moveUpButton, "MoveUp"));
+            _moveDownButton.onClick.RemoveListener(() => StartRebind(_moveDownButton, "MoveDown"));
+            _moveLeftButton.onClick.RemoveListener(() => StartRebind(_moveLeftButton, "MoveLeft"));
+            _moveRightButton.onClick.RemoveListener(() => StartRebind(_moveRightButton, "MoveRight"));
+            _boostButton.onClick.RemoveListener(() => StartRebind(_boostButton, "Boost"));
+            _shieldButton.onClick.RemoveListener(() => StartRebind(_shieldButton, "Defend"));
+            _rotateLeftButton.onClick.RemoveListener(() => StartRebind(_rotateLeftButton, "RotateLeft"));
+            _rotateRightButton.onClick.RemoveListener(() => StartRebind(_rotateRightButton, "RotateRight"));
+
+            _resetButton.onClick.RemoveListener(OnResetDefaults);
+            _backButton.onClick.RemoveListener(OnBack);
+
+            _useMouseRotationToggle.onValueChanged.RemoveListener(OnMouseToggleChanged);
+            _virtualJoystickToggle.onValueChanged.RemoveListener(OnJoystickToggleChanged);
         }
 
         private void UpdateLabels()
@@ -73,13 +109,13 @@ namespace Assets.Sources.Level
 
         private void StartRebind(Button button, string fieldName)
         {
-            // если уже идёт ожидание, прерываем старое
             if (_currentRebindRoutine != null)
                 StopCoroutine(_currentRebindRoutine);
 
             _waitingButton = button;
             _waitingField = fieldName;
-
+            _originalColor = _waitingButton.image.color;
+            _waitingButton.image.color = _waitingColor;
             _messageText.enabled = true;
 
             _currentRebindRoutine = StartCoroutine(WaitForKey());
@@ -99,6 +135,7 @@ namespace Assets.Sources.Level
                     if (key == KeyCode.Escape)
                     {
                         _messageText.enabled = false;
+                        _waitingButton.image.color = _originalColor;
                         UpdateLabels();
                         yield break;
                     }
@@ -110,6 +147,7 @@ namespace Assets.Sources.Level
                 }
             }
 
+            _waitingButton.image.color = _originalColor;
             _messageText.enabled = false;
             _currentRebindRoutine = null;
         }
@@ -137,12 +175,19 @@ namespace Assets.Sources.Level
             SaveSystem.SaveInputBindings(_bindings);
         }
 
+        private void OnJoystickToggleChanged(bool value)
+        {
+            _bindings.UseJoystick = value;
+            SaveSystem.SaveInputBindings(_bindings);
+        }
+
         private void OnResetDefaults()
         {
             _bindings = InputBindings.GetDefault();
             SaveSystem.SaveInputBindings(_bindings);
             UpdateLabels();
             _useMouseRotationToggle.isOn = _bindings.UseMouseRotation;
+            _virtualJoystickToggle.isOn = _bindings.UseJoystick;
             _messageText.enabled = false;
         }
 

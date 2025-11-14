@@ -1,5 +1,6 @@
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
+using Assets.Sources.Save;
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
 using UnityEngine;
@@ -13,6 +14,8 @@ namespace Assets.Sources.Level
         [SerializeField] private protected Button ToMainMenu;
         [SerializeField] private protected Button Restart;
         [SerializeField] private protected Button Back;
+        [SerializeField] private protected Button Pause;
+        [SerializeField] private protected Toggle UseVirtualJoystick;
         [SerializeField] private protected MenuWindow Window;
         [SerializeField] private protected AudioClip ButtonSound;
         [SerializeField] private protected AudioClip FinalSound;
@@ -21,12 +24,14 @@ namespace Assets.Sources.Level
 
         private protected PauseHandler PauseHandler;
         private protected AudioPlayerSpawner AudioPlayerSpawner; 
+        private protected InputBindings Bindings; 
 
         private protected virtual void OnEnable()
         {
             ToMainMenu.onClick.AddListener(OnMainMenuApplied);
             Restart.onClick.AddListener(OnRestartApplied);
             Back.onClick.AddListener(OnBackApplied);
+            UseVirtualJoystick.onValueChanged.AddListener(OnVirtualJoystickValueChanged);
             _pauseMenuAnimator.Hidden += OnPauseMenuClosed;
             _pauseInput.Paused += OnPaused;
         }
@@ -36,6 +41,7 @@ namespace Assets.Sources.Level
             ToMainMenu.onClick.RemoveListener(OnMainMenuApplied);
             Restart.onClick.RemoveListener(OnRestartApplied);
             Back.onClick.RemoveListener(OnBackApplied);
+            UseVirtualJoystick.onValueChanged.RemoveListener(OnVirtualJoystickValueChanged);
             _pauseMenuAnimator.Hidden -= OnPauseMenuClosed;
             _pauseInput.Paused -= OnPaused;
         }
@@ -44,6 +50,13 @@ namespace Assets.Sources.Level
         {
             PauseHandler = pauseHandler;
             AudioPlayerSpawner = audioPlayerSpawner;
+            Bindings = SaveSystem.LoadInputBindings();
+            UseVirtualJoystick.isOn = Bindings.UseJoystick;
+
+            if(Bindings.UseJoystick)
+                Pause.interactable = true;
+            else
+                Pause.interactable = false;
         }
 
         public void Begin()
@@ -95,6 +108,9 @@ namespace Assets.Sources.Level
                 {
                     _pauseMenuAnimator.Hide();
                     Window.Hide();
+
+                    if(Pause.gameObject.activeSelf)
+                        Pause.interactable = true;
                 }
             }
             else
@@ -105,6 +121,9 @@ namespace Assets.Sources.Level
                 {
                     _pauseMenuAnimator.Show();
                     Window.Show();
+
+                    if (Pause.gameObject.activeSelf)
+                        Pause.interactable = false;
                 }
             }
         }
@@ -113,6 +132,13 @@ namespace Assets.Sources.Level
         {
             AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
             OnPaused();
+        }
+
+        private protected virtual void OnVirtualJoystickValueChanged(bool value)
+        {
+            Pause.gameObject.SetActive(value);
+            Bindings.UseJoystick = value;
+            SaveSystem.SaveInputBindings(Bindings);
         }
 
         private void RestartStage()

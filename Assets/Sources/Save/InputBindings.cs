@@ -16,6 +16,7 @@ namespace Assets.Sources.Save
         public KeyCode RotateRight = KeyCode.E;
 
         public bool UseMouseRotation = true;
+        public bool UseJoystick = false;
 
         public InputBindings Clone()
         {
