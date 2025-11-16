@@ -17,7 +17,9 @@ namespace Assets.Sources.Level
         [SerializeField] private MenuWindow[] _windows;
         [SerializeField] private Button _start;
         [SerializeField] private Button[] _buttons;
+        [SerializeField] private Toggle[] _toggles;
         [SerializeField] private AudioSource _buttonSound;
+        [SerializeField] private AudioSource _toggleSound;
 
         private void OnEnable()
         {
@@ -29,6 +31,9 @@ namespace Assets.Sources.Level
 
             foreach (Button button in _buttons)
                 button.onClick.AddListener(OnButtonClick);
+
+            foreach (Toggle toggle in _toggles)
+                toggle.onValueChanged.AddListener(OnToggleChanged);
 
             _start.onClick.AddListener(OnStartClicked);
         }
@@ -46,6 +51,9 @@ namespace Assets.Sources.Level
 
             foreach (Button button in _buttons)
                 button.onClick.RemoveListener(OnButtonClick);
+
+            foreach (Toggle toggle in _toggles)
+                toggle.onValueChanged.RemoveListener(OnToggleChanged);
         }
 
         private void Start()
@@ -73,6 +81,7 @@ namespace Assets.Sources.Level
         private void OnStartClicked() => SceneManager.LoadScene(UserUtils.Collect);
 
         private void OnButtonClick() => _buttonSound.Play();
+        private void OnToggleChanged(bool value) => _toggleSound.Play();
 
         private void OnYGReady()
         {

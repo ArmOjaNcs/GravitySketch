@@ -19,12 +19,14 @@ namespace Assets.Sources.Level
         [SerializeField] private protected MenuWindow Window;
         [SerializeField] private protected AudioClip ButtonSound;
         [SerializeField] private protected AudioClip FinalSound;
+        [SerializeField] private protected AudioClip ToggleSound;
         [SerializeField] private PauseMenuAnimator _pauseMenuAnimator;
         [SerializeField] private PauseInput _pauseInput;
 
         private protected PauseHandler PauseHandler;
         private protected AudioPlayerSpawner AudioPlayerSpawner; 
-        private protected InputBindings Bindings; 
+        private protected InputBindings Bindings;
+        private bool _isStarted;
 
         private protected virtual void OnEnable()
         {
@@ -136,9 +138,13 @@ namespace Assets.Sources.Level
 
         private protected virtual void OnVirtualJoystickValueChanged(bool value)
         {
+            if(_isStarted)
+                AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ToggleSound)?.Play();
+
             Pause.gameObject.SetActive(value);
             Bindings.UseJoystick = value;
             SaveSystem.SaveInputBindings(Bindings);
+            _isStarted = true;
         }
 
         private void RestartStage()

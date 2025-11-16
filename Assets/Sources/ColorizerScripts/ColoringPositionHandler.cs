@@ -18,14 +18,27 @@ namespace Assets.Sources.ColorizerScripts
         [SerializeField] private LayerMask _cubeLayer;
         [SerializeField] private float _maxRayDistance = 1000f;
 
+        [Header("Joystick Control")]
+        [SerializeField] private bool _useJoystick = false;
+        [SerializeField] private RectTransform _cursorUI;
+        [SerializeField] private Canvas _canvas;
+        [SerializeField] private float _cursorSpeed = 600f;
+
+        private FixedJoystick _paintJoystick;
+        private HoldButton _paintButton;
         private PaintStage _stage;
-        private PaintInput _input;
+
         private IReadonlyTemplateCube _currentHighlighted;
         private bool _isAutoPaint;
         private bool _isColoring;
+        private bool _isStarted;
         private Color _paintColor;
 
+        private Vector2 _cursorStartPos;
+
         public event Action<IReadonlyTemplateCube> PositionApplied;
+
+        private bool IsColoring => Input.GetMouseButton(0);
 
         private void OnEnable()
         {
@@ -34,16 +47,23 @@ namespace Assets.Sources.ColorizerScripts
 
         private void OnDisable()
         {
-            if (_input != null)
-                _input.Coloring -= OnColoring;
-
             _colorizerView.PaintColorChanged -= OnPaintColorChanged;
+        }
+
+        private void Start()
+        {
+            _cursorStartPos = _cursorUI.anchoredPosition;
         }
 
         private void Update()
         {
-            if (IsPaused || IsInitialized == false)
+            if (IsPaused || IsInitialized == false || _isStarted == false)
                 return;
+
+            if (_useJoystick)
+                HandleJoystickInput();
+            else
+                _isColoring = IsColoring;
 
             if (_isAutoPaint == false && _stage.IsReferenceShowing == false)
                 HandleHoverAndPaint();
@@ -55,23 +75,89 @@ namespace Assets.Sources.ColorizerScripts
             _aim.Init(pauseHandler);
             _aim.StartAnimaton();
 
-            if (_input == null || _stage == null)
+            if (_stage == null)
                 return;
 
             IsInitialized = true;
         }
 
-        public void SetPaintInput(PaintInput input)
+        public void EnableJoystickControl(bool value)
         {
-            _input = input;
-            _input.Coloring += OnColoring;
+            _useJoystick = value;
+            _cursorUI.gameObject.SetActive(value);
+
+            if (value)
+                _cursorUI.anchoredPosition = Vector2.zero;
+        }
+
+        public void SetJoystick(FixedJoystick joystick, HoldButton paintButton)
+        {
+            _paintJoystick = joystick;
+            _paintButton = paintButton;
         }
 
         public void SetPaintStage(PaintStage paintStage) => _stage = paintStage;
-
         public void SetAutoPaint(bool isAutoPaint) => _isAutoPaint = isAutoPaint;
+        public void StartStage() => _isStarted = true;
 
-        private void OnColoring(bool isColoring) => _isColoring = isColoring;
+        private void HandleJoystickInput()
+        {
+            if (_paintJoystick == null)
+                return;
+
+            Vector2 move = new Vector2(
+                _paintJoystick.Horizontal,
+                _paintJoystick.Vertical
+            );
+
+            if (move.sqrMagnitude > 0.0001f)
+            {
+                _cursorUI.anchoredPosition += move * _cursorSpeed * Time.deltaTime;
+                ClampCursor();
+            }
+
+            if (_paintButton.IsHeld)
+                _isColoring = true;
+            else
+                _isColoring = false;
+        }
+
+        private void ClampCursor()
+        {
+            RectTransform canvasRect = _canvas.GetComponent<RectTransform>();
+            Vector2 pos = _cursorUI.anchoredPosition;
+
+            float maxX = canvasRect.sizeDelta.x / 2f;
+            float maxY = canvasRect.sizeDelta.y / 2f;
+
+            pos.x = Mathf.Clamp(pos.x, -maxX, maxX);
+            pos.y = Mathf.Clamp(pos.y, -maxY, maxY);
+
+            _cursorUI.anchoredPosition = pos;
+        }
+
+        private bool IsHitCube(out IReadonlyTemplateCube cube)
+        {
+            Vector3 screenPos;
+
+            if (_useJoystick)
+                screenPos = _cursorUI.position;
+            else
+                screenPos = Input.mousePosition;
+
+            Ray ray = _playerCamera.ScreenPointToRay(screenPos);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, _maxRayDistance, _cubeLayer))
+            {
+                cube = hit.collider.GetComponent<TemplateCube>();
+
+                if (cube.Type == CubeType.In)
+                    return true;
+            }
+
+            cube = null;
+            return false;
+        }
 
         private void HandleHoverAndPaint()
         {
@@ -96,27 +182,11 @@ namespace Assets.Sources.ColorizerScripts
                 PositionApplied?.Invoke(_currentHighlighted);
         }
 
-        private bool IsHitCube(out IReadonlyTemplateCube cube)
-        {
-            Ray ray = _playerCamera.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hit, _maxRayDistance, _cubeLayer))
-            {
-                cube = hit.collider.GetComponent<TemplateCube>();
-
-                if (cube.Type == CubeType.In)
-                    return true;
-
-                return false;
-            }
-
-            cube = null;
-            return false;
-        }
-
         private bool IsCanApplyPosition()
         {
-            return IsHitCube(out IReadonlyTemplateCube cube) && _currentHighlighted != null && _isColoring;
+            return IsHitCube(out IReadonlyTemplateCube cube) &&
+                   _currentHighlighted != null &&
+                   _isColoring;
         }
 
         private void OnPaintColorChanged(Color color) => _paintColor = color;

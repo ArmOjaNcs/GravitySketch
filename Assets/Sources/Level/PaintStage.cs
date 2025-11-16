@@ -1,6 +1,7 @@
 using Assets.Sources.Audio;
 using Assets.Sources.ColorizerScripts;
 using Assets.Sources.Pause;
+using Assets.Sources.PlayerScripts;
 using Assets.Sources.Save;
 using Assets.Sources.Table;
 using Assets.Sources.UI;
@@ -25,9 +26,11 @@ namespace Assets.Sources.Level
         [SerializeField] private GameObject _totalScore;
         [SerializeField] private GameObject _panel;
         [SerializeField] private GameObject _aim;
+        [SerializeField] private FixedJoystick _joystick;
         [SerializeField] private Button _toNextLevel;
-        [SerializeField] private AudioClip _toggleSound;
-        [SerializeField] private GameObject _hole;
+        [SerializeField] private HoldButton _paint;
+        [SerializeField] private SinglePressButton _reset;
+        [SerializeField] private HoleMover _hole;
         [SerializeField] private SmoothedFade _interfaceFade;
 
         private TemplateColorReference _colorReference;
@@ -63,17 +66,19 @@ namespace Assets.Sources.Level
             base.Init(pauseHandler, audioPlayerSpawner);
             _colorizer.SetStage(this, CurrentColors);
             _colorizer.Init(pauseHandler);
+            _colorizer.SetResetButton(_reset);
             _validator.Init(this, audioPlayerSpawner);
             _referenceViewer.Init(pauseHandler);
             _positionHandler.SetPaintStage(this);
             _positionHandler.Init(pauseHandler);
+            _positionHandler.SetJoystick(_joystick, _paint);
             _totalScore.SetActive(false);
             _panel.SetActive(false);
             _toNextLevel.gameObject.SetActive(false);
             _interfaceFade.Init(pauseHandler);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-            _hole.SetActive(false);
+            _hole.gameObject.SetActive(false);
         }
 
         public void SetTemplate(Template template, TemplateColorReference colorReference)
@@ -114,6 +119,17 @@ namespace Assets.Sources.Level
             return _colorReference.GetColor(index);
         }
 
+        private protected override void OnVirtualJoystickValueChanged(bool value)
+        {
+            _paint.gameObject.SetActive(value);
+            _reset.gameObject.SetActive(value);
+            _joystick.gameObject.SetActive(value);
+            _positionHandler.EnableJoystickControl(value);
+            _colorizer.EnableJoystickControl(value);
+            _hole.EnableJoystickControl(value);
+            base.OnVirtualJoystickValueChanged(value);
+        }
+
         private void OnFinished()
         {
             if (_isFinished == false)
@@ -140,7 +156,7 @@ namespace Assets.Sources.Level
 
         private void OnAutoPaint(bool isAutoPaint)
         {
-            AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(_toggleSound)?.Play();
+            AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ToggleSound)?.Play();
             _colorizer.SetAutoPaint(isAutoPaint);
             _positionHandler.SetAutoPaint(isAutoPaint);
             _referenceViewer.SetAutoPaint(isAutoPaint);
@@ -173,7 +189,7 @@ namespace Assets.Sources.Level
             int finalScore = _validator.MatchScore + CurrentScore;
             Progress.UpdateLevelScore(UserUtils.GetCollectStageName(StageName), finalScore);
             TotalScoreUpdated?.Invoke(finalScore);
-            _hole.SetActive(true);
+            _hole.gameObject.SetActive(true);
         }
 
         private protected override void OnMainMenuApplied()

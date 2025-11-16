@@ -1,11 +1,12 @@
+using Assets.Sources.Level;
+using Assets.Sources.Pause;
+using Assets.Sources.Table;
+using Assets.Sources.UI;
+using Assets.Sources.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Assets.Sources.Utils;
-using Assets.Sources.Level;
-using Assets.Sources.Table;
-using Assets.Sources.Pause;
 
 namespace Assets.Sources.ColorizerScripts
 {
@@ -14,16 +15,17 @@ namespace Assets.Sources.ColorizerScripts
         [SerializeField] private ColoringPositionHandler _positionHandler;
         [SerializeField] private float _autoRate;
 
+        private SinglePressButton _resetButton;
         private PaintStage _stage;
         private Queue<Color> _availableColors = new();
         private bool _isAutoPaint;
         private float _currentTime;
+        private bool _useJoystick;
+        private bool _isReseting;
 
         public event Action<IEnumerable<Color>> QueueChanged;
         public event Action<IReadonlyTemplateCube, Color, bool> PaintApplied;
         public event Action Reseted;
-
-        private bool IsReseting => Input.GetMouseButtonDown(1);
 
         public int ColorsCount => _availableColors.Count;
 
@@ -53,7 +55,12 @@ namespace Assets.Sources.ColorizerScripts
 
             if (_isAutoPaint == false)
             {
-                if (IsReseting)
+                if(_useJoystick && _resetButton != null)
+                    _isReseting = _resetButton.IsPressed;
+                else
+                    _isReseting = Input.GetMouseButtonDown(1);
+
+                if (_isReseting)
                 {
                     _availableColors.Dequeue();
                     QueueChanged?.Invoke(Colors);
@@ -95,7 +102,9 @@ namespace Assets.Sources.ColorizerScripts
             SetPaintMaterials(colors);
         }
 
+        public void EnableJoystickControl(bool value) => _useJoystick = value;
         public void SetAutoPaint(bool isAutoPaint) => _isAutoPaint = isAutoPaint;
+        public void SetResetButton(SinglePressButton resetButton) => _resetButton = resetButton;
 
         private void Paint(IReadonlyTemplateCube cube)
         {

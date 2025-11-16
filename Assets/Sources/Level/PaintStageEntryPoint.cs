@@ -7,7 +7,6 @@ namespace Assets.Sources.Level
 {
     public class PaintStageEntryPoint : StageEntryPoint
     {
-        [SerializeField] private PaintInput _paintInput;
         [SerializeField] private ColorizerView _colorizerView;
         [SerializeField] private ColoringPositionHandler _coloringPositionHandler;
         [SerializeField] private ColorizedCubeSpawner _colorizedCubeSpawner;
@@ -25,8 +24,6 @@ namespace Assets.Sources.Level
             _paintStagePrefab = prefab.GetComponent<PaintStagePrefab>();
             _holeMover.Init(_paintStagePrefab.TableMaterial);
             _tableRenderer.material = _paintStagePrefab.TableMaterial;
-            _paintInput.Init(PauseHandler);
-            _coloringPositionHandler.SetPaintInput(_paintInput);
             _colorizerView.Init(PauseHandler);
             _colorizedCubeSpawner.Init(PauseHandler);
             _scoreView.Init(PauseHandler);
@@ -38,7 +35,7 @@ namespace Assets.Sources.Level
         private protected override void OnLoadWindowUpdated()
         {
             base.OnLoadWindowUpdated();
-            _paintInput.StartInput();
+            _coloringPositionHandler.StartStage();
         }
     }
 }
