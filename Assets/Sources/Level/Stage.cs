@@ -64,6 +64,8 @@ namespace Assets.Sources.Level
         public void Begin()
         {
             _pauseInput.StartInput();
+            OnVirtualJoystickValueChanged(Bindings.UseJoystick);
+            _isStarted = true;
         }
 
         private protected void HidePauseMenu()
@@ -144,7 +146,6 @@ namespace Assets.Sources.Level
             Pause.gameObject.SetActive(value);
             Bindings.UseJoystick = value;
             SaveSystem.SaveInputBindings(Bindings);
-            _isStarted = true;
         }
 
         private void RestartStage()

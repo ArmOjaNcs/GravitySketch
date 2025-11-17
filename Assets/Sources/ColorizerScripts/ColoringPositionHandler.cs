@@ -34,11 +34,9 @@ namespace Assets.Sources.ColorizerScripts
         private bool _isStarted;
         private Color _paintColor;
 
-        private Vector2 _cursorStartPos;
+        private Vector2 _cursorCurrentPos;
 
         public event Action<IReadonlyTemplateCube> PositionApplied;
-
-        private bool IsColoring => Input.GetMouseButton(0);
 
         private void OnEnable()
         {
@@ -52,7 +50,7 @@ namespace Assets.Sources.ColorizerScripts
 
         private void Start()
         {
-            _cursorStartPos = _cursorUI.anchoredPosition;
+            _cursorCurrentPos = _cursorUI.anchoredPosition;
         }
 
         private void Update()
@@ -63,7 +61,7 @@ namespace Assets.Sources.ColorizerScripts
             if (_useJoystick)
                 HandleJoystickInput();
             else
-                _isColoring = IsColoring;
+                _isColoring = Input.GetKey(_stage.Paint);
 
             if (_isAutoPaint == false && _stage.IsReferenceShowing == false)
                 HandleHoverAndPaint();
@@ -87,7 +85,9 @@ namespace Assets.Sources.ColorizerScripts
             _cursorUI.gameObject.SetActive(value);
 
             if (value)
-                _cursorUI.anchoredPosition = Vector2.zero;
+                _cursorUI.anchoredPosition = _cursorCurrentPos;
+            else
+                _cursorCurrentPos = _cursorUI.anchoredPosition;
         }
 
         public void SetJoystick(FixedJoystick joystick, HoldButton paintButton)

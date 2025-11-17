@@ -28,6 +28,7 @@ namespace Assets.Sources.EnemyScripts
         private float _minSqrtDistanceToTarget = 20;
         private float _currentUpdateTime;
         private float _rotationSpeed = 5;
+        private float _angularSpeed;
         private float _retreatDistance;
         private bool _isPlayerTarget;
         private bool _isInZone;
@@ -46,20 +47,21 @@ namespace Assets.Sources.EnemyScripts
             {
                 if (_isPlayerTarget == false)
                     if (_agent.updateRotation == false)
-                        _agent.updateRotation = true;
+                        EnableAgentRotation();
 
                 if (_isPlayerTarget)
                     RotateTowards(_target.position);
 
-                ControlDistance();
-
-                if (_isPlayerTarget == false)
+                if (_isPlayerTarget == false && _isInZone)
+                {
                     ControlStuck();
+                    ControlDistance();
+                }
 
                 if (_isPlayerTarget && _isInZone)
                 {
                     if (_agent.updateRotation)
-                        _agent.updateRotation = false;
+                        EnableManualRotation();
 
                     _currentUpdateTime += Time.deltaTime;
 
@@ -120,12 +122,9 @@ namespace Assets.Sources.EnemyScripts
             _minSqrtDistanceToTarget = distance;
         }
 
-        public void SetRetreatDistance(float distance)
+        public void CalculateRetreatDistance()
         {
-            if (distance <= 0)
-                return;
-
-            _retreatDistance = distance;
+            _retreatDistance = _retreatZone.ColliderRadius * transform.lossyScale.x;
         }
 
         public void ReturnToZone()
@@ -147,7 +146,10 @@ namespace Assets.Sources.EnemyScripts
         public void Activate()
         {
             if (_agent == null)
+            {
                 _agent = GetComponent<NavMeshAgent>();
+                _angularSpeed = _agent.angularSpeed;
+            }
 
             _stopZone.gameObject.SetActive(true);
             _retreatZone.gameObject.SetActive(true);
@@ -170,6 +172,24 @@ namespace Assets.Sources.EnemyScripts
         }
 
         public void SetPatrolZone(EnemyPatrolZone patrolZone) => _patrolZone = patrolZone;
+
+        private void EnableManualRotation()
+        {
+            if (_agent.updateRotation)
+            {
+                _agent.updateRotation = false;
+                _agent.angularSpeed = 0; 
+            }
+        }
+
+        private void EnableAgentRotation()
+        {
+            if (_agent.updateRotation == false)
+            {
+                _agent.updateRotation = true;
+                _agent.angularSpeed = _angularSpeed; 
+            }
+        }
 
         private void GetCurrentPoint()
         {
@@ -230,31 +250,63 @@ namespace Assets.Sources.EnemyScripts
             if (_retreatTimer < _retreatUpdateInterval)
                 return;
 
-            _retreatTimer = 0f;
+            _retreatTimer = 0;
 
             Vector3 enemyPos = _transform.position;
             Vector3 playerPos = _moveZone.Player.Position;
-            Vector3 baseDir = (enemyPos - playerPos).normalized;
-            baseDir.y = 0;
+            enemyPos.y = playerPos.y;
 
-            float checkAngleStep = 45f;      
-            int maxChecks = 5;               
+            Vector3 baseDir = (enemyPos - playerPos).normalized;
+
             float checkDistance = _retreatDistance + _moveZone.Player.Radius;
 
-            Vector3 bestPoint = Vector3.zero;
+            if (TryFindDirectionalEscape(enemyPos, playerPos, baseDir, checkDistance, 180, 11, out Vector3 best))
+            {
+                _agent.destination = best;
+                return;
+            }
+
+            if (TryFindDirectionalEscape(enemyPos, playerPos, baseDir, checkDistance, 240, 17, out best))
+            {
+                _agent.destination = best;
+                return;
+            }
+
+            if (TryFindOmniEscape(enemyPos, playerPos, checkDistance, 24, out best))
+            {
+                _agent.destination = best;
+                return;
+            }
+
+            Vector3 breakthrough = playerPos + (playerPos - enemyPos).normalized * checkDistance;
+
+            if (NavMesh.SamplePosition(breakthrough, out NavMeshHit hit, checkDistance, NavMesh.AllAreas))
+            {
+                _agent.destination = hit.position;
+            }
+        }
+
+        private bool TryFindDirectionalEscape(Vector3 enemyPos, Vector3 playerPos, Vector3 baseDir,
+              float distance, float arcAngle, int checks, out Vector3 bestPoint)
+        {
+            float halfArc = arcAngle * 0.5f;
+            float angleStep = arcAngle / (checks - 1);
+
+            bestPoint = Vector3.zero;
             float bestScore = float.MinValue;
 
-            for (int i = 0; i < maxChecks; i++)
+            for (int i = 0; i < checks; i++)
             {
-                float angle = (i - maxChecks / 2) * checkAngleStep;
-                Quaternion rot = Quaternion.Euler(0, angle, 0);
-                Vector3 dir = rot * baseDir;
-                Vector3 candidate = enemyPos + dir * checkDistance;
+                float angle = -halfArc + i * angleStep;
+                Vector3 dir = Quaternion.Euler(0, angle, 0) * baseDir;
 
-                if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, _retreatDistance, NavMesh.AllAreas))
+                Vector3 candidate = enemyPos + dir * distance;
+
+                if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, distance, NavMesh.AllAreas))
                 {
-                    float score = (hit.position - playerPos).sqrMagnitude;
-                    score -= Mathf.Abs(angle) * 0.1f; 
+                    float score =
+                        (hit.position - playerPos).sqrMagnitude
+                        - Mathf.Abs(angle) * 0.05f;
 
                     if (score > bestScore)
                     {
@@ -264,20 +316,38 @@ namespace Assets.Sources.EnemyScripts
                 }
             }
 
-            if (bestScore > float.MinValue)
-            {
-                _agent.destination = bestPoint;
-            }
-            else
-            {
-                Vector3 fallbackTarget = enemyPos + baseDir * checkDistance;
+            return bestScore > float.MinValue;
+        }
 
-                if (NavMesh.SamplePosition(fallbackTarget, out NavMeshHit fallbackHit, 
-                    _retreatDistance, NavMesh.AllAreas))
+        private bool TryFindOmniEscape(Vector3 enemyPos, Vector3 playerPos, float distance,
+              int checks, out Vector3 bestPoint)
+        {
+            bestPoint = Vector3.zero;
+            float bestScore = float.MinValue;
+
+            float angleStep = 360f / checks;
+
+            for (int i = 0; i < checks; i++)
+            {
+                float angle = i * angleStep;
+                Vector3 dir = Quaternion.Euler(0, angle, 0) * Vector3.forward;
+
+                Vector3 candidate = enemyPos + dir * distance;
+
+                if (NavMesh.SamplePosition(candidate, out NavMeshHit hit, distance, NavMesh.AllAreas))
                 {
-                    _agent.destination = fallbackHit.position;
+                    float score =
+                        (hit.position - playerPos).sqrMagnitude;
+
+                    if (score > bestScore)
+                    {
+                        bestScore = score;
+                        bestPoint = hit.position;
+                    }
                 }
             }
+
+            return bestScore > float.MinValue;
         }
 
         private void RotateTowards(Vector3 targetPosition)
@@ -294,9 +364,6 @@ namespace Assets.Sources.EnemyScripts
 
         private void ControlDistance()
         {
-            if (_isPlayerTarget)
-                return;
-
             float sqrtDistance = (_currentPoint - _transform.position).sqrMagnitude;
 
             if (sqrtDistance < _minSqrtDistanceToTarget)

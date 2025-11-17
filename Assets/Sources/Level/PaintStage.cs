@@ -42,6 +42,8 @@ namespace Assets.Sources.Level
 
         public bool IsReferenceShowing { get; private set; }
         public IReadOnlyList<IReadonlyTemplateCube> TemplateCubes => _template.TemplateCubes;
+        public KeyCode Paint => Bindings.Paint;
+        public KeyCode ResetCube => Bindings.ResetCube;
 
         private protected override void OnEnable()
         {

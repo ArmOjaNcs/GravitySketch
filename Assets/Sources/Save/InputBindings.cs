@@ -14,6 +14,8 @@ namespace Assets.Sources.Save
         public KeyCode Defend = KeyCode.Mouse0;
         public KeyCode RotateLeft = KeyCode.Q;
         public KeyCode RotateRight = KeyCode.E;
+        public KeyCode Paint = KeyCode.Mouse0;
+        public KeyCode ResetCube = KeyCode.Mouse1;
 
         public bool UseMouseRotation = true;
         public bool UseJoystick = false;

@@ -14,6 +14,8 @@ namespace Assets.Sources.EnemyScripts
 
         private bool _isCanDrop;
 
+        public float ColliderRadius => Collider == null ? 0 : Collider.radius * transform.localScale.x;
+
         private void OnEnable()
         {
             _bomb.gameObject.SetActive(false);

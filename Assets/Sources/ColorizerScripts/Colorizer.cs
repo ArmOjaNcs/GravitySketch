@@ -58,7 +58,7 @@ namespace Assets.Sources.ColorizerScripts
                 if(_useJoystick && _resetButton != null)
                     _isReseting = _resetButton.IsPressed;
                 else
-                    _isReseting = Input.GetMouseButtonDown(1);
+                    _isReseting = Input.GetKeyDown(_stage.ResetCube);
 
                 if (_isReseting)
                 {

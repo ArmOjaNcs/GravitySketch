@@ -118,7 +118,7 @@ namespace Assets.Sources.EnemyScripts
             enemy.InitializeFromConfig(config);
             enemy.Init(_pauseHandler);
             enemy.SetAudioPlayerSpawner(_audioPlayerSpawner);
-            enemyMover.SetRetreatDistance(config.Level + 10);
+            enemyMover.CalculateRetreatDistance();
             enemyMover.SetPatrolDistance(config.Level * 5);
             patrolZone.AddEnemy(enemyMover);
             return enemy;

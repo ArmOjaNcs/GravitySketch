@@ -9,7 +9,7 @@ namespace Assets.Sources.Level
 {
     public class InputSettingsMenu : MonoBehaviour, IDisposable
     {
-        [Header("Buttons")]
+        [Header("ControlButtons")]
         [SerializeField] private Button _moveUpButton;
         [SerializeField] private Button _moveDownButton;
         [SerializeField] private Button _moveLeftButton;
@@ -18,12 +18,16 @@ namespace Assets.Sources.Level
         [SerializeField] private Button _shieldButton;
         [SerializeField] private Button _rotateLeftButton;
         [SerializeField] private Button _rotateRightButton;
-        [SerializeField] private Button _resetButton;
-        [SerializeField] private Button _backButton;
+
+        [Header("PaintButtons")]
+        [SerializeField] private Button _paintButton;
+        [SerializeField] private Button _resetCubeButton;
 
         [Header("Options")]
         [SerializeField] private Toggle _useMouseRotationToggle;
         [SerializeField] private Toggle _virtualJoystickToggle;
+        [SerializeField] private Button _resetButton;
+        [SerializeField] private Button _backButton;
 
         [Header("UI")]
         [SerializeField] private TextMeshProUGUI _messageText;
@@ -50,6 +54,9 @@ namespace Assets.Sources.Level
             _shieldButton.onClick.AddListener(() => StartRebind(_shieldButton, "Defend"));
             _rotateLeftButton.onClick.AddListener(() => StartRebind(_rotateLeftButton, "RotateLeft"));
             _rotateRightButton.onClick.AddListener(() => StartRebind(_rotateRightButton, "RotateRight"));
+
+            _paintButton.onClick.AddListener(() => StartRebind(_paintButton, "Paint"));
+            _resetCubeButton.onClick.AddListener(() => StartRebind(_resetCubeButton, "ResetCube"));
 
             _resetButton.onClick.AddListener(OnResetDefaults);
             _backButton.onClick.AddListener(OnBack);
@@ -83,6 +90,9 @@ namespace Assets.Sources.Level
             _rotateLeftButton.onClick.RemoveListener(() => StartRebind(_rotateLeftButton, "RotateLeft"));
             _rotateRightButton.onClick.RemoveListener(() => StartRebind(_rotateRightButton, "RotateRight"));
 
+            _paintButton.onClick.RemoveListener(() => StartRebind(_paintButton, "Paint"));
+            _resetCubeButton.onClick.RemoveListener(() => StartRebind(_resetCubeButton, "ResetCube"));
+
             _resetButton.onClick.RemoveListener(OnResetDefaults);
             _backButton.onClick.RemoveListener(OnBack);
 
@@ -100,6 +110,8 @@ namespace Assets.Sources.Level
             _shieldButton.GetComponentInChildren<TextMeshProUGUI>().text = FormatKey(_bindings.Defend);
             _rotateLeftButton.GetComponentInChildren<TextMeshProUGUI>().text = FormatKey(_bindings.RotateLeft);
             _rotateRightButton.GetComponentInChildren<TextMeshProUGUI>().text = FormatKey(_bindings.RotateRight);
+            _paintButton.GetComponentInChildren<TextMeshProUGUI>().text = FormatKey(_bindings.Paint);
+            _resetCubeButton.GetComponentInChildren<TextMeshProUGUI>().text = FormatKey(_bindings.ResetCube);
         }
 
         private string FormatKey(KeyCode key)
@@ -125,7 +137,7 @@ namespace Assets.Sources.Level
         {
             yield return null;
 
-            while (!Input.anyKeyDown)
+            while (Input.anyKeyDown == false)
                 yield return null;
 
             foreach (KeyCode key in System.Enum.GetValues(typeof(KeyCode)))
@@ -154,13 +166,35 @@ namespace Assets.Sources.Level
 
         private void AssignKey(string field, KeyCode key)
         {
-            foreach (var f in typeof(InputBindings).GetFields())
+            string[] controlGroup =
             {
-                if (f.FieldType != typeof(KeyCode))
-                    continue;
+                "MoveUp", "MoveDown", "MoveLeft", "MoveRight",
+                "Boost", "Defend",
+                "RotateLeft", "RotateRight"
+            };
+            
+            string[] paintGroup =
+            {
+                "Paint", "ResetCube"
+            };
 
-                if ((KeyCode)f.GetValue(_bindings) == key)
-                    f.SetValue(_bindings, KeyCode.None);
+            string[] activeGroup;
+
+            if (Array.Exists(controlGroup, f => f == field))
+                activeGroup = controlGroup;
+            else
+                activeGroup = paintGroup;
+
+            foreach (string f in activeGroup)
+            {
+                var fieldInfo = typeof(InputBindings).GetField(f);
+
+                if (fieldInfo != null &&
+                    fieldInfo.FieldType == typeof(KeyCode) &&
+                    (KeyCode)fieldInfo.GetValue(_bindings) == key)
+                {
+                    fieldInfo.SetValue(_bindings, KeyCode.None);
+                }
             }
 
             var targetField = typeof(InputBindings).GetField(field);
