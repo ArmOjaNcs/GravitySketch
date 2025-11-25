@@ -15,6 +15,7 @@ namespace Assets.Sources.Utils
         public const int NormalLayer = 7;
         public const int FallingLayer = 8;
         public const int PlayerPhysicsLayer = 10;
+        public const int PipeLayer = 11;
         public const int ShieldLayer = 26;
         public const int ObstacleLayer = 12;
         public const int PhysicalMissileLayer = 23;
@@ -74,7 +75,7 @@ namespace Assets.Sources.Utils
         public const float HalfUnit = 0.5f;
         public const float ThirdOfUnit = 0.33f;
         public const float TimeForShow = 5f;
-        public const float MinPercentToComplete = 0.10f;
+        public const float MinPercentToComplete = 0.7f;
         public const float ExitTime = 3;
         public const float PlayerDamageMultiplier = 1.5f;
         public const float LoadTime = 5f;

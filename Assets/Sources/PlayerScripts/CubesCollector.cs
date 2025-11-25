@@ -15,7 +15,6 @@ namespace Assets.Sources.PlayerScripts
 
         public event Action<int> CubesCountChanged;
 
-        public bool IsDecreased { get; private set; }
         public int CubesCount => _holder.Count;
 
         private void OnEnable()
@@ -49,7 +48,6 @@ namespace Assets.Sources.PlayerScripts
                 return;
 
             _holder.AddCube(simpleCube);
-            IsDecreased = false;
             CubesCountChanged?.Invoke(_holder.Count);
             simpleCube.Dissolve(_hole);
         }

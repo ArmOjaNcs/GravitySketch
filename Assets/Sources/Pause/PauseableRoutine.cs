@@ -6,7 +6,7 @@ namespace Assets.Sources.Pause
 {
     public class PauseableRoutine : PauseableObject
     {
-        private const float MinDuration = 0.5f;
+        private protected const float MinDuration = 0.5f;
 
         [SerializeField, Min(0)] private protected float Duration;
 

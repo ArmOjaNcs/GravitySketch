@@ -66,7 +66,7 @@ namespace Assets.Sources.PlayerScripts
                 DissolvableObject dissolvableObject = other.GetComponentInParent<DissolvableObject>();
 
                 if (dissolvableObject != null)
-                    dissolvableObject.ResetMass();
+                    dissolvableObject.SetSpeculative();
             }
 
             if (other.TryGetComponent(out SimpleCube simpleCube))
@@ -86,7 +86,7 @@ namespace Assets.Sources.PlayerScripts
                 DissolvableObject dissolvableObject = other.GetComponentInParent<DissolvableObject>();
 
                 if (dissolvableObject != null)
-                    dissolvableObject.RecoverMass();
+                    dissolvableObject.SetDynamic();
             }
 
             if (other.TryGetComponent(out Enemy enemy))

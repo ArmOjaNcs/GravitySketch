@@ -80,7 +80,6 @@ namespace Assets.Sources.Level
             _interfaceFade.Init(pauseHandler);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
-            _hole.gameObject.SetActive(false);
         }
 
         public void SetTemplate(Template template, TemplateColorReference colorReference)
@@ -167,6 +166,11 @@ namespace Assets.Sources.Level
         private IEnumerator FinishRoutine()
         {
             Finish();
+            Pause.gameObject.SetActive(false);
+            _paint.gameObject.SetActive(false);
+            _reset.gameObject.SetActive(false);
+            Transform referenceAndAutoPaint = _autoPaint.transform.parent;
+            referenceAndAutoPaint.gameObject.SetActive(false);
             _aim.SetActive(false);
 
             if (UserUtils.TryGetNextStageName(StageName, out string nextStageName))
@@ -191,7 +195,7 @@ namespace Assets.Sources.Level
             int finalScore = _validator.MatchScore + CurrentScore;
             Progress.UpdateLevelScore(UserUtils.GetCollectStageName(StageName), finalScore);
             TotalScoreUpdated?.Invoke(finalScore);
-            _hole.gameObject.SetActive(true);
+            _hole.SetStarted();
         }
 
         private protected override void OnMainMenuApplied()

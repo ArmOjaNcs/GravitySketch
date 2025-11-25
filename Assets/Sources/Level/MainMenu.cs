@@ -21,6 +21,8 @@ namespace Assets.Sources.Level
         [SerializeField] private AudioSource _buttonSound;
         [SerializeField] private AudioSource _toggleSound;
 
+        private bool _isStarted;
+
         private void OnEnable()
         {
             foreach (MenuWindow menuWindow in _windows)
@@ -81,7 +83,13 @@ namespace Assets.Sources.Level
         private void OnStartClicked() => SceneManager.LoadScene(UserUtils.Collect);
 
         private void OnButtonClick() => _buttonSound.Play();
-        private void OnToggleChanged(bool value) => _toggleSound.Play();
+        private void OnToggleChanged(bool value)
+        {
+            if (_isStarted == false)
+                return;
+            
+            _toggleSound.Play();
+        } 
 
         private void OnYGReady()
         {
@@ -96,6 +104,7 @@ namespace Assets.Sources.Level
             _startButtonText.text = Translator.Get(text);
             _levelSelector.Init(this);
             _levelSelector.PlayClicked += OnPlayClicked;
+            _isStarted = true;
         }
     }
 }

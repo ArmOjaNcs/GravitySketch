@@ -62,10 +62,7 @@ namespace Assets.Sources.Dissolvable
 
         private protected virtual void OnCollisionEnter(Collision collision)
         {
-            if (IsPaused)
-                return;
-
-            if (_audioPlayerSpawner == null)
+            if (IsPaused || collision.collider.gameObject.layer == UserUtils.PipeLayer || _audioPlayerSpawner == null)
                 return;
 
             if (_collisionSound != null && _isDropped)
@@ -86,6 +83,9 @@ namespace Assets.Sources.Dissolvable
 
         private protected virtual void OnCollisionExit(Collision collision)
         {
+            if (IsPaused || collision.collider.gameObject.layer == UserUtils.PipeLayer || _audioPlayerSpawner == null)
+                return;
+
             _totalCollisionsCount--;
         }
 
@@ -162,11 +162,6 @@ namespace Assets.Sources.Dissolvable
 
             _isDropped = true;
             gameObject.layer = UserUtils.FallingLayer;
-
-            if (Mathf.Approximately(_dissolveAnimationTime, 0))
-                _dissolveAnimationTime = UserUtils.Three;
-
-            DissolveAnimation = AnimationSpawner.GetDissolveAnimation(transform, _dissolveAnimationTime);
         }
 
         public virtual void Dissolve(Transform hole)
@@ -174,22 +169,30 @@ namespace Assets.Sources.Dissolvable
             if (IsDissolving)
                 return;
 
+            IsDissolving = true;
+
+            if (Mathf.Approximately(_dissolveAnimationTime, 0))
+                _dissolveAnimationTime = UserUtils.Three;
+
+            DissolveAnimation = AnimationSpawner.GetDissolveAnimation(transform, _dissolveAnimationTime);
+            _hole = hole;
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+            _rigidbody.isKinematic = true;
+            _rigidbody.useGravity = false;
+            _rigidbody.interpolation = RigidbodyInterpolation.None;
+            _transform.SetParent(hole);
+            
             if (Collider != null)
                 Collider.enabled = false;
 
-            IsDissolving = true;
-            _hole = hole;
-            _rigidbody.velocity = Vector3.zero;
-            _rigidbody.isKinematic = true;
-            _rigidbody.interpolation = RigidbodyInterpolation.None;
-            _transform.SetParent(hole);
             DissolveAnimation?.Restart();
             Routine = StartCoroutine(UpdateRoutine(DissolveAnimation.Duration()));
         }
 
-        public void ResetMass() => _rigidbody.mass = 0.0001f;
+        public virtual void SetSpeculative() => _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
-        public void RecoverMass() => _rigidbody.mass = _defaultMass;
+        public virtual void SetDynamic() => _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
         private int GetReward(int size)
         {

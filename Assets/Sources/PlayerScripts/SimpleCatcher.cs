@@ -16,7 +16,7 @@ namespace Assets.Sources.PlayerScripts
                 DissolvableObject dissolvableObject = other.GetComponentInParent<DissolvableObject>();
 
                 if (dissolvableObject != null)
-                    dissolvableObject.ResetMass();
+                    dissolvableObject.SetSpeculative();
             }
         }
 
@@ -30,7 +30,7 @@ namespace Assets.Sources.PlayerScripts
                 DissolvableObject dissolvableObject = other.GetComponentInParent<DissolvableObject>();
 
                 if (dissolvableObject != null)
-                    dissolvableObject.RecoverMass();
+                    dissolvableObject.SetDynamic();
             }
         }
     }

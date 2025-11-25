@@ -1,7 +1,5 @@
 using Assets.Sources.Dissolvable;
 using Assets.Sources.Pause;
-using Assets.Sources.Utils;
-using DG.Tweening;
 using UnityEngine;
 
 namespace Assets.Sources.SimpleCubeScripts
@@ -12,44 +10,17 @@ namespace Assets.Sources.SimpleCubeScripts
     {
         [SerializeField] private MeshRenderer _meshRenderer;
 
-        //private Sequence _idleAnimation;
         private MaterialPropertyBlock _MPBlock;
         private Color _currentColor;
 
         public Color Color => _currentColor;
 
-        //private protected override void OnDisable()
-        //{
-        //    base.OnDisable();
-
-        //    if (_idleAnimation.IsActive())
-        //        _idleAnimation.Kill();
-        //}
-
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            //_idleAnimation = AnimationSpawner.GetIdleAnimation(transform);
-            //_idleAnimation.Restart();
             transform.parent = null;
             IsInitialized = true;
         }
-
-        //public override void Pause()
-        //{
-        //    base.Pause();
-
-        //    if(_idleAnimation.IsActive())
-        //        _idleAnimation.Pause();
-        //}
-
-        //public override void Resume()
-        //{
-        //    base.Resume();
-
-        //    if (_idleAnimation.IsActive())
-        //        _idleAnimation.Play();
-        //}
 
         public void SetColor(Color color)
         {
@@ -61,13 +32,5 @@ namespace Assets.Sources.SimpleCubeScripts
             _MPBlock.SetColor("_Color", color);
             _meshRenderer.SetPropertyBlock(_MPBlock);
         }
-
-        //public override void DropDown()
-        //{
-        //    base.DropDown();
-
-        //    _idleAnimation.Pause();
-        //    _idleAnimation.Kill();
-        //}
     }
 }

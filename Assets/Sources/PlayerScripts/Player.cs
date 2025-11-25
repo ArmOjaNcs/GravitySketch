@@ -22,6 +22,7 @@ namespace Assets.Sources.PlayerScripts
 
         private Transform _transform;
         private SphereCollider _sphereCollider;
+        private bool _isFinished;
 
         public event Action IsDead;
         public event Action Damaged;
@@ -58,8 +59,13 @@ namespace Assets.Sources.PlayerScripts
             _audioPlayer.AudioSource.loop = false;
         }
 
+        public void SetFinished() => _isFinished = true;
+
         public void TakeDamage(float damage)
         {
+            if (_isFinished)
+                return;
+
             //if (damage <= 0 || _shield.IsDefended)
             //    return;
 

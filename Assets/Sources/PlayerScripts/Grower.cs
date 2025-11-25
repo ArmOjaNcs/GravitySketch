@@ -9,8 +9,7 @@ namespace Assets.Sources.PlayerScripts
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private Vector3 _sizeDelta;
         [SerializeField] private float _growSize;
-        [SerializeField] private Catcher _catcher;
-
+       
         private Transform _player;
         private Vector3 _targetScale;
 
@@ -41,7 +40,6 @@ namespace Assets.Sources.PlayerScripts
             CalculateTargetScale(false);
             OnUpdate();
             SizeChanged?.Invoke(_growSize);
-            _catcher.RefreshSensor();
         }
 
         private void CalculateTargetScale(bool isNegative)

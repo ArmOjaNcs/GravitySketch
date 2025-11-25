@@ -110,6 +110,7 @@ namespace Assets.Sources.Level
 
         private void OnExitApplied()
         {
+            _player.SetFinished();
             Progress.SetIntermediateResult(_playerScore.Value, _cubesCollector.GetAllCollors());
             SaveSystem.SavePlayerProgress(Progress);
             AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(FinalSound)?.Play();
@@ -127,6 +128,7 @@ namespace Assets.Sources.Level
             _finalText.text = Translator.Get(UserUtils.GameOver);
             _finalText.color = Color.red;
             _finalText.gameObject.SetActive(true);
+            Pause.gameObject.SetActive(false);
             Window.Show();
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;

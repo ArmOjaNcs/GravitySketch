@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
@@ -10,29 +9,12 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField, Range(3, 25)] private int _maxLevel;
         [SerializeField, Range(3, 25)] private int _minLevel;
 
-        private List<EnemyMover> _enemies = new List<EnemyMover>();
         private BoxCollider _collider;
         private Transform _transform;
 
         public int EnemiesCount => _enemiesCount;
         public int MaxLevel => _maxLevel;
         public int MinLevel => _minLevel;
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag(gameObject.tag))
-                if (other.TryGetComponent(out EnemyMover enemy))
-                    if (enemy != null && enemy.isActiveAndEnabled)
-                        enemy.SetInZone();
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag(gameObject.tag))
-                if (other.TryGetComponent(out EnemyMover enemy))
-                    if (enemy != null && enemy.isActiveAndEnabled)
-                        enemy.ReturnToZone();
-        }
 
         public void Initialize()
         {
@@ -41,12 +23,6 @@ namespace Assets.Sources.EnemyScripts
 
             if (_minLevel > _maxLevel)
                 _maxLevel = _minLevel;
-        }
-
-        public void AddEnemy(EnemyMover enemyMover)
-        {
-            _enemies.Add(enemyMover);
-            enemyMover.tag = gameObject.tag;
         }
 
         public Vector3 GetRandomPointInZone()

@@ -11,7 +11,7 @@ namespace Assets.Sources.UI
         [SerializeField] private PlayerScore _playerScore;
         [SerializeField] private PopUpText _popUpText;
         [SerializeField] private AudioPlayer _audioPlayer;
-
+        
         private void OnEnable()
         {
             _playerScore.ScoreChanged += OnScoreChanged;

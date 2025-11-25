@@ -1,10 +1,9 @@
+using Assets.Sources.Dissolvable;
+using Assets.Sources.Pause;
+using Assets.Sources.Utils;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
-using Assets.Sources.Utils;
-using Assets.Sources.Dissolvable;
-using Assets.Sources.Audio;
-using Assets.Sources.Pause;
 
 namespace Assets.Sources.EnemyScripts
 {

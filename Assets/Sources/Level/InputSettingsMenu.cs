@@ -42,7 +42,7 @@ namespace Assets.Sources.Level
         private bool _isStarted;
         private Color _originalColor;
 
-        private void Start()
+        private void OnEnable()
         {
             _bindings = SaveSystem.LoadInputBindings();
 

@@ -12,12 +12,12 @@ namespace Assets.Sources.PlayerScripts
 
         private Material _material;
         private Transform _transform;
-        private bool _isInitialized;
+        private bool _isStarted;
         private bool _isUseJoystick;
 
         private void Update()
         {
-            if (_isInitialized == false)
+            if (_isStarted == false)
                 return;
 
             if(_isUseJoystick)
@@ -33,9 +33,9 @@ namespace Assets.Sources.PlayerScripts
             _material.SetFloat("_HoleRadius", _radius);
             _material.SetVector("_HolePosition", new Vector4(_transform.position.x,
                     _transform.position.y, _transform.position.z, 0));
-            _isInitialized = true;
         }
 
+        public void SetStarted() => _isStarted = true;
         public void EnableJoystickControl(bool value) => _isUseJoystick = value;
 
         private void FollowByMouse()
