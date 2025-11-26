@@ -4,6 +4,8 @@ using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.SimpleCubeScripts;
 using Assets.Sources.Table;
+using Assets.Sources.Utils;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -44,9 +46,13 @@ namespace Assets.Sources.Level
 
         private protected override void Initialize()
         {
-            GameObject prefab = Resources.Load<GameObject>(Stage.StageName);
-            prefab = Instantiate(prefab);
-            _collectStagePrefab = prefab.GetComponent<CollectStagePrefab>();
+            if(Stage.IsTutorial)
+                Prefab = Resources.Load<GameObject>(UserUtils.TutorialCollectName);
+            else
+                Prefab  = Resources.Load<GameObject>(Stage.StageName);
+
+            Prefab = Instantiate(Prefab);
+            _collectStagePrefab = Prefab.GetComponent<CollectStagePrefab>();
             _maskHandler.Init(PauseHandler, _collectStagePrefab.Renderer, _collectStagePrefab.TableMaterial);
             _playerInput.Init(PauseHandler);
             _enemyFactory.Init(PauseHandler, AudioPlayerSpawner, _factoryConfig, _collectStagePrefab.Config.BossConfig, 
@@ -89,6 +95,7 @@ namespace Assets.Sources.Level
             _player.gameObject.SetActive(true);
             Stage.Init(PauseHandler, AudioPlayerSpawner);
             _collectStagePrefab.FenceColorizer.ColorizeFence(_collectStagePrefab.ColorReference);
+            StartCoroutine(DelayedCubesDropDown());
         }
 
         private protected override void OnLoadWindowUpdated()
@@ -101,6 +108,13 @@ namespace Assets.Sources.Level
         {
             if (_navMeshInstance.valid)
                 _navMeshInstance.Remove();
+        }
+
+        private IEnumerator DelayedCubesDropDown()
+        {
+            yield return new WaitForSeconds(1);
+
+            _simpleCubeSpawner.DropCubes();
         }
     }
 }

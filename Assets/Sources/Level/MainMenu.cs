@@ -16,6 +16,7 @@ namespace Assets.Sources.Level
         [SerializeField] private MenuWindow _default;
         [SerializeField] private MenuWindow[] _windows;
         [SerializeField] private Button _start;
+        [SerializeField] private Button _tutorial;
         [SerializeField] private Button[] _buttons;
         [SerializeField] private Toggle[] _toggles;
         [SerializeField] private AudioSource _buttonSound;
@@ -38,12 +39,14 @@ namespace Assets.Sources.Level
                 toggle.onValueChanged.AddListener(OnToggleChanged);
 
             _start.onClick.AddListener(OnStartClicked);
+            _tutorial.onClick.AddListener(OnTutorialClicked);
         }
 
         private void OnDisable()
         {
             _levelSelector.PlayClicked -= OnPlayClicked;
             _start.onClick.RemoveListener(OnStartClicked);
+            _tutorial.onClick.RemoveListener(OnTutorialClicked);
 
             foreach (MenuWindow menuWindow in _windows)
             {
@@ -66,6 +69,10 @@ namespace Assets.Sources.Level
                 OnYGReady();
 
             Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
+
+            if (IsTutorial)
+                Progress.SetTutorial(false);
+
             SaveSystem.SavePlayerProgress(Progress);
             _default.Show();
         }
@@ -81,6 +88,13 @@ namespace Assets.Sources.Level
         }
 
         private void OnStartClicked() => SceneManager.LoadScene(UserUtils.Collect);
+
+        private void OnTutorialClicked()
+        {
+            Progress.SetTutorial(true);
+            SaveSystem.SavePlayerProgress(Progress);
+            OnStartClicked();
+        }
 
         private void OnButtonClick() => _buttonSound.Play();
         private void OnToggleChanged(bool value)

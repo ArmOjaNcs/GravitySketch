@@ -21,10 +21,9 @@ namespace Assets.Sources.PlayerScripts
             _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionX;
             _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionZ;
             _rigidbody.interpolation = RigidbodyInterpolation.None;
-            _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+            _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             _rigidbody.isKinematic = true;
             _rigidbody.useGravity = false;
-            Vector3 position = _transform.position;
             _baseLocalScale = _transform.localScale;
             _transform.SetParent(null);
         }

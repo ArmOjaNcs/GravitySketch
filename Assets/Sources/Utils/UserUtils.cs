@@ -23,6 +23,8 @@ namespace Assets.Sources.Utils
         public const int MatchScore = 500;
         public const int ShowScore = 5000;
 
+        public const string TutorialCollectName = "Smiley";
+        public const string TutorialPaintName = "SmileyPaint";
         public const string TotalScore = "Total score";
         public const string CollectScore = "Collect score: ";
         public const string PaintScore = "Paint score: ";
@@ -237,14 +239,14 @@ namespace Assets.Sources.Utils
                defaultScale.z / One * targetLossyScale.z
                );
 
-            correctedScale *= 1.2f;
+            correctedScale *= 1.3f;
 
             return correctedScale;
         }
 
         public static float GetCorrectRadius(float radius)
         {
-            radius *= 1.2f;
+            radius *= 1.3f;
             radius /= Two;
             return radius;
         }

@@ -35,7 +35,7 @@ namespace Assets.Sources.Table
                 }
             }
 
-            string assetPath = "Assets/Resources/ScriptableAssets/PlanetColorReference.asset";
+            string assetPath = "Assets/Resources/ScriptableAssets/SmileyReference.asset";
             AssetDatabase.CreateAsset(materialReference, assetPath);
             EditorUtility.SetDirty(materialReference);
             AssetDatabase.SaveAssets();

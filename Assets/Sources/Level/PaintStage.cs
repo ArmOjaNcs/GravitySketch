@@ -173,7 +173,7 @@ namespace Assets.Sources.Level
             referenceAndAutoPaint.gameObject.SetActive(false);
             _aim.SetActive(false);
 
-            if (UserUtils.TryGetNextStageName(StageName, out string nextStageName))
+            if (IsTutorial == false && UserUtils.TryGetNextStageName(StageName, out string nextStageName))
             {
                 _toNextLevel.gameObject.SetActive(true);
                 _nextStageName = nextStageName;
@@ -200,17 +200,21 @@ namespace Assets.Sources.Level
 
         private protected override void OnMainMenuApplied()
         {
-            if (_isFinished)
+            if(IsTutorial == false)
             {
-                if (_nextStageName != string.Empty)
-                    Progress.SetStageName(_nextStageName);
-            }
-            else
-            {
-                Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
-            }
+                if (_isFinished)
+                {
+                    if (_nextStageName != string.Empty)
+                        Progress.SetStageName(_nextStageName);
+                }
+                else 
+                {
+                    Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
+                }
 
-            SaveSystem.SavePlayerProgress(Progress);
+                SaveSystem.SavePlayerProgress(Progress);
+            }
+            
             base.OnMainMenuApplied();
         }
 

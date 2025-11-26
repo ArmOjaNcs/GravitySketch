@@ -20,8 +20,8 @@ namespace Assets.Sources.Dissolvable
         private Rigidbody _rigidbody;
         private AudioPlayerSpawner _audioPlayerSpawner;
         private bool _isDropped;
+        private bool _isStarted;
         private bool _wasPlayingBeforePause;
-        private float _defaultMass;
         private float _dissolveAnimationTime;
         private int _totalCollisionsCount;
         private int _previousCollisionsCount;
@@ -49,7 +49,6 @@ namespace Assets.Sources.Dissolvable
             _rigidbody = GetComponent<Rigidbody>();
             _rigidbody.isKinematic = true;
             _rigidbody.mass = 1f;
-            _defaultMass = _rigidbody.mass;
         }
 
         private protected override void OnDisable()
@@ -64,6 +63,12 @@ namespace Assets.Sources.Dissolvable
         {
             if (IsPaused || collision.collider.gameObject.layer == UserUtils.PipeLayer || _audioPlayerSpawner == null)
                 return;
+
+            if(_isStarted == false)
+            {
+                _isStarted = true;
+                return;
+            }
 
             if (_collisionSound != null && _isDropped)
             {
@@ -161,7 +166,7 @@ namespace Assets.Sources.Dissolvable
             }
 
             _isDropped = true;
-            gameObject.layer = UserUtils.FallingLayer;
+            gameObject.layer = UserUtils.NormalLayer;
         }
 
         public virtual void Dissolve(Transform hole)
@@ -172,7 +177,7 @@ namespace Assets.Sources.Dissolvable
             IsDissolving = true;
 
             if (Mathf.Approximately(_dissolveAnimationTime, 0))
-                _dissolveAnimationTime = UserUtils.Three;
+                _dissolveAnimationTime = UserUtils.One + UserUtils.HalfUnit;
 
             DissolveAnimation = AnimationSpawner.GetDissolveAnimation(transform, _dissolveAnimationTime);
             _hole = hole;

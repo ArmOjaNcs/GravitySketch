@@ -14,6 +14,7 @@ namespace Assets.Sources.Level
         public IReadOnlyList<Color> CurrentColors => Progress.CurrentColors;
         public int ColorsCount => Progress.ColorsCount;
         public string StageName => Progress.StageName;
+        public bool IsTutorial => Progress.IsTutorial; 
 
         private protected virtual void Awake()
         {

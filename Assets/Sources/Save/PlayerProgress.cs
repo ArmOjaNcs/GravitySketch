@@ -15,6 +15,7 @@ namespace Assets.Sources.Save
         [SerializeField] private List<Color> _currentColors;
         [SerializeField] private int _currentScore;
         [SerializeField] private string _stageName;
+        [SerializeField] private bool _isTutorial;
 
         public PlayerProgress()
         {
@@ -29,6 +30,7 @@ namespace Assets.Sources.Save
         public IReadOnlyList<Color> CurrentColors => _currentColors;
         public int ColorsCount => _currentColors.Count;
         public string StageName => _stageName;
+        public bool IsTutorial => _isTutorial;
 
         public void SetIntermediateResult(int score, List<Color> colors)
         {
@@ -36,8 +38,13 @@ namespace Assets.Sources.Save
             _currentColors = colors;
         }
 
+        public void SetTutorial(bool isTutorial) => _isTutorial = isTutorial;
+
         public void UpdateLevelScore(string levelName, int score)
         {
+            if (_isTutorial)
+                return;
+
             if (IsHasLevel(levelName, out LevelData levelScore))
             {
                 levelScore.UpdateScore(score);

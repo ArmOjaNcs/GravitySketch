@@ -1,4 +1,3 @@
-using Assets.Sources.Dissolvable;
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.Pause;
 using Assets.Sources.SimpleCubeScripts;
@@ -62,15 +61,7 @@ namespace Assets.Sources.PlayerScripts
 
                 if (_objectsInGravityCatch.Contains(other.gameObject) == false)
                     _objectsInGravityCatch.Add(other.gameObject);
-
-                DissolvableObject dissolvableObject = other.GetComponentInParent<DissolvableObject>();
-
-                if (dissolvableObject != null)
-                    dissolvableObject.SetSpeculative();
             }
-
-            if (other.TryGetComponent(out SimpleCube simpleCube))
-                simpleCube.DropDown();
         }
 
         private void OnTriggerExit(Collider other)
@@ -82,11 +73,6 @@ namespace Assets.Sources.PlayerScripts
 
                 if (_objectsInGravityCatch.Contains(other.gameObject))
                     _objectsInGravityCatch.Remove(other.gameObject);
-
-                DissolvableObject dissolvableObject = other.GetComponentInParent<DissolvableObject>();
-
-                if (dissolvableObject != null)
-                    dissolvableObject.SetDynamic();
             }
 
             if (other.TryGetComponent(out Enemy enemy))

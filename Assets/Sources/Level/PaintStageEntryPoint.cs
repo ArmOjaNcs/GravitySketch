@@ -1,6 +1,7 @@
 using Assets.Sources.ColorizerScripts;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.UI;
+using Assets.Sources.Utils;
 using UnityEngine;
 
 namespace Assets.Sources.Level
@@ -18,10 +19,14 @@ namespace Assets.Sources.Level
 
         private protected override void Initialize()
         {
-            GameObject prefab = Resources.Load<GameObject>(Stage.StageName);
+            if(Stage.IsTutorial)
+                Prefab = Resources.Load<GameObject>(UserUtils.TutorialPaintName);
+            else
+                Prefab = Resources.Load<GameObject>(Stage.StageName);
+
             Debug.Log($"Stage name {Stage.StageName}");
-            prefab = Instantiate(prefab);
-            _paintStagePrefab = prefab.GetComponent<PaintStagePrefab>();
+            Prefab = Instantiate(Prefab);
+            _paintStagePrefab = Prefab.GetComponent<PaintStagePrefab>();
             _holeMover.Init(_paintStagePrefab.TableMaterial);
             _tableRenderer.material = _paintStagePrefab.TableMaterial;
             _colorizerView.Init(PauseHandler);

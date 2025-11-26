@@ -16,6 +16,7 @@ namespace Assets.Sources.Level
         [SerializeField] private LoadWindow _loadWindow;
 
         private protected PauseHandler PauseHandler;
+        private protected GameObject Prefab;
 
         private void Start()
         {

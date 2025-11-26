@@ -81,6 +81,12 @@ namespace Assets.Sources.SimpleCubeScripts
             ApplyColors();
         }
 
+        public void DropCubes()
+        {
+            foreach (SimpleCube simpleCube in _spawnedCubes)
+                simpleCube.DropDown();
+        }
+
         private void ApplyColors()
         {
             List<Color> colors = _materialReference.GetAllColors();

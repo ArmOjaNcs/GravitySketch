@@ -23,6 +23,7 @@ namespace Assets.Sources.PlayerScripts
         private Transform _transform;
         private SphereCollider _sphereCollider;
         private bool _isFinished;
+        private bool _isTutorial;
 
         public event Action IsDead;
         public event Action Damaged;
@@ -60,24 +61,31 @@ namespace Assets.Sources.PlayerScripts
         }
 
         public void SetFinished() => _isFinished = true;
+        public void SetTutorial() => _isTutorial = true;
 
         public void TakeDamage(float damage)
         {
             if (_isFinished)
                 return;
 
-            //if (damage <= 0 || _shield.IsDefended)
-            //    return;
+            if (damage <= 0 || _shield.IsDefended)
+                return;
 
-            //_health.TakeDamage(damage);
-            //_audioPlayer.Play();
-            //Damaged?.Invoke();
+            _health.TakeDamage(damage);
+            _audioPlayer.Play();
+            Damaged?.Invoke();
 
-            //if (_health.CurrentValue == 0)
-            //{
-            //    Die();
-            //    IsDead?.Invoke();
-            //}
+            if (_health.CurrentValue == 0)
+            {
+                if (_isTutorial)
+                {
+                    _health.TakeHeal(50);
+                    return;
+                }
+
+                Die();
+                IsDead?.Invoke();
+            }
         }
 
         private void Die()

@@ -82,6 +82,12 @@ namespace Assets.Sources.Level
 
         private protected virtual void OnMainMenuApplied()
         {
+            if (IsTutorial)
+            {
+                Progress.SetTutorial(false);
+                SaveSystem.SavePlayerProgress(Progress);
+            }
+
             AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
             Finish();
             Window.Closed += LoadMainMenu;

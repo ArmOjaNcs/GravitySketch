@@ -50,7 +50,7 @@ namespace Assets.Sources.Table
                     templateCube.AddComponent<DissolvableObstacle>();
                     DissolvableObstacle dissolvableObstacle = templateCube.GetComponent<DissolvableObstacle>();
                     dissolvableObstacle.Init(pauseHandler);
-                    dissolvableObstacle.SetDissolveAnimationTime(UserUtils.HalfUnit);
+                    dissolvableObstacle.SetDissolveAnimationTime(UserUtils.One + UserUtils.HalfUnit);
                     dissolvableObstacle.DropDown();
                 }
             }
