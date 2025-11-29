@@ -43,11 +43,15 @@ namespace Assets.Sources.PlayerScripts
         private void OnEnable()
         {
             _takeOverLimit.MedAidAbsorbed += OnMedAidAbsorbed;
+            _takeOverLimit.ObstacleDissolved += OnObstacleDissolved;
+            _takeOverLimit.BarrierDissolved += OnBarrierDissolved; 
         }
 
         private void OnDisable()
         {
             _takeOverLimit.MedAidAbsorbed -= OnMedAidAbsorbed;
+            _takeOverLimit.ObstacleDissolved -= OnObstacleDissolved;
+            _takeOverLimit.BarrierDissolved -= OnBarrierDissolved;
         }
 
         public void Init(PauseHandler pauseHandler)
@@ -71,6 +75,10 @@ namespace Assets.Sources.PlayerScripts
             if (damage <= 0 || _shield.IsDefended)
                 return;
 
+            float defencePercent = _shield.Defence / 10;
+            defencePercent = Mathf.Clamp(defencePercent, 0, 0.75f);
+            damage = damage - defencePercent * damage;
+            damage = Mathf.Round(damage);
             _health.TakeDamage(damage);
             _audioPlayer.Play();
             Damaged?.Invoke();
@@ -100,6 +108,15 @@ namespace Assets.Sources.PlayerScripts
         private void OnMedAidAbsorbed(float healPower)
         {
             _health.TakeHeal(healPower);
+        }
+
+        private void OnBarrierDissolved() => _health.TakeHeal(UserUtils.One);
+
+        private void OnObstacleDissolved(int size)
+        {
+            float heal = size/2;
+            Mathf.Round(heal);
+            _health.TakeHeal(heal);
         }
     }
 }

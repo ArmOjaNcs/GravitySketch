@@ -6,6 +6,7 @@ namespace Assets.Sources.Dissolvable
     public class DissolvableObstacle : DissolvableObject
     {
         [SerializeField] private protected GameObject CollidersHolder = null;
+        [SerializeField] private protected bool IsValidTag = false;
 
         private protected override void Awake()
         {
@@ -19,7 +20,9 @@ namespace Assets.Sources.Dissolvable
             base.DropDown();
             
             SetLayerRecursively(gameObject, UserUtils.NormalLayer);
-            SetTagRecursively(gameObject, UserUtils.Dropped);
+
+            if(IsValidTag == false)
+                SetTagRecursively(gameObject, UserUtils.Dropped);
         }
 
         public override void Dissolve(Transform hole)

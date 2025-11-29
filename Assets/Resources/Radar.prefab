@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4299917138501376239}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 7593407653549372811}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -291,7 +291,7 @@ GameObject:
   - component: {fileID: 8147127848376811055}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 324386453288391511}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 1505142886131005893}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 2738607783603593652}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -678,6 +678,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &162660936501509459
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,7 +692,7 @@ GameObject:
   - component: {fileID: 2490051541118278813}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -775,7 +776,7 @@ GameObject:
   - component: {fileID: 1422774249480585770}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -882,7 +883,7 @@ GameObject:
   - component: {fileID: 4083905266122193439}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1017,6 +1018,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &175803265100567042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1030,7 +1032,7 @@ GameObject:
   - component: {fileID: 8198141429836693311}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1113,7 +1115,7 @@ GameObject:
   - component: {fileID: 3959865365443796390}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1196,7 +1198,7 @@ GameObject:
   - component: {fileID: 4149919920693574685}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1279,7 +1281,7 @@ GameObject:
   - component: {fileID: 3849021946029879242}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1363,7 +1365,7 @@ GameObject:
   - component: {fileID: 7413623238595377762}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1467,7 +1469,7 @@ GameObject:
   - component: {fileID: 8754856464566698927}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1551,7 +1553,7 @@ GameObject:
   - component: {fileID: 5909306965783029068}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1655,7 +1657,7 @@ GameObject:
   - component: {fileID: 3874873830962725714}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -1736,12 +1738,15 @@ GameObject:
   - component: {fileID: 5786184011526622723}
   - component: {fileID: 6239292627662181413}
   - component: {fileID: 4918164550007946436}
+  - component: {fileID: 5403888072767908472}
+  - component: {fileID: 7468782706712551970}
+  - component: {fileID: 6802049670165102621}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5786184011526622723
 Transform:
@@ -1756,7 +1761,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6239292627662181413
 MeshFilter:
@@ -1786,7 +1791,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1808,6 +1813,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &5403888072767908472
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390935510902687905}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7468782706712551970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390935510902687905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &6802049670165102621
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390935510902687905}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &403014060030567553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1824,7 +1895,7 @@ GameObject:
   - component: {fileID: 9125304552293246196}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1959,6 +2030,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &411526052119741103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1972,7 +2044,7 @@ GameObject:
   - component: {fileID: 3460867088906029489}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2056,7 +2128,7 @@ GameObject:
   - component: {fileID: 4271593058300702863}
   m_Layer: 12
   m_Name: Barrier(Clone) (1)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2160,7 +2232,7 @@ GameObject:
   - component: {fileID: 8225776646323760672}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2246,7 +2318,7 @@ GameObject:
   - component: {fileID: 1142197432682307642}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2381,6 +2453,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &556899691216215679
 GameObject:
   m_ObjectHideFlags: 0
@@ -2394,7 +2467,7 @@ GameObject:
   - component: {fileID: 3193129111237426803}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2477,7 +2550,7 @@ GameObject:
   - component: {fileID: 7400816654541291093}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2561,7 +2634,7 @@ GameObject:
   - component: {fileID: 4179660073477582355}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2665,7 +2738,7 @@ GameObject:
   - component: {fileID: 8591939600597019871}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2838,7 +2911,7 @@ GameObject:
   - component: {fileID: 1799038634882035497}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2921,7 +2994,7 @@ GameObject:
   - component: {fileID: 6548921252907441373}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3004,7 +3077,7 @@ GameObject:
   - component: {fileID: 2833678256385532350}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3087,7 +3160,7 @@ GameObject:
   - component: {fileID: 7904547666375542060}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3170,7 +3243,7 @@ GameObject:
   - component: {fileID: 7104363947478278467}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3253,7 +3326,7 @@ GameObject:
   - component: {fileID: 5054858676361030353}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3336,7 +3409,7 @@ GameObject:
   - component: {fileID: 2387382423184887681}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3419,7 +3492,7 @@ GameObject:
   - component: {fileID: 1420084236058532409}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3502,7 +3575,7 @@ GameObject:
   - component: {fileID: 1147480371402684100}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3588,7 +3661,7 @@ GameObject:
   - component: {fileID: 6921914628182669261}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3723,6 +3796,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &771973218727357035
 GameObject:
   m_ObjectHideFlags: 0
@@ -3737,7 +3811,7 @@ GameObject:
   - component: {fileID: 100760721835421749}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3841,7 +3915,7 @@ GameObject:
   - component: {fileID: 6724792826316895419}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3927,7 +4001,7 @@ GameObject:
   - component: {fileID: 3997237784695881262}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4062,6 +4136,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &792007338633403543
 GameObject:
   m_ObjectHideFlags: 0
@@ -4078,7 +4153,7 @@ GameObject:
   - component: {fileID: 5933285010439999663}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4213,6 +4288,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &795736382520076076
 GameObject:
   m_ObjectHideFlags: 0
@@ -4272,7 +4348,7 @@ GameObject:
   - component: {fileID: 8700292973082096286}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -4376,7 +4452,7 @@ GameObject:
   - component: {fileID: 7415367695437797185}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -4460,7 +4536,7 @@ GameObject:
   - component: {fileID: 2093895341104713568}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -4565,7 +4641,7 @@ GameObject:
   - component: {fileID: 5815433461437872828}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -4670,7 +4746,7 @@ GameObject:
   - component: {fileID: 2290140696759682376}
   m_Layer: 12
   m_Name: Barrier(Clone) (1)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -4820,7 +4896,7 @@ GameObject:
   - component: {fileID: 1838812080714066787}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -4909,8 +4985,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.4908, y: 200, z: 1}
-  m_Center: {x: 1.9652333, y: 90, z: -1.2172192e-14}
+  m_Size: {x: 6.325191, y: 200, z: 1.3792676}
+  m_Center: {x: 1.9652343, y: 90, z: 0.18963385}
 --- !u!1 &1018594797793319315
 GameObject:
   m_ObjectHideFlags: 0
@@ -4969,7 +5045,7 @@ GameObject:
   - component: {fileID: 3728025498941301089}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -5055,7 +5131,7 @@ GameObject:
   - component: {fileID: 7248465668358116164}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5190,6 +5266,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &1081600039949561505
 GameObject:
   m_ObjectHideFlags: 0
@@ -5203,7 +5280,7 @@ GameObject:
   - component: {fileID: 8444678879366860146}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -5287,7 +5364,7 @@ GameObject:
   - component: {fileID: 11224502106706912}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -5376,8 +5453,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 200, z: 1.4770325}
-  m_Center: {x: 0, y: 90, z: 0.2367096}
+  m_Size: {x: 1, y: 200, z: 2.311421}
+  m_Center: {x: 0, y: 90, z: 0.6539037}
 --- !u!1 &1112164687099856007
 GameObject:
   m_ObjectHideFlags: 0
@@ -5389,12 +5466,15 @@ GameObject:
   - component: {fileID: 3245583204769226795}
   - component: {fileID: 8014341096893902744}
   - component: {fileID: 8492542015057070175}
+  - component: {fileID: 795178612818998312}
+  - component: {fileID: 7603525544741962616}
+  - component: {fileID: 8794281896393280890}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3245583204769226795
 Transform:
@@ -5409,7 +5489,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8014341096893902744
 MeshFilter:
@@ -5439,7 +5519,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5461,6 +5541,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &795178612818998312
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112164687099856007}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7603525544741962616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112164687099856007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &8794281896393280890
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112164687099856007}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1121273515960680146
 GameObject:
   m_ObjectHideFlags: 0
@@ -5519,7 +5665,7 @@ GameObject:
   - component: {fileID: 4834885782163312057}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -5603,7 +5749,7 @@ GameObject:
   - component: {fileID: 1883454167108001066}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -5708,7 +5854,7 @@ GameObject:
   - component: {fileID: 6068106414698834136}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -5812,7 +5958,7 @@ GameObject:
   - component: {fileID: 4953026891586632241}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -5895,7 +6041,7 @@ GameObject:
   - component: {fileID: 8891565651592538662}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -5978,7 +6124,7 @@ GameObject:
   - component: {fileID: 2071184620334148317}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -6062,7 +6208,7 @@ GameObject:
   - component: {fileID: 2290559582735974810}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -6169,7 +6315,7 @@ GameObject:
   - component: {fileID: 124798834611761442}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6304,6 +6450,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &1242617858927316147
 GameObject:
   m_ObjectHideFlags: 0
@@ -6318,7 +6465,7 @@ GameObject:
   - component: {fileID: 1348040760725965139}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -6423,7 +6570,7 @@ GameObject:
   - component: {fileID: 3705802641177239462}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -6512,8 +6659,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.1999407, y: 200, z: 1}
-  m_Center: {x: -1.8204707, y: 90, z: -9.6006916e-15}
+  m_Size: {x: 6.162212, y: 200, z: 1}
+  m_Center: {x: -1.6857533, y: 90, z: 4.4657068e-15}
 --- !u!1 &1260770442061906687
 GameObject:
   m_ObjectHideFlags: 0
@@ -6527,7 +6674,7 @@ GameObject:
   - component: {fileID: 1719327328516198513}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -6608,12 +6755,15 @@ GameObject:
   - component: {fileID: 3597643241676548683}
   - component: {fileID: 4901512728826026925}
   - component: {fileID: 6748381191703071869}
+  - component: {fileID: 8950524789080725121}
+  - component: {fileID: 511707961191418320}
+  - component: {fileID: 1374731697789023504}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3597643241676548683
 Transform:
@@ -6628,7 +6778,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4901512728826026925
 MeshFilter:
@@ -6658,7 +6808,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6680,6 +6830,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &8950524789080725121
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263731363443396003}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &511707961191418320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263731363443396003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &1374731697789023504
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263731363443396003}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1266797137943611904
 GameObject:
   m_ObjectHideFlags: 0
@@ -6694,7 +6910,7 @@ GameObject:
   - component: {fileID: 1326472821319149633}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -6783,8 +6999,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.38511, y: 200, z: 1.0518398}
-  m_Center: {x: 0.17361766, y: 90, z: 0.013557292}
+  m_Size: {x: 2.141757, y: 200, z: 1.4752413}
+  m_Center: {x: 0.55194116, y: 90, z: 0.22525808}
 --- !u!1 &1274597340631541179
 GameObject:
   m_ObjectHideFlags: 0
@@ -6936,6 +7152,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &1275670453916593380
 GameObject:
   m_ObjectHideFlags: 0
@@ -6950,7 +7167,7 @@ GameObject:
   - component: {fileID: 6138413198019948822}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -7057,7 +7274,7 @@ GameObject:
   - component: {fileID: 182078732593711733}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7192,6 +7409,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &1292104232198296029
 GameObject:
   m_ObjectHideFlags: 0
@@ -7205,7 +7423,7 @@ GameObject:
   - component: {fileID: 3370698731821070404}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -7288,7 +7506,7 @@ GameObject:
   - component: {fileID: 315215111648962459}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -7416,7 +7634,7 @@ GameObject:
   - component: {fileID: 2865467146126082251}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -7499,7 +7717,7 @@ GameObject:
   - component: {fileID: 2697987468510154241}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -7582,7 +7800,7 @@ GameObject:
   - component: {fileID: 1337357082888397631}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -7665,7 +7883,7 @@ GameObject:
   - component: {fileID: 146342389998048920}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -7751,7 +7969,7 @@ GameObject:
   - component: {fileID: 3329436671233721376}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7886,6 +8104,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &1409052827398040055
 GameObject:
   m_ObjectHideFlags: 0
@@ -7897,12 +8116,15 @@ GameObject:
   - component: {fileID: 3770411877266274771}
   - component: {fileID: 4980934709693387455}
   - component: {fileID: 6468281461796460914}
+  - component: {fileID: 7949888258394036393}
+  - component: {fileID: 5394107445928882178}
+  - component: {fileID: 1625066439830844500}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3770411877266274771
 Transform:
@@ -7917,7 +8139,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4980934709693387455
 MeshFilter:
@@ -7947,7 +8169,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7969,6 +8191,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &7949888258394036393
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409052827398040055}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5394107445928882178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409052827398040055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &1625066439830844500
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409052827398040055}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1419023761087917597
 GameObject:
   m_ObjectHideFlags: 0
@@ -7982,7 +8270,7 @@ GameObject:
   - component: {fileID: 5824822498070376270}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8065,7 +8353,7 @@ GameObject:
   - component: {fileID: 5941430368334236574}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8148,7 +8436,7 @@ GameObject:
   - component: {fileID: 4688040406652493136}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8231,7 +8519,7 @@ GameObject:
   - component: {fileID: 6139639213767855695}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8314,7 +8602,7 @@ GameObject:
   - component: {fileID: 3810671524824477366}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8440,12 +8728,15 @@ GameObject:
   - component: {fileID: 7503641487256046516}
   - component: {fileID: 657977273219495672}
   - component: {fileID: 8218619516441299321}
+  - component: {fileID: 1705626034783134202}
+  - component: {fileID: 4325314352886614}
+  - component: {fileID: 9221078304835161926}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7503641487256046516
 Transform:
@@ -8460,7 +8751,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &657977273219495672
 MeshFilter:
@@ -8490,7 +8781,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8512,6 +8803,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &1705626034783134202
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537029655921650334}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &4325314352886614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537029655921650334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &9221078304835161926
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1537029655921650334}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1537276301531045442
 GameObject:
   m_ObjectHideFlags: 0
@@ -8528,7 +8885,7 @@ GameObject:
   - component: {fileID: 2918934467356233889}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8663,6 +9020,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &1572226147073698877
 GameObject:
   m_ObjectHideFlags: 0
@@ -8674,12 +9032,15 @@ GameObject:
   - component: {fileID: 3435407591798043884}
   - component: {fileID: 6295615767502672573}
   - component: {fileID: 2241343128396412072}
+  - component: {fileID: 4522891250105469159}
+  - component: {fileID: 4075275909741204561}
+  - component: {fileID: 5868453343849894200}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3435407591798043884
 Transform:
@@ -8694,7 +9055,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6295615767502672573
 MeshFilter:
@@ -8724,7 +9085,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8746,6 +9107,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &4522891250105469159
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572226147073698877}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &4075275909741204561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572226147073698877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &5868453343849894200
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572226147073698877}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1605262584393026120
 GameObject:
   m_ObjectHideFlags: 0
@@ -8759,7 +9186,7 @@ GameObject:
   - component: {fileID: 6283802896028802705}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8842,7 +9269,7 @@ GameObject:
   - component: {fileID: 5753342400039470367}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -8926,7 +9353,7 @@ GameObject:
   - component: {fileID: 5831721395961981480}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9030,7 +9457,7 @@ GameObject:
   - component: {fileID: 6253457021475386193}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9114,7 +9541,7 @@ GameObject:
   - component: {fileID: 6880089556095572881}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9218,7 +9645,7 @@ GameObject:
   - component: {fileID: 6843848905700132912}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9302,7 +9729,7 @@ GameObject:
   - component: {fileID: 530769794937822478}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9406,7 +9833,7 @@ GameObject:
   - component: {fileID: 7707556194118020080}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9489,7 +9916,7 @@ GameObject:
   - component: {fileID: 4454437414401067893}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9573,7 +10000,7 @@ GameObject:
   - component: {fileID: 8924154720821347387}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9678,7 +10105,7 @@ GameObject:
   - component: {fileID: 7205429587147383995}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9767,8 +10194,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 200, z: 1}
-  m_Center: {x: 0, y: 90, z: 0}
+  m_Size: {x: 1.8372674, y: 200, z: 1.5321277}
+  m_Center: {x: -0.41863382, y: 90, z: 0.26606393}
 --- !u!1 &1777734993201008079
 GameObject:
   m_ObjectHideFlags: 0
@@ -9827,7 +10254,7 @@ GameObject:
   - component: {fileID: 8811309360360968655}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -9910,7 +10337,7 @@ GameObject:
   - component: {fileID: 4111870857593646521}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -10038,7 +10465,7 @@ GameObject:
   - component: {fileID: 8949607402887265546}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -10124,7 +10551,7 @@ GameObject:
   - component: {fileID: 7271529652928233655}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10259,6 +10686,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &1879707432747180006
 GameObject:
   m_ObjectHideFlags: 0
@@ -10272,7 +10700,7 @@ GameObject:
   - component: {fileID: 410297981157258850}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -10356,7 +10784,7 @@ GameObject:
   - component: {fileID: 8278985163493120399}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -10461,7 +10889,7 @@ GameObject:
   - component: {fileID: 7503156359372705352}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -10655,7 +11083,7 @@ GameObject:
   - component: {fileID: 1219620962905557419}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -10738,7 +11166,7 @@ GameObject:
   - component: {fileID: 19212489839130301}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -10824,7 +11252,7 @@ GameObject:
   - component: {fileID: 8343993566058614196}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10959,6 +11387,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &1965124820591010417
 GameObject:
   m_ObjectHideFlags: 0
@@ -10972,7 +11401,7 @@ GameObject:
   - component: {fileID: 8118553096943658133}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -11055,7 +11484,7 @@ GameObject:
   - component: {fileID: 3340206989289050307}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -11141,7 +11570,7 @@ GameObject:
   - component: {fileID: 4740958981307160045}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11276,6 +11705,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &2004989002047380871
 GameObject:
   m_ObjectHideFlags: 0
@@ -11289,7 +11719,7 @@ GameObject:
   - component: {fileID: 7331131336399438959}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -11373,7 +11803,7 @@ GameObject:
   - component: {fileID: 8486645770381516120}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -11477,7 +11907,7 @@ GameObject:
   - component: {fileID: 4958372636194174639}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -11561,7 +11991,7 @@ GameObject:
   - component: {fileID: 197187046120679648}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12141,7 +12571,7 @@ GameObject:
   - component: {fileID: 111005161710697696}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12227,7 +12657,7 @@ GameObject:
   - component: {fileID: 7901966753140862574}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12362,6 +12792,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &2168988999959398706
 GameObject:
   m_ObjectHideFlags: 0
@@ -12375,7 +12806,7 @@ GameObject:
   - component: {fileID: 5637623071701601518}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12458,7 +12889,7 @@ GameObject:
   - component: {fileID: 279939420042207062}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12544,7 +12975,7 @@ GameObject:
   - component: {fileID: 8911645144983255048}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12679,6 +13110,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &2181408474405423251
 GameObject:
   m_ObjectHideFlags: 0
@@ -12693,7 +13125,7 @@ GameObject:
   - component: {fileID: 6779553265416680690}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12795,12 +13227,15 @@ GameObject:
   - component: {fileID: 665679957903493384}
   - component: {fileID: 6885611791365157169}
   - component: {fileID: 4260005254266043735}
+  - component: {fileID: 6394568902829472709}
+  - component: {fileID: 5440650617402292585}
+  - component: {fileID: 7687375178854214359}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &665679957903493384
 Transform:
@@ -12815,7 +13250,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6885611791365157169
 MeshFilter:
@@ -12845,7 +13280,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -12867,6 +13302,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &6394568902829472709
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2187111812122538651}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5440650617402292585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2187111812122538651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &7687375178854214359
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2187111812122538651}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2218102212327251998
 GameObject:
   m_ObjectHideFlags: 0
@@ -12880,7 +13381,7 @@ GameObject:
   - component: {fileID: 6674173508377108811}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -12963,7 +13464,7 @@ GameObject:
   - component: {fileID: 6659701133515832002}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -13049,7 +13550,7 @@ GameObject:
   - component: {fileID: 5777272733200186525}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13184,6 +13685,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &2294713644031375284
 GameObject:
   m_ObjectHideFlags: 0
@@ -13198,7 +13700,7 @@ GameObject:
   - component: {fileID: 6174091654785629987}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -13305,7 +13807,7 @@ GameObject:
   - component: {fileID: 3471205200146902922}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13440,6 +13942,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &2353078300920097541
 GameObject:
   m_ObjectHideFlags: 0
@@ -13453,7 +13956,7 @@ GameObject:
   - component: {fileID: 3849473194472566219}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -13539,7 +14042,7 @@ GameObject:
   - component: {fileID: 1097364162152032100}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13674,6 +14177,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &2404622072367222943
 GameObject:
   m_ObjectHideFlags: 0
@@ -13688,7 +14192,7 @@ GameObject:
   - component: {fileID: 4778491926727438703}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -13795,7 +14299,7 @@ GameObject:
   - component: {fileID: 1178386035943702194}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13930,6 +14434,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &2484372215614913423
 GameObject:
   m_ObjectHideFlags: 0
@@ -13983,7 +14488,7 @@ GameObject:
   - component: {fileID: 3132638040840594091}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -14087,7 +14592,7 @@ GameObject:
   - component: {fileID: 7732599714359903290}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -14215,7 +14720,7 @@ GameObject:
   - component: {fileID: 3158884518235683288}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -14296,12 +14801,15 @@ GameObject:
   - component: {fileID: 3773206144738825964}
   - component: {fileID: 3000277594642078546}
   - component: {fileID: 6683912825767339983}
+  - component: {fileID: 6004734345147184362}
+  - component: {fileID: 6446272942095816104}
+  - component: {fileID: 5624301419632280042}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3773206144738825964
 Transform:
@@ -14316,7 +14824,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3000277594642078546
 MeshFilter:
@@ -14346,7 +14854,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14368,6 +14876,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &6004734345147184362
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2525240991632058549}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &6446272942095816104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2525240991632058549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &5624301419632280042
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2525240991632058549}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2534509176841085069
 GameObject:
   m_ObjectHideFlags: 0
@@ -14384,7 +14958,7 @@ GameObject:
   - component: {fileID: 7945339004055499908}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14519,6 +15093,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &2552397902590349804
 GameObject:
   m_ObjectHideFlags: 0
@@ -14532,7 +15107,7 @@ GameObject:
   - component: {fileID: 237596440834502852}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -14616,7 +15191,7 @@ GameObject:
   - component: {fileID: 1648174136682943150}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -14720,7 +15295,7 @@ GameObject:
   - component: {fileID: 6235379400487214825}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -14803,7 +15378,7 @@ GameObject:
   - component: {fileID: 8805402859612803629}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -14889,7 +15464,7 @@ GameObject:
   - component: {fileID: 5717181895086337882}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15024,6 +15599,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &2628995352679719543
 GameObject:
   m_ObjectHideFlags: 0
@@ -15082,7 +15658,7 @@ GameObject:
   - component: {fileID: 3502750431820307456}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -15166,7 +15742,7 @@ GameObject:
   - component: {fileID: 291097650671697004}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -15270,7 +15846,7 @@ GameObject:
   - component: {fileID: 6332370805246156218}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -15354,7 +15930,7 @@ GameObject:
   - component: {fileID: 3457417877209736563}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -15443,8 +16019,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.99999714, y: 200, z: 1.1932615}
-  m_Center: {x: 0.0000022888185, y: 90, z: 0.09663065}
+  m_Size: {x: 0.99999714, y: 200, z: 1.6482544}
+  m_Center: {x: 0.0000022649765, y: 90, z: 0.32412714}
 --- !u!1 &2773084900566898514
 GameObject:
   m_ObjectHideFlags: 0
@@ -15461,7 +16037,7 @@ GameObject:
   - component: {fileID: 6585890653003059825}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15596,6 +16172,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &2816408615055640246
 GameObject:
   m_ObjectHideFlags: 0
@@ -15609,7 +16186,7 @@ GameObject:
   - component: {fileID: 6669592735360535829}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -15692,7 +16269,7 @@ GameObject:
   - component: {fileID: 3074210722734839178}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -15776,7 +16353,7 @@ GameObject:
   - component: {fileID: 1052356047494063871}
   m_Layer: 12
   m_Name: Barrier(Clone) (1)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -15880,7 +16457,7 @@ GameObject:
   - component: {fileID: 8780204326341541495}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -15964,7 +16541,7 @@ GameObject:
   - component: {fileID: 7161901996331539357}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16069,7 +16646,7 @@ GameObject:
   - component: {fileID: 1040952242883697335}
   m_Layer: 12
   m_Name: Barrier(Clone) (1)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16173,7 +16750,7 @@ GameObject:
   - component: {fileID: 7112351344885858253}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16256,7 +16833,7 @@ GameObject:
   - component: {fileID: 6637784495180801103}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16339,7 +16916,7 @@ GameObject:
   - component: {fileID: 2258722759919251560}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16422,7 +16999,7 @@ GameObject:
   - component: {fileID: 7936005059566174462}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16505,7 +17082,7 @@ GameObject:
   - component: {fileID: 4911608560211315041}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16591,7 +17168,7 @@ GameObject:
   - component: {fileID: 8356287069977515574}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16726,6 +17303,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &3080786309407588938
 GameObject:
   m_ObjectHideFlags: 0
@@ -16739,7 +17317,7 @@ GameObject:
   - component: {fileID: 1885402584249451955}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16822,7 +17400,7 @@ GameObject:
   - component: {fileID: 8840891939283317919}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16905,7 +17483,7 @@ GameObject:
   - component: {fileID: 926661367445570384}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -16988,7 +17566,7 @@ GameObject:
   - component: {fileID: 7756845542548308169}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -17071,7 +17649,7 @@ GameObject:
   - component: {fileID: 5732186835654182215}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -17157,7 +17735,7 @@ GameObject:
   - component: {fileID: 924028343425691047}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17292,6 +17870,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &3149921908112201519
 GameObject:
   m_ObjectHideFlags: 0
@@ -17305,7 +17884,7 @@ GameObject:
   - component: {fileID: 6682724247608488744}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -17388,7 +17967,7 @@ GameObject:
   - component: {fileID: 6254959608939451271}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -17506,7 +18085,7 @@ GameObject:
   - component: {fileID: 7699731392834408552}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17641,6 +18220,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &3255135566181129615
 GameObject:
   m_ObjectHideFlags: 0
@@ -17651,7 +18231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9035641349496533347}
   m_Layer: 12
-  m_Name: Circle
+  m_Name: DissolvableBarriers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17731,6 +18311,26 @@ Transform:
   - {fileID: 175856900514575233}
   - {fileID: 964073975383035808}
   - {fileID: 6541459370587295170}
+  - {fileID: 3138847093246575029}
+  - {fileID: 3245583204769226795}
+  - {fileID: 8511067501750833184}
+  - {fileID: 7512240108065269030}
+  - {fileID: 6755337428762180034}
+  - {fileID: 3770411877266274771}
+  - {fileID: 2080469764842774042}
+  - {fileID: 3597643241676548683}
+  - {fileID: 3435407591798043884}
+  - {fileID: 5786184011526622723}
+  - {fileID: 3773206144738825964}
+  - {fileID: 569007401606938203}
+  - {fileID: 7752262516939871673}
+  - {fileID: 4984671359245048455}
+  - {fileID: 7755020286549496898}
+  - {fileID: 665679957903493384}
+  - {fileID: 2158288597437015911}
+  - {fileID: 4455344435915903839}
+  - {fileID: 7503641487256046516}
+  - {fileID: 4636629396036852973}
   m_Father: {fileID: 1721594208757973764}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3271889201903890031
@@ -17746,7 +18346,7 @@ GameObject:
   - component: {fileID: 5918108512769596409}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -17829,7 +18429,7 @@ GameObject:
   - component: {fileID: 1908794014158679540}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -17912,7 +18512,7 @@ GameObject:
   - component: {fileID: 8552692808068051578}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -17995,7 +18595,7 @@ GameObject:
   - component: {fileID: 5668011368676877631}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -18079,7 +18679,7 @@ GameObject:
   - component: {fileID: 5852141598889571751}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -18186,7 +18786,7 @@ GameObject:
   - component: {fileID: 8402268488263521788}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18321,6 +18921,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &3352399594502486468
 GameObject:
   m_ObjectHideFlags: 0
@@ -18335,7 +18936,7 @@ GameObject:
   - component: {fileID: 4273198700919157689}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -18437,12 +19038,15 @@ GameObject:
   - component: {fileID: 2080469764842774042}
   - component: {fileID: 7676448323067918914}
   - component: {fileID: 8008497292143391275}
+  - component: {fileID: 7001961295618756463}
+  - component: {fileID: 6588278482966826576}
+  - component: {fileID: 3606804915161026631}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2080469764842774042
 Transform:
@@ -18457,7 +19061,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7676448323067918914
 MeshFilter:
@@ -18487,7 +19091,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18509,6 +19113,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &7001961295618756463
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3357130599675934457}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &6588278482966826576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3357130599675934457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &3606804915161026631
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3357130599675934457}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3365068036274267178
 GameObject:
   m_ObjectHideFlags: 0
@@ -18567,7 +19237,7 @@ GameObject:
   - component: {fileID: 2168900902758226013}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -18651,7 +19321,7 @@ GameObject:
   - component: {fileID: 3731785525467951415}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -18758,7 +19428,7 @@ GameObject:
   - component: {fileID: 8018261032846082665}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18893,6 +19563,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &3432221702838086490
 GameObject:
   m_ObjectHideFlags: 0
@@ -18906,7 +19577,7 @@ GameObject:
   - component: {fileID: 8481941431932135151}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -18989,7 +19660,7 @@ GameObject:
   - component: {fileID: 9180188491776220148}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -19118,7 +19789,7 @@ GameObject:
   - component: {fileID: 3169376793330846037}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -19225,7 +19896,7 @@ GameObject:
   - component: {fileID: 8086041776144258566}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19360,6 +20031,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &3652173707459310319
 GameObject:
   m_ObjectHideFlags: 0
@@ -19373,7 +20045,7 @@ GameObject:
   - component: {fileID: 5319894869349659662}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -19528,7 +20200,7 @@ GameObject:
   - component: {fileID: 8857215471078880000}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -19632,7 +20304,7 @@ GameObject:
   - component: {fileID: 5150527433653057206}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -19715,7 +20387,7 @@ GameObject:
   - component: {fileID: 9177578828649063244}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -19799,7 +20471,7 @@ GameObject:
   - component: {fileID: 5340020773048657335}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -19901,12 +20573,15 @@ GameObject:
   - component: {fileID: 8511067501750833184}
   - component: {fileID: 8928820672045623167}
   - component: {fileID: 4172490771403364083}
+  - component: {fileID: 6731657621522556993}
+  - component: {fileID: 2347280070361615968}
+  - component: {fileID: 5206639505063026776}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &8511067501750833184
 Transform:
@@ -19921,7 +20596,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8928820672045623167
 MeshFilter:
@@ -19951,7 +20626,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19973,6 +20648,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &6731657621522556993
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844506050944308478}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2347280070361615968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844506050944308478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &5206639505063026776
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3844506050944308478}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3847777791833210760
 GameObject:
   m_ObjectHideFlags: 0
@@ -19986,7 +20727,7 @@ GameObject:
   - component: {fileID: 5254717275787537000}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -20069,7 +20810,7 @@ GameObject:
   - component: {fileID: 8991999186356394120}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -20152,7 +20893,7 @@ GameObject:
   - component: {fileID: 2739585135837767645}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -20280,7 +21021,7 @@ GameObject:
   - component: {fileID: 2100706586856536363}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -20364,7 +21105,7 @@ GameObject:
   - component: {fileID: 1700310650493391860}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -20468,7 +21209,7 @@ GameObject:
   - component: {fileID: 5978920683224603890}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -20551,7 +21292,7 @@ GameObject:
   - component: {fileID: 3928831883374988740}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -20634,7 +21375,7 @@ GameObject:
   - component: {fileID: 800108014504846270}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -20763,7 +21504,7 @@ GameObject:
   - component: {fileID: 1798498485940417545}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -20868,7 +21609,7 @@ GameObject:
   - component: {fileID: 3585990260267488438}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -20972,7 +21713,7 @@ GameObject:
   - component: {fileID: 1067512471942568577}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -21055,7 +21796,7 @@ GameObject:
   - component: {fileID: 9176245212815599873}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -21138,7 +21879,7 @@ GameObject:
   - component: {fileID: 5621019796699490290}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -21219,13 +21960,15 @@ GameObject:
   - component: {fileID: 3138847093246575029}
   - component: {fileID: 1641694500816594925}
   - component: {fileID: 2187416779766570735}
-  - component: {fileID: 1182737830274661861}
+  - component: {fileID: 3619143236019647286}
+  - component: {fileID: 1204976024915283668}
+  - component: {fileID: 6129004010921046952}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &3138847093246575029
 Transform:
@@ -21240,7 +21983,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1641694500816594925
 MeshFilter:
@@ -21270,7 +22013,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -21292,7 +22035,52 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1182737830274661861
+--- !u!54 &3619143236019647286
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4171548973742030712}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1204976024915283668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4171548973742030712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &6129004010921046952
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -21311,8 +22099,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 9.36319, y: 200, z: 1}
-  m_Center: {x: 4.1811786, y: 90, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4183776156644204526
 GameObject:
   m_ObjectHideFlags: 0
@@ -21326,7 +22114,7 @@ GameObject:
   - component: {fileID: 362197746158309333}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -21410,7 +22198,7 @@ GameObject:
   - component: {fileID: 9100935158009227224}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -21499,8 +22287,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.632309, y: 200, z: 1}
-  m_Center: {x: 0.31747743, y: 90, z: 0}
+  m_Size: {x: 2.0115783, y: 200, z: 1.6068287}
+  m_Center: {x: 0.50711215, y: 90, z: 0.30341434}
 --- !u!1 &4250414806782509035
 GameObject:
   m_ObjectHideFlags: 0
@@ -21514,7 +22302,7 @@ GameObject:
   - component: {fileID: 634501973772843230}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -21597,7 +22385,7 @@ GameObject:
   - component: {fileID: 6780508034680643825}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -21681,7 +22469,7 @@ GameObject:
   - component: {fileID: 274561980188948665}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -21830,7 +22618,7 @@ GameObject:
   - component: {fileID: 6384856277853487488}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -21916,7 +22704,7 @@ GameObject:
   - component: {fileID: 2086739498915707308}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22051,6 +22839,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &4344203845737707742
 GameObject:
   m_ObjectHideFlags: 0
@@ -22065,7 +22854,7 @@ GameObject:
   - component: {fileID: 5225577408960038976}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -22170,7 +22959,7 @@ GameObject:
   - component: {fileID: 603783442766431137}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -22275,7 +23064,7 @@ GameObject:
   - component: {fileID: 3414439275775972531}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -22382,7 +23171,7 @@ GameObject:
   - component: {fileID: 7095919111031721278}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22517,6 +23306,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &4430047046747723042
 GameObject:
   m_ObjectHideFlags: 0
@@ -22530,7 +23320,7 @@ GameObject:
   - component: {fileID: 3155039919599226923}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -22613,7 +23403,7 @@ GameObject:
   - component: {fileID: 5275380006561911060}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -22696,7 +23486,7 @@ GameObject:
   - component: {fileID: 7309787698531580799}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -22779,7 +23569,7 @@ GameObject:
   - component: {fileID: 5314546855205934643}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -22863,7 +23653,7 @@ GameObject:
   - component: {fileID: 3127891847079716644}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -22967,7 +23757,7 @@ GameObject:
   - component: {fileID: 4538381035501586004}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -23050,7 +23840,7 @@ GameObject:
   - component: {fileID: 4857151774220314146}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -23178,7 +23968,7 @@ GameObject:
   - component: {fileID: 5609784591894159087}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -23259,12 +24049,15 @@ GameObject:
   - component: {fileID: 4455344435915903839}
   - component: {fileID: 4060710731927838848}
   - component: {fileID: 8205673409182761013}
+  - component: {fileID: 4247371426399767732}
+  - component: {fileID: 6010671590157790157}
+  - component: {fileID: 7059157350507126990}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4455344435915903839
 Transform:
@@ -23279,7 +24072,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4060710731927838848
 MeshFilter:
@@ -23309,7 +24102,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -23331,6 +24124,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &4247371426399767732
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4608920463404135349}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &6010671590157790157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4608920463404135349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &7059157350507126990
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4608920463404135349}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4619634803082792240
 GameObject:
   m_ObjectHideFlags: 0
@@ -23345,7 +24204,7 @@ GameObject:
   - component: {fileID: 2519755584742762833}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -23449,7 +24308,7 @@ GameObject:
   - component: {fileID: 948062769050759142}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -23532,7 +24391,7 @@ GameObject:
   - component: {fileID: 7743037593803352182}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -23615,7 +24474,7 @@ GameObject:
   - component: {fileID: 6556202544143608210}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -23698,7 +24557,7 @@ GameObject:
   - component: {fileID: 2662819673959575514}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -23781,7 +24640,7 @@ GameObject:
   - component: {fileID: 1492504021873613453}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -23923,7 +24782,7 @@ GameObject:
   - component: {fileID: 6065928881925219267}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -24006,7 +24865,7 @@ GameObject:
   - component: {fileID: 92864943515154742}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -24089,7 +24948,7 @@ GameObject:
   - component: {fileID: 302209431054196543}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -24172,7 +25031,7 @@ GameObject:
   - component: {fileID: 5465142555606996683}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -24255,7 +25114,7 @@ GameObject:
   - component: {fileID: 5324719400578956366}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -24383,7 +25242,7 @@ GameObject:
   - component: {fileID: 8348693000826144285}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -24464,12 +25323,15 @@ GameObject:
   - component: {fileID: 7512240108065269030}
   - component: {fileID: 7558752608615284384}
   - component: {fileID: 8901512888167434637}
+  - component: {fileID: 2170285862508720604}
+  - component: {fileID: 9150789528829628966}
+  - component: {fileID: 1902606788487967904}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7512240108065269030
 Transform:
@@ -24484,7 +25346,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7558752608615284384
 MeshFilter:
@@ -24514,7 +25376,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -24536,6 +25398,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &2170285862508720604
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5012843808303497072}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &9150789528829628966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5012843808303497072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &1902606788487967904
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5012843808303497072}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5035247279765699471
 GameObject:
   m_ObjectHideFlags: 0
@@ -24550,7 +25478,7 @@ GameObject:
   - component: {fileID: 8433125922692717357}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -24654,7 +25582,7 @@ GameObject:
   - component: {fileID: 7136168447662918353}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -24737,7 +25665,7 @@ GameObject:
   - component: {fileID: 8164260995143195636}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -24820,7 +25748,7 @@ GameObject:
   - component: {fileID: 6315335675500740111}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -24906,7 +25834,7 @@ GameObject:
   - component: {fileID: 5211915397095318766}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25041,6 +25969,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &5120852212669745458
 GameObject:
   m_ObjectHideFlags: 0
@@ -25054,7 +25983,7 @@ GameObject:
   - component: {fileID: 3538461935429638548}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -25137,7 +26066,7 @@ GameObject:
   - component: {fileID: 5820256453560204727}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -25220,7 +26149,7 @@ GameObject:
   - component: {fileID: 6884866523171169158}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -25304,7 +26233,7 @@ GameObject:
   - component: {fileID: 3191216400669815606}
   m_Layer: 12
   m_Name: Barrier(Clone) (2)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -25453,7 +26382,7 @@ GameObject:
   - component: {fileID: 6840847745249881066}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -25537,7 +26466,7 @@ GameObject:
   - component: {fileID: 301984785727457397}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -25626,8 +26555,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 200, z: 1}
-  m_Center: {x: 0, y: 90, z: 0}
+  m_Size: {x: 1.6004982, y: 200, z: 1.3044319}
+  m_Center: {x: -0.3002491, y: 90, z: -0.15221596}
 --- !u!1 &5267751637098452624
 GameObject:
   m_ObjectHideFlags: 0
@@ -25644,7 +26573,7 @@ GameObject:
   - component: {fileID: 3234371880283221245}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25779,6 +26708,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &5268123623020346536
 GameObject:
   m_ObjectHideFlags: 0
@@ -25795,7 +26725,7 @@ GameObject:
   - component: {fileID: 5458819910094723089}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25930,6 +26860,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &5280034752943415825
 GameObject:
   m_ObjectHideFlags: 0
@@ -25943,7 +26874,7 @@ GameObject:
   - component: {fileID: 5443265966017994295}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -26026,7 +26957,7 @@ GameObject:
   - component: {fileID: 7294422489863248089}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -26109,7 +27040,7 @@ GameObject:
   - component: {fileID: 7594833705690241365}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -26193,7 +27124,7 @@ GameObject:
   - component: {fileID: 3565593809121209830}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -26300,7 +27231,7 @@ GameObject:
   - component: {fileID: 6854116300501756294}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26435,6 +27366,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &5343391127095500175
 GameObject:
   m_ObjectHideFlags: 0
@@ -26448,7 +27380,7 @@ GameObject:
   - component: {fileID: 4961209391325062658}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -26534,7 +27466,7 @@ GameObject:
   - component: {fileID: 2313019742192822176}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26669,6 +27601,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &5364847463427458219
 GameObject:
   m_ObjectHideFlags: 0
@@ -26682,7 +27615,7 @@ GameObject:
   - component: {fileID: 6221349504984687276}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -26766,7 +27699,7 @@ GameObject:
   - component: {fileID: 718694052441468687}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -26873,7 +27806,7 @@ GameObject:
   - component: {fileID: 7857263178059934709}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27008,6 +27941,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &5433683324973090312
 GameObject:
   m_ObjectHideFlags: 0
@@ -27021,7 +27955,7 @@ GameObject:
   - component: {fileID: 6573432833111539057}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -27104,7 +28038,7 @@ GameObject:
   - component: {fileID: 4508611493035105509}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -27190,7 +28124,7 @@ GameObject:
   - component: {fileID: 350914372983989700}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27325,6 +28259,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &5518424430835329601
 GameObject:
   m_ObjectHideFlags: 0
@@ -27339,7 +28274,7 @@ GameObject:
   - component: {fileID: 6621571605598767792}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -27441,12 +28376,15 @@ GameObject:
   - component: {fileID: 7755020286549496898}
   - component: {fileID: 8075259299810720171}
   - component: {fileID: 7134822789342554784}
+  - component: {fileID: 7909723853451402303}
+  - component: {fileID: 718687404922210488}
+  - component: {fileID: 2767126486649275041}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7755020286549496898
 Transform:
@@ -27461,7 +28399,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8075259299810720171
 MeshFilter:
@@ -27491,7 +28429,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -27513,6 +28451,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &7909723853451402303
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542872741581154935}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &718687404922210488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542872741581154935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &2767126486649275041
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5542872741581154935}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5553938917072258350
 GameObject:
   m_ObjectHideFlags: 0
@@ -27526,7 +28530,7 @@ GameObject:
   - component: {fileID: 649739491042631549}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -27610,7 +28614,7 @@ GameObject:
   - component: {fileID: 7108276411178973367}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -27714,7 +28718,7 @@ GameObject:
   - component: {fileID: 3741958156170253603}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -27800,7 +28804,7 @@ GameObject:
   - component: {fileID: 3639802330218233044}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27935,6 +28939,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &5647217556636591552
 GameObject:
   m_ObjectHideFlags: 0
@@ -27948,7 +28953,7 @@ GameObject:
   - component: {fileID: 425096608961571128}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -28032,7 +29037,7 @@ GameObject:
   - component: {fileID: 3268610358907176914}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -28136,7 +29141,7 @@ GameObject:
   - component: {fileID: 8210344133492545239}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -28219,7 +29224,7 @@ GameObject:
   - component: {fileID: 8111147037095359275}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -28302,7 +29307,7 @@ GameObject:
   - component: {fileID: 6929133532859537270}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -28385,7 +29390,7 @@ GameObject:
   - component: {fileID: 429837597522776197}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -28469,7 +29474,7 @@ GameObject:
   - component: {fileID: 2303190801843576182}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -28573,7 +29578,7 @@ GameObject:
   - component: {fileID: 3263156539654347942}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -28656,7 +29661,7 @@ GameObject:
   - component: {fileID: 7035914786304119758}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -28740,7 +29745,7 @@ GameObject:
   - component: {fileID: 2015161108642482429}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -28829,8 +29834,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10.347379, y: 200, z: 1}
-  m_Center: {x: 4.593179, y: 90, z: 0}
+  m_Size: {x: 10.838598, y: 200, z: 1.7557144}
+  m_Center: {x: 4.838789, y: 90, z: 0.3778572}
 --- !u!1 &5888993080009935675
 GameObject:
   m_ObjectHideFlags: 0
@@ -29084,7 +30089,7 @@ GameObject:
   - component: {fileID: 4811392849445405405}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -29167,7 +30172,7 @@ GameObject:
   - component: {fileID: 5640298454233744293}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -29250,7 +30255,7 @@ GameObject:
   - component: {fileID: 7777008714628315748}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -29333,7 +30338,7 @@ GameObject:
   - component: {fileID: 8384018063324960101}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -29416,7 +30421,7 @@ GameObject:
   - component: {fileID: 8905882576909696669}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -29502,7 +30507,7 @@ GameObject:
   - component: {fileID: 7785656570408694014}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29637,6 +30642,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &6015954460833071730
 GameObject:
   m_ObjectHideFlags: 0
@@ -29650,7 +30656,7 @@ GameObject:
   - component: {fileID: 1363979237287151707}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -29733,7 +30739,7 @@ GameObject:
   - component: {fileID: 2694736343086954080}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -29816,7 +30822,7 @@ GameObject:
   - component: {fileID: 8536881938959088926}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -29900,7 +30906,7 @@ GameObject:
   - component: {fileID: 89730430543175308}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -30005,7 +31011,7 @@ GameObject:
   - component: {fileID: 6547302382101456027}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -30109,7 +31115,7 @@ GameObject:
   - component: {fileID: 2382069715918792349}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -30192,7 +31198,7 @@ GameObject:
   - component: {fileID: 8723291105112820485}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -30276,7 +31282,7 @@ GameObject:
   - component: {fileID: 1888325580488881491}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -30365,8 +31371,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.5040894, y: 200, z: 1}
-  m_Center: {x: 3.1764247, y: 90, z: -1.094991e-14}
+  m_Size: {x: 7.8869634, y: 200, z: 1.6806662}
+  m_Center: {x: 3.367862, y: 90, z: 0.34033316}
 --- !u!1 &6116786172220455239
 GameObject:
   m_ObjectHideFlags: 0
@@ -30380,7 +31386,7 @@ GameObject:
   - component: {fileID: 6961346599081087100}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -30463,7 +31469,7 @@ GameObject:
   - component: {fileID: 569883692629819824}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -30547,7 +31553,7 @@ GameObject:
   - component: {fileID: 6932745727756462680}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -30654,7 +31660,7 @@ GameObject:
   - component: {fileID: 6746858020591805118}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30789,6 +31795,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &6232747094740663097
 GameObject:
   m_ObjectHideFlags: 0
@@ -30802,7 +31809,7 @@ GameObject:
   - component: {fileID: 1534772042831269672}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -30886,7 +31893,7 @@ GameObject:
   - component: {fileID: 7951395703740280697}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -30991,7 +31998,7 @@ GameObject:
   - component: {fileID: 6398983038559535698}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -31095,7 +32102,7 @@ GameObject:
   - component: {fileID: 8899280923616504555}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -31181,7 +32188,7 @@ GameObject:
   - component: {fileID: 7721729446337647213}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31316,6 +32323,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &6343768091173702280
 GameObject:
   m_ObjectHideFlags: 0
@@ -31329,7 +32337,7 @@ GameObject:
   - component: {fileID: 578429009771193578}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -31413,7 +32421,7 @@ GameObject:
   - component: {fileID: 2951237299113726405}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -31520,7 +32528,7 @@ GameObject:
   - component: {fileID: 8741620513566399587}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31655,6 +32663,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &6419542184473562316
 GameObject:
   m_ObjectHideFlags: 0
@@ -31669,7 +32678,7 @@ GameObject:
   - component: {fileID: 5420064049029480657}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -31758,8 +32767,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 22.332008, y: 200, z: 1}
-  m_Center: {x: 10.341274, y: 90, z: 0}
+  m_Size: {x: 13.014307, y: 200, z: 1}
+  m_Center: {x: 3.9928465, y: 90, z: 0}
 --- !u!1 &6460454493257595818
 GameObject:
   m_ObjectHideFlags: 0
@@ -31819,7 +32828,7 @@ GameObject:
   - component: {fileID: 8941311009919085369}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -31908,8 +32917,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3500305, y: 200, z: 1.1307925}
-  m_Center: {x: -0.13297425, y: 90, z: 0.05303664}
+  m_Size: {x: 2.2421677, y: 200, z: 1.1307925}
+  m_Center: {x: -0.5790428, y: 90, z: 0.05303663}
 --- !u!1 &6499095987506254685
 GameObject:
   m_ObjectHideFlags: 0
@@ -32013,7 +33022,7 @@ GameObject:
   - component: {fileID: 1559606333000651136}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -32096,7 +33105,7 @@ GameObject:
   - component: {fileID: 5417766029976248790}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -32182,7 +33191,7 @@ GameObject:
   - component: {fileID: 4149956531780169778}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32317,6 +33326,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &6539558417746936245
 GameObject:
   m_ObjectHideFlags: 0
@@ -32330,7 +33340,7 @@ GameObject:
   - component: {fileID: 8054453580734702064}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -32414,7 +33424,7 @@ GameObject:
   - component: {fileID: 5012429804496209560}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -32521,7 +33531,7 @@ GameObject:
   - component: {fileID: 9136751047363240501}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32656,6 +33666,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &6601516993442170545
 GameObject:
   m_ObjectHideFlags: 0
@@ -32669,7 +33680,7 @@ GameObject:
   - component: {fileID: 5169849990879204781}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -32753,7 +33764,7 @@ GameObject:
   - component: {fileID: 1159296437261886060}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -32857,7 +33868,7 @@ GameObject:
   - component: {fileID: 4703844963132570824}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -32940,7 +33951,7 @@ GameObject:
   - component: {fileID: 402985785402865608}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -33023,7 +34034,7 @@ GameObject:
   - component: {fileID: 9105537194047123898}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -33109,7 +34120,7 @@ GameObject:
   - component: {fileID: 5358045818572047138}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33244,6 +34255,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &6687380371682760284
 GameObject:
   m_ObjectHideFlags: 0
@@ -33258,7 +34270,7 @@ GameObject:
   - component: {fileID: 7557983943804228422}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -33362,7 +34374,7 @@ GameObject:
   - component: {fileID: 346252940819795548}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -33445,7 +34457,7 @@ GameObject:
   - component: {fileID: 3839104356527850338}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -33528,7 +34540,7 @@ GameObject:
   - component: {fileID: 7239645523782011651}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -33706,6 +34718,29 @@ MonoBehaviour:
   - {fileID: 5881284416758937851}
   - {fileID: 1484953726281529890}
   _dissolvableObstacles:
+  - {fileID: 4115046244029802171}
+  - {fileID: 1319381073849023797}
+  - {fileID: 1733189605684804829}
+  - {fileID: 9099871316580228251}
+  - {fileID: 6183473968658905045}
+  - {fileID: 4708684228936437744}
+  - {fileID: 4772022931588372018}
+  - {fileID: 704536424492804119}
+  - {fileID: 3864998418500573535}
+  - {fileID: 148137941077676987}
+  - {fileID: 8629543616572403313}
+  - {fileID: 2462576565686561479}
+  - {fileID: 5693153899784585796}
+  - {fileID: 4239957525642488944}
+  - {fileID: 1064597736508472589}
+  - {fileID: 2144024913718301448}
+  - {fileID: 2166266789833000766}
+  - {fileID: 1445241388203369911}
+  - {fileID: 5484944955481831592}
+  - {fileID: 1502066255545927962}
+  - {fileID: 123954118801372135}
+  - {fileID: 3168486876599711424}
+  - {fileID: 7920680465767519089}
   - {fileID: 3409003892952188928}
   - {fileID: 1142197432682307642}
   - {fileID: 7271529652928233655}
@@ -33767,29 +34802,26 @@ MonoBehaviour:
   - {fileID: 8086041776144258566}
   - {fileID: 3234371880283221245}
   - {fileID: 7539614713903837758}
-  - {fileID: 4115046244029802171}
-  - {fileID: 1319381073849023797}
-  - {fileID: 1733189605684804829}
-  - {fileID: 9099871316580228251}
-  - {fileID: 6183473968658905045}
-  - {fileID: 4708684228936437744}
-  - {fileID: 4772022931588372018}
-  - {fileID: 704536424492804119}
-  - {fileID: 3864998418500573535}
-  - {fileID: 148137941077676987}
-  - {fileID: 8629543616572403313}
-  - {fileID: 2462576565686561479}
-  - {fileID: 5693153899784585796}
-  - {fileID: 4239957525642488944}
-  - {fileID: 1064597736508472589}
-  - {fileID: 2144024913718301448}
-  - {fileID: 2166266789833000766}
-  - {fileID: 1445241388203369911}
-  - {fileID: 5484944955481831592}
-  - {fileID: 1502066255545927962}
-  - {fileID: 123954118801372135}
-  - {fileID: 3168486876599711424}
-  - {fileID: 7920680465767519089}
+  - {fileID: 1204976024915283668}
+  - {fileID: 7603525544741962616}
+  - {fileID: 2347280070361615968}
+  - {fileID: 9150789528829628966}
+  - {fileID: 5067738156057281486}
+  - {fileID: 5394107445928882178}
+  - {fileID: 6588278482966826576}
+  - {fileID: 511707961191418320}
+  - {fileID: 4075275909741204561}
+  - {fileID: 7468782706712551970}
+  - {fileID: 6446272942095816104}
+  - {fileID: 7539411238866206266}
+  - {fileID: 4953946290361127332}
+  - {fileID: 2375842734096031274}
+  - {fileID: 718687404922210488}
+  - {fileID: 5440650617402292585}
+  - {fileID: 102242796193120957}
+  - {fileID: 6010671590157790157}
+  - {fileID: 4325314352886614}
+  - {fileID: 5447836789348733332}
   _bossPatrolZone: {fileID: 5962455364086936122}
   _config: {fileID: 11400000, guid: 30134ce461102ed41afdd096b81fbcd9, type: 2}
   _colorReference: {fileID: 11400000, guid: a10e61b280795fd459a8b0083115089a, type: 2}
@@ -33799,7 +34831,7 @@ MonoBehaviour:
   _tableMaterial: {fileID: 2100000, guid: 43c075a7f70aa9148ad1856ede832ebf, type: 2}
   _renderer: {fileID: 6252066849549173365}
   _playerStartPosition: {x: 75.1, y: 1, z: 121.5}
-  _navMeshData: {fileID: 23800000, guid: 3a861dc232fe84d428217e2145890b80, type: 2}
+  _navMeshData: {fileID: 23800000, guid: a9f6cf03f4589e84aa59577d30ce7a9a, type: 2}
 --- !u!1 &6784284700423500485
 GameObject:
   m_ObjectHideFlags: 0
@@ -33814,7 +34846,7 @@ GameObject:
   - component: {fileID: 6046459112588287667}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -33918,7 +34950,7 @@ GameObject:
   - component: {fileID: 7062054478234171629}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -34002,7 +35034,7 @@ GameObject:
   - component: {fileID: 5744305607710596811}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -34106,7 +35138,7 @@ GameObject:
   - component: {fileID: 2334745346854622960}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -34189,7 +35221,7 @@ GameObject:
   - component: {fileID: 3908328011006561287}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -34272,7 +35304,7 @@ GameObject:
   - component: {fileID: 1474379614765366821}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -34356,7 +35388,7 @@ GameObject:
   - component: {fileID: 2408226486155792767}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -34460,7 +35492,7 @@ GameObject:
   - component: {fileID: 2501105332817261391}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -34543,7 +35575,7 @@ GameObject:
   - component: {fileID: 4673592421619012029}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -34626,7 +35658,7 @@ GameObject:
   - component: {fileID: 2174030490264406411}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -34709,7 +35741,7 @@ GameObject:
   - component: {fileID: 3372079802622464640}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -34795,7 +35827,7 @@ GameObject:
   - component: {fileID: 5360426393107445050}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34930,6 +35962,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &7011006154034065725
 GameObject:
   m_ObjectHideFlags: 0
@@ -34988,7 +36021,7 @@ GameObject:
   - component: {fileID: 1450628844673243526}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -35148,7 +36181,7 @@ GameObject:
   - component: {fileID: 2030714057016974196}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -35231,7 +36264,7 @@ GameObject:
   - component: {fileID: 4952699673446445684}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -35315,7 +36348,7 @@ GameObject:
   - component: {fileID: 6762772079089650739}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -35404,8 +36437,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.7996429, y: 200, z: 1}
-  m_Center: {x: 0.07996521, y: 90, z: 0}
+  m_Size: {x: 2.1309752, y: 200, z: 1}
+  m_Center: {x: 0.24563146, y: 90, z: 0}
 --- !u!1 &7220205482621963812
 GameObject:
   m_ObjectHideFlags: 0
@@ -35422,7 +36455,7 @@ GameObject:
   - component: {fileID: 7301980546537842506}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35557,6 +36590,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &7250195078603201826
 GameObject:
   m_ObjectHideFlags: 0
@@ -35570,7 +36604,7 @@ GameObject:
   - component: {fileID: 4477689143024325306}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -35654,7 +36688,7 @@ GameObject:
   - component: {fileID: 4022640497407179086}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -35758,7 +36792,7 @@ GameObject:
   - component: {fileID: 2129915648427768029}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -35842,7 +36876,7 @@ GameObject:
   - component: {fileID: 2359673655918379159}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -35944,12 +36978,15 @@ GameObject:
   - component: {fileID: 6755337428762180034}
   - component: {fileID: 3127076620210412670}
   - component: {fileID: 2211996713570481783}
+  - component: {fileID: 2092413267173527595}
+  - component: {fileID: 5067738156057281486}
+  - component: {fileID: 7642119983838621787}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6755337428762180034
 Transform:
@@ -35964,7 +37001,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3127076620210412670
 MeshFilter:
@@ -35994,7 +37031,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -36016,6 +37053,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &2092413267173527595
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7376278995899157503}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5067738156057281486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7376278995899157503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &7642119983838621787
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7376278995899157503}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7395126689072824897
 GameObject:
   m_ObjectHideFlags: 0
@@ -36029,7 +37132,7 @@ GameObject:
   - component: {fileID: 5282845175185958165}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -36113,7 +37216,7 @@ GameObject:
   - component: {fileID: 8648589839042744258}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -36262,7 +37365,7 @@ GameObject:
   - component: {fileID: 5089475633449516678}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -36346,7 +37449,7 @@ GameObject:
   - component: {fileID: 8384764183159831169}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -36450,7 +37553,7 @@ GameObject:
   - component: {fileID: 9048637684457129729}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -36534,7 +37637,7 @@ GameObject:
   - component: {fileID: 532361877690323054}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -36639,7 +37742,7 @@ GameObject:
   - component: {fileID: 5107008868942993736}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -36744,7 +37847,7 @@ GameObject:
   - component: {fileID: 2327142883840249759}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -36849,7 +37952,7 @@ GameObject:
   - component: {fileID: 7633443557177068355}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -36954,7 +38057,7 @@ GameObject:
   - component: {fileID: 3519534322363885748}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -37056,12 +38159,15 @@ GameObject:
   - component: {fileID: 569007401606938203}
   - component: {fileID: 1106328594710470425}
   - component: {fileID: 7490884214235854466}
+  - component: {fileID: 4407707825820353281}
+  - component: {fileID: 7539411238866206266}
+  - component: {fileID: 5881557324409626367}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &569007401606938203
 Transform:
@@ -37076,7 +38182,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1106328594710470425
 MeshFilter:
@@ -37106,7 +38212,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -37128,6 +38234,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &4407707825820353281
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574267139500088175}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7539411238866206266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574267139500088175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &5881557324409626367
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574267139500088175}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7585540625112518165
 GameObject:
   m_ObjectHideFlags: 0
@@ -37187,7 +38359,7 @@ GameObject:
   - component: {fileID: 6594827698622165763}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -37292,7 +38464,7 @@ GameObject:
   - component: {fileID: 7789685236691460155}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -37381,8 +38553,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.5154214, y: 200, z: 1}
-  m_Center: {x: 3.0779662, y: 90, z: 9.200933e-15}
+  m_Size: {x: 8.724913, y: 200, z: 1.8862915}
+  m_Center: {x: 2.99785, y: 90, z: 0.443146}
 --- !u!1 &7621742594281538711
 GameObject:
   m_ObjectHideFlags: 0
@@ -37397,7 +38569,7 @@ GameObject:
   - component: {fileID: 3206595121054667863}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -37502,7 +38674,7 @@ GameObject:
   - component: {fileID: 6720217781926661420}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -37651,7 +38823,7 @@ GameObject:
   - component: {fileID: 3038298397364704152}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -37735,7 +38907,7 @@ GameObject:
   - component: {fileID: 7989685208061038288}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -37839,7 +39011,7 @@ GameObject:
   - component: {fileID: 1580272121471477970}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -37922,7 +39094,7 @@ GameObject:
   - component: {fileID: 8918110890843706255}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -38005,7 +39177,7 @@ GameObject:
   - component: {fileID: 5367648173621253088}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -38088,7 +39260,7 @@ GameObject:
   - component: {fileID: 8373560721214136335}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -38171,7 +39343,7 @@ GameObject:
   - component: {fileID: 5914484264884110865}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -38255,7 +39427,7 @@ GameObject:
   - component: {fileID: 3997914577329683218}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -38360,7 +39532,7 @@ GameObject:
   - component: {fileID: 6657343578568636557}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -38464,7 +39636,7 @@ GameObject:
   - component: {fileID: 1836659483069419521}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -38547,7 +39719,7 @@ GameObject:
   - component: {fileID: 423912727280093191}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -38630,7 +39802,7 @@ GameObject:
   - component: {fileID: 2891158264469231851}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -38713,7 +39885,7 @@ GameObject:
   - component: {fileID: 8559334324721162947}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -38799,7 +39971,7 @@ GameObject:
   - component: {fileID: 7539614713903837758}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38934,6 +40106,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &7949992915051337729
 GameObject:
   m_ObjectHideFlags: 0
@@ -38947,7 +40120,7 @@ GameObject:
   - component: {fileID: 1530543149613466919}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -39075,7 +40248,7 @@ GameObject:
   - component: {fileID: 6395733276405110339}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -39158,7 +40331,7 @@ GameObject:
   - component: {fileID: 8395464742611012358}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -39242,7 +40415,7 @@ GameObject:
   - component: {fileID: 3339837256141033368}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -39346,7 +40519,7 @@ GameObject:
   - component: {fileID: 392525903307851928}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -39429,7 +40602,7 @@ GameObject:
   - component: {fileID: 1703398872040231700}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -39557,7 +40730,7 @@ GameObject:
   - component: {fileID: 5614915299096072513}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -39643,7 +40816,7 @@ GameObject:
   - component: {fileID: 2958942391258452880}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -39778,6 +40951,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &8123097106151565649
 GameObject:
   m_ObjectHideFlags: 0
@@ -39792,7 +40966,7 @@ GameObject:
   - component: {fileID: 7019321471022616564}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -39894,12 +41068,15 @@ GameObject:
   - component: {fileID: 4636629396036852973}
   - component: {fileID: 5810568120919067278}
   - component: {fileID: 1307666700028259122}
+  - component: {fileID: 8261256005686520014}
+  - component: {fileID: 5447836789348733332}
+  - component: {fileID: 4448702425548568288}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4636629396036852973
 Transform:
@@ -39914,7 +41091,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5810568120919067278
 MeshFilter:
@@ -39944,7 +41121,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -39966,6 +41143,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &8261256005686520014
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8133846488320111195}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &5447836789348733332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8133846488320111195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &4448702425548568288
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8133846488320111195}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8158643423945237285
 GameObject:
   m_ObjectHideFlags: 0
@@ -40077,27 +41320,6 @@ Transform:
   - {fileID: 7796002429909542720}
   - {fileID: 6753979903228691334}
   - {fileID: 2058710959336613236}
-  - {fileID: 5786184011526622723}
-  - {fileID: 3773206144738825964}
-  - {fileID: 569007401606938203}
-  - {fileID: 7752262516939871673}
-  - {fileID: 4984671359245048455}
-  - {fileID: 7755020286549496898}
-  - {fileID: 665679957903493384}
-  - {fileID: 2158288597437015911}
-  - {fileID: 4455344435915903839}
-  - {fileID: 7503641487256046516}
-  - {fileID: 4636629396036852973}
-  - {fileID: 3138847093246575029}
-  - {fileID: 3245583204769226795}
-  - {fileID: 8511067501750833184}
-  - {fileID: 7512240108065269030}
-  - {fileID: 6755337428762180034}
-  - {fileID: 3770411877266274771}
-  - {fileID: 2080469764842774042}
-  - {fileID: 3597643241676548683}
-  - {fileID: 3435407591798043884}
-  - {fileID: 5425091248780629898}
   - {fileID: 1019600243815535558}
   - {fileID: 3736527351685996498}
   - {fileID: 395096399501806937}
@@ -40362,6 +41584,7 @@ Transform:
   - {fileID: 1881853588987935457}
   - {fileID: 6946707118476048067}
   - {fileID: 3317014711509348538}
+  - {fileID: 5425091248780629898}
   m_Father: {fileID: 6547037341379443873}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8214546498399762188
@@ -40380,7 +41603,7 @@ GameObject:
   - component: {fileID: 7778557151978853199}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40515,6 +41738,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &8226294150754679035
 GameObject:
   m_ObjectHideFlags: 0
@@ -40528,7 +41752,7 @@ GameObject:
   - component: {fileID: 7075968892156370399}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -40611,7 +41835,7 @@ GameObject:
   - component: {fileID: 4163767906799376638}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -40694,7 +41918,7 @@ GameObject:
   - component: {fileID: 8401155409267286663}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -40777,7 +42001,7 @@ GameObject:
   - component: {fileID: 788516874976772832}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -40906,7 +42130,7 @@ GameObject:
   - component: {fileID: 1546053299410997696}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -41010,7 +42234,7 @@ GameObject:
   - component: {fileID: 6721582124771327903}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -41093,7 +42317,7 @@ GameObject:
   - component: {fileID: 5291217040228842726}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -41215,7 +42439,7 @@ GameObject:
   - component: {fileID: 5428102839292048775}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41350,6 +42574,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &8527800429830354363
 GameObject:
   m_ObjectHideFlags: 0
@@ -41366,7 +42591,7 @@ GameObject:
   - component: {fileID: 46108353720700654}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -41501,6 +42726,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &8565271216709632031
 GameObject:
   m_ObjectHideFlags: 0
@@ -41514,7 +42740,7 @@ GameObject:
   - component: {fileID: 8347172444941203076}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -41650,7 +42876,7 @@ GameObject:
   - component: {fileID: 7068794464201346689}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -41733,7 +42959,7 @@ GameObject:
   - component: {fileID: 3802949694366767890}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -41816,7 +43042,7 @@ GameObject:
   - component: {fileID: 1856680408541573236}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -41900,7 +43126,7 @@ GameObject:
   - component: {fileID: 611284174964504533}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -42004,7 +43230,7 @@ GameObject:
   - component: {fileID: 4445053475145161148}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -42087,7 +43313,7 @@ GameObject:
   - component: {fileID: 3476125530744385302}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -42173,7 +43399,7 @@ GameObject:
   - component: {fileID: 6315607749943254753}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42308,6 +43534,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &8690854875864422511
 GameObject:
   m_ObjectHideFlags: 0
@@ -42321,7 +43548,7 @@ GameObject:
   - component: {fileID: 7552597856870984442}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -42404,7 +43631,7 @@ GameObject:
   - component: {fileID: 8266622173330471486}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -42488,7 +43715,7 @@ GameObject:
   - component: {fileID: 1747394423366510255}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -42593,7 +43820,7 @@ GameObject:
   - component: {fileID: 7702406344102089602}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -42743,7 +43970,7 @@ GameObject:
   - component: {fileID: 8021632721438510185}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -42832,8 +44059,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3998212, y: 200, z: 1}
-  m_Center: {x: 0.19991075, y: 90, z: -7.089577e-16}
+  m_Size: {x: 1.3998212, y: 200, z: 1.5309803}
+  m_Center: {x: 0.19991076, y: 90, z: 0.26549023}
 --- !u!1 &8839845954220933458
 GameObject:
   m_ObjectHideFlags: 0
@@ -42845,12 +44072,15 @@ GameObject:
   - component: {fileID: 2158288597437015911}
   - component: {fileID: 4915188340723487172}
   - component: {fileID: 1100905539165508625}
+  - component: {fileID: 992917352418802108}
+  - component: {fileID: 102242796193120957}
+  - component: {fileID: 8521770514457114178}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &2158288597437015911
 Transform:
@@ -42865,7 +44095,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4915188340723487172
 MeshFilter:
@@ -42895,7 +44125,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -42917,6 +44147,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &992917352418802108
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8839845954220933458}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &102242796193120957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8839845954220933458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &8521770514457114178
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8839845954220933458}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8848410795652538077
 GameObject:
   m_ObjectHideFlags: 0
@@ -42931,7 +44227,7 @@ GameObject:
   - component: {fileID: 6132350423119882029}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -43035,7 +44331,7 @@ GameObject:
   - component: {fileID: 7156143209405910862}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -43118,7 +44414,7 @@ GameObject:
   - component: {fileID: 1344348098132756092}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -43201,7 +44497,7 @@ GameObject:
   - component: {fileID: 250712189592520295}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -43287,7 +44583,7 @@ GameObject:
   - component: {fileID: 5930369362755343401}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43422,6 +44718,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &8871219118265801393
 GameObject:
   m_ObjectHideFlags: 0
@@ -43435,7 +44732,7 @@ GameObject:
   - component: {fileID: 8029709833884683316}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -43521,7 +44818,7 @@ GameObject:
   - component: {fileID: 7061184441094074168}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43656,6 +44953,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &8898354771879291214
 GameObject:
   m_ObjectHideFlags: 0
@@ -43669,7 +44967,7 @@ GameObject:
   - component: {fileID: 6084332184740899538}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -43752,7 +45050,7 @@ GameObject:
   - component: {fileID: 6522887841207400030}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -43836,7 +45134,7 @@ GameObject:
   - component: {fileID: 2104263392112355112}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -43943,7 +45241,7 @@ GameObject:
   - component: {fileID: 4251102074016936314}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44078,6 +45376,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &8931806809246727300
 GameObject:
   m_ObjectHideFlags: 0
@@ -44094,7 +45393,7 @@ GameObject:
   - component: {fileID: 1505525460865167143}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44229,6 +45528,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1 &8933640561652477111
 GameObject:
   m_ObjectHideFlags: 0
@@ -44242,7 +45542,7 @@ GameObject:
   - component: {fileID: 5671664391305381761}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -44326,7 +45626,7 @@ GameObject:
   - component: {fileID: 3158764790004325779}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -44430,7 +45730,7 @@ GameObject:
   - component: {fileID: 4787644580190218709}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -44514,7 +45814,7 @@ GameObject:
   - component: {fileID: 7949464353011978155}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -44618,7 +45918,7 @@ GameObject:
   - component: {fileID: 7187571975736192924}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -44746,7 +46046,7 @@ GameObject:
   - component: {fileID: 6356702269194661933}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -44827,12 +46127,15 @@ GameObject:
   - component: {fileID: 4984671359245048455}
   - component: {fileID: 8328892905827344478}
   - component: {fileID: 2161014173916929707}
+  - component: {fileID: 9128093764867541024}
+  - component: {fileID: 2375842734096031274}
+  - component: {fileID: 8015870904607497376}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &4984671359245048455
 Transform:
@@ -44847,7 +46150,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8328892905827344478
 MeshFilter:
@@ -44877,7 +46180,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -44899,6 +46202,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &9128093764867541024
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042937690691537944}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &2375842734096031274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042937690691537944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &8015870904607497376
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9042937690691537944}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9148646766629311817
 GameObject:
   m_ObjectHideFlags: 0
@@ -44912,7 +46281,7 @@ GameObject:
   - component: {fileID: 844870617046252577}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -44996,7 +46365,7 @@ GameObject:
   - component: {fileID: 3741877992979838168}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -45101,7 +46470,7 @@ GameObject:
   - component: {fileID: 3781150432528727801}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -45203,12 +46572,15 @@ GameObject:
   - component: {fileID: 7752262516939871673}
   - component: {fileID: 8974321147991104777}
   - component: {fileID: 8761449087336481296}
+  - component: {fileID: 7200851545310127203}
+  - component: {fileID: 4953946290361127332}
+  - component: {fileID: 2730643077283894062}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 2147483647
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7752262516939871673
 Transform:
@@ -45223,7 +46595,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8223116812620959942}
+  m_Father: {fileID: 9035641349496533347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8974321147991104777
 MeshFilter:
@@ -45253,7 +46625,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
+  - {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -45275,6 +46647,72 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &7200851545310127203
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9161043577405256626}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &4953946290361127332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9161043577405256626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c965dd92d10d20e4b804c02e2da536ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Duration: 0
+  _reward: 700
+  _size: 7
+  _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
+  CollidersHolder: {fileID: 0}
+  IsValidTag: 1
+--- !u!65 &2730643077283894062
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9161043577405256626}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9185965550304783671
 GameObject:
   m_ObjectHideFlags: 0
@@ -45288,7 +46726,7 @@ GameObject:
   - component: {fileID: 7407788074305768342}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -45374,7 +46812,7 @@ GameObject:
   - component: {fileID: 8602531294828397758}
   m_Layer: 12
   m_Name: Barrier(Clone)
-  m_TagString: Untagged
+  m_TagString: DissolvableObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45509,6 +46947,7 @@ MonoBehaviour:
   _size: 7
   _collisionSound: {fileID: 8300000, guid: 583af1c0580874e4f9bc7619d5f922bd, type: 3}
   CollidersHolder: {fileID: 0}
+  IsValidTag: 1
 --- !u!1001 &245208583752126233
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45706,7 +47145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685800973354063152, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: m_Layer
-      value: 17
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 2685800973354063152, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: m_IsActive
@@ -45718,7 +47157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685800973354063152, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5094125203203280025, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: _maxLevel
@@ -46202,7 +47641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685800973354063152, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5094125203203280025, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: _maxLevel
@@ -46571,7 +48010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685800973354063152, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5094125203203280025, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: _maxLevel
@@ -47425,7 +48864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685800973354063152, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5094125203203280025, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: _maxLevel
@@ -48326,7 +49765,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685800973354063152, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5094125203203280025, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: _maxLevel
@@ -48752,7 +50191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685800973354063152, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5094125203203280025, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: _maxLevel
@@ -48951,7 +50390,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685800973354063152, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5094125203203280025, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: _maxLevel
@@ -49438,7 +50877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2685800973354063152, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 2147483647
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5094125203203280025, guid: 0f0b789f91126064b8cd46b352775ec8, type: 3}
       propertyPath: _maxLevel

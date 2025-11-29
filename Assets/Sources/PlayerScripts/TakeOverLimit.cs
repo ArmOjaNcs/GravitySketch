@@ -1,3 +1,4 @@
+using Assets.Sources.AnomalyScpipts;
 using Assets.Sources.Dissolvable;
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.Level;
@@ -24,6 +25,9 @@ namespace Assets.Sources.PlayerScripts
         public event Action<SimpleCube> CubeAbsorbed;
         public event Action<int> Rewarded;
         public event Action EnemyDissolved;
+        public event Action BarrierDissolved;
+        public event Action <int> ObstacleDissolved;
+        public event Action AnomalyDissolved;
         public event Action<float> MedAidAbsorbed;
 
         public int EnemiesDissolvedCount { get; private set; }
@@ -67,7 +71,8 @@ namespace Assets.Sources.PlayerScripts
                     medAid.Dissolve(_hole);
                 }
             }
-            else if (other.gameObject.CompareTag(UserUtils.Dropped))
+            else if (other.gameObject.CompareTag(UserUtils.Dropped) ||
+                other.gameObject.CompareTag(UserUtils.DissolvableObstacle))
             {
                 DissolvableObstacle dissolvableObstacle = other.transform.GetComponentInParent<DissolvableObstacle>();
 
@@ -75,6 +80,17 @@ namespace Assets.Sources.PlayerScripts
                 {
                     dissolvableObstacle.Dissolve(_hole);
                     Rewarded?.Invoke(dissolvableObstacle.Reward);
+
+                    if (other.gameObject.CompareTag(UserUtils.DissolvableObstacle))
+                    {
+                        BarrierDissolved?.Invoke();
+                        return;
+                    }
+
+                    ObstacleDissolved?.Invoke(dissolvableObstacle.Size);
+
+                    if (dissolvableObstacle.TryGetComponent(out Anomaly anomaly))
+                        AnomalyDissolved?.Invoke();
                 }
             }
             else if (other.gameObject.TryGetComponent(out LevelExit levelExit))

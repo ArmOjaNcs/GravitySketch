@@ -7,21 +7,19 @@ namespace Assets.Sources.PlayerScripts
 {
     public class Booster : PlayerAbility
     {
-        [SerializeField, Min(0)] private float _boostSpeed;
         [SerializeField, Min(0)] private int _boostCount;
-        [SerializeField, Min(0)] private float _boostSpeedUpgradeDelta;
         [SerializeField] private AudioPlayer _audioPlayer;
 
         private bool _isBoostApplied;
         private bool _isReloading;
 
-        public event Action<float> BoostApplied;
-        public event Action BoostCountChanged;
+        public event Action Applied;
+        public event Action Discarded;
+        public event Action CountChanged;
         public event Action Reloading;
         public event Action Reloaded;
 
         public int CurrentBoostCount { get; private set; }
-        public float BoostSpeed => _boostSpeed;
         public float BoostTime => ActiveTime;
         public float BoostReloadTime => ReloadTime;
         public int BoostCount => _boostCount;
@@ -92,13 +90,13 @@ namespace Assets.Sources.PlayerScripts
             _audioPlayer.Stop();
             _isBoostApplied = false;
             CurrentActiveTime = 0;
-            BoostApplied?.Invoke(0);
+            Discarded?.Invoke();
         }
 
         private void ReloadBoost()
         {
             CurrentBoostCount++;
-            BoostCountChanged?.Invoke();
+            CountChanged?.Invoke();
             Reloaded?.Invoke();
             _isReloading = false;
             CurrentReloadTime = 0;
@@ -108,15 +106,11 @@ namespace Assets.Sources.PlayerScripts
         {
             _audioPlayer.Play();
             CurrentBoostCount--;
-            BoostCountChanged?.Invoke();
+            CountChanged?.Invoke();
             _isBoostApplied = true;
-            BoostApplied?.Invoke(_boostSpeed);
+            Applied?.Invoke();
         }
 
-        public override void Upgrade()
-        {
-            _boostSpeed += _boostSpeedUpgradeDelta;
-            ReloadTime -= ReloadUpgradeDelta;
-        }
+        public override void Upgrade() => ReloadTime -= ReloadUpgradeDelta;
     }
 }

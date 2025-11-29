@@ -1,6 +1,5 @@
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.Pause;
-using Assets.Sources.SimpleCubeScripts;
 using Assets.Sources.Utils;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +9,8 @@ namespace Assets.Sources.PlayerScripts
     [RequireComponent(typeof(CapsuleCollider))]
     public class Catcher : PauseableObject
     {
+        private const float AdditionalDamageForEnemy = 0.5f;
+
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private Transform _hole;
         [SerializeField, Min(0)] private float _damageRate;
@@ -19,8 +20,24 @@ namespace Assets.Sources.PlayerScripts
         private List<Enemy> _enemiesInGravityCatch;
         private List<GameObject> _objectsInGravityCatch;
         private float _currentDamageTime;
+        private float _currentAdditionalDamage = 1;
 
-        public float Damage => _growHandler.CurrentSize * UserUtils.PlayerDamageMultiplier;
+        public float Damage { get; private set; }
+
+        private void Awake()
+        {
+            Damage = _currentAdditionalDamage;
+        }
+
+        private void OnEnable()
+        {
+            _growHandler.Growing += OnGrowing;
+        }
+
+        private void OnDisable()
+        {
+            _growHandler.Growing -= OnGrowing;
+        }
 
         private void Update()
         {
@@ -35,7 +52,7 @@ namespace Assets.Sources.PlayerScripts
 
                 foreach (Enemy enemy in _enemiesInGravityCatch)
                 {
-                    if (enemy != null && enemy.isActiveAndEnabled && enemy.Size < _growHandler.CurrentSize)
+                    if (enemy != null && enemy.isActiveAndEnabled && enemy.Size <= _growHandler.CurrentSize)
                         enemy.TakeDamage(Damage);
                 }
             }
@@ -47,7 +64,7 @@ namespace Assets.Sources.PlayerScripts
             {
                 enemy.Detect(true);
 
-                if (enemy.Size < _growHandler.CurrentSize)
+                if (enemy.Size <= _growHandler.CurrentSize)
                 {
                     if (_enemiesInGravityCatch.Contains(enemy) == false)
                         _enemiesInGravityCatch.Add(enemy);
@@ -79,11 +96,8 @@ namespace Assets.Sources.PlayerScripts
             {
                 enemy.Detect(false);
 
-                if (enemy.Size < _growHandler.CurrentSize)
-                {
-                    if (_enemiesInGravityCatch.Contains(enemy))
-                        _enemiesInGravityCatch.Remove(enemy);
-                }
+                if (_enemiesInGravityCatch.Contains(enemy))
+                    _enemiesInGravityCatch.Remove(enemy);
             }
         }
 
@@ -118,6 +132,17 @@ namespace Assets.Sources.PlayerScripts
 
             _sensor.enabled = false;
             _sensor.enabled = true;
+        }
+
+        public void UpgradeDamage()
+        {
+            _currentAdditionalDamage += AdditionalDamageForEnemy;
+            Damage = _growHandler.CurrentSize  * UserUtils.PlayerDamageMultiplier + _currentAdditionalDamage;
+        }
+
+        private void OnGrowing()
+        {
+            Damage = _growHandler.CurrentSize * UserUtils.PlayerDamageMultiplier + _currentAdditionalDamage;
         }
     }
 }

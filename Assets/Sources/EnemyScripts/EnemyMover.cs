@@ -32,12 +32,12 @@ namespace Assets.Sources.EnemyScripts
         private float _angularSpeed;
         private float _retreatDistance;
         private bool _isPlayerTarget;
-        private bool _isInZone;
         private bool _isStopped;
         private bool _isRetreat;
         private bool _isActive;
         private float _retreatTimer;
         private float _retreatUpdateInterval = 0.2f;
+        private bool _isPlayerInZone;
 
         private void Update()
         {
@@ -55,7 +55,13 @@ namespace Assets.Sources.EnemyScripts
                     ControlDistance();
                 }
 
-                if (_isPlayerTarget)
+                if (_isPlayerTarget && _moveZone.PlayerIsDead)
+                {
+                    _isPlayerTarget = false;
+                    ReturnToPatrol();
+                }
+
+                if (_isPlayerTarget && _isPlayerInZone)
                 {
                     if (_agent.updateRotation)
                         EnableManualRotation();
@@ -92,7 +98,6 @@ namespace Assets.Sources.EnemyScripts
             base.Init(pauseHandler);
             _transform = transform;
             _lastPosition = _transform.position;
-            _isInZone = true;
             IsInitialized = true;
         }
 
@@ -156,7 +161,19 @@ namespace Assets.Sources.EnemyScripts
             _isActive = false;
         }
 
-        public void SetPatrolZone(EnemyPatrolZone patrolZone) => _patrolZone = patrolZone;
+        public void SetPatrolZone(EnemyPatrolZone patrolZone)
+        {
+            _patrolZone = patrolZone;
+        } 
+
+        private void OnPlayerInZone()
+        {
+            _isPlayerInZone = true;
+        }
+        private void OnPlayerOutZone()
+        {
+            _isPlayerInZone = false;
+        }
 
         private void ReturnToPatrol()
         {
@@ -195,6 +212,12 @@ namespace Assets.Sources.EnemyScripts
             _retreatZone.ShouldRetreat += OnRetreat;
             _moveZone.PlayerIn += OnMoveIn;
             _moveZone.PlayerOut += OnMoveOut;
+    
+            if (_patrolZone != null)
+            {
+                _patrolZone.PlayerInZone += OnPlayerInZone;
+                _patrolZone.PlayerOutZone += OnPlayerOutZone;
+            }
         }
 
         private void UnSubscribe()
@@ -204,6 +227,12 @@ namespace Assets.Sources.EnemyScripts
             _retreatZone.ShouldRetreat -= OnRetreat;
             _moveZone.PlayerIn -= OnMoveIn;
             _moveZone.PlayerOut -= OnMoveOut;
+            
+            if (_patrolZone != null)
+            {
+                _patrolZone.PlayerInZone -= OnPlayerInZone;
+                _patrolZone.PlayerOutZone -= OnPlayerOutZone;
+            }
         }
 
         private void OnStopIn() => _isStopped = true;
@@ -219,9 +248,6 @@ namespace Assets.Sources.EnemyScripts
 
         private void OnMoveIn()
         {
-            if (_isInZone == false)
-                return;
-
             if (_target == null)
                 _target = _moveZone.Player.transform;
 
@@ -230,46 +256,46 @@ namespace Assets.Sources.EnemyScripts
 
         private void RetreatFromPlayer()
         {
-            if (_moveZone.Player == null || _agent == null || _agent.isOnNavMesh == false) 
-                return; 
-            
-            if (_agent.isStopped) 
-                _agent.isStopped = false; 
-            
-            _retreatTimer += Time.deltaTime; 
-            
-            if (_retreatTimer < _retreatUpdateInterval) 
-                return; 
-            
-            _retreatTimer = 0; 
-            float checkDistance = _retreatDistance + _moveZone.Player.Radius; 
-            _retreatDirectories = new Vector3[] 
-            { 
-                -_transform.forward, 
-                (-transform.forward + transform.right).normalized, 
-                (-transform.forward - transform.right).normalized, 
-                _transform.right, -_transform.right, 
-                (transform.forward - transform.right).normalized, 
-                (transform.forward + transform.right).normalized, _transform.forward, 
-            }; 
-            
-            foreach (var dir in _retreatDirectories) 
-            { 
-                Vector3 target = _transform.position + dir * checkDistance; 
-                
-                if (NavMesh.SamplePosition(target, out NavMeshHit hit, checkDistance, NavMesh.AllAreas) == false) 
-                    continue; 
-                
-                NavMeshPath path = new NavMeshPath(); 
-                
-                if (_agent.CalculatePath(hit.position, path) == false) 
-                    continue; 
+            if (_moveZone.Player == null || _agent == null || _agent.isOnNavMesh == false)
+                return;
+
+            if (_agent.isStopped)
+                _agent.isStopped = false;
+
+            _retreatTimer += Time.deltaTime;
+
+            if (_retreatTimer < _retreatUpdateInterval)
+                return;
+
+            _retreatTimer = 0;
+            float checkDistance = _retreatDistance + _moveZone.Player.Radius;
+            _retreatDirectories = new Vector3[]
+            {
+                -_transform.forward,
+                (-transform.forward + transform.right).normalized,
+                (-transform.forward - transform.right).normalized,
+                _transform.right, -_transform.right,
+                (transform.forward - transform.right).normalized,
+                (transform.forward + transform.right).normalized, _transform.forward,
+            };
+
+            foreach (var dir in _retreatDirectories)
+            {
+                Vector3 target = _transform.position + dir * checkDistance;
+
+                if (NavMesh.SamplePosition(target, out NavMeshHit hit, checkDistance, NavMesh.AllAreas) == false)
+                    continue;
+
+                NavMeshPath path = new NavMeshPath();
+
+                if (_agent.CalculatePath(hit.position, path) == false)
+                    continue;
 
                 if (path.status != NavMeshPathStatus.PathComplete)
                     continue;
 
-                _agent.SetDestination(hit.position); 
-                break; 
+                _agent.SetDestination(hit.position);
+                break;
             }
         }
 

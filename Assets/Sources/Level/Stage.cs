@@ -24,7 +24,7 @@ namespace Assets.Sources.Level
         [SerializeField] private PauseInput _pauseInput;
 
         private protected PauseHandler PauseHandler;
-        private protected AudioPlayerSpawner AudioPlayerSpawner; 
+        private protected AudioPlayerSpawner AudioPlayerSpawner;
         private protected InputBindings Bindings;
         private bool _isStarted;
 
@@ -54,11 +54,7 @@ namespace Assets.Sources.Level
             AudioPlayerSpawner = audioPlayerSpawner;
             Bindings = SaveSystem.LoadInputBindings();
             UseVirtualJoystick.isOn = Bindings.UseJoystick;
-
-            if(Bindings.UseJoystick)
-                Pause.interactable = true;
-            else
-                Pause.interactable = false;
+            Pause.interactable = true;
         }
 
         public void Begin()
@@ -119,7 +115,7 @@ namespace Assets.Sources.Level
                     _pauseMenuAnimator.Hide();
                     Window.Hide();
 
-                    if(Pause.gameObject.activeSelf)
+                    if (Pause.gameObject.activeSelf)
                         Pause.interactable = true;
                 }
             }
@@ -127,7 +123,7 @@ namespace Assets.Sources.Level
             {
                 PauseHandler.Pause();
 
-                if(_pauseMenuAnimator.IsShown == false)
+                if (_pauseMenuAnimator.IsShown == false)
                 {
                     _pauseMenuAnimator.Show();
                     Window.Show();
@@ -146,7 +142,7 @@ namespace Assets.Sources.Level
 
         private protected virtual void OnVirtualJoystickValueChanged(bool value)
         {
-            if(_isStarted)
+            if (_isStarted)
                 AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ToggleSound)?.Play();
 
             Pause.gameObject.SetActive(value);

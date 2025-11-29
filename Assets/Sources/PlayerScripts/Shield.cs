@@ -1,5 +1,6 @@
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
+using Assets.Sources.Utils;
 using System;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace Assets.Sources.PlayerScripts
 
         private bool _isDefended;
         private bool _isDefendApplied;
+        private float _defence;
+        private int _defenceThreshold = 10;
 
         public event Action DefendApplied;
         public event Action Reloading;
@@ -22,6 +25,12 @@ namespace Assets.Sources.PlayerScripts
         public float DefendTime => ActiveTime;
         public bool IsDefended => _isDefended;
         public bool IsReloading { get; private set; }
+        public float Defence => _defence / _defenceThreshold;
+
+        private void Awake()
+        {
+            _defence = 10;
+        }
 
         private void OnEnable()
         {
@@ -116,5 +125,13 @@ namespace Assets.Sources.PlayerScripts
 
             CycleTime = ReloadTime + ActiveTime;
         }
+
+        public void UpgradeActiveTime()
+        {
+            ActiveTime += _defendUpgradeDelta * 2;
+            CycleTime = ReloadTime + ActiveTime;
+        }
+
+        public void UpgradeDefend() => _defence += UserUtils.One;
     }
 }

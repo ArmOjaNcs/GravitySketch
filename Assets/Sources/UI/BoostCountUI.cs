@@ -11,12 +11,12 @@ namespace Assets.Sources.UI
 
         private void OnEnable()
         {
-            _booster.BoostCountChanged += OnBoostCountChanged;
+            _booster.CountChanged += OnBoostCountChanged;
         }
 
         private void OnDisable()
         {
-            _booster.BoostCountChanged -= OnBoostCountChanged;
+            _booster.CountChanged -= OnBoostCountChanged;
         }
 
         private void Start()

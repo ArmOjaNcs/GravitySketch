@@ -1,4 +1,5 @@
 using Assets.Sources.Pause;
+using Assets.Sources.Utils;
 using System;
 using UnityEngine;
 
@@ -29,14 +30,16 @@ namespace Assets.Sources.PlayerScripts
 
         private void OnEnable()
         {
-            _booster.BoostApplied += OnBoostApplied;
+            _booster.Applied += OnBoostApplied;
+            _booster.Discarded += OnBoostDiscarded;
             _playerInput.DirectionChanged += OnDirectionChanged;
             _playerInput.Rotated += OnRotated;
         }
 
         private void OnDisable()
         {
-            _booster.BoostApplied -= OnBoostApplied;
+            _booster.Applied -= OnBoostApplied;
+            _booster.Discarded -= OnBoostDiscarded;
             _playerInput.DirectionChanged -= OnDirectionChanged;
             _playerInput.Rotated -= OnRotated;
         }
@@ -96,31 +99,26 @@ namespace Assets.Sources.PlayerScripts
                 _rigidbody.velocity = _currentVelocity;
             }
 
-            //Cursor.lockState = CursorLockMode.Locked;
-            //Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
-        public void UpgradeMoveSpeed()
+        public void UpgradeMoveSpeed(bool isGrowing)
         {
-            _moveSpeed += _moveSpeedOnUpgrade;
+            if (isGrowing)
+                _moveSpeed += _moveSpeedOnUpgrade;
+            else
+                _moveSpeed += (_moveSpeedOnUpgrade / UserUtils.Three);
         }
 
-        private void OnBoostApplied(float boostSpeed)
+        private void OnBoostApplied()
         {
-            if (boostSpeed < 0)
-            {
-                Debug.LogError("Boost speed can not be less than 0");
-                return;
-            }
-
-            _isBoosted = Mathf.Approximately(boostSpeed, 0) ? false : true;
-
-            if (_isBoosted)
-                _currentSpeed = boostSpeed;
+            _isBoosted = true;
+            _currentSpeed = _moveSpeed * 1.5f;
         }
 
+        private void OnBoostDiscarded() => _isBoosted = false;
         private void OnDirectionChanged(Vector2 moveDirection) => _moveDirection = moveDirection;
-
         private void OnRotated(float rotateAxis) => _rotateAxis = Mathf.Clamp(rotateAxis, -1, 1);
 
         private void Move()

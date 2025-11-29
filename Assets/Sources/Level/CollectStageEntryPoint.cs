@@ -55,8 +55,6 @@ namespace Assets.Sources.Level
             _collectStagePrefab = Prefab.GetComponent<CollectStagePrefab>();
             _maskHandler.Init(PauseHandler, _collectStagePrefab.Renderer, _collectStagePrefab.TableMaterial);
             _playerInput.Init(PauseHandler);
-            _enemyFactory.Init(PauseHandler, AudioPlayerSpawner, _factoryConfig, _collectStagePrefab.Config.BossConfig, 
-                _collectStagePrefab.EnemyPatrolZones, _collectStagePrefab.BossPatrolZone);
             _anomalySpawner.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.Config.AnomalyConfigs);
             _simpleCubeSpawner.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.SpawnAreas,
                _collectStagePrefab.ColorReference);
@@ -66,6 +64,10 @@ namespace Assets.Sources.Level
                 _navMeshInstance = NavMesh.AddNavMeshData(_collectStagePrefab.NavMeshData,
                     _collectStagePrefab.transform.position,
                     _collectStagePrefab.transform.rotation);
+
+                _enemyFactory.Init(PauseHandler, AudioPlayerSpawner, _factoryConfig, 
+                    _collectStagePrefab.Config.BossConfig, 
+                    _collectStagePrefab.EnemyPatrolZones, _collectStagePrefab.BossPatrolZone);
             }
             else
             {

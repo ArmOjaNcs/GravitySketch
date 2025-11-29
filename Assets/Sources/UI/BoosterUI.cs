@@ -12,7 +12,7 @@ namespace Assets.Sources.UI
 
         private protected override void OnEnable()
         {
-            _booster.BoostApplied += OnBoostApplied;
+            _booster.Applied += OnBoostApplied;
             _booster.Reloading += OnReloading;
             _booster.Reloaded += OnReloaded;
             base.OnEnable();
@@ -20,7 +20,7 @@ namespace Assets.Sources.UI
 
         private protected override void OnDisable()
         {
-            _booster.BoostApplied -= OnBoostApplied;
+            _booster.Applied -= OnBoostApplied;
             _booster.Reloading -= OnReloading;
             _booster.Reloaded -= OnReloaded;
             base.OnDisable();
@@ -43,11 +43,8 @@ namespace Assets.Sources.UI
             ActiveTimeImage.gameObject.SetActive(false);
         }
 
-        private void OnBoostApplied(float speed)
+        private void OnBoostApplied()
         {
-            if (speed <= 0)
-                return;
-
             ActiveTimeImage.gameObject.SetActive(true);
             ActiveTimeImage.SetValue(UserUtils.HalfUnit);
             ActiveTimeImage.UpdateView(_booster.BoostTime, 0);

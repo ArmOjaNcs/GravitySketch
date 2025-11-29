@@ -119,7 +119,7 @@ namespace Assets.Sources.EnemyScripts
             enemy.Init(_pauseHandler);
             enemy.SetAudioPlayerSpawner(_audioPlayerSpawner);
             enemyMover.CalculateRetreatDistance();
-            enemyMover.SetPatrolDistance(config.Level);
+            enemyMover.SetPatrolDistance(config.Level*5);
             return enemy;
         }
 

@@ -11,15 +11,15 @@ namespace Assets.Sources.UI
         [SerializeField] private Upgrader _upgrader;
         [SerializeField] private SmoothedFade _smoothedFade;
         [SerializeField] private TextMeshProUGUI _moveSpeed;
-        [SerializeField] private TextMeshProUGUI _boostSpeed;
         [SerializeField] private TextMeshProUGUI _defenceTime;
+        [SerializeField] private TextMeshProUGUI _defence;
         [SerializeField] private TextMeshProUGUI _damage;
         [SerializeField] private TextMeshProUGUI _upgraded;
         [SerializeField] private RectTransform _textPivot;
 
         private string _moveSpeedText = string.Empty;
-        private string _boostSpeedText = string.Empty;
         private string _defenceTimeText = string.Empty;
+        private string _defenceValueText = string.Empty;
         private string _damageText = string.Empty;
 
         private void OnEnable()
@@ -37,8 +37,8 @@ namespace Assets.Sources.UI
         {
             _upgraded.gameObject.SetActive(false);
             _moveSpeedText = _moveSpeed.text + " ";
-            _boostSpeedText = _boostSpeed.text + " ";
             _defenceTimeText = _defenceTime.text + " ";
+            _defenceValueText = _defence.text + " ";
             _damageText = _damage.text + " ";
             UpdateUI();
         }
@@ -53,10 +53,13 @@ namespace Assets.Sources.UI
 
         private void UpdateUI()
         {
-            _moveSpeed.text = _moveSpeedText + _upgrader.MoveSpeed.ToString("F2");
-            _boostSpeed.text = _boostSpeedText + _upgrader.BoostSpeed.ToString("F2");
-            _defenceTime.text = _defenceTimeText + _upgrader.DefendTime.ToString("F2");
-            _damage.text = _damageText + _upgrader.Damage.ToString("F2");
+            _moveSpeed.text = _moveSpeedText + _upgrader.MoveSpeed.ToString("F1");
+            _defenceTime.text = _defenceTimeText + _upgrader.DefendTime.ToString("F1");
+            float defencePercent = _upgrader.Defence * 10;
+            defencePercent = Mathf.Clamp(defencePercent, 0, 75);
+            _defence.text = _defenceValueText + defencePercent.ToString() + '%';
+            float damagePerSecond = _upgrader.Damage * 2;
+            _damage.text = _damageText + damagePerSecond.ToString();
         }
 
         private protected override Sequence GetAnimation()

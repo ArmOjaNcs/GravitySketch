@@ -1,4 +1,7 @@
+using Assets.Sources.Utils;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Sources.EnemyScripts
 {
@@ -12,9 +15,32 @@ namespace Assets.Sources.EnemyScripts
         private BoxCollider _collider;
         private Transform _transform;
 
+        public event Action PlayerInZone;
+        public event Action PlayerOutZone;
+
         public int EnemiesCount => _enemiesCount;
         public int MaxLevel => _maxLevel;
         public int MinLevel => _minLevel;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            
+            if (other.CompareTag(UserUtils.Player))
+            {
+                PlayerInZone?.Invoke();
+                Debug.Log($"In {other.gameObject.tag}");
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+      
+            if (other.CompareTag(UserUtils.Player))
+            {
+                PlayerOutZone?.Invoke();
+                Debug.Log($"Out {other.gameObject.tag}");
+            }
+        }
 
         public void Initialize()
         {

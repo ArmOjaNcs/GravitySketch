@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8957876555529086084}
-  m_Layer: 17
+  m_Layer: 13
   m_Name: EnemyPatrolZonePivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8957876555529086084
 Transform:
@@ -26,8 +26,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 10, z: 10}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 55, y: 10, z: 25}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2317737341080516881}
   m_Father: {fileID: 0}
@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 2317737341080516881}
   - component: {fileID: 215354677264221783}
   - component: {fileID: 5094125203203280025}
-  m_Layer: 17
-  m_Name: Zone
-  m_TagString: Untagged
+  m_Layer: 13
+  m_Name: PatrolZone1
+  m_TagString: Zone1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,6 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1894d3a7a6c0f91468a14e9aaf1c4eb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemiesCount: 0
-  _maxLevel: 0
-  _minLevel: 0
+  _enemiesCount: 30
+  _maxLevel: 18
+  _minLevel: 14

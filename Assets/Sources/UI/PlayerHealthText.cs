@@ -12,10 +12,10 @@ namespace Assets.Sources.UI
         {
             base.Init(pauseHandler);
             _popUpText.Init(pauseHandler);
-            StartText = Text.text + " ";
-            IsNeedToSplit = true;
-            SplitSign = '/';
-            MaxValue = Health.MaxValue;
+            StartText = " ";
+            SplitSign = UserUtils.DefaultChar;
+            MaxValue = 0;
+            IsNeedToSplit = false;
             _popUpText.SetPreviousValue(Health.MaxValue);
             CurrentValue = Health.CurrentValue;
             Text.text = GetTotalText();

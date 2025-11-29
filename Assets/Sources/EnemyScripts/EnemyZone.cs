@@ -15,6 +15,7 @@ namespace Assets.Sources.EnemyScripts
         public event Action PlayerOut;
 
         public Player Player { get; protected set; }
+        public bool PlayerIsDead { get; protected set; }
 
         private void Awake()
         {
@@ -24,6 +25,9 @@ namespace Assets.Sources.EnemyScripts
 
         private protected virtual void OnTriggerEnter(Collider other)
         {
+            if (PlayerIsDead)
+                return;
+
             if (other.CompareTag(UserUtils.Player))
                 PlayerDetected(other);
         }
@@ -55,10 +59,21 @@ namespace Assets.Sources.EnemyScripts
         private protected virtual void PlayerDetected(Collider playerCollider)
         {
             if (Player == null)
+            {
                 if (playerCollider.TryGetComponent(out Player player))
+                {
                     Player = player;
+                    Player.IsDead += OnPlayerIsDead;
+                }
+            }
 
             PlayerIn?.Invoke();
+        }
+
+        private void OnPlayerIsDead()
+        {
+            Player.IsDead -= OnPlayerIsDead;
+            PlayerIsDead = true;
         }
 
         private protected virtual void PlayerLosed(Collider playerCollider)

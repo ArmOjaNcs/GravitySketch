@@ -75,8 +75,8 @@ namespace Assets.Sources.Level
             _pauseableRoutine.Init(pauseHandler);
             _cubesCollector.InvokeCubesCountChanged();
             _finalText.gameObject.SetActive(false);
-            //Cursor.lockState = CursorLockMode.Locked;
-            //Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         private void OnRoutineUpdated()
