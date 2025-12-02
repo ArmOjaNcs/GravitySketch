@@ -72,6 +72,7 @@ namespace Assets.Sources.Level
 
         private protected void Finish()
         {
+            Pause.gameObject.SetActive(false);
             _pauseInput.StopInput();
             _pauseInput.Paused -= OnPaused;
         }
@@ -145,7 +146,6 @@ namespace Assets.Sources.Level
             if (_isStarted)
                 AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ToggleSound)?.Play();
 
-            Pause.gameObject.SetActive(value);
             Bindings.UseJoystick = value;
             SaveSystem.SaveInputBindings(Bindings);
         }

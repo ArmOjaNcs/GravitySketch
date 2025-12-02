@@ -37,22 +37,24 @@ namespace Assets.Sources.Table
         {
             base.Init(pauseHandler);
             _targetRadius = UserUtils.GetCorrectRadius(_mover.transform.lossyScale.x);
-            _currentRadius = _targetRadius;
+            _currentRadius = 0;
             _transform = transform;
-            IsInitialized = true;
         }
 
         public void Init(PauseHandler pauseHandler, Renderer renderer, Material material)
         {
-            base.Init(pauseHandler);
-            _targetRadius = UserUtils.GetCorrectRadius(_mover.transform.lossyScale.x);
+            Init(pauseHandler);
             _material = material;
-            _material.SetFloat("_HoleRadius", _targetRadius);
+            _material.SetFloat("_HoleRadius", _currentRadius);
             _renderer = renderer;
             _renderer.material = _material;
-            _currentRadius = _targetRadius;
             _transform = transform;
             IsInitialized = true;
+        }
+
+        public void StartGrowUp()
+        {
+            UpdateView(Duration * 2);
         }
 
         private void OnPositionChanged(Vector3 position)

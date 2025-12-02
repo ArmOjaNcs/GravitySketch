@@ -16,7 +16,6 @@ namespace Assets.Sources.PlayerScripts
         private bool _isDefended;
         private bool _isDefendApplied;
         private float _defence;
-        private int _defenceThreshold = 10;
 
         public event Action DefendApplied;
         public event Action Reloading;
@@ -25,11 +24,11 @@ namespace Assets.Sources.PlayerScripts
         public float DefendTime => ActiveTime;
         public bool IsDefended => _isDefended;
         public bool IsReloading { get; private set; }
-        public float Defence => _defence / _defenceThreshold;
+        public float Defence => _defence;
 
         private void Awake()
         {
-            _defence = 10;
+            _defence = 5;
         }
 
         private void OnEnable()
@@ -128,10 +127,14 @@ namespace Assets.Sources.PlayerScripts
 
         public void UpgradeActiveTime()
         {
-            ActiveTime += _defendUpgradeDelta * 2;
+            ActiveTime += _defendUpgradeDelta * 4;
             CycleTime = ReloadTime + ActiveTime;
         }
 
-        public void UpgradeDefend() => _defence += UserUtils.One;
+        public void UpgradeDefend()
+        {
+            if(_defence < 75)
+                _defence += UserUtils.One;
+        }
     }
 }

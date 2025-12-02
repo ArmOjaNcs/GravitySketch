@@ -41,6 +41,8 @@ namespace Assets.Sources.EnemyScripts
         public Enemy CreateBoss()
         {
             Enemy enemy = SpawnEnemyInZone(_bossPatrolZone, _bossConfig.Config);
+            EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();
+            enemyMover.SetIsBoss();
 
             foreach (EnemyAttackConfig enemyAttackConfig in _bossConfig.AttackConfigs)
             {

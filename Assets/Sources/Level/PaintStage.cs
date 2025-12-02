@@ -166,7 +166,6 @@ namespace Assets.Sources.Level
         private IEnumerator FinishRoutine()
         {
             Finish();
-            Pause.gameObject.SetActive(false);
             _paint.gameObject.SetActive(false);
             _reset.gameObject.SetActive(false);
             Transform referenceAndAutoPaint = _autoPaint.transform.parent;

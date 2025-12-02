@@ -4,6 +4,7 @@ using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Save;
 using Assets.Sources.SimpleCubeScripts;
+using Assets.Sources.UI;
 using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
@@ -118,6 +119,7 @@ namespace Assets.Sources.Level
 
         private void OnExitApplied()
         {
+            Finish();
             _player.SetFinished();
             Progress.SetIntermediateResult(_playerScore.Value, _cubesCollector.GetAllCollors());
             SaveSystem.SavePlayerProgress(Progress);

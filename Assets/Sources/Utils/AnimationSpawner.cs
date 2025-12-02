@@ -184,6 +184,27 @@ namespace Assets.Sources.Utils
             return sequence;
         }
 
+        public static Sequence GetStatAnimation(RectTransform transform, float duration)
+        {
+            float transformScaleX = transform.localScale.x;
+
+            Sequence sequence = DOTween.Sequence();
+
+            sequence = GetShakeAnimation(transform, duration);
+
+            sequence.Insert(0, transform.DOScale(transformScaleX * 1.2f, duration / 2)
+                    .From(transformScaleX)
+                    .SetEase(Ease.OutBack));
+              
+            sequence.Insert(1, transform.DOScale(transformScaleX, duration / 2))
+                    .SetEase(Ease.OutSine);
+
+            sequence.SetAutoKill(false);
+            sequence.Pause();
+
+            return sequence;
+        }
+
         public static Sequence GetOptionsHideAnimation(RectTransform transform, float duration)
         {
             Vector3 originalScale = Vector3.one;

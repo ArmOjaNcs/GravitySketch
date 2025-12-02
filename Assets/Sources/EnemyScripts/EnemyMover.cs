@@ -38,6 +38,7 @@ namespace Assets.Sources.EnemyScripts
         private float _retreatTimer;
         private float _retreatUpdateInterval = 0.2f;
         private bool _isPlayerInZone;
+        private bool _isBoss;
 
         private void Update()
         {
@@ -133,6 +134,12 @@ namespace Assets.Sources.EnemyScripts
             _retreatDistance = _retreatZone.ColliderRadius * transform.lossyScale.x;
         }
 
+        public void SetIsBoss()
+        {
+            _isBoss = true;
+            _isPlayerInZone = true;
+        } 
+
         public void Activate()
         {
             if (_agent == null)
@@ -141,7 +148,7 @@ namespace Assets.Sources.EnemyScripts
                 _angularSpeed = _agent.angularSpeed;
             }
 
-            _stopZone.gameObject.SetActive(true);
+            ActivateZones();
             _retreatZone.gameObject.SetActive(true);
             _attackZone.SetActive(true);
             Subscribe();
@@ -168,15 +175,49 @@ namespace Assets.Sources.EnemyScripts
 
         private void OnPlayerInZone()
         {
+            if (_isBoss)
+                return;
+
             _isPlayerInZone = true;
+            ActivateZones();
         }
+
         private void OnPlayerOutZone()
         {
+            if (_isBoss)
+                return;
+
             _isPlayerInZone = false;
+
+            if (_isPlayerTarget)
+            {
+                DeactivateZones();
+                ReturnToPatrol();
+            } 
+        }
+
+        private void DeactivateZones()
+        {
+            _stopZone.gameObject.SetActive(false);
+            _isStopped = false;
+            _moveZone.gameObject.SetActive(false);
+            _isPlayerTarget = false;
+        }
+
+        private void ActivateZones()
+        {
+            _stopZone.gameObject.SetActive(true);
+            _moveZone.gameObject.SetActive(true);
         }
 
         private void ReturnToPatrol()
         {
+            if (IsPaused)
+                return;
+
+            if(_agent.isStopped)
+                _agent.isStopped = false;
+
             GetCurrentPoint();
             ConfirmTarget();
         }

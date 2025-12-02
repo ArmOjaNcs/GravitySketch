@@ -49,6 +49,8 @@ namespace Assets.Sources.UI
             float difference = _health.CurrentValue - _previousValue;
             _previousValue = _health.CurrentValue;
             _targetValue = _health.CurrentValue / _health.MaxValue;
+            _isFarUpdated = false;
+            _isNearUpdated = false;
 
             if(difference >= 0)
                 _fillerFar.UpdateView(_duration, _targetValue);
@@ -80,8 +82,6 @@ namespace Assets.Sources.UI
         {
             if(_isFarUpdated && _isNearUpdated)
             {
-                _isNearUpdated = false;
-                _isFarUpdated = false;
                 _fillerNear.SetValue(_targetValue);
                 _fillerFar.SetValue(_targetValue);
                 return true;

@@ -75,7 +75,7 @@ namespace Assets.Sources.PlayerScripts
             if (damage <= 0 || _shield.IsDefended)
                 return;
 
-            float defencePercent = _shield.Defence / 10;
+            float defencePercent = _shield.Defence / 100;
             defencePercent = Mathf.Clamp(defencePercent, 0, 0.75f);
             damage = damage - defencePercent * damage;
             damage = Mathf.Round(damage);

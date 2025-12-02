@@ -21,7 +21,7 @@ namespace Assets.Sources.Utils
             {
                 MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
                 materialPropertyBlock.SetColor("_Color", templateColorReference.GetRandomColor());
-                barrier.GetComponent<MeshRenderer>().SetPropertyBlock(materialPropertyBlock);
+                barrier.GetComponent<MeshRenderer>()?.SetPropertyBlock(materialPropertyBlock);
             }
         }
     }

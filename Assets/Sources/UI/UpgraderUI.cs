@@ -1,70 +1,91 @@
+using Assets.Sources.Audio;
+using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
-using Assets.Sources.Utils;
-using DG.Tweening;
-using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Sources.UI
 {
-    public class UpgraderUI : PauseableAnimation
+    public class UpgraderUI : PauseableObject
     {
         [SerializeField] private Upgrader _upgrader;
-        [SerializeField] private SmoothedFade _smoothedFade;
-        [SerializeField] private TextMeshProUGUI _moveSpeed;
-        [SerializeField] private TextMeshProUGUI _defenceTime;
-        [SerializeField] private TextMeshProUGUI _defence;
-        [SerializeField] private TextMeshProUGUI _damage;
-        [SerializeField] private TextMeshProUGUI _upgraded;
-        [SerializeField] private RectTransform _textPivot;
+        [SerializeField] private StatsAnimation[] _statsAnimations;
+        [SerializeField] private AudioPlayer _audioPlayer;
 
-        private string _moveSpeedText = string.Empty;
-        private string _defenceTimeText = string.Empty;
-        private string _defenceValueText = string.Empty;
-        private string _damageText = string.Empty;
+        private Dictionary<StatsAnimationType, StatsAnimation> _animationsByType = new();
+        private bool _isStarted;
 
         private void OnEnable()
         {
             _upgrader.Upgraded += OnUpgraded;
         }
 
-        private protected override void OnDisable()
+        private void OnDisable()
         {
-            _upgrader.Upgraded -= OnUpgraded;
-            base.OnDisable();   
+            _upgrader.Upgraded -= OnUpgraded;  
         }
 
-        private void Start()
+        public override void Init(PauseHandler pauseHandler)
         {
-            _upgraded.gameObject.SetActive(false);
-            _moveSpeedText = _moveSpeed.text + " ";
-            _defenceTimeText = _defenceTime.text + " ";
-            _defenceValueText = _defence.text + " ";
-            _damageText = _damage.text + " ";
-            UpdateUI();
+            base.Init(pauseHandler);
+            _audioPlayer.Init(pauseHandler);
+           
+            foreach(StatsAnimation statsAnimation in _statsAnimations)
+            {
+                _animationsByType.Add(statsAnimation.Type, statsAnimation);
+                statsAnimation.Init(pauseHandler);
+            }
+
+            foreach (StatsAnimation statsAnimation in _statsAnimations)
+                OnUpgraded(statsAnimation.Type);
+
+            IsInitialized = true;
         }
 
-        private void OnUpgraded()
+        public void GrowUp()
         {
-            _smoothedFade.ShowElements();
-            Animation.Restart();
-            Animation.OnComplete(()=> _smoothedFade.FadeOut());
-            UpdateUI();
+            _audioPlayer.Play();
         }
 
-        private void UpdateUI()
+        private void OnUpgraded(StatsAnimationType animationType)
         {
-            _moveSpeed.text = _moveSpeedText + _upgrader.MoveSpeed.ToString("F1");
-            _defenceTime.text = _defenceTimeText + _upgrader.DefendTime.ToString("F1");
-            float defencePercent = _upgrader.Defence * 10;
-            defencePercent = Mathf.Clamp(defencePercent, 0, 75);
-            _defence.text = _defenceValueText + defencePercent.ToString() + '%';
-            float damagePerSecond = _upgrader.Damage * 2;
-            _damage.text = _damageText + damagePerSecond.ToString();
-        }
+            switch (animationType)
+            {
+                case StatsAnimationType.MoveSpeed:
+                    _animationsByType[animationType].SetText(_upgrader.MoveSpeed.ToString("F1"));
+                    _animationsByType[animationType].UpdateView(2);
+                    break;
+               
+                case StatsAnimationType.DefenceTime:
+                    _animationsByType[animationType].SetText(_upgrader.DefendTime.ToString("F2"));
+                    _animationsByType[animationType].UpdateView(2);
+                    break;
 
-        private protected override Sequence GetAnimation()
-        {
-            return AnimationSpawner.GetShakeAnimation(_textPivot, 0.5f);
+                case StatsAnimationType.Defence:
+                    _animationsByType[animationType].SetText(_upgrader.Defence.ToString() + '%');
+                    _animationsByType[animationType].UpdateView(2);
+                    break;
+
+                case StatsAnimationType.Damage:
+                    float damagePerSecond = _upgrader.Damage * 2;
+                    _animationsByType[animationType].SetText(damagePerSecond.ToString());
+                    _animationsByType[animationType].UpdateView(2);
+                    break;
+
+                case StatsAnimationType.Size:
+                    _animationsByType[animationType].SetText(_upgrader.CurrentSize.ToString());
+                    _animationsByType[animationType].UpdateView(2);
+
+                    if(_isStarted)
+                        _audioPlayer.Play();
+                    else
+                        _isStarted = true;
+
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }

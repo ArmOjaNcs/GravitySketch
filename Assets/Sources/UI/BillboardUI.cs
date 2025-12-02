@@ -8,12 +8,19 @@ namespace Assets.Sources.UI
         [SerializeField] private protected Vector3 Offset = new Vector3(0, 2f, 0);
 
         private Transform _cameraTransform;
+        private Transform _transform;
         private bool _isStop;
+        private protected Transform CameraPivot;
+
+        private protected Quaternion PivotRotation => Quaternion.Euler(_transform.eulerAngles.x, 0f,
+            -CameraPivot.eulerAngles.y);
 
         private void Start()
         {
+            _transform = transform;
             _cameraTransform = Camera.main.transform;
-            transform.SetParent(null);
+            CameraPivot = _cameraTransform.parent;
+            _transform.SetParent(null);
         }
 
         private void LateUpdate()
@@ -28,8 +35,9 @@ namespace Assets.Sources.UI
 
         private protected virtual void FollowByParrent()
         {
-            transform.position = Parent.position + Offset;
-            transform.forward = _cameraTransform.forward;
+            _transform.position = Parent.position + Offset;
+            _transform.forward = _cameraTransform.forward;
+            _transform.rotation = PivotRotation;
         }
     }
 }

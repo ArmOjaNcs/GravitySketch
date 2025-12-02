@@ -1,3 +1,4 @@
+using Assets.Sources.UI;
 using System;
 using UnityEngine;
 
@@ -16,8 +17,9 @@ namespace Assets.Sources.PlayerScripts
         public float DefendTime => _shield.DefendTime;
         public float Defence => _shield.Defence;
         public float Damage => _catcher.Damage;
+        public int CurrentSize => _growHandler.CurrentSize;
 
-        public event Action Upgraded;
+        public event Action<StatsAnimationType> Upgraded;
 
         private void OnEnable()
         {
@@ -36,7 +38,7 @@ namespace Assets.Sources.PlayerScripts
         private void OnAnomalyDissolved()
         {
             _shield.UpgradeActiveTime();
-            Upgraded?.Invoke();
+            Upgraded?.Invoke(StatsAnimationType.DefenceTime);
         }
 
         private void OnGrowing()
@@ -44,7 +46,10 @@ namespace Assets.Sources.PlayerScripts
             _mover.UpgradeMoveSpeed(true);
             _shield.Upgrade();
             _booster.Upgrade();
-            Upgraded?.Invoke();
+            Upgraded?.Invoke(StatsAnimationType.DefenceTime);
+            Upgraded?.Invoke(StatsAnimationType.MoveSpeed);
+            Upgraded?.Invoke(StatsAnimationType.Damage);
+            Upgraded?.Invoke(StatsAnimationType.Size);
         }
 
         private void OnEnemyDissolved()
@@ -52,7 +57,9 @@ namespace Assets.Sources.PlayerScripts
             _catcher.UpgradeDamage();
             _mover.UpgradeMoveSpeed(false);
             _shield.UpgradeDefend();
-            Upgraded?.Invoke();
+            Upgraded?.Invoke(StatsAnimationType.MoveSpeed);
+            Upgraded?.Invoke(StatsAnimationType.Damage);
+            Upgraded?.Invoke(StatsAnimationType.Defence);
         }
     }
 }
