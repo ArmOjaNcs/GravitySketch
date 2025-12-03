@@ -80,7 +80,7 @@ namespace Assets.Sources.Utils
         public const float MinPercentToComplete = 0.7f;
         public const float ExitTime = 3;
         public const float PlayerDamageMultiplier = 1.5f;
-        public const float LoadTime = 5f;
+        public const float LoadTime = 1.5f;
         public const float DamageRate = 0.5f;
         public const float GrowDuration = 1f;
         public const float ActiveDuration = 2f;
