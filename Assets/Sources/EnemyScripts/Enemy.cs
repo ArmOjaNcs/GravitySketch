@@ -2,6 +2,7 @@ using Assets.Sources.Dissolvable;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -91,14 +92,13 @@ namespace Assets.Sources.EnemyScripts
         private void ApplyRandomColors()
         {
             MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>(true);
+            List<Material> materials = new List<Material>();
 
             foreach (MeshRenderer renderer in renderers)
-            {
-                MaterialPropertyBlock block = new MaterialPropertyBlock();
-                renderer.GetPropertyBlock(block);
-                block.SetColor(UserUtils.ColorID, UserUtils.GetRandomColor());
-                renderer.SetPropertyBlock(block);
-            }
+                materials.AddRange(renderer.materials);
+
+            foreach (Material material in materials)
+                material.color = UserUtils.GetRandomColor();
         }
 
         private void SetZonesScale(EnemyConfig enemyConfig)

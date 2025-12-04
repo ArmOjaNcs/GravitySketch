@@ -43,7 +43,8 @@ namespace Assets.Sources.Audio
         private void Init()
         {
             _settings = SaveSystem.LoadAudioSettings();
-            _totalVolume.Init();
+
+            _totalVolume.Init();            
             _totalVolume.SetSliderValue(_settings.TotalVolume);
             _musicVolume.Init();
             _musicVolume.SetSliderValue(_settings.MusicVolume);

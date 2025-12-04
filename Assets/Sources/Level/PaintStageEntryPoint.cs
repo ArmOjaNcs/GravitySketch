@@ -37,9 +37,9 @@ namespace Assets.Sources.Level
             paintStage.Init(PauseHandler, AudioPlayerSpawner);
         }
 
-        private protected override void OnLoadWindowUpdated()
+        private protected override void Begin()
         {
-            base.OnLoadWindowUpdated();
+            base.Begin();
             _coloringPositionHandler.StartStage();
         }
     }

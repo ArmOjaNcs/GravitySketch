@@ -100,9 +100,7 @@ namespace Assets.Sources.Level
         private void OnWindowClosed()
         {
             Window.Closed -= OnWindowClosed;
-            Progress.SetStageName(UserUtils.GetPaintStageName(StageName));
-            SaveSystem.SavePlayerProgress(Progress);
-            SceneManager.LoadScene(UserUtils.Paint);
+            SceneManager.LoadScene(UserUtils.Load);
         }
 
         private void OnCubesCountChanged(int cubesCount)
@@ -122,6 +120,8 @@ namespace Assets.Sources.Level
             Finish();
             _player.SetFinished();
             Progress.SetIntermediateResult(_playerScore.Value, _cubesCollector.GetAllCollors());
+            Progress.SetStageName(UserUtils.GetPaintStageName(StageName));
+            Progress.SetSceneType(SceneType.Paint);
             SaveSystem.SavePlayerProgress(Progress);
             AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(FinalSound)?.Play();
             _pauseableRoutine.UpdateView(_timeBeforeLoad);

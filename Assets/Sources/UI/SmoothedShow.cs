@@ -31,6 +31,5 @@ namespace Assets.Sources.UI
             foreach(CanvasGroup group in _canvasGroups)
                 group.alpha = Mathf.Lerp(StartValue, TargetValue, progress);
         }
-        
     }
 }

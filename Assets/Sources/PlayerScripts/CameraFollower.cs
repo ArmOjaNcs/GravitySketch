@@ -52,6 +52,13 @@ namespace Assets.Sources.PlayerScripts
             base.OnDisable();
         }
 
+        private void Start()
+        {
+            Vector3 startPosition = _player.Position;
+            startPosition.y = _targetYOffset;
+            _transform.position = startPosition;
+        }
+
         private void LateUpdate()
         {
             if (IsPaused)

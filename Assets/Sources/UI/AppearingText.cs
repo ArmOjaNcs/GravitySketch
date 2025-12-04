@@ -1,6 +1,5 @@
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -14,8 +13,6 @@ namespace Assets.Sources.UI
         private string _currentText = string.Empty;
         private int _currentIndex;
         private float _step;
-
-        public event Action SignAdded;
 
         private protected override void OnRoutineStart()
         {
@@ -31,7 +28,6 @@ namespace Assets.Sources.UI
                 _currentText += _totalText[_currentIndex];
                 _text.text = _currentText;
                 _currentIndex++;
-                SignAdded?.Invoke();
             }
         }
 

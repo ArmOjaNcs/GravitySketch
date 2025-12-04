@@ -211,6 +211,7 @@ namespace Assets.Sources.Level
                     Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
                 }
 
+                Progress.SetSceneType(SceneType.Main);
                 SaveSystem.SavePlayerProgress(Progress);
             }
             
@@ -226,6 +227,7 @@ namespace Assets.Sources.Level
         private void OnNextApplied()
         {
             Progress.SetStageName(_nextStageName);
+            Progress.SetSceneType(SceneType.Collect);
             SaveSystem.SavePlayerProgress(Progress);
             AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
             Window.Closed += LoadNext;
@@ -236,7 +238,7 @@ namespace Assets.Sources.Level
         private void LoadNext()
         {
             Window.Closed -= LoadNext;
-            SceneManager.LoadScene(UserUtils.Collect);
+            SceneManager.LoadScene(UserUtils.Load);
         }
     }
 }

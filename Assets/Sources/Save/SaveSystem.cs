@@ -56,6 +56,7 @@ namespace Assets.Sources.Save
 
         public static AudioSettings LoadAudioSettings()
         {
+            //PlayerPrefs.DeleteKey("AudioSettings");
             if (PlayerPrefs.HasKey(AudioSettingsKey))
             {
                 string json = PlayerPrefs.GetString(AudioSettingsKey);

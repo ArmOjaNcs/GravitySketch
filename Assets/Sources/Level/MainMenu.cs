@@ -69,6 +69,7 @@ namespace Assets.Sources.Level
                 OnYGReady();
 
             Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
+            Progress.SetSceneType(SceneType.Collect);
 
             if (IsTutorial)
                 Progress.SetTutorial(false);
@@ -84,10 +85,10 @@ namespace Assets.Sources.Level
         {
             Progress.SetStageName(stageName);
             SaveSystem.SavePlayerProgress(Progress);
-            SceneManager.LoadScene(UserUtils.Collect);
+            SceneManager.LoadScene(UserUtils.Load);
         }
 
-        private void OnStartClicked() => SceneManager.LoadScene(UserUtils.Collect);
+        private void OnStartClicked() => SceneManager.LoadScene(UserUtils.Load);
 
         private void OnTutorialClicked()
         {

@@ -51,7 +51,8 @@ namespace Assets.Sources.Utils
         public const string Upgraded = "Upgraded!!!";
         public const string Loading = "Loading...";
         public const string ShowCounts = "Show counts: ";
-        public const string MainMenu = nameof(MainMenu);
+        public const string Main = nameof(Main);
+        public const string Load = nameof(Load);
         public const string Radar = nameof(Radar);
         public const string Telescope = nameof(Telescope);
         public const string RadarPaint = nameof(RadarPaint);
@@ -80,7 +81,7 @@ namespace Assets.Sources.Utils
         public const float MinPercentToComplete = 0.7f;
         public const float ExitTime = 3;
         public const float PlayerDamageMultiplier = 1.5f;
-        public const float LoadTime = 1.5f;
+        public const float LoadTime = 2f;
         public const float DamageRate = 0.5f;
         public const float GrowDuration = 1f;
         public const float ActiveDuration = 2f;

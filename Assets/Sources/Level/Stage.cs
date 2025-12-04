@@ -95,7 +95,9 @@ namespace Assets.Sources.Level
         private void LoadMainMenu()
         {
             Window.Closed -= LoadMainMenu;
-            SceneManager.LoadScene(UserUtils.MainMenu);
+            Progress.SetSceneType(SceneType.Main);
+            SaveSystem.SavePlayerProgress(Progress);
+            SceneManager.LoadScene(UserUtils.Load);
         }
 
         private protected virtual void OnRestartApplied()
@@ -153,8 +155,7 @@ namespace Assets.Sources.Level
         private void RestartStage()
         {
             Window.Closed -= RestartStage;
-            string sceneName = SceneManager.GetActiveScene().name;
-            SceneManager.LoadScene(sceneName);
+            SceneManager.LoadScene(UserUtils.Load);
         }
 
         private void OnPauseMenuClosed() => PauseHandler.Resume();

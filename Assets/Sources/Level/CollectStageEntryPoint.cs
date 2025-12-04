@@ -22,7 +22,6 @@ namespace Assets.Sources.Level
         [SerializeField] private UpgraderUI _upgraderUI;
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private Player _player;
-        [SerializeField] private SmoothedShow _smoothedShow;
         [SerializeField] private EnemyFactoryConfig _factoryConfig;
 
         private CollectStagePrefab _collectStagePrefab;
@@ -61,7 +60,6 @@ namespace Assets.Sources.Level
             _anomalySpawner.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.Config.AnomalyConfigs);
             _simpleCubeSpawner.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.SpawnAreas,
                _collectStagePrefab.ColorReference);
-            _smoothedShow.Init(PauseHandler);
 
             if (_collectStagePrefab.NavMeshData != null)
             {
@@ -104,13 +102,12 @@ namespace Assets.Sources.Level
             StartCoroutine(DelayedCubesDropDown());
         }
 
-        private protected override void OnLoadWindowUpdated()
+        private protected override void Begin()
         {
-            base.OnLoadWindowUpdated();
+            base.Begin();
             _maskHandler.Updated += OnMaskHandlerUpdated;
             _maskHandler.StartGrowUp();
             _upgraderUI.GrowUp();
-            _smoothedShow.UpdateView(2);
         }
 
         private void OnMaskHandlerUpdated()
