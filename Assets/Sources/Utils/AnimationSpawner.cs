@@ -31,17 +31,20 @@ namespace Assets.Sources.Utils
             return sequence;
         }
 
-        public static Sequence GetArrowAnimation(RectTransform transform)
+        public static Sequence GetMoveScaleAnimation(RectTransform transform, Vector2 offset, 
+            float scaleMul = 0.75f, float duration = 0.75f)
         {
-            Vector2 startAnchoredPos = transform.anchoredPosition;
+            Vector2 startPos = transform.anchoredPosition;
             Vector3 startScale = transform.localScale;
+
             Sequence sequence = DOTween.Sequence();
-            sequence.Append(transform.DOAnchorPosX(startAnchoredPos.x - 50f, 0.75f))
-                    .Insert(0, transform.DOScale(startScale * 0.75f, 0.75f))
+
+            sequence.Append(transform.DOAnchorPos(startPos + offset, duration))
+                    .Insert(0f, transform.DOScale(startScale * scaleMul, duration))
                     .SetLoops(-1, LoopType.Yoyo)
-                    .SetLink(transform.gameObject)
                     .SetEase(Ease.Linear)
                     .SetAutoKill(false)
+                    .SetLink(transform.gameObject)
                     .Pause();
 
             return sequence;
@@ -164,27 +167,33 @@ namespace Assets.Sources.Utils
                 .SetLink(transform.gameObject);
         }
 
-        public static Sequence GetOptionsShowAnimation(RectTransform transform, float duration)
+        public static Sequence GetOptionsShowAnimation(RectTransform transform, CanvasGroup canvasGroup, float duration)
         {
-            float transformScaleX = transform.localScale.x;
+            float startScaleX = transform.localScale.x;
 
             Sequence sequence = DOTween.Sequence();
-            
-            sequence.Append(transform.DOScale(transformScaleX * 1.1f, duration * 0.5f)
+
+            sequence.Append(GetFadeAnimation(canvasGroup, 0, 1, duration * 0.25f));
+
+            sequence.Insert(0, transform.DOScale(startScaleX * 1.1f, duration * 0.55f)
                     .From(0)
                     .SetEase(Ease.OutBack));
 
-            sequence.Append(transform.DOScale(transformScaleX, duration * 0.2f)
+            sequence.Insert(0, transform.DORotate(new Vector3(0, 0, 360), duration * 0.55f, RotateMode.FastBeyond360)
+                    .SetEase(Ease.OutCubic));
+
+            sequence.Append(transform.DOScale(startScaleX, duration * 0.2f)
                     .SetEase(Ease.OutSine));
 
-            sequence.Append(GetShakeAnimation(transform, duration * 0.3f));
+            sequence.Append(transform.DOShakeRotation(duration * 0.25f, strength: 10f, vibrato: 15, randomness: 45));
+
             sequence.SetAutoKill(false);
             sequence.Pause();
 
             return sequence;
         }
 
-        public static Sequence GetStatAnimation(RectTransform transform, float duration)
+        public static Sequence GetStatAnimation(RectTransform transform,float duration)
         {
             float transformScaleX = transform.localScale.x;
 
@@ -205,22 +214,19 @@ namespace Assets.Sources.Utils
             return sequence;
         }
 
-        public static Sequence GetOptionsHideAnimation(RectTransform transform, float duration)
+        public static Sequence GetOptionsHideAnimation(RectTransform transform, CanvasGroup canvasGroup, float duration)
         {
-            Vector3 originalScale = Vector3.one;
-            float step = duration / 3;
-           
             Sequence sequence = DOTween.Sequence();
 
-            sequence.Append(transform.DOScaleX(originalScale.x * 0.5f, step)
-                    .SetEase(Ease.Linear));
+            sequence.Append(transform.DORotate(new Vector3(0, 0, -360), duration, RotateMode.FastBeyond360)
+                    .SetEase(Ease.OutCubic));
 
-            sequence.Append(transform.DOScaleY(originalScale.y * 0.5f, step)
-                    .SetEase(Ease.Linear));
+            sequence.Insert(0, transform.DOScale(0, duration)
+                    .From(1)
+                    .SetEase(Ease.OutBack));
 
-            sequence.Append(transform.DOScale(Vector3.zero, step)
-                    .SetEase(Ease.InBack));
-
+            sequence.Insert(0, GetFadeAnimation(canvasGroup, 1, 0, duration * 0.5f));
+            
             sequence.SetAutoKill(false);
             sequence.Pause();
 

@@ -34,6 +34,7 @@ namespace Assets.Sources.Level
         private Enemy _boss;
         private float _currentEnemyDissolvedPercent;
         private float _currentCubesCountPercent;
+        private TutorialHandler _tutorialHandler; 
 
         private protected override void Awake()
         {
@@ -61,6 +62,37 @@ namespace Assets.Sources.Level
             _cubesCollector.CubesCountChanged -= OnCubesCountChanged;
             _pauseableRoutine.Updated -= OnRoutineUpdated;
             _player.IsDead -= OnPlayerDead;
+
+            if (_tutorialHandler != null)
+            {
+                _tutorialHandler.Triggered -= OnTutorialHandlerTriggered;
+                _tutorialHandler.TutorialViewClosed -= OnTutorialViewClosed;
+            }
+        }
+
+        public override void SetTutorialObject(GameObject tutorialObject)
+        {
+            base.SetTutorialObject(tutorialObject);
+            _tutorialHandler = TutorialObject.GetComponent<TutorialHandler>();
+
+            if(_tutorialHandler != null)
+            {
+                _tutorialHandler.Triggered += OnTutorialHandlerTriggered;
+                _tutorialHandler.TutorialViewClosed += OnTutorialViewClosed;
+            }
+        }
+
+        private void OnTutorialViewClosed()
+        {
+            PauseHandler.Resume();
+            Pause.gameObject.SetActive(true);
+        }
+
+        private void OnTutorialHandlerTriggered()
+        {
+            Pause.gameObject.SetActive(false);
+            PauseHandler.Pause();
+            _tutorialHandler.Show();
         }
 
         public override void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)

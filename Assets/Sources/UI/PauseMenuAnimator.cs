@@ -10,8 +10,8 @@ namespace Assets.Sources.UI
 
         private protected override void InitAnimations()
         {
-            ShowAnimation = AnimationSpawner.GetOptionsShowAnimation(RectTransform, Duration);
-            HideAnimation = AnimationSpawner.GetOptionsHideAnimation(RectTransform, Duration);
+            ShowAnimation = AnimationSpawner.GetOptionsShowAnimation(RectTransform, CanvasGroup, Duration);
+            HideAnimation = AnimationSpawner.GetOptionsHideAnimation(RectTransform, CanvasGroup, Duration);
         }
 
         public override void Show()

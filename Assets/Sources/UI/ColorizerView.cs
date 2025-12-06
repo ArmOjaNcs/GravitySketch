@@ -62,7 +62,7 @@ namespace Assets.Sources.UI
 
         private protected override Sequence GetAnimation()
         {
-            return AnimationSpawner.GetArrowAnimation(_arrow.rectTransform);
+            return AnimationSpawner.GetMoveScaleAnimation(_arrow.rectTransform, new Vector2(-50, 0));
         }
     }
 }

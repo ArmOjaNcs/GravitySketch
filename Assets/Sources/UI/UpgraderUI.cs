@@ -10,10 +10,8 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private Upgrader _upgrader;
         [SerializeField] private StatsAnimation[] _statsAnimations;
-        [SerializeField] private AudioPlayer _audioPlayer;
 
         private Dictionary<StatsAnimationType, StatsAnimation> _animationsByType = new();
-        private bool _isStarted;
 
         private void OnEnable()
         {
@@ -28,7 +26,6 @@ namespace Assets.Sources.UI
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            _audioPlayer.Init(pauseHandler);
            
             foreach(StatsAnimation statsAnimation in _statsAnimations)
             {
@@ -37,50 +34,40 @@ namespace Assets.Sources.UI
             }
 
             foreach (StatsAnimation statsAnimation in _statsAnimations)
-                OnUpgraded(statsAnimation.Type);
+                SetText(statsAnimation.Type);
 
             IsInitialized = true;
         }
 
-        public void GrowUp()
+        private void OnUpgraded(StatsAnimationType animationType)
         {
-            _audioPlayer.Play();
+            SetText(animationType);
+            _animationsByType[animationType].UpdateView(2);
         }
 
-        private void OnUpgraded(StatsAnimationType animationType)
+        private void SetText(StatsAnimationType animationType)
         {
             switch (animationType)
             {
                 case StatsAnimationType.MoveSpeed:
                     _animationsByType[animationType].SetText(_upgrader.MoveSpeed.ToString("F1"));
-                    _animationsByType[animationType].UpdateView(2);
                     break;
-               
+
                 case StatsAnimationType.DefenceTime:
                     _animationsByType[animationType].SetText(_upgrader.DefendTime.ToString("F2"));
-                    _animationsByType[animationType].UpdateView(2);
                     break;
 
                 case StatsAnimationType.Defence:
                     _animationsByType[animationType].SetText(_upgrader.Defence.ToString() + '%');
-                    _animationsByType[animationType].UpdateView(2);
                     break;
 
                 case StatsAnimationType.Damage:
                     float damagePerSecond = _upgrader.Damage * 2;
                     _animationsByType[animationType].SetText(damagePerSecond.ToString());
-                    _animationsByType[animationType].UpdateView(2);
                     break;
 
                 case StatsAnimationType.Size:
                     _animationsByType[animationType].SetText(_upgrader.CurrentSize.ToString());
-                    _animationsByType[animationType].UpdateView(2);
-
-                    if(_isStarted)
-                        _audioPlayer.Play();
-                    else
-                        _isStarted = true;
-
                     break;
 
                 default:

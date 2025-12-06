@@ -4,7 +4,6 @@ using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.SimpleCubeScripts;
 using Assets.Sources.Table;
-using Assets.Sources.UI;
 using Assets.Sources.Utils;
 using System.Collections;
 using UnityEngine;
@@ -19,8 +18,8 @@ namespace Assets.Sources.Level
         [SerializeField] private AnomalySpawner _anomalySpawner;
         [SerializeField] private SimpleCubeSpawner _simpleCubeSpawner;
         [SerializeField] private HoleMaskHandler _maskHandler;
-        [SerializeField] private UpgraderUI _upgraderUI;
         [SerializeField] private GrowHandler _growHandler;
+        [SerializeField] private Grower _grower;
         [SerializeField] private Player _player;
         [SerializeField] private EnemyFactoryConfig _factoryConfig;
 
@@ -48,12 +47,16 @@ namespace Assets.Sources.Level
 
         private protected override void Initialize()
         {
-            if(Stage.IsTutorial)
+            if (Stage.IsTutorial)
                 Prefab = Resources.Load<GameObject>(UserUtils.TutorialCollectName);
             else
                 Prefab  = Resources.Load<GameObject>(Stage.StageName);
 
             Prefab = Instantiate(Prefab);
+
+            if(Stage.IsTutorial)
+                Stage.SetTutorialObject(Prefab);
+
             _collectStagePrefab = Prefab.GetComponent<CollectStagePrefab>();
             _maskHandler.Init(PauseHandler, _collectStagePrefab.Renderer, _collectStagePrefab.TableMaterial);
             _playerInput.Init(PauseHandler);
@@ -107,12 +110,13 @@ namespace Assets.Sources.Level
             base.Begin();
             _maskHandler.Updated += OnMaskHandlerUpdated;
             _maskHandler.StartGrowUp();
-            _upgraderUI.GrowUp();
+            _grower.PlayGrowSound();
         }
 
         private void OnMaskHandlerUpdated()
         {
             _maskHandler.Updated -= OnMaskHandlerUpdated;
+            Prefab.GetComponent<TutorialHandler>()?.StartTutorial();
             _playerInput.StartInput();
         }
 

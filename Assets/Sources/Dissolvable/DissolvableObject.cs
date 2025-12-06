@@ -15,6 +15,7 @@ namespace Assets.Sources.Dissolvable
         [SerializeField] private AudioClip _collisionSound = null;
 
         private Vector3 _currentVelocity;
+        private Vector3 _currentAngularVelocity;
         private Transform _transform;
         private Transform _hole;
         private Rigidbody _rigidbody;
@@ -79,16 +80,18 @@ namespace Assets.Sources.Dissolvable
                     _previousCollisionsCount = _totalCollisionsCount;
                     return;
                 }
-
-                _previousCollisionsCount = _totalCollisionsCount;
-                _audioPlayerSpawner.GetAudioPlayer(_transform.position)?
-                                   .SetAudioClip(_collisionSound)?.Play();
+                else
+                {
+                    _previousCollisionsCount = _totalCollisionsCount;
+                    _audioPlayerSpawner.GetAudioPlayer(_transform.position)?
+                                       .SetAudioClip(_collisionSound)?.Play();
+                }
             }
         }
 
         private protected virtual void OnCollisionExit(Collision collision)
         {
-            if (IsPaused || collision.collider.gameObject.layer == UserUtils.PipeLayer || _audioPlayerSpawner == null)
+            if (collision.collider.gameObject.layer == UserUtils.PipeLayer || _audioPlayerSpawner == null)
                 return;
 
             _totalCollisionsCount--;
@@ -118,7 +121,9 @@ namespace Assets.Sources.Dissolvable
             if (_rigidbody != null && _isDropped && IsDissolving == false)
             {
                 _currentVelocity = _rigidbody.velocity;
+                _currentAngularVelocity = _rigidbody.angularVelocity;
                 _rigidbody.velocity = Vector3.zero;
+                _rigidbody.angularVelocity = Vector3.zero;
                 _rigidbody.isKinematic = true;
             }
         }
@@ -137,6 +142,7 @@ namespace Assets.Sources.Dissolvable
             {
                 _rigidbody.isKinematic = false;
                 _rigidbody.velocity = _currentVelocity;
+                _rigidbody.angularVelocity = _currentAngularVelocity;
             }
         }
 

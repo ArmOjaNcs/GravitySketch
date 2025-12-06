@@ -1,5 +1,5 @@
+using Assets.Sources.Audio;
 using Assets.Sources.Pause;
-using Assets.Sources.UI;
 using System;
 using UnityEngine;
 
@@ -10,8 +10,10 @@ namespace Assets.Sources.PlayerScripts
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private Vector3 _sizeDelta;
         [SerializeField] private float _growSize;
-       
-        private Transform _player;
+        [SerializeField] private ParticleSystem _effect;
+        [SerializeField] private AudioPlayer _audioPlayer;
+        [SerializeField] private Transform _player;
+
         private Vector3 _targetScale;
 
         public event Action<float> SizeChanged;
@@ -28,18 +30,34 @@ namespace Assets.Sources.PlayerScripts
             base.OnDisable();
         }
 
+        public override void Pause()
+        {
+            base.Pause();
+            _effect.Pause();
+        }
+
+        public override void Resume()
+        {
+            base.Resume();
+            _effect.Play();
+        }
+
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            _player = transform;
             _targetScale = _player.lossyScale;
+            _audioPlayer.Init(pauseHandler);
+            _audioPlayer.SetUI();
             IsInitialized = true;
         }
+
+        public void PlayGrowSound() => _audioPlayer.Play();
 
         private void OnGrowing()
         {
             CalculateTargetScale(false);
             OnUpdate();
+            PlayGrowSound();
             SizeChanged?.Invoke(_growSize);
         }
 

@@ -1,12 +1,13 @@
 namespace Assets.Sources.Level
 {
-    public enum TutorialTriggerType 
+    public enum TutorialType 
     {
        Start = 0,
        Cubes = 1,
        Anomaly = 2,
        Enemies = 3,
        Trap = 4,
-       Environment = 5
+       Environment = 5,
+       MedAid = 6
     }
 }

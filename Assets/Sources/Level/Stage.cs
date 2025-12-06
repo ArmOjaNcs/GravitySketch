@@ -26,6 +26,7 @@ namespace Assets.Sources.Level
         private protected PauseHandler PauseHandler;
         private protected AudioPlayerSpawner AudioPlayerSpawner;
         private protected InputBindings Bindings;
+        private protected GameObject TutorialObject;
         private bool _isStarted;
 
         private protected virtual void OnEnable()
@@ -63,6 +64,8 @@ namespace Assets.Sources.Level
             OnVirtualJoystickValueChanged(Bindings.UseJoystick);
             _isStarted = true;
         }
+
+        public virtual void SetTutorialObject(GameObject tutorialObject) => TutorialObject = tutorialObject;
 
         private protected void HidePauseMenu()
         {
