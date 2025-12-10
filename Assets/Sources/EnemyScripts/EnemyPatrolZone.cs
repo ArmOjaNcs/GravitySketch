@@ -24,22 +24,14 @@ namespace Assets.Sources.EnemyScripts
 
         private void OnTriggerEnter(Collider other)
         {
-            
             if (other.CompareTag(UserUtils.Player))
-            {
                 PlayerInZone?.Invoke();
-                Debug.Log($"In {other.gameObject.tag}");
-            }
         }
 
         private void OnTriggerExit(Collider other)
         {
-      
             if (other.CompareTag(UserUtils.Player))
-            {
                 PlayerOutZone?.Invoke();
-                Debug.Log($"Out {other.gameObject.tag}");
-            }
         }
 
         public void Initialize()

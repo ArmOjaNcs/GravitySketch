@@ -1,5 +1,4 @@
 using Assets.Sources.Utils;
-using DG.Tweening;
 using UnityEngine;
 
 namespace Assets.Sources.UI

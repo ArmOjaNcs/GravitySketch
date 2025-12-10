@@ -1,5 +1,4 @@
 using Assets.Sources.Pause;
-using Assets.Sources.Utils;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
@@ -37,6 +36,7 @@ namespace Assets.Sources.PlayerScripts
 
             _targetYOffset = _transform.position.y;
             _currentYOffset = _targetYOffset;
+            _transform.SetParent(_player.transform);
         }
 
         private void OnEnable()
@@ -54,15 +54,13 @@ namespace Assets.Sources.PlayerScripts
 
         private void Start()
         {
-            Vector3 startPosition = _player.Position;
-            startPosition.y = _targetYOffset;
-            _transform.position = startPosition;
+            _transform.SetParent(null);
         }
 
         private void LateUpdate()
         {
-            if (IsPaused)
-                return;
+            //if (IsPaused)
+            //    return;
 
             FollowPlayer();
             RotateTowardsPlayer();

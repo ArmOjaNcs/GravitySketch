@@ -4,7 +4,6 @@ using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Save;
 using Assets.Sources.SimpleCubeScripts;
-using Assets.Sources.UI;
 using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
@@ -178,8 +177,7 @@ namespace Assets.Sources.Level
 
         private bool IsCanFinish()
         {
-            return _currentEnemyDissolvedPercent >= UserUtils.MinPercentToComplete
-                && _currentCubesCountPercent >= UserUtils.MinPercentToComplete;
+            return _currentCubesCountPercent >= UserUtils.MinPercentToComplete;
         }
 
         private void UpdateExitStatus()
@@ -187,13 +185,13 @@ namespace Assets.Sources.Level
             if (IsCanFinish() && _enemyFactory.IsBossSpawned == false)
             {
                 _boss = _enemyFactory.CreateBoss();
-                _boss.Finished += OnBossFinished;
+                _boss.Downed += OnBossDowned;
             }
         }
 
-        private void OnBossFinished()
+        private void OnBossDowned()
         {
-            _boss.Finished -= OnBossFinished;
+            _boss.Downed -= OnBossDowned;
             _exit.transform.position = _takeOverLimit.transform.position + Vector3.up * 70;
             _exit.gameObject.SetActive(true);
             _exit.DropDown();

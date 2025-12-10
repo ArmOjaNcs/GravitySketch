@@ -4,6 +4,7 @@ using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.SimpleCubeScripts;
 using Assets.Sources.Table;
+using Assets.Sources.UI;
 using Assets.Sources.Utils;
 using System.Collections;
 using UnityEngine;
@@ -22,6 +23,7 @@ namespace Assets.Sources.Level
         [SerializeField] private Grower _grower;
         [SerializeField] private Player _player;
         [SerializeField] private EnemyFactoryConfig _factoryConfig;
+        [SerializeField] private MapIcon _miniMap;
 
         private CollectStagePrefab _collectStagePrefab;
         private NavMeshDataInstance _navMeshInstance;
@@ -63,6 +65,7 @@ namespace Assets.Sources.Level
             _anomalySpawner.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.Config.AnomalyConfigs);
             _simpleCubeSpawner.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.SpawnAreas,
                _collectStagePrefab.ColorReference);
+            _miniMap.SetMapSprite(_collectStagePrefab.MiniMap);
 
             if (_collectStagePrefab.NavMeshData != null)
             {

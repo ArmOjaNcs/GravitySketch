@@ -35,6 +35,7 @@ namespace Assets.Sources.Level
 
         private TemplateColorReference _colorReference;
         private Template _template;
+        private Tutorial _tutorial;
         private bool _isFinished;
         private string _nextStageName = string.Empty;
 
@@ -118,6 +119,34 @@ namespace Assets.Sources.Level
         public Color GetColor(int index)
         {
             return _colorReference.GetColor(index);
+        }
+
+        public override void SetTutorialObject(GameObject tutorialObject)
+        {
+            base.SetTutorialObject(tutorialObject);
+            _tutorial = TutorialObject.GetComponent<Tutorial>();
+            _tutorial.Closed += OnTutorialClosed;
+        }
+
+        public override void Begin()
+        {
+            if (Progress.IsTutorial)
+            {
+                PauseHandler.Pause();
+                Pause.gameObject.SetActive(false);
+                _tutorial.Show();
+                return;
+            }
+
+            base.Begin();
+        }
+
+        private void OnTutorialClosed()
+        {
+            _tutorial.Closed -= OnTutorialClosed;
+            base.Begin();
+            PauseHandler.Resume();
+            Pause.gameObject.SetActive(true);
         }
 
         private protected override void OnVirtualJoystickValueChanged(bool value)

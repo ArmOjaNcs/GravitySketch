@@ -7,55 +7,47 @@ public class PngCreator : MonoBehaviour
     public Camera TargetCamera;
     public ParticleSystem ParticleSystem;
     public int Resolution = 1024;
+    public string OutputPath = "Assets/Sprites/BakedSprite.png";
 
     public void CapturePNG()
     {
         if (TargetCamera == null)
         {
-            Debug.LogError("Camera is missing!");
+            Debug.LogError("Missing camera");
             return;
         }
 
-        if (ParticleSystem == null)
-        {
-            Debug.LogError("ParticleSystem is missing!");
-            return;
-        }
-
-        ParticleSpriteBaker.PrepareParticle(ParticleSystem);
-
-        TargetCamera.clearFlags = CameraClearFlags.SolidColor;
-        TargetCamera.backgroundColor = new Color(0, 0, 0, 0);
         TargetCamera.allowHDR = false;
         TargetCamera.allowMSAA = false;
-        TargetCamera.depthTextureMode = DepthTextureMode.None;
 
-        RenderTexture renderTexture = new RenderTexture(Resolution, Resolution, 0, RenderTextureFormat.ARGB32);
-        renderTexture.antiAliasing = 1;
+        RenderTextureDescriptor descriptor = new RenderTextureDescriptor(
+            Resolution,
+            Resolution,
+            RenderTextureFormat.ARGB32,
+            24
+        );
+        descriptor.sRGB = true;
 
+        RenderTexture renderTexture = new RenderTexture(descriptor);
         TargetCamera.targetTexture = renderTexture;
+        TargetCamera.clearFlags = CameraClearFlags.SolidColor;
+        TargetCamera.backgroundColor = new Color(0, 0, 0, 0);
 
         TargetCamera.Render();
 
+        Texture2D result = new Texture2D(Resolution, Resolution, TextureFormat.RGBA32, false);
         RenderTexture.active = renderTexture;
-        Texture2D texture = new Texture2D(Resolution, Resolution, TextureFormat.RGBA32, false);
-        texture.ReadPixels(new Rect(0, 0, Resolution, Resolution), 0, 0);
-        texture.Apply();
+        result.ReadPixels(new Rect(0, 0, Resolution, Resolution), 0, 0);
+        result.Apply();
 
         RenderTexture.active = null;
         TargetCamera.targetTexture = null;
+        renderTexture.Release();
 
-        string directory = "Assets/Sprites";
-        Directory.CreateDirectory(directory);
-
-        string path = $"{directory}/Anomaly.png";
-
-        File.WriteAllBytes(path, texture.EncodeToPNG());
-
+        Directory.CreateDirectory(Path.GetDirectoryName(OutputPath));
+        File.WriteAllBytes(OutputPath, result.EncodeToPNG());
         AssetDatabase.Refresh();
 
-        DestroyImmediate(renderTexture);
-
-        Debug.Log("Saved PNG: " + path);
+        Debug.Log("Saved: " + OutputPath);
     }
 }

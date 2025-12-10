@@ -6,9 +6,9 @@ namespace Assets.Sources.Level
     public class TutorialHandler : MonoBehaviour
     {
         [SerializeField] private TutorialTrigger[] _triggers;
-        [SerializeField] private TutorialView[] _views;
+        [SerializeField] private Tutorial[] _tutorials;
 
-        private TutorialView _currentView;
+        private Tutorial _currentTutorial;
 
         public event Action Triggered;
         public event Action TutorialViewClosed;
@@ -25,50 +25,53 @@ namespace Assets.Sources.Level
                 trigger.PlayerInZone -= OnPlayerInZone;
         }
 
-        private void OnPlayerInZone(TutorialType type)
-        {
-            foreach(TutorialView tutorialView in _views)
-            {
-                if (tutorialView.Type == type)
-                {
-                    _currentView = tutorialView;
-
-                    foreach(TutorialTrigger tutorialTrigger in _triggers)
-                    {
-                        if(tutorialTrigger.Type == type)
-                            tutorialTrigger.gameObject.SetActive(false);
-                    }
-                        
-                    break;
-                }
-            }
-            
-            Triggered?.Invoke();
-        }
-
-        public void Show()
-        {
-            _currentView.Closing += OnCurrentViewClosing;
-            _currentView.Show();
-        }
-
         public void StartTutorial()
         {
             foreach (TutorialTrigger tutorialTrigger in _triggers)
                 tutorialTrigger.EnableCollider();
         }
 
-        private void OnCurrentViewClosing()
+        public void Show()
         {
-            _currentView.Closing -= OnCurrentViewClosing;
-            _currentView.Closed += OnCurrentViewClosed;
-            _currentView.Hide();
+            _currentTutorial.Closed += OnCurrentTutorialClosed;
+            _currentTutorial.Show();
         }
 
-        private void OnCurrentViewClosed()
+        private void OnCurrentTutorialClosed()
         {
-            _currentView.Closed -= OnCurrentViewClosed;
+            _currentTutorial.Closed -= OnCurrentTutorialClosed;
             TutorialViewClosed?.Invoke();
+        }
+
+        private void OnPlayerInZone(TutorialType type)
+        {
+            if (TryFindTutorialByType(type, out Tutorial tutorial))
+            {
+                _currentTutorial = tutorial;
+                Triggered?.Invoke();
+            }
+        }
+
+        private bool TryFindTutorialByType(TutorialType type, out Tutorial tutorial)
+        {
+            foreach (Tutorial tutor in _tutorials)
+            {
+                if (tutor.Type == type && tutor.IsShown == false)
+                {
+                    tutorial = tutor;
+
+                    foreach (TutorialTrigger tutorialTrigger in _triggers)
+                    {
+                        if (tutorialTrigger.Type == type)
+                            tutorialTrigger.gameObject.SetActive(false);
+                    }
+
+                    return true;
+                }
+            }
+
+            tutorial = null;
+            return false;
         }
     }
 }

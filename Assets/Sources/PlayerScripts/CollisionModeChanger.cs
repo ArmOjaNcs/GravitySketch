@@ -14,10 +14,7 @@ namespace Assets.Sources.PlayerScripts
             _dissolvable = other.GetComponentInParent<DissolvableObject>();
 
             if (_dissolvable != null)
-            {
                 _dissolvable.SetSpeculative();
-                Debug.Log($"dis object name {_dissolvable.gameObject.name} speculativeSetted");
-            }
         }
 
         private void OnTriggerExit(Collider other)
@@ -25,10 +22,7 @@ namespace Assets.Sources.PlayerScripts
             _dissolvable = other.GetComponentInParent<DissolvableObject>();
 
             if (_dissolvable != null)
-            {
                 _dissolvable.SetDynamic();
-                Debug.Log($"dis object name {_dissolvable.gameObject.name} dynamicSetted");
-            }
         }
     }
 }

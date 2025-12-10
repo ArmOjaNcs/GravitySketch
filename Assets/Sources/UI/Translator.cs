@@ -55,7 +55,7 @@ namespace Assets.Sources.Utils
             },
              { "Boss", new Dictionary<string, string>()
                 {
-                    { "ru", "Бос" },
+                    { "ru", "Босс" },
                     { "tr", "Patron" },
                     { "en", "Boss" }
                 }

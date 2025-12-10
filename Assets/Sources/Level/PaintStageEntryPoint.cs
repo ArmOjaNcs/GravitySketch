@@ -26,6 +26,10 @@ namespace Assets.Sources.Level
 
             Debug.Log($"Stage name {Stage.StageName}");
             Prefab = Instantiate(Prefab);
+
+            if(Stage.IsTutorial )
+                Stage.SetTutorialObject(Prefab);
+
             _paintStagePrefab = Prefab.GetComponent<PaintStagePrefab>();
             _holeMover.Init(_paintStagePrefab.TableMaterial);
             _tableRenderer.material = _paintStagePrefab.TableMaterial;

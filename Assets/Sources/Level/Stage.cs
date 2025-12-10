@@ -58,7 +58,7 @@ namespace Assets.Sources.Level
             Pause.interactable = true;
         }
 
-        public void Begin()
+        public virtual void Begin()
         {
             _pauseInput.StartInput();
             OnVirtualJoystickValueChanged(Bindings.UseJoystick);

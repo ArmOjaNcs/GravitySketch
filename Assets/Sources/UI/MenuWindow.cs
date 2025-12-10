@@ -51,7 +51,7 @@ namespace Assets.Sources.UI
             Show();
         }
 
-        private void OnBackClicked()
+        private protected virtual void OnBackClicked()
         {
             Closing?.Invoke();
             Hide();

@@ -22,6 +22,7 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private PauseableObject[] _pauseableObjects;
 
         public event Action<bool> Detected;
+        public event Action Downed;
 
         public GameObject AttackZone => _attackZone;
         public EnemyRetreatZone RetreatZone => _retreatZone;
@@ -60,6 +61,7 @@ namespace Assets.Sources.EnemyScripts
             base.DropDown();
 
             IsDowned = true;
+            Downed?.Invoke();
             _mover.Deactivate();
             Collider.isTrigger = false;
             StopFans();
@@ -67,6 +69,9 @@ namespace Assets.Sources.EnemyScripts
 
         public void TakeDamage(float damage = 1)
         {
+            if (IsDowned)
+                return;
+
             _health.TakeDamage(damage);
 
             if (_health.CurrentValue <= 0)
