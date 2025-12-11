@@ -22,7 +22,10 @@ namespace Assets.Sources.PlayerScripts
         private Vector3 _moveDirection;
         private Vector3 _currentVelocity;
         private float _rotateAxis;
+        private float _decelerationTime = 0.5f;
         private bool _isBoosted;
+        private bool _pauseRequested;
+        private bool _pauseApplied;
 
         public event Action<Vector3> PositionChanged;
 
@@ -46,7 +49,7 @@ namespace Assets.Sources.PlayerScripts
 
         private void Update()
         {
-            if (IsPaused || IsInitialized == false)
+            if (IsInitialized == false)
                 return;
 
             PositionChanged?.Invoke(_transform.position);
@@ -54,7 +57,20 @@ namespace Assets.Sources.PlayerScripts
 
         private void FixedUpdate()
         {
-            if (IsPaused || IsInitialized == false)
+            if (IsInitialized == false)
+                return;
+
+            if (_pauseRequested && _pauseApplied == false)
+            {
+                _currentVelocity = _rigidbody.velocity;
+                _rigidbody.isKinematic = true;
+                _rigidbody.velocity = Vector3.zero;
+
+                _pauseApplied = true;
+                return;
+            }
+
+            if (IsPaused)
                 return;
 
             Move();
@@ -80,24 +96,18 @@ namespace Assets.Sources.PlayerScripts
         public override void Pause()
         {
             base.Pause();
-
-            if (_rigidbody != null)
-            {
-                _currentVelocity = _rigidbody.velocity;
-                _rigidbody.velocity = Vector3.zero;
-                _rigidbody.isKinematic = true;
-            }
+            _pauseRequested = true;   
+            _pauseApplied = false;
         }
 
         public override void Resume()
         {
             base.Resume();
+            _rigidbody.isKinematic = false;
+            _rigidbody.velocity = _currentVelocity;
 
-            if (_rigidbody != null)
-            {
-                _rigidbody.isKinematic = false;
-                _rigidbody.velocity = _currentVelocity;
-            }
+            _pauseRequested = false;
+            _pauseApplied = false;
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -125,8 +135,18 @@ namespace Assets.Sources.PlayerScripts
         {
             if (_moveDirection.sqrMagnitude < 0.001f)
             {
-                _rigidbody.velocity = Vector3.zero;
-                _accelerationSpeed = 0;
+                float speed = _accelerationSpeed;
+
+                speed = Mathf.MoveTowards(speed, 0f, Time.fixedDeltaTime * (_moveSpeed / _decelerationTime));
+
+                _accelerationSpeed = speed;
+
+                if (speed < 0.01f)
+                    speed = 0f;
+
+                Vector3 currentDir = _rigidbody.velocity.normalized;
+                _rigidbody.velocity = currentDir * speed;
+
                 return;
             }
 
