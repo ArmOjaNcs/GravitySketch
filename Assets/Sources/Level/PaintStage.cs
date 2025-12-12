@@ -13,6 +13,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using YG;
 
 namespace Assets.Sources.Level
 {
@@ -222,6 +223,7 @@ namespace Assets.Sources.Level
             Window.Show();
             int finalScore = _validator.MatchScore + CurrentScore;
             Progress.UpdateLevelScore(UserUtils.GetCollectStageName(StageName), finalScore);
+            SaveSystem.SavePlayerProgress(Progress);
             TotalScoreUpdated?.Invoke(finalScore);
             _hole.SetStarted();
         }
@@ -245,12 +247,6 @@ namespace Assets.Sources.Level
             }
             
             base.OnMainMenuApplied();
-        }
-
-        private protected override void OnRestartApplied()
-        {
-            SaveSystem.SavePlayerProgress(Progress);
-            base.OnRestartApplied();
         }
 
         private void OnNextApplied()

@@ -1,6 +1,7 @@
 using Assets.Sources.Save;
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -21,8 +22,10 @@ namespace Assets.Sources.Level
         [SerializeField] private Toggle[] _toggles;
         [SerializeField] private AudioSource _buttonSound;
         [SerializeField] private AudioSource _toggleSound;
+        [SerializeField] private LeaderboardYG _leaderboard;
 
         private bool _isStarted;
+        private MenuWindow _leaderboardView;
 
         private void OnEnable()
         {
@@ -40,6 +43,8 @@ namespace Assets.Sources.Level
 
             _start.onClick.AddListener(OnStartClicked);
             _tutorial.onClick.AddListener(OnTutorialClicked);
+            _leaderboardView = _leaderboard.GetComponent<MenuWindow>();
+            _leaderboardView.Opening += OnLeaderboardOpening;
         }
 
         private void OnDisable()
@@ -47,6 +52,7 @@ namespace Assets.Sources.Level
             _levelSelector.PlayClicked -= OnPlayClicked;
             _start.onClick.RemoveListener(OnStartClicked);
             _tutorial.onClick.RemoveListener(OnTutorialClicked);
+            _leaderboardView.Opening -= OnLeaderboardOpening;
 
             foreach (MenuWindow menuWindow in _windows)
             {
@@ -80,6 +86,12 @@ namespace Assets.Sources.Level
 
         private void OnWindowOpening() => _default.Hide();
         private void OnWindowClosing() => _default.Show();
+
+        private void OnLeaderboardOpening()
+        {
+            YandexGame.NewLeaderboardScores("Leaderboard", TotalScore);
+            _leaderboard.UpdateLB();
+        }
 
         private void OnPlayClicked(string stageName)
         {
