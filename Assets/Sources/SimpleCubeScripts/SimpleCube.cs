@@ -1,6 +1,7 @@
 using Assets.Sources.Dissolvable;
 using Assets.Sources.Pause;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 namespace Assets.Sources.SimpleCubeScripts
 {
@@ -12,6 +13,7 @@ namespace Assets.Sources.SimpleCubeScripts
 
         private MaterialPropertyBlock _MPBlock;
         private Color _currentColor;
+        private ParticleSystem _effect;
 
         public Color Color => _currentColor;
 
@@ -19,6 +21,7 @@ namespace Assets.Sources.SimpleCubeScripts
         {
             base.Init(pauseHandler);
             transform.parent = null;
+            _effect = GetComponentInChildren<ParticleSystem>();
             IsInitialized = true;
         }
 
@@ -28,6 +31,8 @@ namespace Assets.Sources.SimpleCubeScripts
                 _MPBlock = new MaterialPropertyBlock();
 
             _currentColor = color;
+            MainModule mainModule = _effect.main;
+            mainModule.startColor = color;
             _meshRenderer.GetPropertyBlock(_MPBlock);
             _MPBlock.SetColor("_Color", color);
             _meshRenderer.SetPropertyBlock(_MPBlock);

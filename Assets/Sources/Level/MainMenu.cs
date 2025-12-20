@@ -80,18 +80,14 @@ namespace Assets.Sources.Level
             if (IsTutorial)
                 Progress.SetTutorial(false);
 
+            YandexGame.NewLeaderboardScores("Leaderboard", TotalScore);
             SaveSystem.SavePlayerProgress(Progress);
             _default.Show();
         }
 
         private void OnWindowOpening() => _default.Hide();
         private void OnWindowClosing() => _default.Show();
-
-        private void OnLeaderboardOpening()
-        {
-            YandexGame.NewLeaderboardScores("Leaderboard", TotalScore);
-            _leaderboard.UpdateLB();
-        }
+        private void OnLeaderboardOpening() => _leaderboard.UpdateLB();
 
         private void OnPlayClicked(string stageName)
         {

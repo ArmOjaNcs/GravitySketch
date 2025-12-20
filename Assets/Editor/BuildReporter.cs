@@ -12,8 +12,8 @@ public class BuildReporter
 
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
         {
-            scenes = new[] { "Assets/Scenes/MainMenu.unity", "Assets/Scenes/Collect.unity", 
-                "Assets/Scenes/Paint.unity" }, 
+            scenes = new[] { "Assets/Scenes/Main.unity", "Assets/Scenes/Collect.unity", 
+                "Assets/Scenes/Paint.unity",  "Assets/Scenes/Load.unity"}, 
             locationPathName = System.IO.Path.Combine(path, "GameBuild"),
             target = BuildTarget.WebGL,
             options = BuildOptions.None

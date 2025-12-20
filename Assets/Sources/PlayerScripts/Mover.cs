@@ -63,8 +63,8 @@ namespace Assets.Sources.PlayerScripts
             if (_pauseRequested && _pauseApplied == false)
             {
                 _currentVelocity = _rigidbody.velocity;
-                _rigidbody.isKinematic = true;
                 _rigidbody.velocity = Vector3.zero;
+                _rigidbody.isKinematic = true;
 
                 _pauseApplied = true;
                 return;

@@ -69,31 +69,31 @@ namespace Assets.Sources.PlayerScripts
 
         public void TakeDamage(float damage)
         {
-            if (_isFinished)
-                return;
+            //if (_isFinished)
+            //    return;
 
-            if (damage <= 0 || _shield.IsDefended)
-                return;
+            //if (damage <= 0 || _shield.IsDefended)
+            //    return;
 
-            float defencePercent = _shield.Defence / 100;
-            defencePercent = Mathf.Clamp(defencePercent, 0, 0.75f);
-            damage = damage - defencePercent * damage;
-            damage = Mathf.Round(damage);
-            _health.TakeDamage(damage);
-            _audioPlayer.Play();
-            Damaged?.Invoke();
+            //float defencePercent = _shield.Defence / 100;
+            //defencePercent = Mathf.Clamp(defencePercent, 0, 0.75f);
+            //damage = damage - defencePercent * damage;
+            //damage = Mathf.Round(damage);
+            //_health.TakeDamage(damage);
+            //_audioPlayer.Play();
+            //Damaged?.Invoke();
 
-            if (_health.CurrentValue == 0)
-            {
-                if (_isTutorial)
-                {
-                    _health.TakeHeal(50);
-                    return;
-                }
+            //if (_health.CurrentValue == 0)
+            //{
+            //    if (_isTutorial)
+            //    {
+            //        _health.TakeHeal(50);
+            //        return;
+            //    }
 
-                Die();
-                IsDead?.Invoke();
-            }
+            //    Die();
+            //    IsDead?.Invoke();
+            //}
         }
 
         private void Die()

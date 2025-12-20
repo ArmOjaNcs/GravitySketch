@@ -18,7 +18,6 @@ namespace Assets.Sources.Save
         [SerializeField] private bool _isTutorial;
         [SerializeField] private SceneType _sceneType;
 
-
         public PlayerProgress()
         {
             _levels = new List<LevelData>();

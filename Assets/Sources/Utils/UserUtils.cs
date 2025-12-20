@@ -137,6 +137,11 @@ namespace Assets.Sources.Utils
                 && Mathf.Approximately(color.b, 0);
         }
 
+        public static string GetToyCubeHolderName(string prefabName)
+        {
+            return prefabName + "_TC_" + Translator.CurrentLang;
+        }
+
         public static bool IsTransparent(Color color) => color.a < MinAlfa;
 
         public static Vector3 GetRandomRotateDirection()

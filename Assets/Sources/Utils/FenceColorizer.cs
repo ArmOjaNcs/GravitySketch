@@ -19,9 +19,14 @@ namespace Assets.Sources.Utils
         {
             foreach (var barrier in _fence)
             {
-                MaterialPropertyBlock materialPropertyBlock = new MaterialPropertyBlock();
-                materialPropertyBlock.SetColor("_Color", templateColorReference.GetRandomColor());
-                barrier.GetComponent<MeshRenderer>()?.SetPropertyBlock(materialPropertyBlock);
+                MeshRenderer[] renderers = barrier.GetComponentsInChildren<MeshRenderer>(true);
+                List<Material> materials = new List<Material>();
+
+                foreach (MeshRenderer renderer in renderers)
+                    materials.AddRange(renderer.materials);
+
+                foreach (Material material in materials)
+                    material.color = UserUtils.GetRandomColor();
             }
         }
     }

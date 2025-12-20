@@ -26,6 +26,8 @@ namespace Assets.Sources.Level
         [SerializeField] private MapIcon _miniMap;
 
         private CollectStagePrefab _collectStagePrefab;
+        private ToyCubeHolder _toyCubeHolder;
+        private string _name;
         private NavMeshDataInstance _navMeshInstance;
 
         private void OnEnable()
@@ -50,16 +52,28 @@ namespace Assets.Sources.Level
         private protected override void Initialize()
         {
             if (Stage.IsTutorial)
+            {
                 Prefab = Resources.Load<GameObject>(UserUtils.TutorialCollectName);
+                _name = UserUtils.TutorialCollectName;
+            }
             else
+            {
                 Prefab  = Resources.Load<GameObject>(Stage.StageName);
+                _name = Stage.StageName;
+            }
 
             Prefab = Instantiate(Prefab);
+
+            GameObject toyCubePrefab = Resources.Load<GameObject>(UserUtils.GetToyCubeHolderName(_name));
+            toyCubePrefab = Instantiate(toyCubePrefab);
+            _toyCubeHolder = toyCubePrefab.GetComponent<ToyCubeHolder>();
+            toyCubePrefab.transform.position = _toyCubeHolder.Position;
 
             if(Stage.IsTutorial)
                 Stage.SetTutorialObject(Prefab);
 
             _collectStagePrefab = Prefab.GetComponent<CollectStagePrefab>();
+            _collectStagePrefab.DissolvableObstacles.AddRange(_toyCubeHolder.ToyCubes);
             _maskHandler.Init(PauseHandler, _collectStagePrefab.Renderer, _collectStagePrefab.TableMaterial);
             _playerInput.Init(PauseHandler);
             _anomalySpawner.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.Config.AnomalyConfigs);

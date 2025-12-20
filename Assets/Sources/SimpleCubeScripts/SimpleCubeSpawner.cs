@@ -36,11 +36,6 @@ namespace Assets.Sources.SimpleCubeScripts
             foreach (SpawnArea area in _spawnAreas)
                 totalSpawnCount += area.Count;
 
-            if (totalSpawnCount > totalColors)
-            {
-                Debug.LogWarning($"Too many cubes to spawn ({totalSpawnCount}) vs available colors ({totalColors}). Clamping.");
-            }
-
             int allowedSpawn = Mathf.Min(totalSpawnCount, totalColors);
 
             int spawnIndex = 0;

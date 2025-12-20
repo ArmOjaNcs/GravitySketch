@@ -8,6 +8,8 @@ namespace Assets.Sources.Utils
     {
         [SerializeField] private static string _currentLang = "en";
 
+        public static string CurrentLang => _currentLang;
+
         private static readonly Dictionary<string, Dictionary<string, string>> _dictionary =
             new Dictionary<string, Dictionary<string, string>>()
         {
