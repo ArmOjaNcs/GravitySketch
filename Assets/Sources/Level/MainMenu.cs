@@ -124,6 +124,8 @@ namespace Assets.Sources.Level
                 text = UserUtils.Continue;
 
             Translator.UpdateLang();
+            GameObject cubesPrefab = Resources.Load<GameObject>(UserUtils.GetToyCubeHolderName(UserUtils.Main));
+            cubesPrefab = Instantiate(cubesPrefab);
             _startButtonText.text = Translator.Get(text);
             _levelSelector.Init(this);
             _levelSelector.PlayClicked += OnPlayClicked;
