@@ -1505,6 +1505,7 @@ GameObject:
   - component: {fileID: 2063993904054758863}
   - component: {fileID: 1397602146521300391}
   - component: {fileID: 8141498729511900218}
+  - component: {fileID: 5945204957827422571}
   m_Layer: 12
   m_Name: GFX
   m_TagString: DissolvableObstacle
@@ -1585,6 +1586,7 @@ MonoBehaviour:
   _size: 12
   _collisionSound: {fileID: 8300000, guid: 3a3e77b10b2fb894d9aa080eb5f4f7d9, type: 3}
   CollidersHolder: {fileID: 5697823528701375445}
+  IsValidTag: 0
 --- !u!208 &8141498729511900218
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1601,6 +1603,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.46667945, y: 1.3803967, z: -0.025837155}
   m_TimeToStationary: 0.5
+--- !u!114 &5945204957827422571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6574254989539354235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0c7e2b9260a2d4daa2afb4fd57f960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sharedMaterial: {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
 --- !u!1 &6823764744946025513
 GameObject:
   m_ObjectHideFlags: 0

@@ -97,13 +97,19 @@ namespace Assets.Sources.EnemyScripts
         private void ApplyRandomColors()
         {
             MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>(true);
-            List<Material> materials = new List<Material>();
+            MaterialPropertyBlock mpb = new MaterialPropertyBlock();
 
             foreach (MeshRenderer renderer in renderers)
-                materials.AddRange(renderer.materials);
+            {
+                int materialCount = renderer.sharedMaterials.Length;
 
-            foreach (Material material in materials)
-                material.color = UserUtils.GetRandomColor();
+                for (int materialIndex = 0; materialIndex < materialCount; materialIndex++)
+                {
+                    mpb.Clear();
+                    mpb.SetColor(UserUtils.ColorID, UserUtils.GetRandomColor());
+                    renderer.SetPropertyBlock(mpb, materialIndex);
+                }
+            }
         }
 
         private void SetZonesScale(EnemyConfig enemyConfig)

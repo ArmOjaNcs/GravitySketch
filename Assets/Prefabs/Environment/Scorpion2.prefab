@@ -268,6 +268,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1908749917305870314}
+  - component: {fileID: 2042879102640518603}
   m_Layer: 0
   m_Name: Scorpion2
   m_TagString: Untagged
@@ -303,6 +304,19 @@ Transform:
   - {fileID: 3850106025364578311}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 59.023, z: 0}
+--- !u!114 &2042879102640518603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3763468457238426557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0c7e2b9260a2d4daa2afb4fd57f960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sharedMaterial: {fileID: 2100000, guid: 389883411f941ae41bdb30f181de7eef, type: 2}
 --- !u!1 &4660812032346070099
 GameObject:
   m_ObjectHideFlags: 0

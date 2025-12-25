@@ -3052,6 +3052,7 @@ GameObject:
   - component: {fileID: 5257988363852421280}
   - component: {fileID: 8316742377247091565}
   - component: {fileID: 971661674978583794}
+  - component: {fileID: 7298965717008802892}
   m_Layer: 12
   m_Name: Car 3
   m_TagString: DissolvableObstacle
@@ -3146,6 +3147,7 @@ MonoBehaviour:
   _size: 13
   _collisionSound: {fileID: 8300000, guid: 3a3e77b10b2fb894d9aa080eb5f4f7d9, type: 3}
   CollidersHolder: {fileID: 7935645452032596863}
+  IsValidTag: 0
 --- !u!208 &971661674978583794
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -3162,6 +3164,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 3.0653722, z: -0.57460785}
   m_TimeToStationary: 0.5
+--- !u!114 &7298965717008802892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8413970713943740166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0c7e2b9260a2d4daa2afb4fd57f960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sharedMaterial: {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
 --- !u!1 &8644141314478053895
 GameObject:
   m_ObjectHideFlags: 0

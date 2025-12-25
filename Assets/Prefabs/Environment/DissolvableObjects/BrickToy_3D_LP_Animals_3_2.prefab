@@ -1747,6 +1747,7 @@ GameObject:
   - component: {fileID: 5425568060644743073}
   - component: {fileID: 1912274958626269499}
   - component: {fileID: 1885084702054818720}
+  - component: {fileID: 3012153944303411982}
   m_Layer: 0
   m_Name: BrickToy_3D_LP_Animals_3_2
   m_TagString: Untagged
@@ -1861,6 +1862,20 @@ MonoBehaviour:
   _size: 20
   _collisionSound: {fileID: 8300000, guid: f8475a42c7d404e49a4a5a54fc887e19, type: 3}
   CollidersHolder: {fileID: 8296867301421437071}
+  IsValidTag: 0
+--- !u!114 &3012153944303411982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3236212896279696220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0c7e2b9260a2d4daa2afb4fd57f960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sharedMaterial: {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}
 --- !u!1 &3301948762542396705
 GameObject:
   m_ObjectHideFlags: 0

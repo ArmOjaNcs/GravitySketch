@@ -2373,6 +2373,7 @@ GameObject:
   - component: {fileID: 8409364532473726899}
   - component: {fileID: 7425010356987832106}
   - component: {fileID: 983256701031513752}
+  - component: {fileID: 7241587051999048018}
   m_Layer: 12
   m_Name: Snake
   m_TagString: DissolvableObject
@@ -2460,3 +2461,17 @@ MonoBehaviour:
   _size: 19
   _collisionSound: {fileID: 8300000, guid: f8475a42c7d404e49a4a5a54fc887e19, type: 3}
   CollidersHolder: {fileID: 2614152408761226262}
+  IsValidTag: 0
+--- !u!114 &7241587051999048018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9013020501894250804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0c7e2b9260a2d4daa2afb4fd57f960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _sharedMaterial: {fileID: 2100000, guid: 30eac26522b167549a0566a6bf80a08e, type: 2}

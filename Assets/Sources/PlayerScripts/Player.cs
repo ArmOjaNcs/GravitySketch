@@ -8,7 +8,6 @@ using UnityEngine;
 namespace Assets.Sources.PlayerScripts
 {
     [RequireComponent(typeof(SphereCollider))]
-    [RequireComponent(typeof(Rigidbody))]
     public class Player : MonoBehaviour
     {
         [SerializeField] private CubesCollector _cubesCollector;
@@ -22,6 +21,7 @@ namespace Assets.Sources.PlayerScripts
 
         private Transform _transform;
         private SphereCollider _sphereCollider;
+        private Rigidbody _rigidbody;
         private bool _isFinished;
         private bool _isTutorial;
 
@@ -29,15 +29,17 @@ namespace Assets.Sources.PlayerScripts
         public event Action Damaged;
 
         public Vector3 Position => _transform == null ? transform.position : _transform.position;
+        public Vector3 Velocity => _rigidbody == null ? Vector3.zero : _rigidbody.velocity;
         public float Radius => _sphereCollider.radius * _transform.localScale.x;
         public float CurrentSize => _growHandler.CurrentSize;
-        public bool IsDefended => _shield.IsDefended;
+        public bool Dead {  get; private set; }
 
         private void Awake()
         {
             _transform = transform;
             _sphereCollider = GetComponent<SphereCollider>();
             _health.Initialize(UserUtils.PlayerStartHealth);
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         private void OnEnable()
@@ -103,6 +105,7 @@ namespace Assets.Sources.PlayerScripts
 
             _catcher.SetDie();
             enabled = false;
+            Dead = true;
         }
 
         private void OnMedAidAbsorbed(float healPower)

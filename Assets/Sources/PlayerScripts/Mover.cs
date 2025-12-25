@@ -13,6 +13,7 @@ namespace Assets.Sources.PlayerScripts
         [SerializeField, Min(0)] private float _moveSpeedOnUpgrade;
         [SerializeField] private Booster _booster;
         [SerializeField] private PlayerInput _playerInput;
+        [SerializeField] private CameraFollower _cameraFollower;
 
         private Rigidbody _rigidbody;
         private float _currentSpeed;
@@ -21,7 +22,6 @@ namespace Assets.Sources.PlayerScripts
         private Transform _transform;
         private Vector3 _moveDirection;
         private Vector3 _currentVelocity;
-        private float _rotateAxis;
         private float _decelerationTime = 0.5f;
         private bool _isBoosted;
         private bool _pauseRequested;
@@ -36,7 +36,6 @@ namespace Assets.Sources.PlayerScripts
             _booster.Applied += OnBoostApplied;
             _booster.Discarded += OnBoostDiscarded;
             _playerInput.DirectionChanged += OnDirectionChanged;
-            _playerInput.Rotated += OnRotated;
         }
 
         private void OnDisable()
@@ -44,7 +43,6 @@ namespace Assets.Sources.PlayerScripts
             _booster.Applied -= OnBoostApplied;
             _booster.Discarded -= OnBoostDiscarded;
             _playerInput.DirectionChanged -= OnDirectionChanged;
-            _playerInput.Rotated -= OnRotated;
         }
 
         private void Update()
@@ -74,7 +72,6 @@ namespace Assets.Sources.PlayerScripts
                 return;
 
             Move();
-            Rotate();
         }
 
         public override void Init(PauseHandler pauseHandler)
@@ -84,7 +81,6 @@ namespace Assets.Sources.PlayerScripts
             _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
             _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionX;
             _rigidbody.constraints &= ~RigidbodyConstraints.FreezePositionZ;
-            _rigidbody.constraints &= ~RigidbodyConstraints.FreezeRotationY;
             _rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
             _rigidbody.useGravity = false;
             _rigidbody.isKinematic = false;
@@ -129,7 +125,6 @@ namespace Assets.Sources.PlayerScripts
 
         private void OnBoostDiscarded() => _isBoosted = false;
         private void OnDirectionChanged(Vector2 moveDirection) => _moveDirection = moveDirection;
-        private void OnRotated(float rotateAxis) => _rotateAxis = Mathf.Clamp(rotateAxis, -1, 1);
 
         private void Move()
         {
@@ -151,7 +146,7 @@ namespace Assets.Sources.PlayerScripts
             }
 
             Vector3 localMovement = new Vector3(_moveDirection.x, 0, _moveDirection.y).normalized;
-            Vector3 worldDirection = _transform.TransformDirection(localMovement);
+            Vector3 worldDirection = _cameraFollower.Transform.TransformDirection(localMovement);
 
             if (_accelerationSpeed < _moveSpeed)
             {
@@ -166,20 +161,6 @@ namespace Assets.Sources.PlayerScripts
                 _currentSpeed = _accelerationSpeed;
 
             _rigidbody.velocity = worldDirection * _currentSpeed;
-        }
-
-        private void Rotate()
-        {
-            if (Mathf.Abs(_rotateAxis) < 0.001f)
-            {
-                Vector3 currentAngularVelocity = _rigidbody.angularVelocity;
-                _rigidbody.angularVelocity = Vector3.MoveTowards(currentAngularVelocity, Vector3.zero,
-                    5 * Time.fixedDeltaTime);
-                return;
-            }
-
-            float radPerSec = _rotateAxis * _rotationSpeed * Mathf.Deg2Rad;
-            _rigidbody.angularVelocity = Vector3.up * radPerSec;
         }
     }
 }
