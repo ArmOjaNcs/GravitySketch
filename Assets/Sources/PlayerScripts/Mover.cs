@@ -109,6 +109,11 @@ namespace Assets.Sources.PlayerScripts
             Cursor.visible = false;
         }
 
+        public void Stop()
+        {
+            _rigidbody.velocity = Vector3.zero;
+        }
+
         public void UpgradeMoveSpeed(bool isGrowing)
         {
             if (isGrowing)

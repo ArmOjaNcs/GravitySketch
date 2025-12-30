@@ -78,7 +78,7 @@ namespace Assets.Sources.Utils
         public const float HalfUnit = 0.5f;
         public const float ThirdOfUnit = 0.33f;
         public const float TimeForShow = 5f;
-        public const float MinPercentToComplete = 0.7f;
+        public const float MinPercentToComplete = 0.8f;
         public const float ExitTime = 3;
         public const float PlayerDamageMultiplier = 1.5f;
         public const float LoadTime = 2f;
@@ -93,6 +93,8 @@ namespace Assets.Sources.Utils
 
         private static Dictionary<string, string> StageTransitions = new Dictionary<string, string>()
         {
+            {TutorialCollectName,  TutorialPaintName},
+            {TutorialPaintName,  Telescope},
             {Telescope, TelescopePaint},
             {TelescopePaint, Radar},
             {Radar, RadarPaint},
@@ -107,6 +109,8 @@ namespace Assets.Sources.Utils
 
         private static Dictionary<string, string> CollectStages = new Dictionary<string, string>()
         {
+            {TutorialCollectName,  TutorialCollectName},
+            {TutorialPaintName,  TutorialCollectName},
             {TelescopePaint, Telescope},
             {RadarPaint, Radar},
             {UFOPaint, UFO},
@@ -121,6 +125,7 @@ namespace Assets.Sources.Utils
 
         private static Dictionary<string, string> PaintStages = new Dictionary<string, string>()
         {
+            {TutorialCollectName,  TutorialPaintName},
             {Telescope, TelescopePaint},
             {Radar, RadarPaint},
             {UFO, UFOPaint},

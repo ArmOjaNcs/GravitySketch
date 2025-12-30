@@ -55,9 +55,9 @@ namespace Assets.Sources.EnemyScripts
             return _audioPlayerSpawner.GetAudioPlayer(position);
         }
 
-        private protected override void PlayerDetected(Collider playerCollider)
+        private protected override void PlayerDetected()
         {
-            base.PlayerDetected(playerCollider);
+            base.PlayerDetected();
             IsAttacking = true;
         }
 
@@ -76,7 +76,7 @@ namespace Assets.Sources.EnemyScripts
             return IsInitialized && IsAttacking && IsPaused == false && Player != null;
         }
        
-        private protected override void PlayerLosed(Collider playerCollider)
+        private protected override void PlayerLosed()
         {
             IsAttacking = false;
             CurrentTime = 0;

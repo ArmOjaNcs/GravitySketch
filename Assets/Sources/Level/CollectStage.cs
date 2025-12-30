@@ -4,6 +4,7 @@ using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Save;
 using Assets.Sources.SimpleCubeScripts;
+using Assets.Sources.Table;
 using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
@@ -20,13 +21,16 @@ namespace Assets.Sources.Level
         [SerializeField] private SimpleCubeSpawner _simpleCubeSpawner;
         [SerializeField] private PlayerScore _playerScore;
         [SerializeField] private Player _player;
+        [SerializeField] private Grower _grower;
         [SerializeField] private LevelExit _exit;
-        [SerializeField] private PauseableRoutine _pauseableRoutine;
+        [SerializeField] private HoleMaskHandler _maskHandler;
+        [SerializeField] private PauseableRoutine _finishRoutine;
         [SerializeField] private TextMeshProUGUI _finalText;
         [SerializeField] private FixedJoystick _moveJoystick;
         [SerializeField] private FixedJoystick _rotateJoystick;
         [SerializeField] private Button _shieldAbilityButton;
         [SerializeField] private Button _boostAbilityButton;
+        [SerializeField] private Button _reviveButton;
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private float _timeBeforeLoad;
         
@@ -41,6 +45,8 @@ namespace Assets.Sources.Level
 
             if (IsTutorial)
                 _player.SetTutorial();
+
+            _reviveButton.gameObject.SetActive(false);
         }
 
         private protected override void OnEnable()
@@ -49,8 +55,9 @@ namespace Assets.Sources.Level
             _exit.Exit += OnExitApplied;
             _takeOverLimit.EnemyDissolved += OnEnemyDissolved;
             _cubesCollector.CubesCountChanged += OnCubesCountChanged;
-            _pauseableRoutine.Updated += OnRoutineUpdated;
+            _finishRoutine.Updated += OnFinishRoutineUpdated;
             _player.IsDead += OnPlayerDead;
+            _reviveButton.onClick.AddListener(OnReviveButtonClicked);
         }
 
         private protected override void OnDisable()
@@ -59,8 +66,9 @@ namespace Assets.Sources.Level
             _exit.Exit -= OnExitApplied;
             _takeOverLimit.EnemyDissolved -= OnEnemyDissolved;
             _cubesCollector.CubesCountChanged -= OnCubesCountChanged;
-            _pauseableRoutine.Updated -= OnRoutineUpdated;
+            _finishRoutine.Updated -= OnFinishRoutineUpdated;
             _player.IsDead -= OnPlayerDead;
+            _reviveButton.onClick.RemoveListener(OnReviveButtonClicked);
 
             if (_tutorialHandler != null)
             {
@@ -79,6 +87,23 @@ namespace Assets.Sources.Level
                 _tutorialHandler.Triggered += OnTutorialHandlerTriggered;
                 _tutorialHandler.TutorialViewClosed += OnTutorialViewClosed;
             }
+        }
+
+        public override void Begin()
+        {
+            _grower.Updated += OnStartGrowerUpdated;
+            _grower.GrowTo(Vector3.one, true);
+        }
+
+        private void OnStartGrowerUpdated()
+        {
+            if (IsTutorial)
+                _tutorialHandler.StartTutorial();
+
+            _grower.Updated -= OnStartGrowerUpdated;
+            _playerInput.StartInput();
+            Debug.Log("inputStarted");
+            base.Begin();
         }
 
         private void OnTutorialViewClosed()
@@ -104,16 +129,51 @@ namespace Assets.Sources.Level
             _exit.SetAudioPlayerSpawner(audioPlayerSpawner);
             _exit.SetSize(0);
             _exit.gameObject.SetActive(false);
-            _pauseableRoutine.Init(pauseHandler);
+            _finishRoutine.Init(pauseHandler);
             _cubesCollector.InvokeCubesCountChanged();
             _finalText.gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
 
-        private void OnRoutineUpdated()
+        private void OnReviveButtonClicked()
         {
-            Window.Closed += OnWindowClosed;
+            Window.Closed += OnReviveWindowClosed;
+            Window.Hide();
+        }
+
+        private void OnReviveWindowClosed()
+        {
+            Window.Closed -= OnReviveWindowClosed;
+            _reviveButton.gameObject.SetActive(false);
+            _finalText.gameObject.SetActive(false);
+            _grower.Updated += OnReviveGrowerUpdated;
+            _grower.GrowTo(Vector3.one * (_player.CurrentSize / 2) + Vector3.one, true);
+            
+        }
+
+        private void OnReviveGrowerUpdated()
+        {
+            _grower.Updated -= OnReviveGrowerUpdated;
+            RevivePlayer();
+        }
+
+        private void RevivePlayer()
+        {
+            _player.Revive();
+            Pause.gameObject.SetActive(true);
+            _playerInput.StartInput();
+            PauseInput.StartInput();
+            PauseInput.Paused += OnPaused;
+        }
+
+        private void OnFinishRoutineUpdated()
+        {
+            Progress.SetIntermediateResult(_playerScore.Value, _cubesCollector.GetAllCollors());
+            Progress.SetStageName(UserUtils.GetPaintStageName(StageName));
+            Progress.SetSceneType(SceneType.Paint);
+            SaveSystem.SavePlayerProgress(Progress);
+            Window.Closed += OnFinalWindowClosed;
             Window.Hide();
         }
 
@@ -128,9 +188,9 @@ namespace Assets.Sources.Level
             base.OnVirtualJoystickValueChanged(value);
         }
 
-        private void OnWindowClosed()
+        private void OnFinalWindowClosed()
         {
-            Window.Closed -= OnWindowClosed;
+            Window.Closed -= OnFinalWindowClosed;
             SceneManager.LoadScene(UserUtils.Load);
         }
 
@@ -150,12 +210,8 @@ namespace Assets.Sources.Level
         {
             Finish();
             _player.SetFinished();
-            Progress.SetIntermediateResult(_playerScore.Value, _cubesCollector.GetAllCollors());
-            Progress.SetStageName(UserUtils.GetPaintStageName(StageName));
-            Progress.SetSceneType(SceneType.Paint);
-            SaveSystem.SavePlayerProgress(Progress);
             AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(FinalSound)?.Play();
-            _pauseableRoutine.UpdateView(_timeBeforeLoad);
+            _finishRoutine.UpdateView(_timeBeforeLoad);
             _finalText.text = Translator.Get(UserUtils.Great);
             _finalText.gameObject.SetActive(true);
             ToMainMenu.gameObject.SetActive(false);
@@ -166,11 +222,14 @@ namespace Assets.Sources.Level
         private void OnPlayerDead()
         {
             Finish();
+            _playerInput.StopInput();
+            _grower.GrowTo(Vector3.zero);
             _finalText.text = Translator.Get(UserUtils.GameOver);
             _finalText.color = Color.red;
             _finalText.gameObject.SetActive(true);
             Pause.gameObject.SetActive(false);
             Window.Show();
+            _reviveButton.gameObject.SetActive(true);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
         }

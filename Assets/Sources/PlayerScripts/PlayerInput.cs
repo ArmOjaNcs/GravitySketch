@@ -66,6 +66,13 @@ namespace Assets.Sources.PlayerScripts
 
         public void StartInput() => IsInitialized = true;
 
+        public void StopInput()
+        {
+            IsInitialized = false;
+            DirectionChanged?.Invoke(Vector2.zero);
+            Rotated?.Invoke(0);
+        }
+
         private void HandleKeyboardMouseInput()
         {
             Vector2 dir = Vector2.zero;

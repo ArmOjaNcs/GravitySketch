@@ -66,15 +66,15 @@ namespace Assets.Sources.EnemyScripts
             _bomb.gameObject.SetActive(true);
         }
 
-        private protected override void PlayerDetected(Collider playerCollider)
+        private protected override void PlayerDetected()
         {
-            base.PlayerDetected(playerCollider);
+            base.PlayerDetected();
             ShouldRetreat?.Invoke(true);
         }
 
-        private protected override void PlayerLosed(Collider playerCollider)
+        private protected override void PlayerLosed()
         {
-            base.PlayerLosed(playerCollider);
+            base.PlayerLosed();
             ShouldRetreat?.Invoke(false);
         }
 

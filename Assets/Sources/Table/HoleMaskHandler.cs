@@ -9,20 +9,17 @@ namespace Assets.Sources.Table
     {
         [SerializeField] private Mover _mover;
         [SerializeField] private Grower _grower;
-        [SerializeField] private Player _player;
 
         private Renderer _renderer;
         private Material _material;
         private Transform _transform;
         private float _targetRadius;
         private float _currentRadius;
-        private bool _isPlayerDead;
 
         private void OnEnable()
         {
             _mover.PositionChanged += OnPositionChanged;
             _grower.SizeChanged += OnSizeChanged;
-            _player.IsDead += OnPlayerDead;
         }
 
         private protected override void OnDisable()
@@ -30,7 +27,6 @@ namespace Assets.Sources.Table
             base.OnDisable();
             _mover.PositionChanged -= OnPositionChanged;
             _grower.SizeChanged -= OnSizeChanged;
-            _player.IsDead -= OnPlayerDead;
         }
 
         public override void Init(PauseHandler pauseHandler)
@@ -52,11 +48,6 @@ namespace Assets.Sources.Table
             IsInitialized = true;
         }
 
-        public void StartGrowUp()
-        {
-            UpdateView(Duration * 2);
-        }
-
         private void OnPositionChanged(Vector3 position)
         {
             _material.SetVector("_HolePosition", new Vector4(position.x, _transform.position.y, position.z, 0));
@@ -64,14 +55,7 @@ namespace Assets.Sources.Table
 
         private void OnSizeChanged(float sizeDelta)
         {
-            _targetRadius += UserUtils.GetCorrectRadius(sizeDelta);
-            UpdateView(Duration);
-        }
-
-        private void OnPlayerDead()
-        {
-            _isPlayerDead = true;
-            _targetRadius = 0;
+            _targetRadius = UserUtils.GetCorrectRadius(sizeDelta);
             UpdateView(Duration);
         }
 
@@ -86,9 +70,6 @@ namespace Assets.Sources.Table
         {
             base.OnRoutineEnd();
             _currentRadius = _targetRadius;
-
-            if(_isPlayerDead)
-                _player.gameObject.SetActive(false);
         }
     }
 }

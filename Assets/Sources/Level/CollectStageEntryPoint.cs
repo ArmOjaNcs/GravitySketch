@@ -20,7 +20,6 @@ namespace Assets.Sources.Level
         [SerializeField] private SimpleCubeSpawner _simpleCubeSpawner;
         [SerializeField] private HoleMaskHandler _maskHandler;
         [SerializeField] private GrowHandler _growHandler;
-        [SerializeField] private Grower _grower;
         [SerializeField] private Player _player;
         [SerializeField] private EnemyFactoryConfig _factoryConfig;
         [SerializeField] private MapIcon _miniMap;
@@ -120,21 +119,6 @@ namespace Assets.Sources.Level
             Stage.Init(PauseHandler, AudioPlayerSpawner);
             _collectStagePrefab.FenceColorizer.ColorizeFence(_collectStagePrefab.ColorReference);
             StartCoroutine(DelayedCubesDropDown());
-        }
-
-        private protected override void Begin()
-        {
-            base.Begin();
-            _maskHandler.Updated += OnMaskHandlerUpdated;
-            _maskHandler.StartGrowUp();
-            _grower.PlayGrowSound();
-        }
-
-        private void OnMaskHandlerUpdated()
-        {
-            _maskHandler.Updated -= OnMaskHandlerUpdated;
-            Prefab.GetComponent<TutorialHandler>()?.StartTutorial();
-            _playerInput.StartInput();
         }
 
         private void OnDestroy()

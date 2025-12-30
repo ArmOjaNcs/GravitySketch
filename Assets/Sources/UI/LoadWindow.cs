@@ -1,7 +1,6 @@
 using Assets.Sources.Level;
 using Assets.Sources.Utils;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,8 +11,6 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private Image _loadImage;
         [SerializeField] private Sprite[] _loadSprites;
-        [SerializeField] private TextMeshProUGUI _endText;
-        [SerializeField] private float _animationDuration;
         [SerializeField] private Slider _loadProgress;
         [SerializeField] private CanvasGroup _canvasGroup;
 
@@ -46,57 +43,52 @@ namespace Assets.Sources.UI
 
             _operation.allowSceneActivation = false;
 
-            float elapsedTime = 0;
-            float progress = 0;
+            float visualProgress = 0f;
 
             while (_operation.progress < 0.9f)
             {
                 float target = _operation.progress / 0.9f;
-                elapsedTime += Time.deltaTime;
-                progress = elapsedTime / UserUtils.LoadTime;
-                float startValue = _loadProgress.value;
-                _loadProgress.value = Mathf.MoveTowards(startValue, target, progress);
 
+                visualProgress = Mathf.MoveTowards(
+                    visualProgress,
+                    target,
+                    Time.deltaTime
+                );
+
+                _loadProgress.value = visualProgress;
                 yield return null;
             }
 
-            elapsedTime = 0;
-            progress = 0;
-
-            while (_loadProgress.value < 1f)
+            while (visualProgress < 1f)
             {
-                elapsedTime += Time.deltaTime;
-                progress = elapsedTime / UserUtils.ThirdOfUnit;
+                visualProgress = Mathf.MoveTowards(
+                    visualProgress,
+                    1f,
+                    Time.deltaTime
+                );
 
-                _loadProgress.value = Mathf.MoveTowards(_loadProgress.value, 1f, progress);
-
+                _loadProgress.value = visualProgress;
                 yield return null;
             }
 
-            yield return WaitForAnyKey();
-        }
+            yield return FadeIn();
 
-        private IEnumerator WaitForAnyKey()
-        {
-            yield return null;
-
-            _loadProgress.value = 1f;
-            float elapsedTime = 0;
-            float progress = 0;
-
-            while (_canvasGroup.alpha < 1)
-            {
-                elapsedTime += Time.deltaTime;
-                progress = elapsedTime / UserUtils.One;
-                float startValue = _canvasGroup.alpha;
-                _canvasGroup.alpha = Mathf.MoveTowards(startValue, 1, progress);
-                yield return null;
-            }
-
-            while (Input.anyKeyDown == false)
+            while (Input.anyKey == false && Input.GetMouseButton(0) == false && Input.GetMouseButton(1) == false)
                 yield return null;
 
             _operation.allowSceneActivation = true;
+        }
+
+        private IEnumerator FadeIn()
+        {
+            float elapsedTime = 0f;
+
+            while (_canvasGroup.alpha < 1f)
+            {
+                elapsedTime += Time.deltaTime * 2.5f;
+                _canvasGroup.alpha = Mathf.Clamp01(elapsedTime);
+                yield return null;
+            }
         }
     }
 }

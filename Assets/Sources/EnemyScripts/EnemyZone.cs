@@ -23,19 +23,38 @@ namespace Assets.Sources.EnemyScripts
             Collider.isTrigger = true;
         }
 
+        private void OnDisable()
+        {
+            if(Player != null)
+            {
+                Player.IsDead -= OnPlayerIsDead;
+                Player.IsRevived -= OnPlayerRevived;
+            }
+        }
+
         private protected virtual void OnTriggerEnter(Collider other)
         {
-            if (PlayerIsDead)
-                return;
-
             if (other.CompareTag(UserUtils.Player))
-                PlayerDetected(other);
+            {
+                if (Player == null)
+                {
+                    if (other.TryGetComponent(out Player player))
+                    {
+                        Player = player;
+                        Player.IsDead += OnPlayerIsDead;
+                        Player.IsRevived += OnPlayerRevived;
+                    }
+                }
+
+                if(Player.Dead == false)
+                    PlayerDetected();
+            }
         }
 
         private protected virtual void OnTriggerExit(Collider other)
         {
             if (other.CompareTag(UserUtils.Player))
-                PlayerLosed(other);
+                PlayerLosed();
         }
 
         public void Refresh()
@@ -56,27 +75,22 @@ namespace Assets.Sources.EnemyScripts
             Collider.enabled = true;
         }
 
-        private protected virtual void PlayerDetected(Collider playerCollider)
+        private void OnPlayerIsDead()
         {
-            if (Player == null)
-            {
-                if (playerCollider.TryGetComponent(out Player player))
-                {
-                    Player = player;
-                    Player.IsDead += OnPlayerIsDead;
-                }
-            }
+            PlayerLosed();
+        }
 
+        private void OnPlayerRevived()
+        {
+            Refresh();
+        }
+
+        private protected virtual void PlayerDetected()
+        {
             PlayerIn?.Invoke();
         }
 
-        private void OnPlayerIsDead()
-        {
-            Player.IsDead -= OnPlayerIsDead;
-            PlayerIsDead = true;
-        }
-
-        private protected virtual void PlayerLosed(Collider playerCollider)
+        private protected virtual void PlayerLosed()
         {
             PlayerOut?.Invoke();
         }

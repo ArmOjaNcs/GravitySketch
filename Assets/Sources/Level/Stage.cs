@@ -21,7 +21,7 @@ namespace Assets.Sources.Level
         [SerializeField] private protected AudioClip FinalSound;
         [SerializeField] private protected AudioClip ToggleSound;
         [SerializeField] private PauseMenuAnimator _pauseMenuAnimator;
-        [SerializeField] private PauseInput _pauseInput;
+        [SerializeField] private protected PauseInput PauseInput;
 
         private protected PauseHandler PauseHandler;
         private protected AudioPlayerSpawner AudioPlayerSpawner;
@@ -36,7 +36,7 @@ namespace Assets.Sources.Level
             Back.onClick.AddListener(OnBackApplied);
             UseVirtualJoystick.onValueChanged.AddListener(OnVirtualJoystickValueChanged);
             _pauseMenuAnimator.Hidden += OnPauseMenuClosed;
-            _pauseInput.Paused += OnPaused;
+            PauseInput.Paused += OnPaused;
         }
 
         private protected virtual void OnDisable()
@@ -46,7 +46,7 @@ namespace Assets.Sources.Level
             Back.onClick.RemoveListener(OnBackApplied);
             UseVirtualJoystick.onValueChanged.RemoveListener(OnVirtualJoystickValueChanged);
             _pauseMenuAnimator.Hidden -= OnPauseMenuClosed;
-            _pauseInput.Paused -= OnPaused;
+            PauseInput.Paused -= OnPaused;
         }
 
         public virtual void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
@@ -60,7 +60,7 @@ namespace Assets.Sources.Level
 
         public virtual void Begin()
         {
-            _pauseInput.StartInput();
+            PauseInput.StartInput();
             OnVirtualJoystickValueChanged(Bindings.UseJoystick);
             _isStarted = true;
         }
@@ -76,8 +76,8 @@ namespace Assets.Sources.Level
         private protected void Finish()
         {
             Pause.gameObject.SetActive(false);
-            _pauseInput.StopInput();
-            _pauseInput.Paused -= OnPaused;
+            PauseInput.StopInput();
+            PauseInput.Paused -= OnPaused;
         }
 
         private protected virtual void OnMainMenuApplied()
@@ -112,7 +112,7 @@ namespace Assets.Sources.Level
             HidePauseMenu();
         }
 
-        private void OnPaused()
+        private protected void OnPaused()
         {
             if (PauseHandler.IsPaused)
             {

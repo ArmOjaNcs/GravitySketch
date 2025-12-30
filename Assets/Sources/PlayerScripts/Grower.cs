@@ -51,24 +51,23 @@ namespace Assets.Sources.PlayerScripts
             IsInitialized = true;
         }
 
-        public void PlayGrowSound() => _audioPlayer.Play();
+        public void GrowTo(Vector3 targetScale, bool isPlaySound = false)
+        {
+            _targetScale = targetScale;
+            UpdateView(Duration);
+            SizeChanged?.Invoke(targetScale.x);
+
+            if (isPlaySound)
+                PlayGrowSound();
+        }
+
+        private void PlayGrowSound() => _audioPlayer.Play();
 
         private void OnGrowing()
         {
-            CalculateTargetScale(false);
-            OnUpdate();
-            PlayGrowSound();
-            SizeChanged?.Invoke(_growSize);
-        }
-
-        private void CalculateTargetScale(bool isNegative)
-        {
-            int sign = 1;
-
-            if (isNegative)
-                sign = -1;
-
-            _targetScale += _sizeDelta * sign;
+            Vector3 targetScale = _player.lossyScale + _sizeDelta;
+            GrowTo(targetScale, true);
+            SizeChanged?.Invoke(targetScale.x);
         }
 
         private protected override void OnRoutineIteration(float cycleDuration) 
@@ -82,6 +81,7 @@ namespace Assets.Sources.PlayerScripts
         {
             _player.localScale = _targetScale;
             ScaleChanged?.Invoke();
+            base.OnRoutineEnd();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace Assets.Sources.PlayerScripts
     {
         [SerializeField, Min(0)] private int _boostCount;
         [SerializeField] private AudioPlayer _audioPlayer;
+        [SerializeField] private ParticleSystem _effect;
 
         private bool _isBoostApplied;
         private bool _isReloading;
@@ -49,7 +50,24 @@ namespace Assets.Sources.PlayerScripts
             _audioPlayer.AudioSource.playOnAwake = false;
             _audioPlayer.AudioSource.loop = false;
             CurrentBoostCount = _boostCount;
+            _effect.Stop();
             IsInitialized = true;
+        }
+
+        public override void Pause()
+        {
+            base.Pause();
+
+            if(_effect.isPlaying)
+                _effect.Pause();
+        }
+
+        public override void Resume()
+        {
+            base.Resume();
+
+            if (_isBoostApplied)
+                _effect.Play();
         }
 
         private void Boost()
@@ -91,6 +109,7 @@ namespace Assets.Sources.PlayerScripts
             _isBoostApplied = false;
             CurrentActiveTime = 0;
             Discarded?.Invoke();
+            _effect.Stop();
         }
 
         private void ReloadBoost()
@@ -109,6 +128,7 @@ namespace Assets.Sources.PlayerScripts
             CountChanged?.Invoke();
             _isBoostApplied = true;
             Applied?.Invoke();
+            _effect.Play();
         }
 
         public override void Upgrade() => ReloadTime -= ReloadUpgradeDelta;

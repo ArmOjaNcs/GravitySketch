@@ -22,7 +22,7 @@ namespace Assets.Sources.Save
         {
             _levels = new List<LevelData>();
             _currentColors = new List<Color>();
-            _stageName = UserUtils.Telescope;
+            _stageName = UserUtils.TutorialCollectName;
         }
 
         public int TotalScore => _totalScore;
@@ -44,9 +44,6 @@ namespace Assets.Sources.Save
 
         public void UpdateLevelScore(string levelName, int score)
         {
-            if (_isTutorial)
-                return;
-
             if (IsHasLevel(levelName, out LevelData levelScore))
             {
                 levelScore.UpdateScore(score);

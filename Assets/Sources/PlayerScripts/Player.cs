@@ -2,6 +2,7 @@ using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Assets.Sources.PlayerScripts
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private Shield _shield;
         [SerializeField] private Catcher _catcher;
+        [SerializeField] private Mover _mover;
         [SerializeField] private Health _health;
         [SerializeField] private TakeOverLimit _takeOverLimit;
         [SerializeField] private List<PauseableObject> _objects;
@@ -26,6 +28,7 @@ namespace Assets.Sources.PlayerScripts
         private bool _isTutorial;
 
         public event Action IsDead;
+        public event Action IsRevived;
         public event Action Damaged;
 
         public Vector3 Position => _transform == null ? transform.position : _transform.position;
@@ -71,7 +74,7 @@ namespace Assets.Sources.PlayerScripts
 
         public void TakeDamage(float damage)
         {
-            if (_isFinished)
+            if (_isFinished || Dead)
                 return;
 
             if (damage <= 0 || _shield.IsDefended)
@@ -89,7 +92,7 @@ namespace Assets.Sources.PlayerScripts
             {
                 if (_isTutorial)
                 {
-                    _health.TakeHeal(50);
+                    _health.TakeHeal(_health.MaxValue / UserUtils.Two);
                     return;
                 }
 
@@ -98,13 +101,17 @@ namespace Assets.Sources.PlayerScripts
             }
         }
 
+        public void Revive()
+        {
+            _health.TakeHeal(_health.MaxValue);
+            _catcher.RefreshSensor();
+            StartCoroutine(DelayedEnemyZonesRefresh());
+        }
+
         private void Die()
         {
-            foreach (PauseableObject pauseableObject in _objects)
-                pauseableObject.gameObject.SetActive(false);
-
+            _mover.Stop();
             _catcher.SetDie();
-            enabled = false;
             Dead = true;
         }
 
@@ -120,6 +127,14 @@ namespace Assets.Sources.PlayerScripts
             float heal = size/2;
             Mathf.Round(heal);
             _health.TakeHeal(heal);
+        }
+
+        private IEnumerator DelayedEnemyZonesRefresh()
+        {
+            yield return new WaitForSeconds(UserUtils.Three);
+
+            Dead = false;
+            IsRevived?.Invoke();
         }
     }
 }

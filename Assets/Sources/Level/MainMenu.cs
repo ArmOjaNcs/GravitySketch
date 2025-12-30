@@ -1,7 +1,6 @@
 using Assets.Sources.Save;
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,7 +16,6 @@ namespace Assets.Sources.Level
         [SerializeField] private MenuWindow _default;
         [SerializeField] private MenuWindow[] _windows;
         [SerializeField] private Button _start;
-        [SerializeField] private Button _tutorial;
         [SerializeField] private Button[] _buttons;
         [SerializeField] private Toggle[] _toggles;
         [SerializeField] private AudioSource _buttonSound;
@@ -42,7 +40,6 @@ namespace Assets.Sources.Level
                 toggle.onValueChanged.AddListener(OnToggleChanged);
 
             _start.onClick.AddListener(OnStartClicked);
-            _tutorial.onClick.AddListener(OnTutorialClicked);
             _leaderboardView = _leaderboard.GetComponent<MenuWindow>();
             _leaderboardView.Opening += OnLeaderboardOpening;
         }
@@ -51,7 +48,6 @@ namespace Assets.Sources.Level
         {
             _levelSelector.PlayClicked -= OnPlayClicked;
             _start.onClick.RemoveListener(OnStartClicked);
-            _tutorial.onClick.RemoveListener(OnTutorialClicked);
             _leaderboardView.Opening -= OnLeaderboardOpening;
 
             foreach (MenuWindow menuWindow in _windows)
@@ -77,8 +73,8 @@ namespace Assets.Sources.Level
             Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
             Progress.SetSceneType(SceneType.Collect);
 
-            if (IsTutorial)
-                Progress.SetTutorial(false);
+            if (StageName.Equals(UserUtils.TutorialCollectName) && IsTutorial == false)
+                Progress.SetTutorial(true);
 
             YandexGame.NewLeaderboardScores("Leaderboard", TotalScore);
             SaveSystem.SavePlayerProgress(Progress);
@@ -91,18 +87,25 @@ namespace Assets.Sources.Level
 
         private void OnPlayClicked(string stageName)
         {
+            if (stageName.Equals(UserUtils.TutorialCollectName))
+                Progress.SetTutorial(true);
+            else
+                Progress.SetTutorial(false);
+
             Progress.SetStageName(stageName);
             SaveSystem.SavePlayerProgress(Progress);
             SceneManager.LoadScene(UserUtils.Load);
         }
 
-        private void OnStartClicked() => SceneManager.LoadScene(UserUtils.Load);
-
-        private void OnTutorialClicked()
+        private void OnStartClicked()
         {
-            Progress.SetTutorial(true);
-            SaveSystem.SavePlayerProgress(Progress);
-            OnStartClicked();
+            if(StageName.Equals(UserUtils.TutorialCollectName) == false)
+            {
+                Progress.SetTutorial(false);
+                SaveSystem.SavePlayerProgress(Progress);
+            }
+
+            SceneManager.LoadScene(UserUtils.Load);
         }
 
         private void OnButtonClick() => _buttonSound.Play();

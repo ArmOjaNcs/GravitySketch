@@ -202,7 +202,7 @@ namespace Assets.Sources.Level
             referenceAndAutoPaint.gameObject.SetActive(false);
             _aim.SetActive(false);
 
-            if (IsTutorial == false && UserUtils.TryGetNextStageName(StageName, out string nextStageName))
+            if (UserUtils.TryGetNextStageName(StageName, out string nextStageName))
             {
                 _toNextLevel.gameObject.SetActive(true);
                 _nextStageName = nextStageName;
@@ -251,6 +251,9 @@ namespace Assets.Sources.Level
 
         private void OnNextApplied()
         {
+            if (IsTutorial)
+                Progress.SetTutorial(false);
+
             Progress.SetStageName(_nextStageName);
             Progress.SetSceneType(SceneType.Collect);
             SaveSystem.SavePlayerProgress(Progress);
