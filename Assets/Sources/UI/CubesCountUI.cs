@@ -1,58 +1,49 @@
-﻿using Assets.Sources.Pause;
-using Assets.Sources.PlayerScripts;
+﻿using Assets.Sources.PlayerScripts;
 using Assets.Sources.SimpleCubeScripts;
-using Assets.Sources.Utils;
+using TMPro;
 using UnityEngine;
 
 namespace Assets.Sources.UI
 {
-    public class CubesCountUI : SmoothedText
+    public class CubesCountUI : MonoBehaviour
     {
         [SerializeField] private CubesCollector _cubesCollector;
         [SerializeField] private SimpleCubeSpawner _simpleCubeSpawner;
+        [SerializeField] private TextMeshProUGUI _valueText;
+        [SerializeField] private TextMeshProUGUI _maxText;
+        [SerializeField] private SmoothedSlider _slider;
+
+        private int _maxValue;
 
         private void OnEnable()
         {
             _cubesCollector.CubesCountChanged += OnCubesCountChanged;
+            _simpleCubeSpawner.CubesSpawned += OnCubesSpawned;
         }
 
-        private protected override void OnDisable()
+        private void OnDisable()
         {
-            base.OnDisable();
             _cubesCollector.CubesCountChanged -= OnCubesCountChanged;
+            _simpleCubeSpawner.CubesSpawned -= OnCubesSpawned;
         }
 
-        public override void Init(PauseHandler pauseHandler)
+        private void Start()
         {
-            base.Init(pauseHandler);
-            StartText = Text.text + " ";
-            IsNeedToSplit = true;
-            SplitSign = '/';
-            MaxValue = _simpleCubeSpawner.TotalCubes;
-            EndText = GetEndText();
-            Text.text = GetTotalText();
-            IsInitialized = true;
+            _slider.SetStartValue(0);
+            _valueText.text = _cubesCollector.CubesCount.ToString();
         }
 
         private void OnCubesCountChanged(int count)
         {
-            TargetValue = _cubesCollector.CubesCount;
-            EndText = GetEndText();
-            OnUpdate();
+            _valueText.text = _cubesCollector.CubesCount.ToString();
+            float target = _maxValue > 0 ? (float)_cubesCollector.CubesCount / _maxValue : 0f;
+            _slider.UpdateView(1, target);
         }
 
-        private float GetPercent()
+        private void OnCubesSpawned()
         {
-            return MaxValue > 0 ? _cubesCollector.CubesCount / MaxValue : 0f;
-        }
-
-        private string GetEndText()
-        {
-            string endText = string.Empty;
-            float percent = GetPercent();
-            percent = Mathf.Clamp01(percent);
-            Text.color = UserUtils.GetColorByPercentage(percent);
-            return endText = " " + (percent * 100).ToString("F2") + "%";
+            _maxValue = _simpleCubeSpawner.TotalCubes;
+            _maxText.text = _maxValue.ToString();
         }
     }
 }

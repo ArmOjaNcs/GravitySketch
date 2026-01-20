@@ -16,7 +16,8 @@ namespace Assets.Sources.Level
         [SerializeField] private protected Button Back;
         [SerializeField] private protected Button Pause;
         [SerializeField] private protected Toggle UseVirtualJoystick;
-        [SerializeField] private protected MenuWindow Window;
+        [SerializeField] private protected MenuWindow TextWindow;
+        [SerializeField] private protected MenuWindow ButtonsWindow;
         [SerializeField] private protected AudioClip ButtonSound;
         [SerializeField] private protected AudioClip FinalSound;
         [SerializeField] private protected AudioClip ToggleSound;
@@ -90,14 +91,14 @@ namespace Assets.Sources.Level
 
             AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
             Finish();
-            Window.Closed += LoadMainMenu;
-            Window.Hide();
+            ButtonsWindow.Closed += LoadMainMenu;
+            ButtonsWindow.Hide();
             HidePauseMenu();
         }
 
         private void LoadMainMenu()
         {
-            Window.Closed -= LoadMainMenu;
+            ButtonsWindow.Closed -= LoadMainMenu;
             Progress.SetSceneType(SceneType.Main);
             SaveSystem.SavePlayerProgress(Progress);
             SceneManager.LoadScene(UserUtils.Load);
@@ -107,8 +108,8 @@ namespace Assets.Sources.Level
         {
             AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
             Finish();
-            Window.Closed += RestartStage;
-            Window.Hide();
+            ButtonsWindow.Closed += RestartStage;
+            ButtonsWindow.Hide();
             HidePauseMenu();
         }
 
@@ -119,7 +120,7 @@ namespace Assets.Sources.Level
                 if (_pauseMenuAnimator.IsShown)
                 {
                     _pauseMenuAnimator.Hide();
-                    Window.Hide();
+                    ButtonsWindow.Hide();
 
                     if (Pause.gameObject.activeSelf)
                         Pause.interactable = true;
@@ -132,7 +133,7 @@ namespace Assets.Sources.Level
                 if (_pauseMenuAnimator.IsShown == false)
                 {
                     _pauseMenuAnimator.Show();
-                    Window.Show();
+                    ButtonsWindow.Show();
 
                     if (Pause.gameObject.activeSelf)
                         Pause.interactable = false;
@@ -157,7 +158,7 @@ namespace Assets.Sources.Level
 
         private void RestartStage()
         {
-            Window.Closed -= RestartStage;
+            ButtonsWindow.Closed -= RestartStage;
             SceneManager.LoadScene(UserUtils.Load);
         }
 

@@ -1,7 +1,5 @@
-using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Sources.UI
@@ -9,9 +7,10 @@ namespace Assets.Sources.UI
     public class UpgraderUI : PauseableObject
     {
         [SerializeField] private Upgrader _upgrader;
-        [SerializeField] private StatsAnimation[] _statsAnimations;
+        [SerializeField] private StatsAnimation _powerAnimation;
+        [SerializeField] private StatsAnimation _sizeAnimation;
 
-        private Dictionary<StatsAnimationType, StatsAnimation> _animationsByType = new();
+        private int _previousSize;
 
         private void OnEnable()
         {
@@ -26,52 +25,24 @@ namespace Assets.Sources.UI
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-           
-            foreach(StatsAnimation statsAnimation in _statsAnimations)
-            {
-                _animationsByType.Add(statsAnimation.Type, statsAnimation);
-                statsAnimation.Init(pauseHandler);
-            }
-
-            foreach (StatsAnimation statsAnimation in _statsAnimations)
-                SetText(statsAnimation.Type);
-
+            _powerAnimation.Init(pauseHandler);
+            _sizeAnimation.Init(pauseHandler);
+            _powerAnimation.SetText(_upgrader.Power.ToString());
+            _sizeAnimation.SetText(_upgrader.CurrentSize.ToString());
+            _previousSize = _upgrader.CurrentSize;
             IsInitialized = true;
         }
 
-        private void OnUpgraded(StatsAnimationType animationType)
+        private void OnUpgraded()
         {
-            SetText(animationType);
-            _animationsByType[animationType].UpdateView(2);
-        }
+            _powerAnimation.SetText(_upgrader.Power.ToString());
+            _powerAnimation.UpdateView(2);
 
-        private void SetText(StatsAnimationType animationType)
-        {
-            switch (animationType)
+            if(_previousSize < _upgrader.CurrentSize)
             {
-                case StatsAnimationType.MoveSpeed:
-                    _animationsByType[animationType].SetText(_upgrader.MoveSpeed.ToString("F1"));
-                    break;
-
-                case StatsAnimationType.DefenceTime:
-                    _animationsByType[animationType].SetText(_upgrader.DefendTime.ToString("F2"));
-                    break;
-
-                case StatsAnimationType.Defence:
-                    _animationsByType[animationType].SetText(_upgrader.Defence.ToString() + '%');
-                    break;
-
-                case StatsAnimationType.Damage:
-                    float damagePerSecond = _upgrader.Damage * 2;
-                    _animationsByType[animationType].SetText(damagePerSecond.ToString());
-                    break;
-
-                case StatsAnimationType.Size:
-                    _animationsByType[animationType].SetText(_upgrader.CurrentSize.ToString());
-                    break;
-
-                default:
-                    break;
+                _previousSize = _upgrader.CurrentSize;
+                _sizeAnimation.SetText(_upgrader.CurrentSize.ToString());
+                _sizeAnimation.UpdateView(2);
             }
         }
     }

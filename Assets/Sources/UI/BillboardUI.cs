@@ -5,15 +5,15 @@ namespace Assets.Sources.UI
     public class BillboardUI : MonoBehaviour
     {
         [SerializeField] private protected Transform Parent;
-        [SerializeField] private protected Vector3 Offset = new Vector3(0, 2f, 0);
+        [SerializeField] private protected Vector3 Offset;
 
         private Transform _cameraTransform;
         private Transform _transform;
         private bool _isStop;
         private protected Transform CameraPivot;
 
-        private protected Quaternion PivotRotation => Quaternion.Euler(_transform.eulerAngles.x, 0f,
-            -CameraPivot.eulerAngles.y);
+        private protected Quaternion PivotRotation => Quaternion.Euler(0,
+            CameraPivot.eulerAngles.y, 0);
 
         private void Start()
         {
@@ -36,7 +36,6 @@ namespace Assets.Sources.UI
         private protected virtual void FollowByParrent()
         {
             _transform.position = Parent.position + Offset;
-            _transform.forward = _cameraTransform.forward;
             _transform.rotation = PivotRotation;
         }
     }

@@ -10,6 +10,8 @@ namespace Assets.Sources.UI
 
         private protected float StartSliderValue;
 
+        public float CurrentValue => Slider.value;
+
         public void SetStartValue(float value)
         {
             value = Mathf.Clamp01(value);

@@ -1,8 +1,10 @@
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.Table;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Sources.SimpleCubeScripts
 {
@@ -19,6 +21,8 @@ namespace Assets.Sources.SimpleCubeScripts
         private List<SpawnArea> _spawnAreas = new List<SpawnArea>();
         private PauseHandler _pauseHandler;
         private AudioPlayerSpawner _audioPlayerSpawner;
+
+        public event Action CubesSpawned;
 
         public int TotalCubes => _materialReference.GetTotalCount();
 
@@ -61,7 +65,7 @@ namespace Assets.Sources.SimpleCubeScripts
                     break;
             }
 
-            Debug.Log($"Spawned {spawnIndex} cubes in editor. Colors will be assigned at runtime.");
+            CubesSpawned?.Invoke();
         }
 
         public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner, 

@@ -83,6 +83,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &822864660222455087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6664899096717858727}
+  m_Layer: 0
+  m_Name: UIPivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6664899096717858727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822864660222455087}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1666757922122395402}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &868564030673315304
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,6 +757,7 @@ Transform:
   - {fileID: 4527494956821995860}
   - {fileID: 8007180263283724240}
   - {fileID: 5041873201911491335}
+  - {fileID: 6664899096717858727}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9066199266164770761
@@ -1199,10 +1231,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1666757922122395402}
     m_Modifications:
-    - target: {fileID: 2687707996169638716, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
-      propertyPath: _parent
-      value: 
-      objectReference: {fileID: 1666757922122395402}
+    - target: {fileID: 3554533097736978058, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3705889015833673004, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
       propertyPath: _enemy
       value: 
@@ -1215,14 +1247,6 @@ PrefabInstance:
       propertyPath: Health
       value: 
       objectReference: {fileID: 3696833520282096010}
-    - target: {fileID: 4480004499305821925, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5395052613583951198, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6170591933192442967, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1254,18 +1278,6 @@ PrefabInstance:
     - target: {fileID: 6170591933192442967, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
       propertyPath: m_SizeDelta.y
       value: 1080
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170591933192442967, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170591933192442967, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 6170591933192442967, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.025
       objectReference: {fileID: 0}
     - target: {fileID: 6170591933192442967, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1326,19 +1338,11 @@ PrefabInstance:
     - target: {fileID: 7277903242305543792, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
       propertyPath: Parent
       value: 
-      objectReference: {fileID: 1666757922122395402}
+      objectReference: {fileID: 6664899096717858727}
     - target: {fileID: 7277903242305543792, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
-      propertyPath: _parent
-      value: 
-      objectReference: {fileID: 1666757922122395402}
-    - target: {fileID: 7549657556584341984, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
-      propertyPath: Health
-      value: 
-      objectReference: {fileID: 3696833520282096010}
-    - target: {fileID: 7549657556584341984, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
-      propertyPath: _enemy
-      value: 
-      objectReference: {fileID: 7509710584334909993}
+      propertyPath: Offset.y
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 7897775218954297759, guid: ae02d0eb31dfa0344830d30d3d6006d6, type: 3}
       propertyPath: Health
       value: 

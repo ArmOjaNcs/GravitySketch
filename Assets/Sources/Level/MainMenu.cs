@@ -27,58 +27,28 @@ namespace Assets.Sources.Level
 
         private void OnEnable()
         {
-            foreach (MenuWindow menuWindow in _windows)
-            {
-                menuWindow.Opening += OnWindowOpening;
-                menuWindow.Closing += OnWindowClosing;
-            }
+            Subscribe();
 
-            foreach (Button button in _buttons)
-                button.onClick.AddListener(OnButtonClick);
-
-            foreach (Toggle toggle in _toggles)
-                toggle.onValueChanged.AddListener(OnToggleChanged);
-
-            _start.onClick.AddListener(OnStartClicked);
-            _leaderboardView = _leaderboard.GetComponent<MenuWindow>();
-            _leaderboardView.Opening += OnLeaderboardOpening;
+            if (YandexGame.EnvironmentData != null)
+                OnYGReady();
+            else
+                YandexGame.GetDataEvent += OnYGReady;
         }
 
         private void OnDisable()
         {
-            _levelSelector.PlayClicked -= OnPlayClicked;
-            _start.onClick.RemoveListener(OnStartClicked);
-            _leaderboardView.Opening -= OnLeaderboardOpening;
-
-            foreach (MenuWindow menuWindow in _windows)
-            {
-                menuWindow.Opening -= OnWindowOpening;
-                menuWindow.Closing -= OnWindowClosing;
-            }
-
-            foreach (Button button in _buttons)
-                button.onClick.RemoveListener(OnButtonClick);
-
-            foreach (Toggle toggle in _toggles)
-                toggle.onValueChanged.RemoveListener(OnToggleChanged);
+            UnSubscribe();
         }
 
         private void Start()
         {
-            if (YandexGame.EnvironmentData == null)
-                YandexGame.GetDataEvent += OnYGReady;
-            else
-                OnYGReady();
-
             Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
             Progress.SetSceneType(SceneType.Collect);
 
             if (StageName.Equals(UserUtils.TutorialCollectName) && IsTutorial == false)
                 Progress.SetTutorial(true);
 
-            YandexGame.NewLeaderboardScores("Leaderboard", TotalScore);
-            SaveSystem.SavePlayerProgress(Progress);
-            _default.Show();
+            _isStarted = true;
         }
 
         private void OnWindowOpening() => _default.Hide();
@@ -119,20 +89,55 @@ namespace Assets.Sources.Level
 
         private void OnYGReady()
         {
-            string text = string.Empty;
-
-            if (LevelsCount == 0)
-                text = UserUtils.Start;
-            else
-                text = UserUtils.Continue;
-
+            YandexGame.GetDataEvent -= OnYGReady;
+            string text = LevelsCount == 0 ? UserUtils.Start : UserUtils.Continue;
             Translator.UpdateLang();
             GameObject cubesPrefab = Resources.Load<GameObject>(UserUtils.GetToyCubeHolderName(UserUtils.Main));
             cubesPrefab = Instantiate(cubesPrefab);
             _startButtonText.text = Translator.Get(text);
             _levelSelector.Init(this);
             _levelSelector.PlayClicked += OnPlayClicked;
-            _isStarted = true;
+            YandexGame.NewLeaderboardScores("Leaderboard", TotalScore);
+            SaveSystem.SavePlayerProgress(Progress);
+            _default.Show();
+        }
+
+        private void Subscribe()
+        {
+            foreach (MenuWindow menuWindow in _windows)
+            {
+                menuWindow.Opening += OnWindowOpening;
+                menuWindow.Closing += OnWindowClosing;
+            }
+
+            foreach (Button button in _buttons)
+                button.onClick.AddListener(OnButtonClick);
+
+            foreach (Toggle toggle in _toggles)
+                toggle.onValueChanged.AddListener(OnToggleChanged);
+
+            _start.onClick.AddListener(OnStartClicked);
+            _leaderboardView = _leaderboard.GetComponent<MenuWindow>();
+            _leaderboardView.Opening += OnLeaderboardOpening;
+        }
+
+        private void UnSubscribe()
+        {
+            _levelSelector.PlayClicked -= OnPlayClicked;
+            _start.onClick.RemoveListener(OnStartClicked);
+            _leaderboardView.Opening -= OnLeaderboardOpening;
+
+            foreach (MenuWindow menuWindow in _windows)
+            {
+                menuWindow.Opening -= OnWindowOpening;
+                menuWindow.Closing -= OnWindowClosing;
+            }
+
+            foreach (Button button in _buttons)
+                button.onClick.RemoveListener(OnButtonClick);
+
+            foreach (Toggle toggle in _toggles)
+                toggle.onValueChanged.RemoveListener(OnToggleChanged);
         }
     }
 }

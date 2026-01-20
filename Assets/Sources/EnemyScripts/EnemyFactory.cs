@@ -1,5 +1,6 @@
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,6 +18,8 @@ namespace Assets.Sources.EnemyScripts
         private BossConfig _bossConfig;
         private AudioPlayerSpawner _audioPlayerSpawner;
         private PauseHandler _pauseHandler;
+
+        public event Action EnemiesSpawned;
 
         public int TotalEnemies { get; private set; }
         public bool IsBossSpawned { get; private set; }
@@ -108,6 +111,8 @@ namespace Assets.Sources.EnemyScripts
                     created++;
                 }
             }
+
+            EnemiesSpawned?.Invoke();
         }
 
         private Enemy SpawnEnemyInZone(EnemyPatrolZone patrolZone, EnemyConfig config)

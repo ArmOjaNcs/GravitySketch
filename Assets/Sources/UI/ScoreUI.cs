@@ -9,7 +9,6 @@ namespace Assets.Sources.UI
     public class ScoreUI : SmoothedText
     {
         [SerializeField] private PlayerScore _playerScore;
-        [SerializeField] private PopUpText _popUpText;
         [SerializeField] private AudioPlayer _audioPlayer;
         
         private void OnEnable()
@@ -26,7 +25,6 @@ namespace Assets.Sources.UI
         public override void Init(PauseHandler pauseHandler)
         {
             base.Init(pauseHandler);
-            _popUpText.Init(pauseHandler);
             _audioPlayer.Init(pauseHandler);
             _audioPlayer.AudioSource.playOnAwake = false;
             _audioPlayer.AudioSource.loop = true;
@@ -40,8 +38,6 @@ namespace Assets.Sources.UI
         private void OnScoreChanged(int reward)
         {
             TargetValue = _playerScore.Value;
-            _popUpText.SetPreviousValue(0);
-            _popUpText.ShowText(reward);
             _audioPlayer.Play();
             OnUpdate();
         }

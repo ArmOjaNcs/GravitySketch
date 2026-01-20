@@ -220,7 +220,7 @@ namespace Assets.Sources.Level
 
             yield return new WaitForSeconds(UserUtils.One);
             _totalScore.SetActive(true);
-            Window.Show();
+            TextWindow.Show();
             int finalScore = _validator.MatchScore + CurrentScore;
             Progress.UpdateLevelScore(UserUtils.GetCollectStageName(StageName), finalScore);
             SaveSystem.SavePlayerProgress(Progress);
@@ -258,14 +258,14 @@ namespace Assets.Sources.Level
             Progress.SetSceneType(SceneType.Collect);
             SaveSystem.SavePlayerProgress(Progress);
             AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
-            Window.Closed += LoadNext;
-            Window.Hide();
+            TextWindow.Closed += LoadNext;
+            TextWindow.Hide();
             HidePauseMenu();
         }
 
         private void LoadNext()
         {
-            Window.Closed -= LoadNext;
+            TextWindow.Closed -= LoadNext;
             SceneManager.LoadScene(UserUtils.Load);
         }
     }

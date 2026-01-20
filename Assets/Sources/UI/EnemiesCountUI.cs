@@ -1,6 +1,5 @@
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.PlayerScripts;
-using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
 
@@ -10,39 +9,41 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private EnemyFactory _enemyFactory;
         [SerializeField] private TakeOverLimit _takeOverLimit;
-        [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private TextMeshProUGUI _valueText;
+        [SerializeField] private TextMeshProUGUI _maxText;
+        [SerializeField] private SmoothedSlider _slider;
 
         private int _totalEnemies;
-        private string _enemiesCount = string.Empty;
 
         private void OnEnable()
         {
             _takeOverLimit.EnemyDissolved += OnEnemyDissolved;
+            _enemyFactory.EnemiesSpawned += OnEnemiesSpawned;
         }
 
         private void OnDisable()
         {
             _takeOverLimit.EnemyDissolved -= OnEnemyDissolved;
+            _enemyFactory.EnemiesSpawned -= OnEnemiesSpawned;
         }
 
         private void Start()
         {
-            _enemiesCount = _text.text + " ";
-            OnEnemyDissolved();
+            _slider.SetStartValue(0);
+            _valueText.text = _takeOverLimit.EnemiesDissolvedCount.ToString();
         }
 
         private void OnEnemyDissolved()
         {
-            if (_totalEnemies == 0)
-                _totalEnemies = _enemyFactory.TotalEnemies;
+            _valueText.text = _takeOverLimit.EnemiesDissolvedCount.ToString();
+            float target = _totalEnemies > 0 ? (float)_takeOverLimit.EnemiesDissolvedCount / _totalEnemies : 0f;
+            _slider.UpdateView(1, target);
+        }
 
-            float percent = _totalEnemies > 0 ? (float)_takeOverLimit.EnemiesDissolvedCount / _totalEnemies : 0f;
-            percent = Mathf.Clamp01(percent);
-
-            _text.color = UserUtils.GetColorByPercentage(percent);
-
-            _text.text = _enemiesCount + _takeOverLimit.EnemiesDissolvedCount + "/" + _totalEnemies + " "
-                + (percent * 100).ToString("F2") + "%";
+        private void OnEnemiesSpawned()
+        {
+            _totalEnemies = _enemyFactory.TotalEnemies;
+            _maxText.text = _totalEnemies.ToString();
         }
     }
 }

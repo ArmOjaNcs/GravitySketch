@@ -1,4 +1,5 @@
 using Assets.Sources.Save;
+using Assets.Sources.Utils;
 using System;
 using System.Collections;
 using TMPro;
@@ -116,7 +117,10 @@ namespace Assets.Sources.Level
 
         private string FormatKey(KeyCode key)
         {
-            return key == KeyCode.None ? "—" : key.ToString();
+            if (key == KeyCode.None)
+                return "—";
+
+            return Translator.GetKey(key);
         }
 
         private void StartRebind(Button button, string fieldName)

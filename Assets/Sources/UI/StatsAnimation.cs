@@ -12,7 +12,6 @@ namespace Assets.Sources.UI
         [SerializeField] private StatUI _shakeAnimation;
         [SerializeField] private Color _imageAnimationColor;
         [SerializeField] private Color _textAnimationColor;
-        [SerializeField] private StatsAnimationType _type;
 
         private float _halfOfDuration;
         private float _progress;
@@ -20,8 +19,6 @@ namespace Assets.Sources.UI
         private Color _startTextColor;
         private Color _imageDefaultColor;
         private Color _textDefaultColor;
-
-        public StatsAnimationType Type => _type;
 
         public override void Init(PauseHandler pauseHandler)
         {

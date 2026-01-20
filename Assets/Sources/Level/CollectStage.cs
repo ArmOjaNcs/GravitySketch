@@ -33,11 +33,13 @@ namespace Assets.Sources.Level
         [SerializeField] private Button _reviveButton;
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private float _timeBeforeLoad;
+        [SerializeField] private Image _textBackground;
         
         private Enemy _boss;
         private float _currentEnemyDissolvedPercent;
         private float _currentCubesCountPercent;
-        private TutorialHandler _tutorialHandler; 
+        private TutorialHandler _tutorialHandler;
+        private Color _textBackgroundDefaultColor;
 
         private protected override void Awake()
         {
@@ -47,6 +49,7 @@ namespace Assets.Sources.Level
                 _player.SetTutorial();
 
             _reviveButton.gameObject.SetActive(false);
+            _textBackgroundDefaultColor = _textBackground.color;
         }
 
         private protected override void OnEnable()
@@ -102,7 +105,6 @@ namespace Assets.Sources.Level
 
             _grower.Updated -= OnStartGrowerUpdated;
             _playerInput.StartInput();
-            Debug.Log("inputStarted");
             base.Begin();
         }
 
@@ -124,6 +126,8 @@ namespace Assets.Sources.Level
             base.Init(pauseHandler, audioPlayerSpawner);
             _playerInput.InitBindings(Bindings, _moveJoystick, _rotateJoystick,
                 _shieldAbilityButton, _boostAbilityButton);
+            _shieldAbilityButton.gameObject.SetActive(false);
+            _boostAbilityButton.gameObject.SetActive(false);
             _player.Init(pauseHandler);
             _exit.Init(pauseHandler);
             _exit.SetAudioPlayerSpawner(audioPlayerSpawner);
@@ -138,13 +142,14 @@ namespace Assets.Sources.Level
 
         private void OnReviveButtonClicked()
         {
-            Window.Closed += OnReviveWindowClosed;
-            Window.Hide();
+            TextWindow.Closed += OnReviveWindowClosed;
+            TextWindow.Hide();
+            ButtonsWindow.Hide();
         }
 
         private void OnReviveWindowClosed()
         {
-            Window.Closed -= OnReviveWindowClosed;
+            TextWindow.Closed -= OnReviveWindowClosed;
             _reviveButton.gameObject.SetActive(false);
             _finalText.gameObject.SetActive(false);
             _grower.Updated += OnReviveGrowerUpdated;
@@ -173,16 +178,17 @@ namespace Assets.Sources.Level
             Progress.SetStageName(UserUtils.GetPaintStageName(StageName));
             Progress.SetSceneType(SceneType.Paint);
             SaveSystem.SavePlayerProgress(Progress);
-            Window.Closed += OnFinalWindowClosed;
-            Window.Hide();
+            TextWindow.Closed += OnFinalWindowClosed;
+            TextWindow.Hide();
+            ButtonsWindow.Hide();
         }
 
         private protected override void OnVirtualJoystickValueChanged(bool value)
         {
+            _shieldAbilityButton.gameObject.SetActive(value);
             _shieldAbilityButton.interactable = value;
-            _shieldAbilityButton.enabled = value;
+            _boostAbilityButton.gameObject.SetActive(value);
             _boostAbilityButton.interactable = value;
-            _boostAbilityButton.enabled = value;
             _moveJoystick.gameObject.SetActive(value);
             _rotateJoystick.gameObject.SetActive(value);
             base.OnVirtualJoystickValueChanged(value);
@@ -190,7 +196,7 @@ namespace Assets.Sources.Level
 
         private void OnFinalWindowClosed()
         {
-            Window.Closed -= OnFinalWindowClosed;
+            TextWindow.Closed -= OnFinalWindowClosed;
             SceneManager.LoadScene(UserUtils.Load);
         }
 
@@ -214,9 +220,10 @@ namespace Assets.Sources.Level
             _finishRoutine.UpdateView(_timeBeforeLoad);
             _finalText.text = Translator.Get(UserUtils.Great);
             _finalText.gameObject.SetActive(true);
+            _textBackground.color = Color.clear;
             ToMainMenu.gameObject.SetActive(false);
             Restart.gameObject.SetActive(false);
-            Window.Show();
+            TextWindow.Show();
         }
 
         private void OnPlayerDead()
@@ -228,7 +235,8 @@ namespace Assets.Sources.Level
             _finalText.color = Color.red;
             _finalText.gameObject.SetActive(true);
             Pause.gameObject.SetActive(false);
-            Window.Show();
+            TextWindow.Show();
+            ButtonsWindow.Show();
             _reviveButton.gameObject.SetActive(true);
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;

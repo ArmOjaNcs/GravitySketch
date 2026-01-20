@@ -42,7 +42,7 @@ namespace Assets.Sources.Pause
 
         public virtual void UpdateView(float duration)
         {
-            if (IsInitialized == false || isActiveAndEnabled == false)
+            if (isActiveAndEnabled == false)
                 return;
 
             if (Routine != null)

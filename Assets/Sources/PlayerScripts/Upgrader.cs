@@ -1,4 +1,3 @@
-using Assets.Sources.UI;
 using System;
 using UnityEngine;
 
@@ -13,19 +12,23 @@ namespace Assets.Sources.PlayerScripts
         [SerializeField] private Catcher _catcher;
         [SerializeField] private TakeOverLimit _takeOverLimit;
 
+        private float _totalPower;
+
         public float MoveSpeed => _mover.MoveSpeed;
         public float DefendTime => _shield.DefendTime;
         public float Defence => _shield.Defence;
         public float Damage => _catcher.Damage;
         public int CurrentSize => _growHandler.CurrentSize;
+        public int Power { get; private set; }
 
-        public event Action<StatsAnimationType> Upgraded;
+        public event Action Upgraded;
 
         private void OnEnable()
         {
             _growHandler.Growing += OnGrowing;
             _takeOverLimit.EnemyDissolved += OnEnemyDissolved;
             _takeOverLimit.AnomalyDissolved += OnAnomalyDissolved;
+            CalculatePower();
         }
 
         private void OnDisable()
@@ -38,7 +41,7 @@ namespace Assets.Sources.PlayerScripts
         private void OnAnomalyDissolved()
         {
             _shield.UpgradeActiveTime();
-            Upgraded?.Invoke(StatsAnimationType.DefenceTime);
+            UpdatePower();
         }
 
         private void OnGrowing()
@@ -46,10 +49,7 @@ namespace Assets.Sources.PlayerScripts
             _mover.UpgradeMoveSpeed(true);
             _shield.Upgrade();
             _booster.Upgrade();
-            Upgraded?.Invoke(StatsAnimationType.DefenceTime);
-            Upgraded?.Invoke(StatsAnimationType.MoveSpeed);
-            Upgraded?.Invoke(StatsAnimationType.Damage);
-            Upgraded?.Invoke(StatsAnimationType.Size);
+            UpdatePower();
         }
 
         private void OnEnemyDissolved()
@@ -57,9 +57,23 @@ namespace Assets.Sources.PlayerScripts
             _catcher.UpgradeDamage();
             _mover.UpgradeMoveSpeed(false);
             _shield.UpgradeDefend();
-            Upgraded?.Invoke(StatsAnimationType.MoveSpeed);
-            Upgraded?.Invoke(StatsAnimationType.Damage);
-            Upgraded?.Invoke(StatsAnimationType.Defence);
+            UpdatePower();
+        }
+
+        private void UpdatePower()
+        {
+            CalculatePower();
+            Upgraded?.Invoke();
+        }
+
+        private void CalculatePower()
+        {
+            float moveSpeedPower = MoveSpeed * 0.75f;
+            float damagePower = Damage * 0.5f;
+            float defencePower = Defence * 1.5f;
+            float defendTimePower = DefendTime * 5;
+            _totalPower = moveSpeedPower + damagePower + defencePower + defendTimePower;
+            Power = Mathf.FloorToInt(_totalPower);
         }
     }
 }
