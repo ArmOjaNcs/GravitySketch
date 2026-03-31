@@ -9,7 +9,7 @@ public class PngCreatorEditor : Editor
     //    DrawDefaultInspector();
     //    PngCreator creator = (PngCreator)target;
 
-    //    if(GUILayout.Button("Capture PNG"))
+    //    if (GUILayout.Button("Capture PNG"))
     //        creator.CapturePNG();
     //}
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class PngCreator : MonoBehaviour
 {
     //public Camera TargetCamera;
-    //public ParticleSystem ParticleSystem;
     //public int Resolution = 1024;
     //public string OutputPath = "Assets/Sprites/BakedSprite.png";
 
