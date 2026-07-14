@@ -12,7 +12,8 @@ namespace Assets.Sources.PlayerScripts
         private Vector3 _baseLocalScale;
 
         private Vector3 PositionWithOffset => new Vector3(_position.x, _yOffset, _position.z);
-        private Vector3 _targetScale => _target.lossyScale;
+
+        private Vector3 TargetScale => _target.lossyScale;
 
         private void Awake()
         {
@@ -27,10 +28,9 @@ namespace Assets.Sources.PlayerScripts
             _transform.position = PositionWithOffset;
 
             _transform.localScale = new Vector3(
-               _baseLocalScale.x * _targetScale.x,
-               _baseLocalScale.y * _targetScale.y,
-               _baseLocalScale.z * _targetScale.z
-           );
+               _baseLocalScale.x * TargetScale.x,
+               _baseLocalScale.y * TargetScale.y,
+               _baseLocalScale.z * TargetScale.z);
         }
     }
 }

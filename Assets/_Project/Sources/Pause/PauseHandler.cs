@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace Assets.Sources.Pause
 {
-    public class PauseHandler 
+    public class PauseHandler
     {
         private List<IPauseable> _pauseableObjects;
-
-        public bool IsPaused {  get; private set; }
 
         public PauseHandler()
         {
             _pauseableObjects = new List<IPauseable>();
         }
+
+        public bool IsPaused { get; private set; }
 
         public void Register(IPauseable pauseable) => _pauseableObjects.Add(pauseable);
 
@@ -20,7 +20,7 @@ namespace Assets.Sources.Pause
         {
             foreach (IPauseable pauseable in _pauseableObjects)
             {
-                if(pauseable.IsActive())
+                if (pauseable.IsActive())
                     pauseable.Pause();
             }
 
@@ -33,7 +33,7 @@ namespace Assets.Sources.Pause
         {
             foreach (IPauseable pauseable in _pauseableObjects)
             {
-                if(pauseable.IsActive())
+                if (pauseable.IsActive())
                     pauseable.Resume();
             }
 

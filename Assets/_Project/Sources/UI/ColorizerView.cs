@@ -35,6 +35,11 @@ namespace Assets.Sources.UI
             Animation.Restart();
         }
 
+        private protected override Sequence GetAnimation()
+        {
+            return AnimationSpawner.GetMoveScaleAnimation(_arrow.rectTransform, new Vector2(-50, 0));
+        }
+
         private void OnColorsCountChanged(Color color, int count)
         {
             if (color == Color.clear)
@@ -45,11 +50,6 @@ namespace Assets.Sources.UI
             _cube.color = color;
             _cubeBackground.color = UserUtils.GetOppositeColor(color);
             _count.text = count.ToString();
-        }
-
-        private protected override Sequence GetAnimation()
-        {
-            return AnimationSpawner.GetMoveScaleAnimation(_arrow.rectTransform, new Vector2(-50, 0));
         }
     }
 }

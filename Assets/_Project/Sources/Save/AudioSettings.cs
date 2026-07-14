@@ -1,5 +1,5 @@
-using Assets.Sources.Utils;
 using System;
+using Assets.Sources.Utils;
 using UnityEngine;
 
 namespace Assets.Sources.Save
@@ -23,9 +23,13 @@ namespace Assets.Sources.Save
         }
 
         public float TotalVolume => _totalVolume;
+
         public float MusicVolume => _musicVolume;
+
         public float SoundVolume => _soundVolume;
+
         public float InterfaceVolume => _interfaceVolume;
+
         public bool ToggleStatus => _toggleStatus;
 
         public void SetTotalVolume(float value)

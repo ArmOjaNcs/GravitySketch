@@ -1,18 +1,18 @@
+using System;
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
 {
     public class EnemyRetreatZone : EnemyAttackZone
     {
-        public event Action<bool> ShouldRetreat;
-
         [SerializeField] private RetreatBomb _bomb;
 
         private bool _isCanDrop;
+
+        public event Action<bool> ShouldRetreat;
 
         public float ColliderRadius => Collider == null ? 0 : Collider.radius * transform.localScale.x;
 
@@ -30,8 +30,11 @@ namespace Assets.Sources.EnemyScripts
             base.Update();
         }
 
-        public override void InitFromConfig(EnemyAttackConfig config, Transform firePoint,
-            AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
+        public override void InitFromConfig(
+            EnemyAttackConfig config,
+            Transform firePoint,
+            AudioPlayerSpawner audioPlayerSpawner,
+            PauseHandler pauseHandler)
         {
             base.InitFromConfig(config, firePoint, audioPlayerSpawner, pauseHandler);
 

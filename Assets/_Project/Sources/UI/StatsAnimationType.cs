@@ -6,6 +6,6 @@ namespace Assets.Sources.UI
         Defence = 1,
         DefenceTime = 2,
         Damage = 3,
-        Size = 4
+        Size = 4,
     }
 }

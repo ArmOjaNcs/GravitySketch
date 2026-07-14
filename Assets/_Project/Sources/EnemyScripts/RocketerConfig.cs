@@ -10,7 +10,9 @@ namespace Assets.Sources.EnemyScripts
         public Rocket RocketPrefab;
         public RocketConfig RocketConfig;
         public int Capacity;
+
         public override EnemyType Type => EnemyType.Rocketer;
+
         public override Type ZoneComponentType => typeof(EnemyRocketZone);
     }
 }

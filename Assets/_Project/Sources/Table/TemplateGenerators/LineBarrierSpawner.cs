@@ -32,21 +32,23 @@ namespace Assets.Sources.Table
                     childrenToDestroy.Add(child.gameObject);
 
                 foreach (GameObject child in childrenToDestroy)
+                {
                     if (child != null)
                         DestroyImmediate(child.gameObject);
+                }
             }
 
             for (int i = 0; i < _count; i++)
             {
                 GameObject barrier = Instantiate(_barrierPrefab, _parentTransform);
 
-                if(Mathf.Approximately(colliderBoundsX, 0))
+                if (Mathf.Approximately(colliderBoundsX, 0))
                 {
                     BoxCollider barrierCollider = barrier.GetComponent<BoxCollider>();
                     colliderBoundsX = barrierCollider.bounds.size.x;
                     Debug.Log($"collider bounds X = {barrierCollider.bounds.size.x}");
                 }
-                    
+
                 Vector3 position = Vector3.right * colliderBoundsX * i;
                 barrier.transform.localPosition = position;
             }

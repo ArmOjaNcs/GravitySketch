@@ -8,43 +8,7 @@ namespace Assets.Sources.Table
     [CreateAssetMenu(fileName = "TemplateColorReference", menuName = "ScriptableObjects/TemplateColorReference")]
     public class TemplateColorReference : ScriptableObject
     {
-        [Serializable]
-        private class ColorEntry
-        {
-            [SerializeField] private List<int> _indexes = new();
-            [SerializeField] private Color _color;
-            [SerializeField] private int _count;
-
-            private int _currentIndex;
-
-            public Color Color => _color;
-            public int Count => _count;
-            public bool HasFreeIndex => _currentIndex < _indexes.Count;
-
-            public bool HasIndex(int index) => _indexes.Contains(index);
-            public void AddIndex(int index) => _indexes.Add(index);
-            public void IncrementCount() => _count++;
-            public void SetColor(Color color) => _color = color;
-            public bool TryGetIndex(out int index)
-            {
-                if (_currentIndex < _indexes.Count)
-                {
-                    index = _indexes[_currentIndex];
-                    _currentIndex++;
-                    return true;
-                }
-
-                index = -1;
-                return false;
-            }
-
-            public void ResetCurrentIndex()
-            {
-                _currentIndex = 0;
-            }
-        }
-
-        [SerializeField] private List<ColorEntry> _entries = new();
+        [SerializeField] private List<ColorEntry> _entries = new ();
 
         public int GetTotalCount()
         {
@@ -80,9 +44,9 @@ namespace Assets.Sources.Table
             foreach (TemplateCube cube in templateCubes)
             {
                 int index = cube.Index;
-                
+
                 foreach (ColorEntry entry in _entries)
-                {       
+                {
                     if (entry.HasIndex(index))
                     {
                         Debug.Log($"index in entries");
@@ -102,7 +66,7 @@ namespace Assets.Sources.Table
 
         public List<Color> GetAllColors()
         {
-            List<Color> result = new();
+            List<Color> result = new ();
 
             foreach (var entry in _entries)
             {
@@ -155,6 +119,48 @@ namespace Assets.Sources.Table
             int randomIndex = Random.Range(0, _entries.Count);
 
             return _entries[randomIndex].Color;
+        }
+
+        [Serializable]
+        private class ColorEntry
+        {
+            [SerializeField] private List<int> _indexes = new();
+            [SerializeField] private Color _color;
+            [SerializeField] private int _count;
+
+            private int _currentIndex;
+
+            public Color Color => _color;
+
+            public int Count => _count;
+
+            public bool HasFreeIndex => _currentIndex < _indexes.Count;
+
+            public bool HasIndex(int index) => _indexes.Contains(index);
+
+            public void AddIndex(int index) => _indexes.Add(index);
+
+            public void IncrementCount() => _count++;
+
+            public void SetColor(Color color) => _color = color;
+
+            public bool TryGetIndex(out int index)
+            {
+                if (_currentIndex < _indexes.Count)
+                {
+                    index = _indexes[_currentIndex];
+                    _currentIndex++;
+                    return true;
+                }
+
+                index = -1;
+                return false;
+            }
+
+            public void ResetCurrentIndex()
+            {
+                _currentIndex = 0;
+            }
         }
     }
 }

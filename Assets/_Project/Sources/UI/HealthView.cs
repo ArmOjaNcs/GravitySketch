@@ -52,7 +52,7 @@ namespace Assets.Sources.UI
             _isFarUpdated = false;
             _isNearUpdated = false;
 
-            if(difference >= 0)
+            if (difference >= 0)
                 _fillerFar.UpdateValue(_duration, _targetValue);
             else
                 _fillerNear.UpdateValue(_duration, _targetValue);
@@ -62,7 +62,7 @@ namespace Assets.Sources.UI
         {
             _isFarUpdated = true;
 
-            if(TryStop())
+            if (TryStop())
                 return;
 
             _fillerNear.UpdateValue(_duration, _targetValue);
@@ -72,7 +72,7 @@ namespace Assets.Sources.UI
         {
             _isNearUpdated = true;
 
-            if(TryStop()) 
+            if (TryStop())
                 return;
 
             _fillerFar.UpdateValue(_duration, _targetValue);
@@ -80,7 +80,7 @@ namespace Assets.Sources.UI
 
         private bool TryStop()
         {
-            if(_isFarUpdated && _isNearUpdated)
+            if (_isFarUpdated && _isNearUpdated)
             {
                 _fillerNear.SetValue(_targetValue);
                 _fillerFar.SetValue(_targetValue);

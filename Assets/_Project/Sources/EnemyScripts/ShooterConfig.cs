@@ -10,6 +10,7 @@ namespace Assets.Sources.EnemyScripts
         public BulletConfig BulletConfig;
 
         public override EnemyType Type => EnemyType.Shooter;
+
         public override System.Type ZoneComponentType => typeof(EnemyShooterZone);
     }
 }

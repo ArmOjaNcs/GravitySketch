@@ -13,7 +13,7 @@ namespace Assets.Sources.UI
 
         private void Awake()
         {
-            if(Translator.IsLangSetted)
+            if (Translator.IsLangSetted)
                 Translate();
             else
                 Translator.LangChanged += OnLangChanged;
@@ -30,15 +30,15 @@ namespace Assets.Sources.UI
             switch (Translator.CurrentLang)
             {
                 case "ru":
-                    _text.text = _ru;
+                    _text.SetText(_ru);
                     break;
 
                 case "en":
-                    _text.text = _en;
+                    _text.SetText(_en);
                     break;
 
                 case "tr":
-                    _text.text = _tr;
+                    _text.SetText(_tr);
                     break;
             }
         }

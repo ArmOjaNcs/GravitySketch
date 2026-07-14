@@ -1,5 +1,5 @@
-using Assets.Sources.Save;
 using System.Collections.Generic;
+using Assets.Sources.Save;
 using UnityEngine;
 
 namespace Assets.Sources.Level
@@ -9,12 +9,18 @@ namespace Assets.Sources.Level
         private protected PlayerProgress Progress;
 
         public int TotalScore => Progress.TotalScore;
+
         public int LevelsCount => Progress.LevelsCount;
+
         public int CurrentScore => Progress.CurrentScore;
+
         public IReadOnlyList<Color> CurrentColors => Progress.CurrentColors;
+
         public int ColorsCount => Progress.ColorsCount;
+
         public string StageName => Progress.StageName;
-        public bool IsTutorial => Progress.IsTutorial; 
+
+        public bool IsTutorial => Progress.IsTutorial;
 
         private protected virtual void Awake()
         {

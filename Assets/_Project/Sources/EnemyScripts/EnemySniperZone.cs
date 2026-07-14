@@ -1,7 +1,7 @@
+using System;
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
@@ -17,7 +17,7 @@ namespace Assets.Sources.EnemyScripts
         {
             Deactivated?.Invoke(this);
 
-            if(_cross != null)
+            if (_cross != null)
                 _cross.Shoot -= OnShoot;
         }
 
@@ -29,14 +29,17 @@ namespace Assets.Sources.EnemyScripts
             base.Update();
         }
 
-        public override void InitFromConfig(EnemyAttackConfig config, Transform firePoint, 
-            AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
+        public override void InitFromConfig(
+            EnemyAttackConfig config,
+            Transform firePoint,
+            AudioPlayerSpawner audioPlayerSpawner,
+            PauseHandler pauseHandler)
         {
             base.InitFromConfig(config, firePoint, audioPlayerSpawner, pauseHandler);
 
             SniperConfig sniperConfig = config.SafeCast<SniperConfig>();
 
-            if(sniperConfig != null)
+            if (sniperConfig != null)
             {
                 _cross = Instantiate(sniperConfig.AimCrossPrefab).GetComponent<AimCross>();
                 _cross.InitFromConfig(sniperConfig.AimCrossConfig, this);
@@ -44,7 +47,7 @@ namespace Assets.Sources.EnemyScripts
                 _cross.Shoot += OnShoot;
                 Return(_cross.gameObject);
                 IsInitialized = true;
-                return; 
+                return;
             }
 
             IsInitialized = false;

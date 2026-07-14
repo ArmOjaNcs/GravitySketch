@@ -1,7 +1,7 @@
+using System;
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
@@ -76,6 +76,7 @@ namespace Assets.Sources.EnemyScripts
         }
 
         private void OnPlayerIn() => _isPlayerInZone = true;
+
         private void OnPlayerOut() => _isPlayerInZone = false;
 
         private void OnAttackRoutineUpdated()
@@ -135,7 +136,9 @@ namespace Assets.Sources.EnemyScripts
         }
 
         private AudioPlayer GetAudioPlayer() => _audioPlayerSpawner.GetAudioPlayer(_transform.position);
+
         private void SubscribeOnCurrentAction() => _lifeRoutine.Updated += _currentSubscription;
+
         private void UnsubscribeOnCurrentAction() => _lifeRoutine.Updated -= _currentSubscription;
     }
 }

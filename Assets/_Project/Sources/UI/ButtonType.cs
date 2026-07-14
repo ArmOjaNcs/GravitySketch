@@ -1,6 +1,6 @@
-public enum ButtonType 
+public enum ButtonType
 {
-    MoveUp = 0, 
+    MoveUp = 0,
     MoveDown = 1,
     MoveLeft = 2,
     MoveRight = 3,

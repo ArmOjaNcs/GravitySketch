@@ -10,8 +10,11 @@ namespace Assets.Sources.EnemyScripts
         private ObjectPool<Bullet> _pool;
         private BulletConfig _config;
 
-        public override void InitFromConfig(EnemyAttackConfig config, Transform firePoint, 
-            AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
+        public override void InitFromConfig(
+            EnemyAttackConfig config,
+            Transform firePoint,
+            AudioPlayerSpawner audioPlayerSpawner,
+            PauseHandler pauseHandler)
         {
             base.InitFromConfig(config, firePoint, audioPlayerSpawner, pauseHandler);
 

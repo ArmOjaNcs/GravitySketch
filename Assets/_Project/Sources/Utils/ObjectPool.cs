@@ -3,7 +3,8 @@ using UnityEngine;
 
 namespace Assets.Sources.Utils
 {
-    public class ObjectPool<T> where T : MonoBehaviour
+    public class ObjectPool<T>
+        where T : MonoBehaviour
     {
         private List<T> _pool;
         private T _prefab;

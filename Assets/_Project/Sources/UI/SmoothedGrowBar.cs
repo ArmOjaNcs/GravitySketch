@@ -1,7 +1,7 @@
+using System.Collections;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Utils;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Sources.UI
@@ -59,6 +59,13 @@ namespace Assets.Sources.UI
             SetValue(StartImageValue);
         }
 
+        private protected override IEnumerator UpdateRoutine(float duration)
+        {
+            yield return base.UpdateRoutine(duration);
+            _isShowed = false;
+            _smoothedFade.FadeOut(UserUtils.HalfOfUnit);
+        }
+
         private void OnCubesUpdate(int cubesCount)
         {
             if (_growHandler.IsCanGrow == false)
@@ -82,13 +89,6 @@ namespace Assets.Sources.UI
                 return;
 
             _growBarBillboard.IsStop(true);
-        }
-
-        private protected override IEnumerator UpdateRoutine(float duration)
-        {
-            yield return base.UpdateRoutine(duration);
-            _isShowed = false;
-            _smoothedFade.FadeOut(UserUtils.HalfOfUnit);
         }
     }
 }

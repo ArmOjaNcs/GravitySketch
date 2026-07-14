@@ -99,7 +99,7 @@ namespace Assets.Sources.EnemyScripts
         private protected override void Interact()
         {
             Effect.transform.SetParent(null);
-            Effect.transform.localScale = Vector3.one + Vector3.one * Transform.localScale.x;
+            Effect.transform.localScale = Vector3.one + (Vector3.one * Transform.localScale.x);
             _isLaunched = false;
             _flame.Stop();
 
@@ -111,15 +111,19 @@ namespace Assets.Sources.EnemyScripts
             Vector3 directionToTarget = (_delayedTargetPosition - Transform.position).normalized;
             Quaternion targetRotation = Quaternion.FromToRotation(Vector3.up, directionToTarget);
 
-            Transform.rotation = Quaternion.RotateTowards(Transform.rotation, targetRotation,
+            Transform.rotation = Quaternion.RotateTowards(
+                Transform.rotation,
+                targetRotation,
                 _config.MaxTurnAngle * Time.fixedDeltaTime * _config.RotationSpeed);
             _rigidbody.velocity = Transform.up * _config.Speed;
         }
 
         private void FindPosition()
         {
-            _delayedTargetPosition = Vector3.Lerp(_delayedTargetPosition,
-                AttackZone.Player.Position, Time.deltaTime / _config.ReactionDelay);
+            _delayedTargetPosition = Vector3.Lerp(
+                _delayedTargetPosition,
+                AttackZone.Player.Position,
+                Time.deltaTime / _config.ReactionDelay);
         }
 
         private bool IsLaunched()

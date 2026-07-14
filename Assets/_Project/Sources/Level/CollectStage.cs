@@ -7,11 +7,8 @@ using Assets.Sources.SimpleCubeScripts;
 using Assets.Sources.Table;
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
-using System;
-using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using YG;
@@ -33,14 +30,14 @@ namespace Assets.Sources.Level
         [SerializeField] private HoleMaskHandler _maskHandler;
         [SerializeField] private WaitRoutine _waitRoutine;
         [SerializeField] private TextMeshProUGUI _finalText;
-        [SerializeField] private FixedJoystick _moveJoystick;
-        [SerializeField] private FixedJoystick _rotateJoystick;
+        [SerializeField] private DynamicJoystick _moveJoystick;
+        [SerializeField] private DynamicJoystick _rotateJoystick;
         [SerializeField] private Button _shieldAbilityButton;
         [SerializeField] private Button _boostAbilityButton;
         [SerializeField] private Button _reviveButton;
+        [SerializeField] private Button _acceptButton;
         [SerializeField] private MenuWindow _reviveButtonAnimator;
         [SerializeField] private PlayerInput _playerInput;
-        [SerializeField] private float _timeBeforeLoad;
         [SerializeField] private Image _textBackground;
         [SerializeField] private MusicPlayer _musicPlayer;
 
@@ -89,6 +86,29 @@ namespace Assets.Sources.Level
             }
         }
 
+        public override void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
+        {
+            base.Init(pauseHandler, audioPlayerSpawner);
+            _playerInput.InitBindings(
+                Bindings, _moveJoystick, _rotateJoystick, _shieldAbilityButton, _boostAbilityButton);
+            _shieldAbilityButton.gameObject.SetActive(false);
+            _boostAbilityButton.gameObject.SetActive(false);
+            _player.Init(pauseHandler);
+            _exit.Init(pauseHandler);
+            _exit.SetAudioPlayerSpawner(audioPlayerSpawner);
+            _exit.SetSize(0);
+            _exit.gameObject.SetActive(false);
+            _waitRoutine.Init(pauseHandler);
+            _isRewardAvailable = true;
+            _cubesCollector.InvokeCubesCountChanged();
+
+            if (_playerInput.IsJoystickMode)
+                return;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
         public override void SetTutorialObject(GameObject tutorialObject)
         {
             base.SetTutorialObject(tutorialObject);
@@ -106,6 +126,36 @@ namespace Assets.Sources.Level
         {
             _grower.Updated += OnStartGrowerUpdated;
             _grower.GrowTo(Vector3.one, true);
+        }
+
+        private protected override void HideButtons()
+        {
+            if (TextWindow.IsShown && _reviveButton.gameObject.activeSelf)
+                _reviveButtonAnimator.Hide();
+
+            base.HideButtons();
+        }
+
+        private protected override void OnPauseMenuClosed()
+        {
+            base.OnPauseMenuClosed();
+
+            if (_playerInput.IsJoystickMode)
+                return;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+
+        private protected override void OnVirtualJoystickValueChanged(bool value)
+        {
+            _shieldAbilityButton.gameObject.SetActive(value);
+            _shieldAbilityButton.interactable = value;
+            _boostAbilityButton.gameObject.SetActive(value);
+            _boostAbilityButton.interactable = value;
+            _moveJoystick.gameObject.SetActive(value);
+            _rotateJoystick.gameObject.SetActive(value);
+            base.OnVirtualJoystickValueChanged(value);
         }
 
         private void OnStartGrowerUpdated()
@@ -135,25 +185,6 @@ namespace Assets.Sources.Level
             _tutorialHandler.Show();
         }
 
-        public override void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
-        {
-            base.Init(pauseHandler, audioPlayerSpawner);
-            _playerInput.InitBindings(Bindings, _moveJoystick, _rotateJoystick,
-                _shieldAbilityButton, _boostAbilityButton);
-            _shieldAbilityButton.gameObject.SetActive(false);
-            _boostAbilityButton.gameObject.SetActive(false);
-            _player.Init(pauseHandler);
-            _exit.Init(pauseHandler);
-            _exit.SetAudioPlayerSpawner(audioPlayerSpawner);
-            _exit.SetSize(0);
-            _exit.gameObject.SetActive(false);
-            _waitRoutine.Init(pauseHandler);
-            _isRewardAvailable = true;
-            _cubesCollector.InvokeCubesCountChanged();
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
-
         private void OnReviveButtonClicked()
         {
             _waitRoutine.Updated += OnRewardRoutineUpdated;
@@ -162,7 +193,7 @@ namespace Assets.Sources.Level
             PauseHandler.Pause();
             _reviveButtonAnimator.Hide();
             _musicPlayer.Stop();
-            YG2.RewardedAdvShow(string.Empty, ()=> StartCoroutine(RefreshEventSystem(CloseReviveButtons)));
+            YG2.RewardedAdvShow(string.Empty, () => StartCoroutine(RefreshEventSystem(CloseReviveButtons)));
         }
 
         private void CloseReviveButtons()
@@ -189,7 +220,7 @@ namespace Assets.Sources.Level
             TextWindow.Closed -= OnReviveWindowClosed;
             _grower.Updated += OnReviveGrowerUpdated;
             PauseHandler.Resume();
-            _grower.GrowTo(Vector3.one * (_player.CurrentSize / 2) + Vector3.one, true);
+            _grower.GrowTo((Vector3.one * (_player.CurrentSize / 2)) + Vector3.one, true);
         }
 
         private void OnReviveGrowerUpdated()
@@ -207,56 +238,16 @@ namespace Assets.Sources.Level
             PauseInput.Paused += OnPaused;
         }
 
-        private void OnFinishRoutineUpdated()
+        private void OnAcceptButtonClicked()
         {
-            _waitRoutine.Updated -= OnFinishRoutineUpdated;
-            TextWindow.Closed += OnFinalWindowClosed;
-            TextWindow.Hide();
-        }
-
-        private protected override void HideButtons()
-        {
-            if (TextWindow.IsShown && _reviveButton.gameObject.activeSelf)
-                _reviveButtonAnimator.Hide();
-
-            base.HideButtons();
+            _acceptButton.onClick.RemoveListener(OnAcceptButtonClicked);
+            TryShowAdv(() => SceneManager.LoadScene(UserUtils.Load));
         }
 
         private void OnRewardRoutineUpdated()
         {
             _waitRoutine.Updated -= OnRewardRoutineUpdated;
             _isRewardAvailable = true;
-        }
-
-        private protected override void OnVirtualJoystickValueChanged(bool value)
-        {
-            _shieldAbilityButton.gameObject.SetActive(value);
-            _shieldAbilityButton.interactable = value;
-            _boostAbilityButton.gameObject.SetActive(value);
-            _boostAbilityButton.interactable = value;
-            _moveJoystick.gameObject.SetActive(value);
-            _rotateJoystick.gameObject.SetActive(value);
-            base.OnVirtualJoystickValueChanged(value);
-        }
-
-        private void OnFinalWindowClosed()
-        {
-            TextWindow.Closed -= OnFinalWindowClosed;
-            Progress.SetIntermediateResult(_playerScore.Value, _cubesCollector.GetAllCollors());
-            Progress.SetStageName(UserUtils.GetPaintStageName(StageName));
-            Progress.SetSceneType(SceneType.Paint);
-            SaveSystem.SavePlayerProgress(Progress);
-            PauseHandler.Pause();
-            YG2.onCloseInterAdv += OnInterAdvClosed;
-            YG2.onErrorInterAdv += OnInterAdvClosed;
-            YG2.InterstitialAdvShow();
-        }
-
-        private void OnInterAdvClosed()
-        {
-            YG2.onCloseInterAdv -= OnInterAdvClosed;
-            YG2.onErrorInterAdv -= OnInterAdvClosed;
-            StartCoroutine(RefreshEventSystem(()=> SceneManager.LoadScene(UserUtils.Load)));
         }
 
         private void OnCubesCountChanged(int cubesCount)
@@ -276,11 +267,17 @@ namespace Assets.Sources.Level
             Finish();
             _player.SetFinished();
             AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(FinalSound)?.Play();
-            _waitRoutine.Updated += OnFinishRoutineUpdated;
-            _waitRoutine.Wait(_timeBeforeLoad);
-            _finalText.text = Translator.Get(UserUtils.Great);
-            _textBackground.color = Color.clear;
+            _finalText.SetText(Translator.Get(UserUtils.Great));
+            _textBackground.color = Color.green;
+            Pause.interactable = false;
+            PauseHandler.Pause();
+            Progress.SetIntermediateResult(_playerScore.Value, _cubesCollector.GetAllCollors());
+            Progress.SetStageName(UserUtils.GetPaintStageName(StageName));
+            Progress.SetSceneType(SceneType.Paint);
+            SaveSystem.SavePlayerProgress(Progress);
             TextWindow.Show();
+            _acceptButton.gameObject.SetActive(true);
+            _acceptButton.onClick.AddListener(OnAcceptButtonClicked);
         }
 
         private void OnPlayerDead()
@@ -288,11 +285,11 @@ namespace Assets.Sources.Level
             Finish();
             _playerInput.StopInput();
             _grower.GrowTo(Vector3.zero);
-            _finalText.text = Translator.Get(UserUtils.GameOver);
+            _finalText.SetText(Translator.Get(UserUtils.GameOver));
             _finalText.color = Color.red;
             Pause.interactable = false;
-            
-            foreach(MenuWindow button in Buttons)
+
+            foreach (MenuWindow button in Buttons)
                 button.MoveToFinalPosition();
 
             TextWindow.Opened += OnTextWindowOpened;
@@ -331,7 +328,7 @@ namespace Assets.Sources.Level
         private void OnBossDowned()
         {
             _boss.Downed -= OnBossDowned;
-            _exit.transform.position = _takeOverLimit.transform.position + Vector3.up * 70;
+            _exit.transform.position = _takeOverLimit.transform.position + (Vector3.up * 70);
             _exit.gameObject.SetActive(true);
             _exit.DropDown();
         }

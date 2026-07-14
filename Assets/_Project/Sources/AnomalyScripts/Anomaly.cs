@@ -35,7 +35,7 @@ namespace Assets.Sources.AnomalyScpipts
         private protected override void OnCollisionEnter(Collision collision)
         {
             base.OnCollisionEnter(collision);
-           
+
             if (_isDowned || _isAttack || IsInitialized == false)
                 return;
 
@@ -74,13 +74,6 @@ namespace Assets.Sources.AnomalyScpipts
             _mover.InitFromConfig(anomalyConfig.PointMoverConfig);
         }
 
-        private void OnRoutineUpdated()
-        {
-            _isAttack = false;
-            Collider.enabled = false;
-            Collider.enabled = true;
-        }
-
         public override void Pause()
         {
             base.Pause();
@@ -101,6 +94,13 @@ namespace Assets.Sources.AnomalyScpipts
             _mover.Stop();
             Collider.isTrigger = true;
             CollidersHolder.SetActive(true);
+        }
+
+        private void OnRoutineUpdated()
+        {
+            _isAttack = false;
+            Collider.enabled = false;
+            Collider.enabled = true;
         }
     }
 }

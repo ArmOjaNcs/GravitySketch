@@ -15,6 +15,7 @@ namespace Assets.Sources.Level
         }
 
         public string Name => _name;
+
         public int Score => _score;
 
         public void UpdateScore(int score)

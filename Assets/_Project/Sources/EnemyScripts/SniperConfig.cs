@@ -9,6 +9,7 @@ namespace Assets.Sources.EnemyScripts
         public GameObject AimCrossPrefab;
 
         public override EnemyType Type => EnemyType.Sniper;
+
         public override System.Type ZoneComponentType => typeof(EnemySniperZone);
     }
 }

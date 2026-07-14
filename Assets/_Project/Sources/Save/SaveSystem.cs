@@ -17,8 +17,6 @@ namespace Assets.Sources.Save
 
         public static PlayerProgress LoadPlayerProgress()
         {
-            //PlayerPrefs.DeleteAll();
-
             if (PlayerPrefs.HasKey(PlayerProgressKey))
             {
                 string json = PlayerPrefs.GetString(PlayerProgressKey);
@@ -44,7 +42,7 @@ namespace Assets.Sources.Save
                 return JsonUtility.FromJson<InputBindings>(json);
             }
 
-            return new InputBindings(); 
+            return new InputBindings();
         }
 
         public static void SaveAudioSettings(AudioSettings audioSettings)
@@ -56,7 +54,6 @@ namespace Assets.Sources.Save
 
         public static AudioSettings LoadAudioSettings()
         {
-            //PlayerPrefs.DeleteKey("AudioSettings");
             if (PlayerPrefs.HasKey(AudioSettingsKey))
             {
                 string json = PlayerPrefs.GetString(AudioSettingsKey);

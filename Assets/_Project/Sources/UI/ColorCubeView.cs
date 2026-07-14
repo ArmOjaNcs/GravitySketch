@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets._Project._Sources.UI
+namespace Assets.Sources.UI
 {
     public class ColorCubeView : MonoBehaviour
     {
@@ -54,6 +54,7 @@ namespace Assets._Project._Sources.UI
         }
 
         private void OnColorDataSelected(ColorData _) => _frameFade.FadeIn(UserUtils.HalfOfUnit, UserUtils.Unit);
+
         private void OnColorDataDeselected() => _frameFade.FadeOut(UserUtils.HalfOfUnit);
     }
 }

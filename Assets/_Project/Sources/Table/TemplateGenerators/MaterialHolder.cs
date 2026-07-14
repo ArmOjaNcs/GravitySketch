@@ -10,23 +10,6 @@ namespace Assets.Sources.Table
     public class MaterialHolder : ScriptableObject
     {
         [SerializeField] private Shader _shader;
-
-        [Serializable]
-        private class MaterialEntry
-        {
-            [SerializeField] private Color _color;
-            [SerializeField] private Material _material;
-
-            public MaterialEntry(Color color, Material material)
-            {
-                _color = color;
-                _material = material;
-            }
-
-            public Color Color => _color;
-            public Material Material => _material;
-        }
-
         [SerializeField] private List<MaterialEntry> _materialEntries = new List<MaterialEntry>();
 
         public Material GetOrCreateMaterial(Color color)
@@ -65,11 +48,27 @@ namespace Assets.Sources.Table
                     material = entry.Material;
                     return true;
                 }
-
             }
 
             material = null;
             return false;
+        }
+
+        [Serializable]
+        private class MaterialEntry
+        {
+            [SerializeField] private Color _color;
+            [SerializeField] private Material _material;
+
+            public MaterialEntry(Color color, Material material)
+            {
+                _color = color;
+                _material = material;
+            }
+
+            public Color Color => _color;
+
+            public Material Material => _material;
         }
     }
 }

@@ -7,7 +7,8 @@ namespace Assets.Sources.Utils
     {
         [SerializeField] private Transform _parent;
         [SerializeField] private GrowHandler _growHandler;
-        [SerializeField, Min(0)] private float _growDelta;
+        [SerializeField]
+        [Min(0)] private float _growDelta;
         [SerializeField] private Vector3 _offset = new Vector3(2.5f, 0, 0);
 
         private Transform _cameraTransform;
@@ -23,7 +24,7 @@ namespace Assets.Sources.Utils
             _growHandler.Growing -= OnGrowing;
         }
 
-        void Start()
+        private void Start()
         {
             _cameraTransform = Camera.main.transform;
             transform.SetParent(null);
@@ -33,7 +34,7 @@ namespace Assets.Sources.Utils
                 _growDelta *= -1;
         }
 
-        void LateUpdate()
+        private void LateUpdate()
         {
             transform.position = _parent.position + _offset;
             transform.forward = _cameraTransform.forward;

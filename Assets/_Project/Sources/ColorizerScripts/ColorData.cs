@@ -12,11 +12,15 @@ namespace Assets.Sources.ColorizerScripts
         private int _count;
 
         public event Action<ColorData> Selected;
+
         public event Action Deselected;
+
         public event Action CountChanged;
+
         public event Action Initialized;
 
         public Color Color => _color;
+
         public int Count => _count;
 
         private void OnEnable()
@@ -36,13 +40,14 @@ namespace Assets.Sources.ColorizerScripts
             Initialized?.Invoke();
         }
 
-        public void ReduceCount() 
+        public void ReduceCount()
         {
             _count--;
             CountChanged?.Invoke();
         }
 
         public void Select() => Selected?.Invoke(this);
+
         public void Deselect() => Deselected.Invoke();
 
         public void SwitchButtonInteraction(bool interactionValue)

@@ -7,7 +7,10 @@ namespace Assets.Sources.EnemyScripts
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(Collider))]
     public abstract class Bomb : EnemyMissileWithRenderer
-    {   
+    {
+        private protected BombConfig BombConfig;
+        private protected Rigidbody Rigidbody;
+
         private float _blinkTimer;
         private bool _blinkState;
         private Vector3 _currentVelocity;
@@ -15,14 +18,11 @@ namespace Assets.Sources.EnemyScripts
         private float _defaultMass;
         private float _minMass = 0.0001f;
 
-        private protected BombConfig BombConfig;
-        private protected Rigidbody Rigidbody;
-
         private protected override void OnEnable()
         {
             base.OnEnable();
 
-            if(BombConfig != null)
+            if (BombConfig != null)
                 SetColor(BombConfig.Color);
 
             if (Rigidbody != null)
@@ -47,8 +47,8 @@ namespace Assets.Sources.EnemyScripts
             if (Rigidbody.mass > _minMass)
                 Rigidbody.mass = _minMass;
 
-            if(gameObject.layer == UserUtils.DefaultLayer)
-            {   
+            if (gameObject.layer == UserUtils.DefaultLayer)
+            {
                 if (collision.gameObject.CompareTag(UserUtils.Obstacle) ||
                collision.gameObject.CompareTag(UserUtils.DissolvableObstacle)
                || collision.gameObject.CompareTag(UserUtils.Dropped))
@@ -58,7 +58,7 @@ namespace Assets.Sources.EnemyScripts
                     _collider.enabled = true;
                 }
             }
-           
+
             if (collision.gameObject.CompareTag(UserUtils.Player))
                 Interact();
         }
@@ -67,7 +67,7 @@ namespace Assets.Sources.EnemyScripts
         {
             base.Pause();
 
-            if(Rigidbody != null)
+            if (Rigidbody != null)
             {
                 _currentVelocity = Rigidbody.velocity;
                 Rigidbody.velocity = Vector3.zero;
@@ -94,7 +94,7 @@ namespace Assets.Sources.EnemyScripts
             BombConfig = config.SafeCast<BombConfig>();
             _defaultMass = Rigidbody.mass;
 
-            if(config != null)
+            if (config != null)
             {
                 IsConfigurated = true;
                 return;

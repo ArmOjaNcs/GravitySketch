@@ -8,7 +8,7 @@ public class SimpleHole : MonoBehaviour
     private void Awake()
     {
         _material.SetFloat("_HoleRadius", _radius);
-        _material.SetVector("_HolePosition", new Vector4(transform.position.x,
-                transform.position.y, transform.position.z, 0));
+        _material.SetVector("_HolePosition", new Vector4(
+            transform.position.x, transform.position.y, transform.position.z, 0));
     }
 }

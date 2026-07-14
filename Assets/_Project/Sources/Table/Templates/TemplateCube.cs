@@ -11,15 +11,19 @@ namespace Assets.Sources.Table
         private MaterialPropertyBlock _mpb;
 
         public bool IsMarked { get; private set; }
+
         public bool IsColored => _isColored;
+
         public CubeType Type { get; private set; }
+
         public int Index { get; private set; }
+
         public Vector3 Position => (_transform != null) ? _transform.position : transform.position;
+
         public Color Color { get; private set; }
 
         public void Init(CubeType type, int index)
         {
-           // Debug.Log($"cube inited type {type} index {index}");
             _transform = transform;
             _meshRenderer = GetComponent<MeshRenderer>();
             Color = _meshRenderer.sharedMaterial.color;

@@ -91,51 +91,51 @@ namespace Assets.Sources.Utils
         public const char PlusSign = '+';
         public const char DefaultChar = '\0';
 
+        public static readonly int ColorID = Shader.PropertyToID("_Color");
+
         private const float MinAlfa = 0.1f;
 
         private static Dictionary<string, string> StageTransitions = new Dictionary<string, string>()
         {
-            {TutorialCollectName,  TutorialPaintName},
-            {TutorialPaintName,  Telescope},
-            {Telescope, TelescopePaint},
-            {TelescopePaint, Radar},
-            {Radar, RadarPaint},
-            {RadarPaint, UFO},
-            {UFO, UFOPaint},
-            {UFOPaint, Shuttle},
-            {Shuttle, ShuttlePaint},
-            {ShuttlePaint, Planet},
-            {Planet, PlanetPaint},
-            {PlanetPaint, Planet}
+            { TutorialCollectName,  TutorialPaintName },
+            { TutorialPaintName,  Telescope },
+            { Telescope, TelescopePaint },
+            { TelescopePaint, Radar },
+            { Radar, RadarPaint },
+            { RadarPaint, UFO },
+            { UFO, UFOPaint },
+            { UFOPaint, Shuttle },
+            { Shuttle, ShuttlePaint },
+            { ShuttlePaint, Planet },
+            { Planet, PlanetPaint },
+            { PlanetPaint, Planet },
         };
 
         private static Dictionary<string, string> CollectStages = new Dictionary<string, string>()
         {
-            {TutorialCollectName,  TutorialCollectName},
-            {TutorialPaintName,  TutorialCollectName},
-            {TelescopePaint, Telescope},
-            {RadarPaint, Radar},
-            {UFOPaint, UFO},
-            {ShuttlePaint, Shuttle},
-            {PlanetPaint, Planet},
-            {Telescope, Telescope},
-            {Radar, Radar},
-            {UFO, UFO},
-            {Shuttle, Shuttle},
-            {Planet, Planet}
+            { TutorialCollectName,  TutorialCollectName },
+            { TutorialPaintName,  TutorialCollectName },
+            { TelescopePaint, Telescope },
+            { RadarPaint, Radar },
+            { UFOPaint, UFO },
+            { ShuttlePaint, Shuttle },
+            { PlanetPaint, Planet },
+            { Telescope, Telescope },
+            { Radar, Radar },
+            { UFO, UFO },
+            { Shuttle, Shuttle },
+            { Planet, Planet },
         };
 
         private static Dictionary<string, string> PaintStages = new Dictionary<string, string>()
         {
-            {TutorialCollectName,  TutorialPaintName},
-            {Telescope, TelescopePaint},
-            {Radar, RadarPaint},
-            {UFO, UFOPaint},
-            {Shuttle, ShuttlePaint},
-            {Planet, PlanetPaint}
+            { TutorialCollectName,  TutorialPaintName },
+            { Telescope, TelescopePaint },
+            { Radar, RadarPaint },
+            { UFO, UFOPaint },
+            { Shuttle, ShuttlePaint },
+            { Planet, PlanetPaint },
         };
-
-        public static readonly int ColorID = Shader.PropertyToID("_Color");
 
         public static bool IsBlack(Color color)
         {
@@ -162,8 +162,10 @@ namespace Assets.Sources.Utils
 
         public static Color GetRandomColor()
         {
-            Color color = new Color(Random.Range(0f, 1000f) / 1000, Random.Range(0f, 1000f)
-                / 1000, Random.Range(0f, 1000f) / 1000);
+            Color color = new Color(
+                Random.Range(0f, 1000f) / 1000,
+                Random.Range(0f, 1000f) / 1000,
+                Random.Range(0f, 1000f) / 1000);
             return color;
         }
 
@@ -249,8 +251,7 @@ namespace Assets.Sources.Utils
             Vector3 correctedScale = new Vector3(
                defaultScale.x / Unit * targetLossyScale.x,
                defaultScale.y / Unit * targetLossyScale.y,
-               defaultScale.z / Unit * targetLossyScale.z
-               );
+               defaultScale.z / Unit * targetLossyScale.z);
 
             correctedScale *= 1.3f;
 
@@ -270,8 +271,7 @@ namespace Assets.Sources.Utils
                 1f - color.r,
                 1f - color.g,
                 1f - color.b,
-                color.a
-            );
+                color.a);
         }
 
         public static float GetMinVelocitySqrt() => MinVelocity * MinVelocity;

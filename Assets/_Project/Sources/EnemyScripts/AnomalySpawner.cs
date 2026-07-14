@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using Assets.Sources.AnomalyScpipts;
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
@@ -10,11 +10,13 @@ namespace Assets.Sources.EnemyScripts
     {
         [SerializeField] private Anomaly _anomalyPrefab;
 
-        private List<AnomalyConfig> _anomalyConfigs = new();
+        private List<AnomalyConfig> _anomalyConfigs = new ();
         private AudioPlayerSpawner _audioPlayerSpawner;
         private PauseHandler _pauseHandler;
 
-        public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner, 
+        public void Init(
+            PauseHandler pauseHandler,
+            AudioPlayerSpawner audioPlayerSpawner,
             List<AnomalyConfig> anomalyConfigs)
         {
             _audioPlayerSpawner = audioPlayerSpawner;

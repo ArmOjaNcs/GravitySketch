@@ -1,10 +1,10 @@
+using System.Collections.Generic;
 using Assets.Sources.Dissolvable;
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.SimpleCubeScripts;
 using Assets.Sources.Table;
 using Assets.Sources.Utils;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -28,18 +28,31 @@ namespace Assets.Sources.Level
         [SerializeField] private Sprite _miniMap;
 
         public List<EnemyPatrolZone> EnemyPatrolZones => _enemyPatrolZones;
+
         public List<SpawnArea> SpawnAreas => _spawnAreas;
+
         public List<MedAid> MedAids => _medAids;
+
         public List<DissolvableObstacle> DissolvableObstacles => _dissolvableObstacles;
+
         public EnemyPatrolZone BossPatrolZone => _bossPatrolZone;
+
         public CollectStageConfig Config => _config;
+
         public TemplateColorReference ColorReference => _colorReference;
+
         public FenceColorizer FenceColorizer => _fenceColorizer;
+
         public List<VortexTrap> VortexTraps => _vortexTraps;
+
         public Material TableMaterial => _tableMaterial;
+
         public Renderer Renderer => _renderer;
+
         public Vector3 PlayerStartPosition => _playerStartPosition;
+
         public NavMeshData NavMeshData => _navMeshData;
+
         public Sprite MiniMap => _miniMap;
     }
 }

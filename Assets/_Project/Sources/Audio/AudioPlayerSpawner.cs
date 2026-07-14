@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -9,17 +9,20 @@ namespace Assets.Sources.Audio
     public class AudioPlayerSpawner : MonoBehaviour
     {
         [SerializeField] private AudioPlayer _audioPlayerPrefab;
-        [SerializeField, Min(5)] private int _capacity;
-        [SerializeField, Min(1)] private int _maxSimultaneous3DSounds = 12;
-        [SerializeField, Min(1)] private int _maxSimultaneousUISounds = 8;
+        [SerializeField]
+        [Min(5)] private int _capacity;
+        [SerializeField]
+        [Min(1)] private int _maxSimultaneous3DSounds = 12;
+        [SerializeField]
+        [Min(1)] private int _maxSimultaneousUISounds = 8;
         [SerializeField] private AudioMixerGroup _soundGroup;
         [SerializeField] private AudioMixerGroup _interfaceGroup;
 
+        private readonly List<AudioSource> _active3DSources = new ();
+        private readonly List<AudioSource> _activeUISources = new ();
+
         private ObjectPool<AudioPlayer> _pool;
         private PauseHandler _pauseHandler;
-
-        private readonly List<AudioSource> _active3DSources = new();
-        private readonly List<AudioSource> _activeUISources = new();
 
         private void Awake()
         {
@@ -78,7 +81,7 @@ namespace Assets.Sources.Audio
             if (audioPlayer.IsInitialized == false)
                 audioPlayer.Init(_pauseHandler);
 
-            audioPlayer.IsFinishable = true;
+            audioPlayer.SetFinishable();
             audioPlayer.PlaybackIsFinished += OnPlaybackIsFinished;
             audioPlayer.AudioSource.playOnAwake = false;
             audioPlayer.AudioSource.loop = false;

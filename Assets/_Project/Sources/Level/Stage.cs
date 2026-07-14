@@ -1,14 +1,15 @@
+using System;
+using System.Collections;
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.Save;
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using YG;
 
 namespace Assets.Sources.Level
 {
@@ -32,8 +33,8 @@ namespace Assets.Sources.Level
         private protected AudioPlayerSpawner AudioPlayerSpawner;
         private protected InputBindings Bindings;
         private protected GameObject TutorialObject;
-        private bool _isStarted;
         private protected bool IsMenuToSubscribe;
+        private bool _isStarted;
 
         private protected virtual void OnEnable()
         {
@@ -51,6 +52,23 @@ namespace Assets.Sources.Level
             Back.onClick.RemoveListener(OnBackApplied);
             UseVirtualJoystick.onValueChanged.RemoveListener(OnVirtualJoystickValueChanged);
             PauseInput.Paused -= OnPaused;
+        }
+
+        private protected virtual void Start()
+        {
+            StartCoroutine(RefreshEventSystem());
+        }
+
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            if (hasFocus)
+                StartCoroutine(RefreshEventSystem());
+        }
+
+        private void OnApplicationPause(bool pause)
+        {
+            if (!pause)
+                StartCoroutine(RefreshEventSystem());
         }
 
         public virtual void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
@@ -81,6 +99,13 @@ namespace Assets.Sources.Level
 
         private protected virtual void OnMainMenuApplied()
         {
+            Progress.SetSceneType(SceneType.Main);
+            SaveSystem.SavePlayerProgress(Progress);
+            TryShowAdv(() => PlayFinalAnimation(OnMainMenu));
+        }
+
+        private protected void PlayFinalAnimation(Action actionToSubscribe)
+        {
             if (TextWindow.IsShown == false)
             {
                 Back.interactable = false;
@@ -89,79 +114,39 @@ namespace Assets.Sources.Level
 
             AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
             Finish();
-            Buttons[0].Closed += OnMainMenu;
+            Buttons[0].Closed += actionToSubscribe;
             HideButtons();
         }
 
-        private void OnMainMenu()
+        private protected void TryShowAdv(Action onFailed)
         {
-            Buttons[0].Closed -= OnMainMenu;
-
-            if (IsMenuToSubscribe)
+            if (YG2.isTimerAdvCompleted)
             {
-                PauseMenuAnimator.Hidden += LoadMainMenu;
-                PauseMenuAnimator.Hide();
+                YG2.onCloseInterAdv += OnInterAdvClosed;
+                YG2.onErrorInterAdv += OnInterAdvClosed;
+                YG2.InterstitialAdvShow();
             }
             else
             {
-                TextWindow.Closed += LoadMainMenu;
-                TextWindow.Hide();
+                onFailed();
             }
-        }
-
-        private void LoadMainMenu()
-        {
-            if(IsMenuToSubscribe)
-                PauseMenuAnimator.Hidden -= LoadMainMenu;
-            else
-                TextWindow.Closed -= LoadMainMenu;
-
-            IsMenuToSubscribe = false;
-            Progress.SetSceneType(SceneType.Main);
-            SaveSystem.SavePlayerProgress(Progress);
-            SceneManager.LoadScene(UserUtils.Load);
         }
 
         private protected virtual void OnRestartApplied()
         {
-            if(TextWindow.IsShown == false)
-            {
-                Back.interactable = false;
-                IsMenuToSubscribe = true;
-            }
-
-            AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
-            Finish();
-            Buttons[0].Closed += OnRestart;
-            HideButtons();
-        }
-
-        private void OnRestart()
-        {
-            Buttons[0].Closed -= OnRestart;
-
-            if (IsMenuToSubscribe)
-            {
-                PauseMenuAnimator.Hidden += RestartStage;
-                PauseMenuAnimator.Hide();
-            }
-            else
-            {
-                TextWindow.Closed += RestartStage;
-                TextWindow.Hide();
-            }
+            TryShowAdv(() => PlayFinalAnimation(OnRestart));
         }
 
         private protected void OnPaused()
         {
-            if(Pause.interactable)
+            if (Pause.interactable)
                 Pause.interactable = false;
 
             if (PauseHandler.IsPaused)
             {
                 if (PauseMenuAnimator.IsShown)
                 {
-                    if(Back.interactable)
+                    if (Back.interactable)
                         Back.interactable = false;
 
                     if (Buttons[0].IsShown)
@@ -182,6 +167,94 @@ namespace Assets.Sources.Level
                     Cursor.lockState = CursorLockMode.Confined;
                     Cursor.visible = true;
                 }
+            }
+        }
+
+        private protected virtual void OnVirtualJoystickValueChanged(bool value)
+        {
+            if (_isStarted)
+                AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ToggleSound)?.Play();
+
+            Bindings.UseJoystick = value;
+            SaveSystem.SaveInputBindings(Bindings);
+        }
+
+        private protected void ShowButtons()
+        {
+            foreach (MenuWindow button in Buttons)
+                button.Show();
+        }
+
+        private protected virtual void HideButtons()
+        {
+            foreach (MenuWindow button in Buttons)
+                button.Hide();
+        }
+
+        private protected IEnumerator RefreshEventSystem(Action onComplete = null)
+        {
+            yield return new WaitForEndOfFrame();
+            EventSystem.enabled = false;
+            EventSystem.enabled = true;
+
+            if (onComplete != null)
+                onComplete();
+        }
+
+        private protected virtual void OnPauseMenuClosed()
+        {
+            PauseMenuAnimator.Hidden -= OnPauseMenuClosed;
+            Pause.interactable = true;
+            PauseHandler.Resume();
+        }
+
+        private void OnMainMenu()
+        {
+            Buttons[0].Closed -= OnMainMenu;
+
+            if (IsMenuToSubscribe)
+            {
+                PauseMenuAnimator.Hidden += LoadMainMenu;
+                PauseMenuAnimator.Hide();
+            }
+            else
+            {
+                TextWindow.Closed += LoadMainMenu;
+                TextWindow.Hide();
+            }
+        }
+
+        private void LoadMainMenu()
+        {
+            if (IsMenuToSubscribe)
+                PauseMenuAnimator.Hidden -= LoadMainMenu;
+            else
+                TextWindow.Closed -= LoadMainMenu;
+
+            IsMenuToSubscribe = false;
+            SceneManager.LoadScene(UserUtils.Load);
+        }
+
+        private void OnInterAdvClosed()
+        {
+            YG2.onCloseInterAdv -= OnInterAdvClosed;
+            YG2.onErrorInterAdv -= OnInterAdvClosed;
+            SceneManager.LoadScene(UserUtils.Load);
+        }
+
+        private void OnRestart()
+        {
+            Buttons[0].Closed -= OnRestart;
+
+            if (IsMenuToSubscribe)
+            {
+                PauseMenuAnimator.Hidden += RestartStage;
+                PauseMenuAnimator.Hide();
+            }
+            else
+            {
+                TextWindow.Closed += RestartStage;
+                TextWindow.Hide();
             }
         }
 
@@ -207,35 +280,6 @@ namespace Assets.Sources.Level
             OnPaused();
         }
 
-        private protected virtual void OnVirtualJoystickValueChanged(bool value)
-        {
-            if (_isStarted)
-                AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ToggleSound)?.Play();
-
-            Bindings.UseJoystick = value;
-            SaveSystem.SaveInputBindings(Bindings);
-        }
-
-        private protected void ShowButtons()
-        {
-            foreach (MenuWindow button in Buttons)
-                button.Show();
-        }
-
-        private protected virtual void HideButtons()
-        {
-            foreach(MenuWindow button in Buttons)
-                button.Hide();
-        }
-
-        private protected IEnumerator RefreshEventSystem(Action onComplete)
-        {
-            yield return new WaitForEndOfFrame();
-            EventSystem.enabled = false;
-            EventSystem.enabled = true;
-            onComplete();
-        }
-
         private void RestartStage()
         {
             if (IsMenuToSubscribe)
@@ -246,12 +290,5 @@ namespace Assets.Sources.Level
             IsMenuToSubscribe = false;
             SceneManager.LoadScene(UserUtils.Load);
         }
-
-        private void OnPauseMenuClosed() 
-        {
-            PauseMenuAnimator.Hidden -= OnPauseMenuClosed;
-            Pause.interactable = true;
-            PauseHandler.Resume();
-        } 
     }
 }

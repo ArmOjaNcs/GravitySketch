@@ -2,6 +2,8 @@ namespace Assets.Sources.Table
 {
     public enum CubeType
     {
-        Border, In, Out
+        Border = 0,
+        In = 1,
+        Out = 2,
     }
 }

@@ -8,7 +8,7 @@ namespace Assets.Sources.Utils
         [Header("Available Colors")]
         [SerializeField] private List<Color> colors = new List<Color>();
 
-        void Awake()
+        private void Awake()
         {
             AssignRandomColors();
         }

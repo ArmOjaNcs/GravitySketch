@@ -5,6 +5,6 @@ namespace Assets.Sources.EnemyScripts
         Shooter,
         Sniper,
         Bomber,
-        Rocketer
+        Rocketer,
     }
 }

@@ -9,6 +9,7 @@ namespace Assets.Sources.Pause
         [SerializeField] private Button _pauseButton = null;
 
         private bool _isStarted;
+
         public event Action Paused;
 
         private bool IsPaused => Input.GetKeyUp(KeyCode.Escape);
@@ -30,11 +31,12 @@ namespace Assets.Sources.Pause
             if (_isStarted == false)
                 return;
 
-            if(IsPaused)
+            if (IsPaused)
                 Paused?.Invoke();
         }
 
         public void StartInput() => _isStarted = true;
+
         public void StopInput() => _isStarted = false;
 
         private void SetPause()

@@ -1,7 +1,7 @@
-using Assets.Sources.Audio;
-using Assets.Sources.Pause;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Sources.Audio;
+using Assets.Sources.Pause;
 using UnityEngine;
 
 namespace Assets.Sources.Level
@@ -20,15 +20,15 @@ namespace Assets.Sources.Level
             StartStage();
         }
 
+        private protected virtual void Begin() => Stage.Begin();
+
+        private protected abstract void Initialize();
+
         private void StartStage()
         {
             PauseHandler = new PauseHandler();
             AudioPlayerSpawner.SetPauseHandler(PauseHandler);
             Initialize();
         }
-
-        private protected virtual void Begin() => Stage.Begin();
-
-        private protected abstract void Initialize();
     }
 }

@@ -1,9 +1,9 @@
-using Assets.Sources.Audio;
-using Assets.Sources.Pause;
-using Assets.Sources.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Sources.Audio;
+using Assets.Sources.Pause;
+using Assets.Sources.Utils;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
@@ -28,14 +28,20 @@ namespace Assets.Sources.PlayerScripts
         private bool _isTutorial;
 
         public event Action IsDead;
+
         public event Action IsRevived;
+
         public event Action Damaged;
 
         public Vector3 Position => _transform == null ? transform.position : _transform.position;
+
         public Vector3 Velocity => _rigidbody == null ? Vector3.zero : _rigidbody.velocity;
+
         public float Radius => _sphereCollider.radius * _transform.localScale.x;
+
         public float CurrentSize => _growHandler.CurrentSize;
-        public bool Dead {  get; private set; }
+
+        public bool Dead { get; private set; }
 
         private void Awake()
         {
@@ -49,7 +55,7 @@ namespace Assets.Sources.PlayerScripts
         {
             _takeOverLimit.MedAidAbsorbed += OnMedAidAbsorbed;
             _takeOverLimit.ObstacleDissolved += OnObstacleDissolved;
-            _takeOverLimit.BarrierDissolved += OnBarrierDissolved; 
+            _takeOverLimit.BarrierDissolved += OnBarrierDissolved;
         }
 
         private void OnDisable()
@@ -70,6 +76,7 @@ namespace Assets.Sources.PlayerScripts
         }
 
         public void SetFinished() => _isFinished = true;
+
         public void SetTutorial() => _isTutorial = true;
 
         public void TakeDamage(float damage)
@@ -82,7 +89,7 @@ namespace Assets.Sources.PlayerScripts
 
             float defencePercent = _shield.Defence / 100;
             defencePercent = Mathf.Clamp(defencePercent, 0, 0.75f);
-            damage = damage - defencePercent * damage;
+            damage = damage - (defencePercent * damage);
             damage = Mathf.Round(damage);
             _health.TakeDamage(damage);
             _audioPlayer.Play();
@@ -126,7 +133,7 @@ namespace Assets.Sources.PlayerScripts
 
         private void OnObstacleDissolved(int size)
         {
-            float heal = size/2;
+            float heal = size / 2;
             Mathf.Round(heal);
             _health.TakeHeal(heal);
         }

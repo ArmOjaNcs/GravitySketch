@@ -1,8 +1,8 @@
-using Assets.Sources.Audio;
-using Assets.Sources.Pause;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Sources.Audio;
+using Assets.Sources.Pause;
 using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
@@ -13,19 +13,26 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private LayerMask _tableLayer;
 
         private EnemyPatrolZone _bossPatrolZone;
-        private List<EnemyPatrolZone> _patrolZones = new();
+        private List<EnemyPatrolZone> _patrolZones = new ();
         private EnemyFactoryConfig _config;
         private BossConfig _bossConfig;
         private AudioPlayerSpawner _audioPlayerSpawner;
         private PauseHandler _pauseHandler;
+        private Queue<Enemy> _enemiesQueue = new ();
 
         public event Action EnemiesSpawned;
 
         public int TotalEnemies { get; private set; }
+
         public bool IsBossSpawned { get; private set; }
 
-        public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner, 
-            EnemyFactoryConfig enemyFactoryConfig, BossConfig bossConfig, List<EnemyPatrolZone> enemyPatrolZones, EnemyPatrolZone bossPatrolZone)
+        public void Init(
+            PauseHandler pauseHandler,
+            AudioPlayerSpawner audioPlayerSpawner,
+            EnemyFactoryConfig enemyFactoryConfig,
+            BossConfig bossConfig,
+            List<EnemyPatrolZone> enemyPatrolZones,
+            EnemyPatrolZone bossPatrolZone)
         {
             _audioPlayerSpawner = audioPlayerSpawner;
             _pauseHandler = pauseHandler;
@@ -38,14 +45,18 @@ namespace Assets.Sources.EnemyScripts
                 patrolZone.Initialize();
 
             TotalEnemies = _patrolZones.Sum(pz => pz.EnemiesCount);
-            CreateEnemy();
+            TotalEnemies++;
+
+            for (int i = 0; i < TotalEnemies; i++)
+                CreateNewEnemyInQueue();
+
+            CreateEnemies();
         }
 
         public Enemy CreateBoss()
         {
-            Enemy enemy = SpawnEnemyInZone(_bossPatrolZone, _bossConfig.Config);
-            EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();
-            enemyMover.SetIsBoss();
+            Enemy enemy = SpawnEnemyInZone(_bossPatrolZone, _bossConfig.Config, true);
+            enemy.Mover.SetIsBoss();
 
             foreach (EnemyAttackConfig enemyAttackConfig in _bossConfig.AttackConfigs)
             {
@@ -56,77 +67,70 @@ namespace Assets.Sources.EnemyScripts
             enemy.SetSize(_bossConfig.Config.Level);
             var config = _bossConfig.Config.AttackConfig;
             enemy.RetreatZone.InitFromConfig(config, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
+            enemy.gameObject.SetActive(true);
             IsBossSpawned = true;
             return enemy;
         }
 
-        private void CreateEnemy()
+        private void CreateNewEnemyInQueue()
+        {
+            Enemy enemy = Instantiate(_enemy);
+            enemy.Dissolved += OnEnemyDissolved;
+            enemy.gameObject.SetActive(false);
+            _enemiesQueue.Enqueue(enemy);
+        }
+
+        private void CreateEnemies()
         {
             foreach (EnemyPatrolZone patrolZone in _patrolZones)
             {
-                int created = 0;
-                int configIndex = 0;
-                int minLevel = patrolZone.MinLevel;
-                int maxLevel = patrolZone.MaxLevel;
-                int currentLevel = minLevel;
-                EnemyConfig config = null;
-
-                for (int i = 0; i < patrolZone.EnemiesCount; i++)
+                for (int i = 0; i < Mathf.CeilToInt(patrolZone.EnemiesCount / 2f); i++)
                 {
-                    configIndex = created % 4;
-                    currentLevel += created / 4;
-                    currentLevel = (currentLevel > maxLevel) ? minLevel : currentLevel;
-
-                    switch (configIndex)
-                    {
-                        case 0:
-                            config = _config.ShooterConfigs.FirstOrDefault(c => c.Level == currentLevel);
-                            break;
-
-                        case 1:
-                            config = _config.SniperConfigs.FirstOrDefault(c => c.Level == currentLevel);
-                            break;
-
-                        case 2:
-                            config = _config.BomberConfigs.FirstOrDefault(c => c.Level == currentLevel);
-                            break;
-
-                        case 3:
-                            config = _config.RocketerConfigs.FirstOrDefault(c => c.Level == currentLevel);
-                            break;
-                    }
-
-                    Enemy enemy = SpawnEnemyInZone(patrolZone, config);
-
-                    if (config.AttackConfig != null)
-                    {
-                        var zone = (IEnemyAttack)enemy.AttackZone.AddComponent(config.AttackConfig.ZoneComponentType);
-                        zone.InitFromConfig(config.AttackConfig, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
-                    }
-
-                    enemy.SetSize(config.Level);
-                    config = _config.BomberConfigs.FirstOrDefault(c => c.Level == currentLevel);
-                    enemy.RetreatZone.InitFromConfig(config.AttackConfig, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
-
-                    created++;
+                    EnemyConfig config = GetEnemyConfig(patrolZone);
+                    SpawnEnemyInZone(patrolZone, config);
                 }
             }
 
             EnemiesSpawned?.Invoke();
         }
 
-        private Enemy SpawnEnemyInZone(EnemyPatrolZone patrolZone, EnemyConfig config)
+        private Enemy SpawnEnemyInZone(EnemyPatrolZone patrolZone, EnemyConfig config, bool isBoss = false)
         {
+            if (_enemiesQueue.Count == 0)
+                CreateNewEnemyInQueue();
+
+            Enemy enemy = _enemiesQueue.Dequeue();
             TryGetFreePosition(10, patrolZone, out Vector3 freePosition);
-            Enemy enemy = Instantiate(_enemy, freePosition, Quaternion.identity);
-            EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();
-            enemyMover.SetPatrolZone(patrolZone);
-            enemyMover.Init(_pauseHandler);
+            enemy.transform.position = freePosition;
+            enemy.Mover.SetPatrolZone(patrolZone);
+            enemy.Mover.Init(_pauseHandler);
             enemy.InitializeFromConfig(config);
             enemy.Init(_pauseHandler);
             enemy.SetAudioPlayerSpawner(_audioPlayerSpawner);
-            enemyMover.CalculateRetreatDistance();
-            enemyMover.SetPatrolDistance(config.Level*5);
+            enemy.Mover.CalculateRetreatDistance();
+            enemy.Mover.SetPatrolDistance(config.Level * 5);
+
+            if (isBoss == false)
+            {
+                patrolZone.AddEnemy();
+
+                if (patrolZone.IsPlayerIn)
+                    enemy.Mover.OnPlayerInZone();
+
+                if (config.AttackConfig != null)
+                {
+                    var zone = (IEnemyAttack)enemy.AttackZone.AddComponent(config.AttackConfig.ZoneComponentType);
+                    zone.InitFromConfig(config.AttackConfig, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
+                }
+
+                enemy.SetSize(config.Level);
+                config = _config.BomberConfigs.FirstOrDefault(c => c.Level == enemy.Size);
+                enemy.RetreatZone.InitFromConfig(
+                    config.AttackConfig, enemy.FirePoint, _audioPlayerSpawner, _pauseHandler);
+
+                enemy.gameObject.SetActive(true);
+            }
+
             return enemy;
         }
 
@@ -150,6 +154,50 @@ namespace Assets.Sources.EnemyScripts
 
             freePosition = Vector3.zero;
             return false;
+        }
+
+        private void OnEnemyDissolved(Enemy enemy)
+        {
+            enemy.Dissolved -= OnEnemyDissolved;
+
+            if (enemy.Mover.IsBoss)
+                return;
+
+            if (enemy.Mover.PatrolZone.CurrentEnemiesCount >= enemy.Mover.PatrolZone.EnemiesCount)
+                return;
+
+            EnemyConfig enemyConfig = GetEnemyConfig(enemy.Mover.PatrolZone);
+            SpawnEnemyInZone(enemy.Mover.PatrolZone, enemyConfig);
+        }
+
+        private EnemyConfig GetEnemyConfig(EnemyPatrolZone patrolZone)
+        {
+            int created = patrolZone.CurrentEnemiesCount;
+            int configIndex = 0;
+            int minLevel = patrolZone.MinLevel;
+            int maxLevel = patrolZone.MaxLevel;
+            int currentLevel = minLevel;
+            configIndex = created % 4;
+            currentLevel += created / 4;
+            currentLevel = (currentLevel > maxLevel) ? minLevel : currentLevel;
+            EnemyConfig config = null;
+
+            switch (configIndex)
+            {
+                case 0:
+                    return config = _config.ShooterConfigs.FirstOrDefault(c => c.Level == currentLevel);
+
+                case 1:
+                    return config = _config.SniperConfigs.FirstOrDefault(c => c.Level == currentLevel);
+
+                case 2:
+                    return config = _config.BomberConfigs.FirstOrDefault(c => c.Level == currentLevel);
+
+                case 3:
+                    return config = _config.RocketerConfigs.FirstOrDefault(c => c.Level == currentLevel);
+
+                default: return config;
+            }
         }
     }
 }

@@ -24,12 +24,6 @@ namespace Assets.Sources.UI
         {
             _growHandler.Growing -= OnGrowing;
             base.OnDisable();
-
-        }
-
-        private void OnGrowing()
-        {
-            UpdateView(UserUtils.Two);
         }
 
         public override void Init(PauseHandler pauseHandler)
@@ -71,6 +65,11 @@ namespace Assets.Sources.UI
             _effect.gameObject.SetActive(false);
             _isPlayed = false;
             _billboard.IsStop(true);
+        }
+
+        private void OnGrowing()
+        {
+            UpdateView(UserUtils.Two);
         }
     }
 }

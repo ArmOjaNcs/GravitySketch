@@ -8,8 +8,6 @@ namespace Assets.Sources.EnemyScripts
     [RequireComponent(typeof(SphereCollider))]
     public abstract class EnemyAttackZone : EnemyZone, IEnemyAttack
     {
-        private AudioPlayerSpawner _audioPlayerSpawner;
-
         private protected PauseHandler PauseHandler;
         private protected AudioClip AudioClip;
         private protected AudioPlayer AudioPlayer;
@@ -17,6 +15,8 @@ namespace Assets.Sources.EnemyScripts
         private protected float CurrentTime;
         private protected float AttackRate;
         private protected bool IsAttacking;
+
+        private AudioPlayerSpawner _audioPlayerSpawner;
 
         private protected virtual void Update()
         {
@@ -32,8 +32,11 @@ namespace Assets.Sources.EnemyScripts
                 Attack();
         }
 
-        public virtual void InitFromConfig(EnemyAttackConfig config, Transform firePoint, 
-            AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
+        public virtual void InitFromConfig(
+            EnemyAttackConfig config,
+            Transform firePoint,
+            AudioPlayerSpawner audioPlayerSpawner,
+            PauseHandler pauseHandler)
         {
             FirePoint = firePoint;
             AttackRate = config.AttackRate;
@@ -75,7 +78,7 @@ namespace Assets.Sources.EnemyScripts
         {
             return IsInitialized && IsAttacking && IsPaused == false && Player != null;
         }
-       
+
         private protected override void PlayerLosed()
         {
             IsAttacking = false;

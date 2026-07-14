@@ -48,7 +48,7 @@ namespace Assets.Sources.UI
         {
             if (ElapsedTime < _halfOfDuration)
             {
-                _progress = ElapsedTime / _halfOfDuration;     
+                _progress = ElapsedTime / _halfOfDuration;
                 _image.color = Color.Lerp(_startImageColor, _imageAnimationColor, _progress);
                 _text.color = Color.Lerp(_startTextColor, _textAnimationColor, _progress);
             }

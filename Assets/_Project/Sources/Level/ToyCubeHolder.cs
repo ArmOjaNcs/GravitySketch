@@ -9,6 +9,7 @@ namespace Assets.Sources.Level
         [SerializeField] private Vector3 _position;
 
         public Vector3 Position => _position;
+
         public DissolvableObstacle[] ToyCubes => _cubes;
     }
 }

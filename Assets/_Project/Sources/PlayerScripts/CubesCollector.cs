@@ -1,7 +1,7 @@
-using Assets.Sources.SimpleCubeScripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Sources.SimpleCubeScripts;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts

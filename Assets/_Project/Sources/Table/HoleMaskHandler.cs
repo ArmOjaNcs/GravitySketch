@@ -48,17 +48,6 @@ namespace Assets.Sources.Table
             IsInitialized = true;
         }
 
-        private void OnPositionChanged(Vector3 position)
-        {
-            _material.SetVector("_HolePosition", new Vector4(position.x, _transform.position.y, position.z, 0));
-        }
-
-        private void OnSizeChanged(float sizeDelta)
-        {
-            _targetRadius = UserUtils.GetCorrectRadius(sizeDelta);
-            UpdateView(Duration);
-        }
-
         private protected override void OnRoutineIteration(float cycleDuration) 
         {
             float progress = ElapsedTime / cycleDuration;
@@ -70,6 +59,17 @@ namespace Assets.Sources.Table
         {
             base.OnRoutineEnd();
             _currentRadius = _targetRadius;
+        }
+
+        private void OnPositionChanged(Vector3 position)
+        {
+            _material.SetVector("_HolePosition", new Vector4(position.x, _transform.position.y, position.z, 0));
+        }
+
+        private void OnSizeChanged(float sizeDelta)
+        {
+            _targetRadius = UserUtils.GetCorrectRadius(sizeDelta);
+            UpdateView(Duration);
         }
     }
 }

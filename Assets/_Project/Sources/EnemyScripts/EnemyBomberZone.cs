@@ -10,8 +10,11 @@ namespace Assets.Sources.EnemyScripts
         private ObjectPool<ThrowableBomb> _pool;
         private BombConfig _config;
 
-        public override void InitFromConfig(EnemyAttackConfig config, Transform firePoint, 
-            AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
+        public override void InitFromConfig(
+            EnemyAttackConfig config,
+            Transform firePoint,
+            AudioPlayerSpawner audioPlayerSpawner,
+            PauseHandler pauseHandler)
         {
             base.InitFromConfig(config, firePoint, audioPlayerSpawner, pauseHandler);
 
@@ -33,7 +36,7 @@ namespace Assets.Sources.EnemyScripts
             base.Attack();
 
             ThrowableBomb bomb = _pool.GetElement();
-   
+
             if (bomb.IsInitialized == false)
             {
                 bomb.InitFromConfig(_config, this);

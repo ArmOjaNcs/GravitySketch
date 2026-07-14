@@ -254,17 +254,17 @@ QualitySettings:
   - serializedVersion: 3
     name: Ultra
     pixelLightCount: 4
-    shadows: 2
+    shadows: 0
     shadowResolution: 1
     shadowProjection: 0
-    shadowCascades: 2
+    shadowCascades: 1
     shadowDistance: 50
     shadowNearPlaneOffset: 3
     shadowCascade2Split: 0.33333334
     shadowCascade4Split: {x: 0.06666667, y: 0.2, z: 0.46666667}
     shadowmaskMode: 1
     skinWeights: 4
-    globalTextureMipmapLimit: 0
+    globalTextureMipmapLimit: 2
     textureMipmapLimitSettings: []
     anisotropicTextures: 2
     antiAliasing: 2
@@ -310,8 +310,8 @@ QualitySettings:
     PSP2: 2
     Server: 0
     Stadia: 5
-    Standalone: 5
-    WebGL: 3
+    Standalone: 2
+    WebGL: 1
     Windows Store Apps: 5
     XboxOne: 5
     iPhone: 2

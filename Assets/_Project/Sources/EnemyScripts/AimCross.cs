@@ -1,6 +1,6 @@
+using System;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -27,8 +27,9 @@ namespace Assets.Sources.EnemyScripts
 
         public event Action Shoot;
 
-        private Vector3 TargetScale => _initialScale * UserUtils.HalfOfUnit;
         public bool IsAiming { get; private set; }
+
+        private Vector3 TargetScale => _initialScale * UserUtils.HalfOfUnit;
 
         private protected override void OnEnable()
         {
@@ -111,16 +112,10 @@ namespace Assets.Sources.EnemyScripts
 
             OnEnable();
             int randomYRotation = Random.Range(0, 360);
-            _rectTransform.localEulerAngles = new Vector3(0,randomYRotation, 0);
+            _rectTransform.localEulerAngles = new Vector3(0, randomYRotation, 0);
             _initialScale = UserUtils.GetCorrectScale(_defaultScale, _playerTransform.localScale);
 
             IsAiming = true;
-        }
-
-        private void OnDeactivated(EnemySniperZone enemySniperZone)
-        {
-            enemySniperZone.Deactivated -= OnDeactivated;
-            _isDeactivated = true;
         }
 
         private protected override void Interact()
@@ -147,7 +142,7 @@ namespace Assets.Sources.EnemyScripts
             {
                 _currentAimingTime += Time.deltaTime;
                 float progress = _currentAimingTime / _config.AimingTime;
-                _rectTransform.position = AttackZone.Player.Position + Vector3.up * 0.1f;
+                _rectTransform.position = AttackZone.Player.Position + (Vector3.up * 0.1f);
                 _image.color = Color.Lerp(_startColor, _endColor, progress);
                 _rectTransform.localScale = Vector3.Lerp(_initialScale, TargetScale, progress);
 
@@ -173,6 +168,12 @@ namespace Assets.Sources.EnemyScripts
                     Interact();
                 }
             }
+        }
+
+        private void OnDeactivated(EnemySniperZone enemySniperZone)
+        {
+            enemySniperZone.Deactivated -= OnDeactivated;
+            _isDeactivated = true;
         }
     }
 }

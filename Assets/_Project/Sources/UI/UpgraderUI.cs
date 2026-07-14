@@ -22,7 +22,7 @@ namespace Assets.Sources.UI
         private void OnDisable()
         {
             _upgrader.Started -= OnUpgraderStarted;
-            _upgrader.Upgraded -= OnUpgraded;  
+            _upgrader.Upgraded -= OnUpgraded;
         }
 
         public override void Init(PauseHandler pauseHandler)
@@ -45,7 +45,7 @@ namespace Assets.Sources.UI
             _powerAnimation.SetText(_upgrader.Power.ToString());
             _powerAnimation.Play(UserUtils.Two);
 
-            if(_previousSize < _upgrader.CurrentSize)
+            if (_previousSize < _upgrader.CurrentSize)
             {
                 _previousSize = _upgrader.CurrentSize;
                 _sizeAnimation.SetText(_upgrader.CurrentSize.ToString());

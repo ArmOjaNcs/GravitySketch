@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Sources.UI
@@ -22,7 +22,7 @@ namespace Assets.Sources.UI
         {
             alpha = Mathf.Clamp01(alpha);
 
-            if(Mathf.Approximately(CanvasGroup.alpha, alpha) == false)
+            if (Mathf.Approximately(CanvasGroup.alpha, alpha) == false)
                 UpdateView(duration, alpha);
         }
 
@@ -32,7 +32,7 @@ namespace Assets.Sources.UI
             {
                 TargetValue = 0;
                 UpdateView(duration);
-            }  
+            }
         }
 
         private protected override void OnRoutineStart()

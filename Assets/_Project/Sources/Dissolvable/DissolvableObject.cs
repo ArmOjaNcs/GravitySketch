@@ -1,8 +1,8 @@
+using System;
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
 using DG.Tweening;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.Dissolvable
@@ -10,9 +10,14 @@ namespace Assets.Sources.Dissolvable
     [RequireComponent(typeof(Rigidbody))]
     public abstract class DissolvableObject : PauseableRoutine
     {
-        [SerializeField, Min(0)] private int _reward;
-        [SerializeField, Min(0)] private int _size;
+        [SerializeField]
+        [Min(0)] private int _reward;
+        [SerializeField]
+        [Min(0)] private int _size;
         [SerializeField] private AudioClip _collisionSound = null;
+
+        private protected Tween DissolveAnimation;
+        private protected Collider Collider = null;
 
         private Vector3 _currentVelocity;
         private Vector3 _currentAngularVelocity;
@@ -27,29 +32,17 @@ namespace Assets.Sources.Dissolvable
         private int _totalCollisionsCount;
         private int _previousCollisionsCount;
 
-        private protected Tween DissolveAnimation;
-        private protected Collider Collider = null;
-
         public event Action Finished;
 
         public int Size => _size;
+
         public int Reward => _reward;
+
         public bool IsDissolving { get; private set; }
 
         private protected virtual void Awake()
         {
             SetPhysicalIndicators();
-        }
-
-        private protected void SetPhysicalIndicators()
-        {
-            if (TryGetComponent(out Collider collider))
-                Collider = collider;
-
-            _transform = transform;
-            _rigidbody = GetComponent<Rigidbody>();
-            _rigidbody.isKinematic = true;
-            _rigidbody.mass = 1f;
         }
 
         private protected override void OnDisable()
@@ -196,7 +189,7 @@ namespace Assets.Sources.Dissolvable
             _rigidbody.useGravity = false;
             _rigidbody.interpolation = RigidbodyInterpolation.None;
             _transform.SetParent(hole);
-            
+
             if (Collider != null)
                 Collider.enabled = false;
 
@@ -207,14 +200,6 @@ namespace Assets.Sources.Dissolvable
         public virtual void SetSpeculative() => _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
 
         public virtual void SetDynamic() => _rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-
-        private int GetReward(int size)
-        {
-            if (size < 0)
-                return 0;
-
-            return size * UserUtils.RewardBySize;
-        }
 
         private protected override void OnRoutineStart() { }
 
@@ -231,6 +216,25 @@ namespace Assets.Sources.Dissolvable
             DissolveAnimation.Kill();
             Finished?.Invoke();
             gameObject.SetActive(false);
+        }
+
+        private protected void SetPhysicalIndicators()
+        {
+            if (TryGetComponent(out Collider collider))
+                Collider = collider;
+
+            _transform = transform;
+            _rigidbody = GetComponent<Rigidbody>();
+            _rigidbody.isKinematic = true;
+            _rigidbody.mass = 1f;
+        }
+
+        private int GetReward(int size)
+        {
+            if (size < 0)
+                return 0;
+
+            return size * UserUtils.RewardBySize;
         }
     }
 }

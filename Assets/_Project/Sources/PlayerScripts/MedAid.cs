@@ -8,7 +8,8 @@ namespace Assets.Sources.PlayerScripts
     [RequireComponent(typeof(CapsuleCollider))]
     public class MedAid : DissolvableObject
     {
-        [SerializeField, Min(0)] private float _healPower;
+        [SerializeField]
+        [Min(0)] private float _healPower;
 
         public float HealPower => _healPower;
 

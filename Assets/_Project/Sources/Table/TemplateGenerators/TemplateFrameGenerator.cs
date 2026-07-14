@@ -1,7 +1,7 @@
 ﻿#if UNITY_EDITOR
+using Assets.Sources.Utils;
 using UnityEditor;
 using UnityEngine;
-using Assets.Sources.Utils;
 
 namespace Assets.Sources.Table
 {
@@ -22,8 +22,8 @@ namespace Assets.Sources.Table
             GameObject gameObject = new GameObject("Template_Container");
             gameObject.transform.parent = transform;
 
-            float offsetX = _pixelPositions.x / UserUtils.Two - UserUtils.HalfOfUnit;
-            float offsetY = _pixelPositions.y / UserUtils.Two - UserUtils.HalfOfUnit;
+            float offsetX = (_pixelPositions.x / UserUtils.Two) - UserUtils.HalfOfUnit;
+            float offsetY = (_pixelPositions.y / UserUtils.Two) - UserUtils.HalfOfUnit;
 
             gameObject.transform.localPosition = new Vector3(offsetX, offsetY, 0);
 
@@ -33,7 +33,7 @@ namespace Assets.Sources.Table
             {
                 for (int x = 0; x < _pixelPositions.x; x++)
                 {
-                    int index = y * _pixelPositions.x + x;
+                    int index = (y * _pixelPositions.x) + x;
                     CubeType type = _cubeTypes[index];
 
                     switch (type)
@@ -77,7 +77,7 @@ namespace Assets.Sources.Table
             {
                 for (int x = 0; x < _pixelPositions.x; x++)
                 {
-                    int index = y * _pixelPositions.x + x;
+                    int index = (y * _pixelPositions.x) + x;
                     Color pixel = _sourceTexture.GetPixel(x, y);
 
                     if (pixel.a == 0)

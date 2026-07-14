@@ -6,8 +6,10 @@ namespace Assets.Sources.Utils
     public class CircleSpawner : MonoBehaviour
     {
         [Header("Настройки круга")]
-        [SerializeField, Min(0.1f)] private float _radius = 5f;
-        [SerializeField, Min(0.1f)] private float _spacing = 1f;
+        [SerializeField]
+        [Min(0.1f)] private float _radius = 5f;
+        [SerializeField]
+        [Min(0.1f)] private float _spacing = 1f;
 
         [Header("Настройки объекта")]
         [SerializeField] private GameObject _prefab;

@@ -10,7 +10,9 @@ namespace Assets.Sources.Level
         [SerializeField] private Material _tableMaterial;
 
         public Template Template => _template;
+
         public TemplateColorReference ColorReference => _colorReference;
+
         public Material TableMaterial => _tableMaterial;
     }
 }

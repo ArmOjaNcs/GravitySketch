@@ -1,12 +1,12 @@
-using UnityEngine;
 using System.IO;
+using UnityEngine;
 
 namespace Assets.Sources.Utils
 {
     public class LevelScreenshot : MonoBehaviour
     {
-        public Camera _captureCamera;
-        public int _resolution = 1024;
+        [SerializeField] private Camera _captureCamera;
+        [SerializeField] private int _resolution = 1024;
 
         [ContextMenu("Take Screenshot")]
         public void TakeScreenshot()

@@ -1,5 +1,5 @@
-using Assets.Sources.UI;
 using System;
+using Assets.Sources.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +17,9 @@ namespace Assets.Sources.Level
         private bool _isAccepted;
 
         public event Action Triggered;
+
         public event Action TutorialViewClosed;
+
         public event Action<bool> IsAccepted;
 
         private void OnEnable()
@@ -31,7 +33,7 @@ namespace Assets.Sources.Level
         }
 
         public void Begin() => _startWindow.Show();
-      
+
         public void StartTutorial()
         {
             foreach (TutorialTrigger tutorialTrigger in _triggers)

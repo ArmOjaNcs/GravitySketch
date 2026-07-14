@@ -7,7 +7,7 @@ namespace Assets.Sources.Level
     {
         [SerializeField] private TutorialType _type;
         [SerializeField] private TutorialView[] _views;
-        
+
         private bool _isShown;
         private int _index;
         private TutorialView _currentView;
@@ -15,6 +15,7 @@ namespace Assets.Sources.Level
         public event Action Closed;
 
         public TutorialType Type => _type;
+
         public bool IsShown => _isShown;
 
         public void Show()
@@ -46,9 +47,9 @@ namespace Assets.Sources.Level
 
         private bool TryFindViewByIndex(int index, out TutorialView view)
         {
-            foreach(TutorialView tutorialView in _views)
+            foreach (TutorialView tutorialView in _views)
             {
-                if(index == tutorialView.Index)
+                if (index == tutorialView.Index)
                 {
                     view = tutorialView;
                     return true;

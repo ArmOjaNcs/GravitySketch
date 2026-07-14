@@ -14,15 +14,21 @@ namespace Assets.Sources.PlayerScripts
 
         private float _totalPower;
 
-        public float MoveSpeed => _mover.MoveSpeed;
-        public float DefendTime => _shield.DefendTime;
-        public float Defence => _shield.Defence;
-        public float Damage => _catcher.Damage;
-        public int CurrentSize => _growHandler.CurrentSize;
-        public int Power { get; private set; }
-
         public event Action Started;
+
         public event Action Upgraded;
+
+        public float MoveSpeed => _mover.MoveSpeed;
+
+        public float DefendTime => _shield.DefendTime;
+
+        public float Defence => _shield.Defence;
+
+        public float Damage => _catcher.Damage;
+
+        public int CurrentSize => _growHandler.CurrentSize;
+
+        public int Power { get; private set; }
 
         private void OnEnable()
         {

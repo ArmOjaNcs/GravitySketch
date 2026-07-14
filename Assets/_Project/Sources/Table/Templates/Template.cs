@@ -1,8 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using Assets.Sources.Dissolvable;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System.Collections.Generic;
-using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -30,13 +30,14 @@ namespace Assets.Sources.Table
         public IReadonlyTemplateCube GetCube(int index)
         {
             foreach (IReadonlyTemplateCube cube in _templateCubes)
-
+            {
                 if (cube.Index == index)
                 {
                     _inCubesCount--;
                     Debug.Log("Total IN cubes: " + _inCubesCount);
                     return cube;
                 }
+            }
 
             return null;
         }
@@ -45,7 +46,7 @@ namespace Assets.Sources.Table
         {
             foreach (TemplateCube templateCube in _templateCubes)
             {
-                if(templateCube.Type == CubeType.Border || templateCube.IsMarked)
+                if (templateCube.Type == CubeType.Border || templateCube.IsMarked)
                 {
                     templateCube.AddComponent<DissolvableObstacle>();
                     DissolvableObstacle dissolvableObstacle = templateCube.GetComponent<DissolvableObstacle>();

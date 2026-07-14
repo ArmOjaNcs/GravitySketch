@@ -28,7 +28,7 @@ namespace Assets.Sources.UI
         {
             float progress = ElapsedTime / cycleDuration;
 
-            foreach(CanvasGroup group in _canvasGroups)
+            foreach (CanvasGroup group in _canvasGroups)
                 group.alpha = Mathf.Lerp(StartValue, TargetValue, progress);
         }
     }

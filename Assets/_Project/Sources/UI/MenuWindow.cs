@@ -1,6 +1,6 @@
+using System;
 using Assets.Sources.Utils;
 using DG.Tweening;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +14,11 @@ namespace Assets.Sources.UI
         [SerializeField] private RectTransform _finalPosition;
 
         public event Action Opening;
+
         public event Action Opened;
+
         public event Action Closing;
+
         public event Action Closed;
 
         private void OnEnable()
@@ -52,30 +55,14 @@ namespace Assets.Sources.UI
             SetPositionOnParentStretch(_finalPosition);
         }
 
-        private void SetPositionOnParentStretch(RectTransform parentRect)
-        {
-            RectTransform.SetParent(parentRect, false);
-            RectTransform.anchorMin = Vector2.zero;   
-            RectTransform.anchorMax = Vector2.one;   
-            RectTransform.pivot = new Vector2(UserUtils.HalfOfUnit, UserUtils.HalfOfUnit);
-            RectTransform.offsetMin = Vector2.zero;
-            RectTransform.offsetMax = Vector2.zero;
-        }
-
         private protected override void InitAnimations()
         {
-            ShowAnimation = AnimationSpawner.GetMenuWindowAnimation(RectTransform, 
-                CanvasGroup, 0, UserUtils.Unit, Duration);
+            ShowAnimation = AnimationSpawner.GetMenuWindowAnimation(
+                RectTransform, CanvasGroup, 0, UserUtils.Unit, Duration);
             ShowAnimation.OnComplete(OnOpened);
-            HideAnimation = AnimationSpawner.GetMenuWindowAnimation(RectTransform, 
-                CanvasGroup, UserUtils.Unit, 0, Duration);
+            HideAnimation = AnimationSpawner.GetMenuWindowAnimation(
+                RectTransform, CanvasGroup, UserUtils.Unit, 0, Duration);
             HideAnimation.OnComplete(OnClosed);
-        }
-
-        private void OnStartClicked()
-        {
-            Opening?.Invoke();
-            Show();
         }
 
         private protected virtual void OnBackClicked()
@@ -94,6 +81,22 @@ namespace Assets.Sources.UI
         {
             Closed?.Invoke();
             RectTransform.gameObject.SetActive(false);
+        }
+
+        private void SetPositionOnParentStretch(RectTransform parentRect)
+        {
+            RectTransform.SetParent(parentRect, false);
+            RectTransform.anchorMin = Vector2.zero;
+            RectTransform.anchorMax = Vector2.one;
+            RectTransform.pivot = new Vector2(UserUtils.HalfOfUnit, UserUtils.HalfOfUnit);
+            RectTransform.offsetMin = Vector2.zero;
+            RectTransform.offsetMax = Vector2.zero;
+        }
+
+        private void OnStartClicked()
+        {
+            Opening?.Invoke();
+            Show();
         }
     }
 }

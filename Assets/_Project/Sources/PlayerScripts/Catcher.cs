@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
@@ -13,12 +13,13 @@ namespace Assets.Sources.PlayerScripts
 
         [SerializeField] private GrowHandler _growHandler;
         [SerializeField] private Transform _hole;
-        [SerializeField, Min(0)] private float _damageRate;
+        [SerializeField]
+        [Min(0)] private float _damageRate;
 
         private CapsuleCollider _sensor;
 
-        private List<Enemy> _enemiesInGravityCatch;
-        private List<GameObject> _objectsInGravityCatch;
+        private List<Enemy> _enemiesInGravityCatch = new List<Enemy>(100);
+        private List<GameObject> _objectsInGravityCatch = new List<GameObject>(200);
         private float _currentDamageTime;
         private float _currentAdditionalDamage = 1;
 
@@ -52,7 +53,8 @@ namespace Assets.Sources.PlayerScripts
 
                 foreach (Enemy enemy in _enemiesInGravityCatch)
                 {
-                    if (enemy != null && enemy.isActiveAndEnabled && enemy.Size <= _growHandler.CurrentSize)
+                    if (enemy != null && enemy.isActiveAndEnabled &&
+                        enemy.Size <= _growHandler.CurrentSize)
                         enemy.TakeDamage(Damage);
                 }
             }
@@ -73,7 +75,6 @@ namespace Assets.Sources.PlayerScripts
 
             if (other.gameObject.layer == UserUtils.NormalLayer)
             {
-                Physics.SyncTransforms();
                 other.gameObject.layer = UserUtils.FallingLayer;
 
                 if (_objectsInGravityCatch.Contains(other.gameObject) == false)
@@ -85,7 +86,6 @@ namespace Assets.Sources.PlayerScripts
         {
             if (other.gameObject.layer == UserUtils.FallingLayer)
             {
-                Physics.SyncTransforms();
                 other.gameObject.layer = UserUtils.NormalLayer;
 
                 if (_objectsInGravityCatch.Contains(other.gameObject))
@@ -121,12 +121,12 @@ namespace Assets.Sources.PlayerScripts
 
             _sensor.enabled = false;
 
-            foreach(GameObject gameObject in _objectsInGravityCatch)
+            foreach (GameObject gameObject in _objectsInGravityCatch)
                 gameObject.layer = UserUtils.NormalLayer;
 
             _objectsInGravityCatch.Clear();
 
-            foreach(Enemy enemy in _enemiesInGravityCatch)
+            foreach (Enemy enemy in _enemiesInGravityCatch)
             {
                 if (enemy != null)
                     enemy.Detect(false);
@@ -151,10 +151,10 @@ namespace Assets.Sources.PlayerScripts
         }
 
         private void OnGrowing() => UpdateDamageValue();
-       
+
         private void UpdateDamageValue()
         {
-            Damage = _growHandler.CurrentSize * UserUtils.PlayerDamageMultiplier + _currentAdditionalDamage;
+            Damage = (_growHandler.CurrentSize * UserUtils.PlayerDamageMultiplier) + _currentAdditionalDamage;
         }
     }
 }

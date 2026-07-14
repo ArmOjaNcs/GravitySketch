@@ -1,6 +1,6 @@
+using System;
 using Assets.Sources.Dissolvable;
 using Assets.Sources.Utils;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.Level
@@ -12,7 +12,7 @@ namespace Assets.Sources.Level
         public override void DropDown()
         {
             base.DropDown();
-            GameObject localMesh = Resources.Load<GameObject>("Exit_"+Translator.CurrentLang);
+            GameObject localMesh = Resources.Load<GameObject>("Exit_" + Translator.CurrentLang);
             localMesh = Instantiate(localMesh);
             localMesh.transform.SetParent(transform, false);
             localMesh.transform.localPosition = Vector3.zero;

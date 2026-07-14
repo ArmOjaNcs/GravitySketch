@@ -8,8 +8,8 @@ namespace Assets.Sources.Pause
     {
         private protected const float MinDuration = 0.5f;
 
-        [SerializeField, Min(0)] private protected float Duration;
-
+        [SerializeField]
+        [Min(0)] private protected float Duration;
         private protected Coroutine Routine;
         private protected float TargetValue;
         private protected float ElapsedTime;
@@ -83,8 +83,14 @@ namespace Assets.Sources.Pause
             Routine = StartCoroutine(UpdateRoutine(Duration));
         }
 
-        private protected virtual void OnRoutineStart() { }
-        private protected virtual void OnRoutineIteration(float cycleDuration) { }
+        private protected virtual void OnRoutineStart()
+        {
+        }
+
+        private protected virtual void OnRoutineIteration(float cycleDuration)
+        {
+        }
+
         private protected virtual void OnRoutineEnd()
         {
             Updated?.Invoke();

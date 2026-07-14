@@ -1,14 +1,14 @@
-using Assets.Sources.Save;
-using Assets.Sources.Utils;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Assets.Sources.Save;
+using Assets.Sources.UI;
+using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using Assets.Sources.UI;
+using UnityEngine.UI;
 using Enum = System.Enum;
-using System.Collections.Generic;
 
 namespace Assets.Sources.Level
 {
@@ -46,7 +46,7 @@ namespace Assets.Sources.Level
         private Coroutine _currentRebindRoutine;
         private bool _isStarted;
         private Color _originalColor;
-        private Dictionary<ButtonType, TextMeshProUGUI> _buttonsText = new();
+        private Dictionary<ButtonType, TextMeshProUGUI> _buttonsText = new ();
 
         private void Awake()
         {
@@ -86,20 +86,29 @@ namespace Assets.Sources.Level
         }
 
         private void OnMoveUp() => StartRebind(_moveUpButton, ButtonType.MoveUp);
+
         private void OnMoveDown() => StartRebind(_moveDownButton, ButtonType.MoveDown);
+
         private void OnMoveLeft() => StartRebind(_moveLeftButton, ButtonType.MoveLeft);
+
         private void OnMoveRight() => StartRebind(_moveRightButton, ButtonType.MoveRight);
+
         private void OnBoost() => StartRebind(_boostButton, ButtonType.Boost);
+
         private void OnShield() => StartRebind(_shieldButton, ButtonType.Defend);
+
         private void OnRotateLeft() => StartRebind(_rotateLeftButton, ButtonType.RotateLeft);
+
         private void OnRotateRight() => StartRebind(_rotateRightButton, ButtonType.RotateRight);
+
         private void OnPaint() => StartRebind(_paintButton, ButtonType.Paint);
+
         private void OnResetCube() => StartRebind(_resetCubeButton, ButtonType.ResetCube);
 
         private void UpdateLabels()
         {
             foreach (var (buttonType, textComponent) in _buttonsText)
-                textComponent.text = FormatKey(_bindings.GetKeyCode(buttonType));
+                textComponent.SetText(FormatKey(_bindings.GetKeyCode(buttonType)));
         }
 
         private string FormatKey(KeyCode key)
@@ -138,7 +147,7 @@ namespace Assets.Sources.Level
             {
                 if (Input.GetKeyDown(key))
                 {
-                    if (key == KeyCode.Escape || key == KeyCode.LeftWindows 
+                    if (key == KeyCode.Escape || key == KeyCode.LeftWindows
                         || key == KeyCode.RightWindows || key == KeyCode.LeftCommand)
                     {
                         _waitingButton.interactable = true;

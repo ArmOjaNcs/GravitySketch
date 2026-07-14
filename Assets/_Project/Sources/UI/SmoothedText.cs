@@ -1,5 +1,4 @@
 using Assets.Sources.Pause;
-using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
 
@@ -9,88 +8,44 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private protected TextMeshProUGUI Text;
 
-        private protected string StartText;
-        private protected string EndText;
-        private protected float StartValue;
-        private protected float CurrentValue;
-        private protected float MaxValue;
-        private protected char SplitSign;
-        private protected bool IsNeedToSplit;
+        protected float StartValue;
+        protected float CurrentValue;
+        protected float MaxValue;
+        protected char SplitSign;
+        protected bool IsNeedToSplit;
 
         public void SetColor(Color color) => Text.color = color;
 
-        private float ParseCurrentTextValue()
-        {
-            string text = RemoveAdditionalText();
-            string textToParse = string.Empty;
-
-            if (IsNeedToSplit)
-            {
-                string[] textParts = text.Split(SplitSign);
-                textToParse = textParts[0];
-            }
-            else
-            {
-                textToParse = text;
-            }
-
-            if (textToParse.Length > 0 && float.TryParse(textToParse, out float result))
-                return result;
-            else
-                return 0;
-        }
-
-        private string RemoveAdditionalText()
-        {
-            string text = Text.text;
-
-            if (StartText != null && StartText.Length > 0)
-                text = text.Replace(StartText, "").Trim();
-
-            if (EndText != null && EndText.Length > 0)
-                text = text.Replace(EndText, "").Trim();
-
-            return text;
-        }
-
-        private protected string GetTotalText()
-        {
-            string totalText = string.Empty;
-
-            if (StartText != null)
-                totalText += StartText;
-
-            totalText += Mathf.Round(CurrentValue).ToString();
-
-            if (SplitSign != UserUtils.DefaultChar)
-                totalText += SplitSign;
-
-            if (MaxValue > 0)
-                totalText += MaxValue;
-
-            if (EndText != null)
-                totalText += EndText;
-
-            return totalText;
-        }
-
         private protected override void OnRoutineStart()
         {
-            StartValue = ParseCurrentTextValue();
+            StartValue = CurrentValue;
         }
 
         private protected override void OnRoutineIteration(float cycleDuration)
         {
             float progress = ElapsedTime / cycleDuration;
             CurrentValue = Mathf.Lerp(StartValue, TargetValue, progress);
-            Text.text = GetTotalText();
+
+            UpdateText();
         }
 
         private protected override void OnRoutineEnd()
         {
             CurrentValue = TargetValue;
-            Text.text = GetTotalText();
+            UpdateText();
             base.OnRoutineEnd();
+        }
+
+        private void UpdateText()
+        {
+            int value = Mathf.RoundToInt(CurrentValue);
+
+            if (IsNeedToSplit && MaxValue > 0)
+                Text.SetText("{0}{1}{2}", value + SplitSign + MaxValue);
+            else if (MaxValue > 0)
+                Text.SetText("{0}{1}", value, MaxValue);
+            else
+                Text.SetText("{0}", value);
         }
     }
 }

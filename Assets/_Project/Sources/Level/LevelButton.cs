@@ -1,5 +1,5 @@
-using Assets.Sources.Utils;
 using System;
+using Assets.Sources.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +22,7 @@ namespace Assets.Sources.UI
         public void Init()
         {
             _button.onClick.AddListener(OnClick);
-            _score.text = "";
+            _score.text = string.Empty;
             _score.gameObject.SetActive(true);
             _image.sprite = _frame;
         }
@@ -30,14 +30,6 @@ namespace Assets.Sources.UI
         public void Dispose() => _button.onClick.RemoveListener(OnClick);
 
         public void SetScore(int score) => _score.text = score.ToString();
-
-        private void OnClick() => Chosen?.Invoke(this);
-
-        private protected override void InitAnimations()
-        {
-            ShowAnimation = AnimationSpawner.GetFadeAnimation(CanvasGroup, 0, UserUtils.Unit, 0.5f);
-            HideAnimation = AnimationSpawner.GetFadeAnimation(CanvasGroup, UserUtils.Unit, 0, 0.5f);
-        }
 
         public override void Show()
         {
@@ -50,5 +42,13 @@ namespace Assets.Sources.UI
             base.Hide();
             _image.sprite = _frame;
         }
+
+        private protected override void InitAnimations()
+        {
+            ShowAnimation = AnimationSpawner.GetFadeAnimation(CanvasGroup, 0, UserUtils.Unit, 0.5f);
+            HideAnimation = AnimationSpawner.GetFadeAnimation(CanvasGroup, UserUtils.Unit, 0, 0.5f);
+        }
+
+        private void OnClick() => Chosen?.Invoke(this);
     }
 }

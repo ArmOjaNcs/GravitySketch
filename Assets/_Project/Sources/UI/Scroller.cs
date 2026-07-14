@@ -53,7 +53,9 @@ namespace Assets.Sources.UI
         }
 
         private void OnBeginDrag(PointerEventData eventData) => _scrollRect.OnBeginDrag(eventData);
+
         private void OnDragging(PointerEventData eventData) => _scrollRect.OnDrag(eventData);
+
         private void OnEndDrag(PointerEventData eventData) => _scrollRect.OnEndDrag(eventData);
 
         private void OnScrolledByMouseWheel(float deltaWheel)
@@ -61,7 +63,7 @@ namespace Assets.Sources.UI
             if (Mathf.Abs(deltaWheel) < 0.001f)
                 return;
 
-            float newPosition = _scrollRect.verticalNormalizedPosition + deltaWheel * _scrollSpeed;
+            float newPosition = _scrollRect.verticalNormalizedPosition + (deltaWheel * _scrollSpeed);
             _scrollRect.verticalNormalizedPosition = Mathf.Clamp01(newPosition);
         }
 

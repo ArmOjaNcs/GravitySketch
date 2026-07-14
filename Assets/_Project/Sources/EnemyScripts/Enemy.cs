@@ -1,8 +1,7 @@
+using System;
 using Assets.Sources.Dissolvable;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,16 +17,25 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private GameObject _stopZone;
         [SerializeField] private EnemyRetreatZone _retreatZone;
         [SerializeField] private Transform _firePoint;
-        [SerializeField] private Animator[] _fansAnimators;
+        [SerializeField] private FansAnimator _fansAnimator;
         [SerializeField] private PauseableObject[] _pauseableObjects;
 
         public event Action<bool> Detected;
+
         public event Action Downed;
 
+        public event Action<Enemy> Dissolved;
+
         public GameObject AttackZone => _attackZone;
+
         public EnemyRetreatZone RetreatZone => _retreatZone;
+
         public Transform FirePoint => _firePoint;
+
+        public EnemyMover Mover => _mover;
+
         public string Name { get; private set; }
+
         public bool IsDowned { get; private set; }
 
         public override void Init(PauseHandler pauseHandler)
@@ -94,6 +102,12 @@ namespace Assets.Sources.EnemyScripts
             _mover.Activate();
         }
 
+        private protected override void OnRoutineEnd()
+        {
+            Dissolved?.Invoke(this);
+            base.OnRoutineEnd();
+        }
+
         private void ApplyRandomColors()
         {
             MeshRenderer[] renderers = GetComponentsInChildren<MeshRenderer>(true);
@@ -122,14 +136,12 @@ namespace Assets.Sources.EnemyScripts
 
         private void StopFans()
         {
-            foreach (Animator animator in _fansAnimators)
-                animator.enabled = false;
+            _fansAnimator.Deactivate();
         }
 
         private void ActivateFans()
         {
-            foreach (Animator animator in _fansAnimators)
-                animator.enabled = true;
+            _fansAnimator.Activate();
         }
     }
 }

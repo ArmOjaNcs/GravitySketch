@@ -24,7 +24,9 @@ namespace Assets.Sources.UI
         }
 
         public void SetColor(Color color) => _image.color = color;
+
         public void SetPosition(Vector3 position) => _rectTransform.position = position;
+
         public void StartAnimaton() => Animation.Play();
 
         private protected override Sequence GetAnimation()

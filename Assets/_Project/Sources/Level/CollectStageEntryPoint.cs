@@ -1,3 +1,4 @@
+using System.Collections;
 using Assets.Sources.Dissolvable;
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.Pause;
@@ -6,7 +7,6 @@ using Assets.Sources.SimpleCubeScripts;
 using Assets.Sources.Table;
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -39,13 +39,10 @@ namespace Assets.Sources.Level
             _growHandler.Growing -= OnGrowing;
         }
 
-        private void OnGrowing()
+        private void OnDestroy()
         {
-            foreach (DissolvableObstacle obstacle in _collectStagePrefab.DissolvableObstacles)
-            {
-                if (obstacle.Size < _growHandler.CurrentSize)
-                    obstacle.DropDown();
-            }
+            if (_navMeshInstance.valid)
+                _navMeshInstance.Remove();
         }
 
         private protected override void Initialize()
@@ -57,7 +54,7 @@ namespace Assets.Sources.Level
             }
             else
             {
-                Prefab  = Resources.Load<GameObject>(Stage.StageName);
+                Prefab = Resources.Load<GameObject>(Stage.StageName);
                 _name = Stage.StageName;
             }
 
@@ -68,7 +65,7 @@ namespace Assets.Sources.Level
             _toyCubeHolder = toyCubePrefab.GetComponent<ToyCubeHolder>();
             toyCubePrefab.transform.position = _toyCubeHolder.Position;
 
-            if(Stage.IsTutorial)
+            if (Stage.IsTutorial)
                 Stage.SetTutorialObject(Prefab);
 
             _collectStagePrefab = Prefab.GetComponent<CollectStagePrefab>();
@@ -76,19 +73,27 @@ namespace Assets.Sources.Level
             _maskHandler.Init(PauseHandler, _collectStagePrefab.Renderer, _collectStagePrefab.TableMaterial);
             _playerInput.Init(PauseHandler);
             _anomalySpawner.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.Config.AnomalyConfigs);
-            _simpleCubeSpawner.Init(PauseHandler, AudioPlayerSpawner, _collectStagePrefab.SpawnAreas,
-               _collectStagePrefab.ColorReference);
+            _simpleCubeSpawner.Init(
+                PauseHandler,
+                AudioPlayerSpawner,
+                _collectStagePrefab.SpawnAreas,
+                _collectStagePrefab.ColorReference);
             _miniMap.SetMapSprite(_collectStagePrefab.MiniMap);
 
             if (_collectStagePrefab.NavMeshData != null)
             {
-                _navMeshInstance = NavMesh.AddNavMeshData(_collectStagePrefab.NavMeshData,
+                _navMeshInstance = NavMesh.AddNavMeshData(
+                    _collectStagePrefab.NavMeshData,
                     _collectStagePrefab.transform.position,
                     _collectStagePrefab.transform.rotation);
 
-                _enemyFactory.Init(PauseHandler, AudioPlayerSpawner, _factoryConfig, 
-                    _collectStagePrefab.Config.BossConfig, 
-                    _collectStagePrefab.EnemyPatrolZones, _collectStagePrefab.BossPatrolZone);
+                _enemyFactory.Init(
+                    PauseHandler,
+                    AudioPlayerSpawner,
+                    _factoryConfig,
+                    _collectStagePrefab.Config.BossConfig,
+                    _collectStagePrefab.EnemyPatrolZones,
+                    _collectStagePrefab.BossPatrolZone);
             }
             else
             {
@@ -117,15 +122,9 @@ namespace Assets.Sources.Level
             _player.transform.position = _collectStagePrefab.PlayerStartPosition;
             _player.gameObject.SetActive(true);
             Stage.Init(PauseHandler, AudioPlayerSpawner);
-            _collectStagePrefab.FenceColorizer.ColorizeFence(_collectStagePrefab.ColorReference);
+            _collectStagePrefab.FenceColorizer.ColorizeFence();
             Begin();
             StartCoroutine(DelayedCubesDropDown());
-        }
-
-        private void OnDestroy()
-        {
-            if (_navMeshInstance.valid)
-                _navMeshInstance.Remove();
         }
 
         private IEnumerator DelayedCubesDropDown()
@@ -133,6 +132,15 @@ namespace Assets.Sources.Level
             yield return new WaitForSeconds(1);
 
             _simpleCubeSpawner.DropCubes();
+        }
+
+        private void OnGrowing()
+        {
+            foreach (DissolvableObstacle obstacle in _collectStagePrefab.DissolvableObstacles)
+            {
+                if (obstacle.Size < _growHandler.CurrentSize)
+                    obstacle.DropDown();
+            }
         }
     }
 }

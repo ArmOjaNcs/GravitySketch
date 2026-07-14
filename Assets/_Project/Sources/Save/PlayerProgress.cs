@@ -1,8 +1,8 @@
-using Assets.Sources.Level;
-using Assets.Sources.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Sources.Level;
+using Assets.Sources.Utils;
 using UnityEngine;
 
 namespace Assets.Sources.Save
@@ -26,12 +26,19 @@ namespace Assets.Sources.Save
         }
 
         public int TotalScore => _totalScore;
+
         public int LevelsCount => _levels.Count;
+
         public int CurrentScore => _currentScore;
+
         public IReadOnlyList<Color> CurrentColors => _currentColors;
+
         public int ColorsCount => _currentColors.Count;
+
         public string StageName => _stageName;
+
         public bool IsTutorial => _isTutorial;
+
         public SceneType SceneType => _sceneType;
 
         public void SetIntermediateResult(int score, List<Color> colors)

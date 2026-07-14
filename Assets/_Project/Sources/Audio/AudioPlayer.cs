@@ -1,5 +1,5 @@
-using Assets.Sources.Pause;
 using System;
+using Assets.Sources.Pause;
 using UnityEngine;
 
 namespace Assets.Sources.Audio
@@ -7,7 +7,7 @@ namespace Assets.Sources.Audio
     [RequireComponent(typeof(AudioSource))]
     public class AudioPlayer : PauseableObject
     {
-        public bool IsFinishable;
+        public bool IsFinishable { get; private set; }
 
         private Transform _transform;
         private bool _isFinished;
@@ -33,8 +33,8 @@ namespace Assets.Sources.Audio
         {
             if (IsInitialized == false || _isPlaying == false || IsPaused)
                 return;
-            
-            if(IsFinishable == false)
+
+            if (IsFinishable == false)
             {
                 if (AudioSource.isPlaying == false && AudioSource.loop == false)
                     Stop();
@@ -55,6 +55,8 @@ namespace Assets.Sources.Audio
             _isUI = true;
             return this;
         }
+
+        public void SetFinishable() => IsFinishable = true;
 
         public void SetPosition(Vector3 position) => _transform.position = position;
 
@@ -92,7 +94,7 @@ namespace Assets.Sources.Audio
                 return;
 
             base.Resume();
-            
+
             if (_isPlaying)
                 AudioSource.Play();
         }

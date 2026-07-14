@@ -1,6 +1,6 @@
+using System;
 using Assets.Sources.Pause;
 using Assets.Sources.Save;
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,19 +8,22 @@ namespace Assets.Sources.PlayerScripts
 {
     public class PlayerInput : PauseableObject, IDisposable
     {
-        public event Action<Vector2> DirectionChanged;
-        public event Action Boosted;
-        public event Action Defended;
-        public event Action<float> Rotated;
-
         private InputBindings _bindings;
-        private FixedJoystick _moveJoystick;
-        private FixedJoystick _rotateJoystick;
+        private DynamicJoystick _moveJoystick;
+        private DynamicJoystick _rotateJoystick;
         private Button _shieldAbility;
         private Button _boosterAbility;
         private bool _subscribed;
 
-        private bool IsJoystickMode => _bindings == null ? false : _bindings.UseJoystick;
+        public event Action<Vector2> DirectionChanged;
+
+        public event Action Boosted;
+
+        public event Action Defended;
+
+        public event Action<float> Rotated;
+
+        public bool IsJoystickMode => _bindings == null ? false : _bindings.UseJoystick;
 
         private void Update()
         {
@@ -38,8 +41,8 @@ namespace Assets.Sources.PlayerScripts
             Dispose();
         }
 
-        public void InitBindings(InputBindings inputBindings, FixedJoystick moveJoystick,
-            FixedJoystick rotateJoystick, Button shieldAbility, Button boosterAbility)
+        public void InitBindings(InputBindings inputBindings, DynamicJoystick moveJoystick,
+            DynamicJoystick rotateJoystick, Button shieldAbility, Button boosterAbility)
         {
             _bindings = inputBindings;
             _moveJoystick = moveJoystick;

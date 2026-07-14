@@ -65,8 +65,8 @@ namespace Assets.Sources.UI
 
             return grid.padding.top +
                    grid.padding.bottom +
-                   rows * grid.cellSize.y +
-                   (rows - 1) * grid.spacing.y;
+                   (rows * grid.cellSize.y) +
+                   ((rows - 1) * grid.spacing.y);
         }
 
         private float GetChildHeight(RectTransform child)

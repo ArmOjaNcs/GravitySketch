@@ -1,7 +1,7 @@
-using UnityEngine;
-using Assets.Sources.Utils;
 using Assets.Sources.EnemyScripts;
 using Assets.Sources.Pause;
+using Assets.Sources.Utils;
+using UnityEngine;
 
 namespace Assets.Sources.UI
 {
@@ -31,11 +31,17 @@ namespace Assets.Sources.UI
             IsInitialized = true;
         }
 
+        private protected override void OnRoutineEnd()
+        {
+            base.OnRoutineEnd();
+            _billboardUI.IsStop(true);
+        }
+
         private void OnDetected(bool isDetected)
         {
             if (_enemy.IsDowned)
             {
-                if(CanvasGroup.alpha > 0 && _fadeRoutineStarted == false)
+                if (CanvasGroup.alpha > 0 && _fadeRoutineStarted == false)
                 {
                     UpdateView(Duration);
                     _fadeRoutineStarted = true;
@@ -57,12 +63,6 @@ namespace Assets.Sources.UI
             {
                 UpdateView(Duration);
             }
-        }
-
-        private protected override void OnRoutineEnd()
-        {
-            base.OnRoutineEnd();
-            _billboardUI.IsStop(true);
         }
     }
 }

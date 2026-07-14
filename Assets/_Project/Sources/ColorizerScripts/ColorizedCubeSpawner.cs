@@ -1,7 +1,7 @@
+using System;
 using Assets.Sources.Pause;
 using Assets.Sources.Table;
 using Assets.Sources.Utils;
-using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -62,8 +62,9 @@ namespace Assets.Sources.ColorizerScripts
             Vector3 rotateDirection = UserUtils.GetRandomRotateDirection();
             colorizedCube.Init(_pauseHandler);
             colorizedCube.gameObject.SetActive(true);
-            colorizedCube.SetStartSettings(new ColorizedCubeData(position, cube, color,
-                speed, rotateDirection), isAutoPaint);
+            colorizedCube.SetStartSettings(
+                new ColorizedCubeData (position, cube, color, speed, rotateDirection),
+                isAutoPaint);
             colorizedCube.Finished += OnCubeFinished;
             colorizedCube.StartMove();
         }

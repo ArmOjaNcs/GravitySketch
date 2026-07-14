@@ -6,7 +6,10 @@ namespace Assets.Sources.EnemyScripts
 {
     public interface IEnemyAttack
     {
-        public void InitFromConfig(EnemyAttackConfig config, Transform firePoint, 
-            AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler);
+        public void InitFromConfig(
+            EnemyAttackConfig config,
+            Transform firePoint,
+            AudioPlayerSpawner audioPlayerSpawner,
+            PauseHandler pauseHandler);
     }
 }

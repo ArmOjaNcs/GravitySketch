@@ -1,6 +1,6 @@
+using System;
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
@@ -17,7 +17,10 @@ namespace Assets.Sources.PlayerScripts
         private Vector3 _targetScale;
 
         public event Action<float> SizeChanged;
+
         public event Action ScaleChanged;
+
+        public event Action StartGrow;
 
         public float SizeDelta => _sizeDelta.x;
 
@@ -63,16 +66,7 @@ namespace Assets.Sources.PlayerScripts
                 PlayGrowSound();
         }
 
-        private void PlayGrowSound() => _audioPlayer.Play();
-
-        private void OnGrowing()
-        {
-            Vector3 targetScale = _player.lossyScale + _sizeDelta;
-            GrowTo(targetScale, true);
-            SizeChanged?.Invoke(targetScale.x);
-        }
-
-        private protected override void OnRoutineIteration(float cycleDuration) 
+        private protected override void OnRoutineIteration(float cycleDuration)
         {
             float progress = ElapsedTime / Duration;
             _player.localScale = Vector3.Lerp(_player.localScale, _targetScale, progress);
@@ -84,6 +78,16 @@ namespace Assets.Sources.PlayerScripts
             _player.localScale = _targetScale;
             ScaleChanged?.Invoke();
             base.OnRoutineEnd();
+        }
+
+        private void PlayGrowSound() => _audioPlayer.Play();
+
+        private void OnGrowing()
+        {
+            Vector3 targetScale = _player.lossyScale + _sizeDelta;
+            GrowTo(targetScale, true);
+            StartGrow?.Invoke();
+            SizeChanged?.Invoke(targetScale.x);
         }
     }
 }

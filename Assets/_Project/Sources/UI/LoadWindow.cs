@@ -1,6 +1,6 @@
+using System.Collections;
 using Assets.Sources.Level;
 using Assets.Sources.Utils;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -52,8 +52,7 @@ namespace Assets.Sources.UI
                 visualProgress = Mathf.MoveTowards(
                     visualProgress,
                     target,
-                    Time.deltaTime
-                );
+                    Time.deltaTime);
 
                 _loadProgress.value = visualProgress;
                 yield return null;
@@ -64,8 +63,7 @@ namespace Assets.Sources.UI
                 visualProgress = Mathf.MoveTowards(
                     visualProgress,
                     1f,
-                    Time.deltaTime
-                );
+                    Time.deltaTime);
 
                 _loadProgress.value = visualProgress;
                 yield return null;

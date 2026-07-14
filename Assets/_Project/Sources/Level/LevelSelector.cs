@@ -1,6 +1,6 @@
+using System;
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,7 +36,7 @@ namespace Assets.Sources.Level
         {
             _levelScore = levelScore;
             string translatedText = Translator.Get(UserUtils.TotalScore);
-            _totalScore.text = translatedText + " " + _levelScore.TotalScore;
+            _totalScore.SetText(translatedText + " " + _levelScore.TotalScore);
             _play.onClick.AddListener(OnPlayClicked);
             _play.gameObject.SetActive(false);
 
@@ -61,6 +61,6 @@ namespace Assets.Sources.Level
                 _play.gameObject.SetActive(true);
         }
 
-        private void OnPlayClicked() => PlayClicked?.Invoke(_currentButton.Name); 
+        private void OnPlayClicked() => PlayClicked?.Invoke(_currentButton.Name);
     }
 }

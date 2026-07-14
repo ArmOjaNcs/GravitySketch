@@ -1,5 +1,5 @@
-using Assets.Sources.Pause;
 using System;
+using Assets.Sources.Pause;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +11,8 @@ namespace Assets.Sources.ColorizerScripts
         [SerializeField] private Button _showButton;
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private AudioSource _buttonSound;
-        [SerializeField, Range(1,10)] private int _showCounts;
+        [SerializeField]
+        [Range(1,10)] private int _showCounts;
 
         private bool _isAutoPaint;
 
@@ -39,17 +40,6 @@ namespace Assets.Sources.ColorizerScripts
 
         public void SetAutoPaint(bool autoPaint) => _isAutoPaint = autoPaint;
 
-        private void ShowReference()
-        {
-            if (_isAutoPaint || Routine != null || IsPaused || _showCounts == 0)
-                return;
-
-            _buttonSound.Play();
-            _showCounts--;
-            _text.text = _showCounts.ToString();
-            OnUpdate();
-        }
-
         private protected override void OnRoutineStart()
         {
             IsShowing?.Invoke(true);
@@ -59,6 +49,17 @@ namespace Assets.Sources.ColorizerScripts
         {
             IsShowing?.Invoke(false);
             base.OnRoutineEnd();
+        }
+
+        private void ShowReference()
+        {
+            if (_isAutoPaint || Routine != null || IsPaused || _showCounts == 0)
+                return;
+
+            _buttonSound.Play();
+            _showCounts--;
+            _text.text = _showCounts.ToString();
+            OnUpdate();
         }
     }
 }

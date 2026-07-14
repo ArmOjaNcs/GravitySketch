@@ -36,7 +36,7 @@ namespace Assets.Sources.UI
             ReloadTimeImage.SetValue(0);
             ActiveTimeImage.SetValue(UserUtils.Unit);
 
-            if(_booster.CurrentBoostCount == 0)
+            if (_booster.CurrentBoostCount == 0)
                 ActiveTimeImage.UpdateValue(_booster.BoostTime, 0);
         }
 

@@ -1,7 +1,7 @@
+using System;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
 using Assets.Sources.Utils;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.EnemyScripts
@@ -12,9 +12,11 @@ namespace Assets.Sources.EnemyScripts
         private protected SphereCollider Collider;
 
         public event Action PlayerIn;
+
         public event Action PlayerOut;
 
         public Player Player { get; protected set; }
+
         public bool PlayerIsDead { get; protected set; }
 
         private void Awake()
@@ -25,7 +27,7 @@ namespace Assets.Sources.EnemyScripts
 
         private void OnDisable()
         {
-            if(Player != null)
+            if (Player != null)
             {
                 Player.IsDead -= OnPlayerIsDead;
                 Player.IsRevived -= OnPlayerRevived;
@@ -46,7 +48,7 @@ namespace Assets.Sources.EnemyScripts
                     }
                 }
 
-                if(Player.Dead == false)
+                if (Player.Dead == false)
                     PlayerDetected();
             }
         }
@@ -75,16 +77,6 @@ namespace Assets.Sources.EnemyScripts
             Collider.enabled = true;
         }
 
-        private void OnPlayerIsDead()
-        {
-            PlayerLosed();
-        }
-
-        private void OnPlayerRevived()
-        {
-            Refresh();
-        }
-
         private protected virtual void PlayerDetected()
         {
             PlayerIn?.Invoke();
@@ -93,6 +85,16 @@ namespace Assets.Sources.EnemyScripts
         private protected virtual void PlayerLosed()
         {
             PlayerOut?.Invoke();
+        }
+
+        private void OnPlayerIsDead()
+        {
+            PlayerLosed();
+        }
+
+        private void OnPlayerRevived()
+        {
+            Refresh();
         }
     }
 }

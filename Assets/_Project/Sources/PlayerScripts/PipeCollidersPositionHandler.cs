@@ -11,7 +11,7 @@ namespace Assets.Sources.PlayerScripts
         private Vector3 _baseLocalScale;
         private Rigidbody _rigidbody;
 
-        private Vector3 _playerScale => _player.lossyScale;
+        private Vector3 PlayerScale => _player.lossyScale;
 
         private void Awake()
         {
@@ -31,10 +31,9 @@ namespace Assets.Sources.PlayerScripts
         private void Update()
         {
             _transform.localScale = new Vector3(
-               _baseLocalScale.x * _playerScale.x,
-               _baseLocalScale.y * _playerScale.y,
-               _baseLocalScale.z * _playerScale.z
-           );
+               _baseLocalScale.x * PlayerScale.x,
+               _baseLocalScale.y * PlayerScale.y,
+               _baseLocalScale.z * PlayerScale.z);
         }
 
         private void FixedUpdate()

@@ -34,7 +34,6 @@ namespace Assets.Sources.UI
         private protected override void OnUpdate()
         {
             TargetValue = Health.CurrentValue / Health.MaxValue;
-            
             base.OnUpdate();
         }
 

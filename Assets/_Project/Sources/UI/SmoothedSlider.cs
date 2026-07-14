@@ -19,7 +19,7 @@ namespace Assets.Sources.UI
         }
 
         public void UpdateValue(float duration, float target) => UpdateView(duration, target);
-      
+
         private protected override void OnRoutineStart()
         {
             StartSliderValue = Slider.value;

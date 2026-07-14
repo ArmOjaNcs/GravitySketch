@@ -1,13 +1,14 @@
+using System;
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
 {
     public class Booster : PlayerAbility
     {
-        [SerializeField, Min(0)] private int _boostCount;
+        [SerializeField]
+        [Min(0)] private int _boostCount;
         [SerializeField] private AudioPlayer _audioPlayer;
         [SerializeField] private ParticleSystem _effect;
 
@@ -15,14 +16,21 @@ namespace Assets.Sources.PlayerScripts
         private bool _isReloading;
 
         public event Action Applied;
+
         public event Action Discarded;
+
         public event Action CountChanged;
+
         public event Action Reloading;
+
         public event Action Reloaded;
 
         public int CurrentBoostCount { get; private set; }
+
         public float BoostTime => ActiveTime;
+
         public float BoostReloadTime => ReloadTime;
+
         public int BoostCount => _boostCount;
 
         private void OnEnable()
@@ -37,7 +45,7 @@ namespace Assets.Sources.PlayerScripts
 
         private void Update()
         {
-            if(IsPaused || IsInitialized == false) 
+            if (IsPaused || IsInitialized == false)
                 return;
 
             Boost();
@@ -58,7 +66,7 @@ namespace Assets.Sources.PlayerScripts
         {
             base.Pause();
 
-            if(_effect.isPlaying)
+            if (_effect.isPlaying)
                 _effect.Pause();
         }
 
@@ -69,6 +77,8 @@ namespace Assets.Sources.PlayerScripts
             if (_isBoostApplied)
                 _effect.Play();
         }
+
+        public override void Upgrade() => ReloadTime -= ReloadUpgradeDelta;
 
         private void Boost()
         {
@@ -85,7 +95,7 @@ namespace Assets.Sources.PlayerScripts
                 if (CurrentReloadTime > ReloadTime)
                     ReloadBoost();
             }
-       
+
             if (_isBoostApplied)
             {
                 CurrentActiveTime += Time.deltaTime;
@@ -130,7 +140,5 @@ namespace Assets.Sources.PlayerScripts
             Applied?.Invoke();
             _effect.Play();
         }
-
-        public override void Upgrade() => ReloadTime -= ReloadUpgradeDelta;
     }
 }

@@ -18,16 +18,16 @@ namespace Assets.Sources.Save
         public KeyCode ResetCube = KeyCode.Mouse1;
 
         public bool UseMouseRotation = true;
-        public bool UseJoystick = false;
-
-        public InputBindings Clone()
-        {
-            return (InputBindings)MemberwiseClone();
-        }
+        public bool UseJoystick = true;
 
         public static InputBindings GetDefault()
         {
             return new InputBindings();
+        }
+
+        public InputBindings Clone()
+        {
+            return (InputBindings)MemberwiseClone();
         }
 
         public KeyCode GetKeyCode(ButtonType buttonType)

@@ -6,7 +6,5 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private ScrollInputDetector _inputDetector;
         [SerializeField] private GameObject _viewport;
-
-       
     }
 }

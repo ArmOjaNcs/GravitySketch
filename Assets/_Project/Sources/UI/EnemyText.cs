@@ -21,10 +21,10 @@ namespace Assets.Sources.UI
             SplitSign = '/';
             MaxValue = Health.MaxValue;
             CurrentValue = Health.CurrentValue;
-            Text.text = GetTotalText();
+            Text.SetText(CurrentValue.ToString() + SplitSign + MaxValue);
             string levelTranslation = Translator.Get(Level);
-            _levelText.text = levelTranslation + " " + _enemy.Size;
-            _nameText.text = Translator.Get(_enemy.Name);
+            _levelText.SetText(levelTranslation + " " + _enemy.Size);
+            _nameText.SetText(Translator.Get(_enemy.Name));
             IsInitialized = true;
         }
     }

@@ -1,6 +1,6 @@
 namespace Assets.Sources.Level
 {
-    public enum TutorialType 
+    public enum TutorialType
     {
        Start = 0,
        Cubes = 1,
@@ -8,6 +8,6 @@ namespace Assets.Sources.Level
        Enemies = 3,
        Trap = 4,
        Environment = 5,
-       MedAid = 6
+       MedAid = 6,
     }
 }

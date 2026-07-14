@@ -12,13 +12,11 @@ namespace Assets.Sources.UI
         {
             base.Init(pauseHandler);
             _popUpText.Init(pauseHandler);
-            StartText = " ";
-            SplitSign = UserUtils.DefaultChar;
             MaxValue = 0;
             IsNeedToSplit = false;
             _popUpText.SetPreviousValue(Health.MaxValue);
             CurrentValue = Health.CurrentValue;
-            Text.text = GetTotalText();
+            Text.SetText(CurrentValue.ToString());
         }
 
         private protected override void OnUpdate()

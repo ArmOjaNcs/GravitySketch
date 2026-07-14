@@ -6,7 +6,7 @@ namespace Assets.Sources.Pause
     {
         private protected bool IsPaused;
 
-        public bool IsInitialized {  get; protected set; }
+        public bool IsInitialized { get; protected set; }
 
         public virtual void Pause()
         {

@@ -1,8 +1,8 @@
+using System;
+using System.Collections.Generic;
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.Table;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -68,8 +68,11 @@ namespace Assets.Sources.SimpleCubeScripts
             CubesSpawned?.Invoke();
         }
 
-        public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner, 
-            List<SpawnArea> spawnAreas, TemplateColorReference materialReference)
+        public void Init(
+            PauseHandler pauseHandler,
+            AudioPlayerSpawner audioPlayerSpawner,
+            List<SpawnArea> spawnAreas,
+            TemplateColorReference materialReference)
         {
             _pauseHandler = pauseHandler;
             _audioPlayerSpawner = audioPlayerSpawner;
@@ -116,8 +119,8 @@ namespace Assets.Sources.SimpleCubeScripts
 
         private Vector3 CalculatePosition(int gridSize, int row, int col)
         {
-            float x = (col - (gridSize - 1) * 0.5f) * _spacing;
-            float z = (row - (gridSize - 1) * 0.5f) * _spacing;
+            float x = (col - ((gridSize - 1) * 0.5f)) * _spacing;
+            float z = (row - ((gridSize - 1) * 0.5f)) * _spacing;
             return new Vector3(x, _yPosition, z);
         }
 

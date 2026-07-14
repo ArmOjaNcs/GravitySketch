@@ -1,8 +1,8 @@
+using System;
 using Assets.Sources.Level;
 using Assets.Sources.Pause;
 using Assets.Sources.Table;
 using Assets.Sources.UI;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.ColorizerScripts
@@ -21,7 +21,7 @@ namespace Assets.Sources.ColorizerScripts
         [SerializeField] private bool _useJoystick = false;
         [SerializeField] private RectTransform _cursorUI;
         [SerializeField] private Canvas _canvas;
-        [SerializeField] private float _cursorSpeed = 600f;
+        [SerializeField] private float _cursorSpeed = 100f;
 
         private FixedJoystick _paintJoystick;
         private HoldButton _paintButton;
@@ -90,8 +90,16 @@ namespace Assets.Sources.ColorizerScripts
             _paintButton = paintButton;
         }
 
+        public void SetPaintColor(Color color)
+        {
+            _paintColor = color;
+            _aim.SetColor(_paintColor);
+        }
+
         public void SetPaintStage(PaintStage paintStage) => _stage = paintStage;
+
         public void SetAutoPaint(bool isAutoPaint) => _isAutoPaint = isAutoPaint;
+
         public void StartStage() => _isStarted = true;
 
         private void HandleJoystickInput()
@@ -151,12 +159,6 @@ namespace Assets.Sources.ColorizerScripts
 
             cube = null;
             return false;
-        }
-
-        public void SetPaintColor(Color color)
-        {
-            _paintColor = color;
-            _aim.SetColor(_paintColor);
         }
 
         private void HandleHoverAndPaint()

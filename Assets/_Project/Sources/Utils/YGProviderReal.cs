@@ -9,12 +9,11 @@ namespace Assets.Sources.Utils
     {
         public void Init()
         {
-            //YG.Instance.Init();
         }
 
         public string GetLanguage()
         {
-            return string.Empty;//YG.Instance.GetLanguage();
+            return string.Empty;
         }
     }
 }

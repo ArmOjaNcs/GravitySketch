@@ -47,7 +47,7 @@ namespace Assets.Sources.PlayerScripts
 
         public Transform Transform => _transform;
 
-        private float YDistance => _player.Radius * _defaultYOffset + _defaultYOffset;
+        private float YDistance => (_player.Radius * _defaultYOffset) + _defaultYOffset;
 
         private void Awake()
         {
@@ -111,14 +111,13 @@ namespace Assets.Sources.PlayerScripts
             Vector3 velocity = new Vector3(
                 _player.Velocity.x,
                 0f,
-                _player.Velocity.z
-            );
+                _player.Velocity.z);
 
             Vector3 lookDir = velocity;
 
             if (velocity.sqrMagnitude < 0.02f)
                 lookDir = Vector3.zero;
-            
+
             float speed = velocity.sqrMagnitude;
 
             if (speed < 0.0225f)
@@ -134,8 +133,7 @@ namespace Assets.Sources.PlayerScripts
             _currentLookAhead = Vector3.Lerp(
                 _currentLookAhead,
                 targetLookAhead,
-                lookSmooth
-            );
+                lookSmooth);
 
             Vector3 target = _player.Position + _currentLookAhead;
             target.y = YDistance;
@@ -145,14 +143,12 @@ namespace Assets.Sources.PlayerScripts
             float followSmooth = Mathf.Lerp(
                 _minFollowSmoothness,
                 _maxFollowSmoothness,
-                radiusT
-            );
+                radiusT);
 
             _transform.position = Vector3.Lerp(
                     _transform.position,
                     target,
-                    Damp(followSmooth)
-            );
+                    Damp(followSmooth));
         }
 
         private void Rotate()
@@ -170,8 +166,7 @@ namespace Assets.Sources.PlayerScripts
             _transform.rotation = Quaternion.Slerp(
                 rot,
                 targetRot,
-                _rotateSmoothness * Time.deltaTime
-            );
+                _rotateSmoothness * Time.deltaTime);
         }
 
         private void ShakeCamera()
@@ -193,8 +188,7 @@ namespace Assets.Sources.PlayerScripts
             float strength = Mathf.Lerp(
                 _currentShakeIntensity,
                 0f,
-                progress
-            );
+                progress);
 
             Vector3 shakeOffset = Random.insideUnitSphere * strength;
 
@@ -207,7 +201,7 @@ namespace Assets.Sources.PlayerScripts
         {
             float radius = Mathf.Max(_player.Radius, UserUtils.Unit);
 
-            float height = radius * _defaultYOffset + _defaultYOffset;
+            float height = (radius * _defaultYOffset) + _defaultYOffset;
 
             float baseAhead = height * _aheadFactor * _aheadDelta;
 

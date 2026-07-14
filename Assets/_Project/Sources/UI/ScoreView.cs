@@ -28,16 +28,15 @@ namespace Assets.Sources.UI
         {
             base.Init(pauseHandler);
 
-            StartText = "";
             IsNeedToSplit = false;
             IsInitialized = true;
         }
 
         public void SetStartScore(int startScore)
         {
-            if(startScore < 0)
+            if (startScore < 0)
                 startScore = 0;
-            
+
             _startScore = startScore;
             UpdateView(0, _startScore);
         }

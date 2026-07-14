@@ -1,7 +1,6 @@
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.PlayerScripts;
-using Assets.Sources.Utils;
 using UnityEngine;
 
 namespace Assets.Sources.UI
@@ -10,7 +9,7 @@ namespace Assets.Sources.UI
     {
         [SerializeField] private PlayerScore _playerScore;
         [SerializeField] private AudioPlayer _audioPlayer;
-        
+
         private void OnEnable()
         {
             _playerScore.ScoreChanged += OnScoreChanged;
@@ -28,11 +27,15 @@ namespace Assets.Sources.UI
             _audioPlayer.Init(pauseHandler);
             _audioPlayer.AudioSource.playOnAwake = false;
             _audioPlayer.AudioSource.loop = true;
-            StartText = "";
-            SplitSign = UserUtils.DefaultChar;
             IsNeedToSplit = false;
-            Text.text = GetTotalText();
+            Text.SetText("{0}", 0);
             IsInitialized = true;
+        }
+
+        private protected override void OnRoutineEnd()
+        {
+            _audioPlayer.Stop();
+            base.OnRoutineEnd();
         }
 
         private void OnScoreChanged(int reward)
@@ -40,12 +43,6 @@ namespace Assets.Sources.UI
             TargetValue = _playerScore.Value;
             _audioPlayer.Play();
             OnUpdate();
-        }
-
-        private protected override void OnRoutineEnd()
-        {
-            _audioPlayer.Stop();
-            base.OnRoutineEnd();
         }
     }
 }

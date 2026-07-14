@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -37,8 +37,10 @@ namespace Assets.Sources.Table
                     childrenToDestroy.Add(child.gameObject);
 
                 foreach (GameObject child in childrenToDestroy)
+                {
                     if (child != null)
                         DestroyImmediate(child.gameObject);
+                }
             }
 
             float angleStep = 360f / _count;

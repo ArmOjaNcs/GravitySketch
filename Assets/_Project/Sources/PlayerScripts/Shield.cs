@@ -1,15 +1,17 @@
+using System;
 using Assets.Sources.Audio;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
 {
     public class Shield : PlayerAbility
     {
-        [SerializeField, Min(0)] private float _defendUpgradeDelta;
-        [SerializeField, Min(2)] private float _minReloadTime;
+        [SerializeField]
+        [Min(0)] private float _defendUpgradeDelta;
+        [SerializeField]
+        [Min(2)] private float _minReloadTime;
         [SerializeField] private ParticleSystem _effect;
         [SerializeField] private AudioPlayer _audioPlayer;
 
@@ -18,12 +20,17 @@ namespace Assets.Sources.PlayerScripts
         private float _defence = 5;
 
         public event Action DefendApplied;
+
         public event Action Reloading;
 
         public float CycleTime { get; private set; }
+
         public float DefendTime => ActiveTime;
+
         public bool IsDefended => _isDefended;
+
         public bool IsReloading { get; private set; }
+
         public float Defence => _defence;
 
         private void OnEnable()
@@ -38,7 +45,7 @@ namespace Assets.Sources.PlayerScripts
 
         private void Update()
         {
-            if(IsPaused || IsInitialized == false) 
+            if (IsPaused || IsInitialized == false)
                 return;
 
             if (_isDefendApplied)
@@ -68,6 +75,29 @@ namespace Assets.Sources.PlayerScripts
 
             if (IsDefended)
                 _effect.Play();
+        }
+
+        public override void Upgrade()
+        {
+            ActiveTime += _defendUpgradeDelta;
+            ReloadTime -= ReloadUpgradeDelta;
+
+            if (ReloadTime < _minReloadTime)
+                ReloadTime = _minReloadTime;
+
+            CycleTime = ReloadTime + ActiveTime;
+        }
+
+        public void UpgradeActiveTime()
+        {
+            ActiveTime += _defendUpgradeDelta * 4;
+            CycleTime = ReloadTime + ActiveTime;
+        }
+
+        public void UpgradeDefend()
+        {
+            if (_defence < 75)
+                _defence += UserUtils.Unit;
         }
 
         private void OnDefended()
@@ -107,29 +137,6 @@ namespace Assets.Sources.PlayerScripts
                     CurrentActiveTime = 0;
                 }
             }
-        }
-
-        public override void Upgrade()
-        {
-            ActiveTime += _defendUpgradeDelta;
-            ReloadTime -= ReloadUpgradeDelta;
-            
-            if(ReloadTime < _minReloadTime)
-                ReloadTime = _minReloadTime;
-
-            CycleTime = ReloadTime + ActiveTime;
-        }
-
-        public void UpgradeActiveTime()
-        {
-            ActiveTime += _defendUpgradeDelta * 4;
-            CycleTime = ReloadTime + ActiveTime;
-        }
-
-        public void UpgradeDefend()
-        {
-            if(_defence < 75)
-                _defence += UserUtils.Unit;
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Assets.Sources.PlayerScripts
 
         private void OnTriggerEnter(Collider other)
         {
-            
             _dissolvable = other.GetComponentInParent<DissolvableObject>();
 
             if (_dissolvable != null)

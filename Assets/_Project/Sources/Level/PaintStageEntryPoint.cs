@@ -18,7 +18,7 @@ namespace Assets.Sources.Level
 
         private protected override void Initialize()
         {
-            if(Stage.IsTutorial)
+            if (Stage.IsTutorial)
                 Prefab = Resources.Load<GameObject>(UserUtils.TutorialPaintName);
             else
                 Prefab = Resources.Load<GameObject>(Stage.StageName);
@@ -26,7 +26,7 @@ namespace Assets.Sources.Level
             Debug.Log($"Stage name {Stage.StageName}");
             Prefab = Instantiate(Prefab);
 
-            if(Stage.IsTutorial )
+            if (Stage.IsTutorial)
                 Stage.SetTutorialObject(Prefab);
 
             _paintStagePrefab = Prefab.GetComponent<PaintStagePrefab>();

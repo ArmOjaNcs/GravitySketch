@@ -1,6 +1,6 @@
+using System;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.PlayerScripts
@@ -8,9 +8,12 @@ namespace Assets.Sources.PlayerScripts
     [RequireComponent(typeof(Rigidbody))]
     public class Mover : PauseableObject
     {
-        [SerializeField, Min(1)] private float _moveSpeed;
-        [SerializeField, Min(50)] private float _rotationSpeed;
-        [SerializeField, Min(0)] private float _moveSpeedOnUpgrade;
+        [SerializeField]
+        [Min(1)] private float _moveSpeed;
+        [SerializeField]
+        [Min(50)] private float _rotationSpeed;
+        [SerializeField]
+        [Min(0)] private float _moveSpeedOnUpgrade;
         [SerializeField] private Booster _booster;
         [SerializeField] private PlayerInput _playerInput;
         [SerializeField] private CameraFollower _cameraFollower;
@@ -92,7 +95,7 @@ namespace Assets.Sources.PlayerScripts
         public override void Pause()
         {
             base.Pause();
-            _pauseRequested = true;   
+            _pauseRequested = true;
             _pauseApplied = false;
         }
 
@@ -104,9 +107,6 @@ namespace Assets.Sources.PlayerScripts
 
             _pauseRequested = false;
             _pauseApplied = false;
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
         }
 
         public void Stop()
@@ -119,7 +119,7 @@ namespace Assets.Sources.PlayerScripts
             if (isGrowing)
                 _moveSpeed += _moveSpeedOnUpgrade;
             else
-                _moveSpeed += (_moveSpeedOnUpgrade / UserUtils.Three);
+                _moveSpeed += _moveSpeedOnUpgrade / UserUtils.Three;
         }
 
         private void OnBoostApplied()
@@ -129,6 +129,7 @@ namespace Assets.Sources.PlayerScripts
         }
 
         private void OnBoostDiscarded() => _isBoosted = false;
+
         private void OnDirectionChanged(Vector2 moveDirection) => _moveDirection = moveDirection;
 
         private void Move()
@@ -156,8 +157,8 @@ namespace Assets.Sources.PlayerScripts
             if (_accelerationSpeed < _moveSpeed)
             {
                 float newSpeed = _accelerationSpeed;
-                _accelerationSpeed = Mathf.MoveTowards(newSpeed, _moveSpeed, 
-                    Time.fixedDeltaTime * (_moveSpeed / _accelerationTime));
+                _accelerationSpeed = Mathf.MoveTowards(
+                    newSpeed, _moveSpeed, Time.fixedDeltaTime * (_moveSpeed / _accelerationTime));
             }
 
             if (_isBoosted)

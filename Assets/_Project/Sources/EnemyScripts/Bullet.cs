@@ -8,10 +8,10 @@ namespace Assets.Sources.EnemyScripts
     [RequireComponent(typeof(MeshRenderer))]
     public class Bullet : EnemyMissileWithRenderer
     {
+        private protected BulletConfig BulletConfig;
+
         private Vector3 _direction;
         private bool _isMoving;
-
-        private protected BulletConfig BulletConfig;
 
         private protected override void Update()
         {
@@ -20,7 +20,7 @@ namespace Assets.Sources.EnemyScripts
 
             base.Update();
 
-            if(_isMoving)
+            if (_isMoving)
                 Move();
         }
 

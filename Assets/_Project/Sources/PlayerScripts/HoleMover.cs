@@ -20,7 +20,7 @@ namespace Assets.Sources.PlayerScripts
             if (_isStarted == false)
                 return;
 
-            if(_isUseJoystick)
+            if (_isUseJoystick)
                 FollowByJoystick();
             else
                 FollowByMouse();
@@ -31,11 +31,15 @@ namespace Assets.Sources.PlayerScripts
             _transform = transform;
             _material = material;
             _material.SetFloat("_HoleRadius", _radius);
-            _material.SetVector("_HolePosition", new Vector4(_transform.position.x,
-                    _transform.position.y, _transform.position.z, 0));
+            _material.SetVector("_HolePosition", new Vector4(
+                    _transform.position.x,
+                    _transform.position.y,
+                    _transform.position.z,
+                    0));
         }
 
         public void SetStarted() => _isStarted = true;
+
         public void EnableJoystickControl(bool value) => _isUseJoystick = value;
 
         private void FollowByMouse()
@@ -76,7 +80,8 @@ namespace Assets.Sources.PlayerScripts
 
         private void UpdateShaderPosition()
         {
-            _material.SetVector("_HolePosition",
+            _material.SetVector(
+                "_HolePosition",
                 new Vector4(_transform.position.x, _transform.position.y, _transform.position.z, 0));
         }
     }

@@ -1,11 +1,10 @@
-using Assets._Project._Sources.UI;
-using Assets.Sources.Level;
-using Assets.Sources.Pause;
-using Assets.Sources.Table;
-using Assets.Sources.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Sources.UI;
+using Assets.Sources.Level;
+using Assets.Sources.Pause;
+using Assets.Sources.Table;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -21,7 +20,7 @@ namespace Assets.Sources.ColorizerScripts
 
         private SinglePressButton _resetButton;
         private PaintStage _stage;
-        private List<ColorData> _availableColors = new();
+        private List<ColorData> _availableColors = new ();
         private ColorData _currentColorData;
         private bool _isAutoPaint;
         private float _currentTime;
@@ -29,7 +28,9 @@ namespace Assets.Sources.ColorizerScripts
         private bool _isReseting;
 
         public event Action<Color, int> ColorsCountChanged;
+
         public event Action<IReadonlyTemplateCube, Color, bool> PaintApplied;
+
         public event Action Reseted;
 
         public int ColorsCount => _availableColors.Sum(c => c.Count);
@@ -56,7 +57,7 @@ namespace Assets.Sources.ColorizerScripts
 
             if (_isAutoPaint == false && _currentColorData != null)
             {
-                if(_useJoystick && _resetButton != null)
+                if (_useJoystick && _resetButton != null)
                     _isReseting = _resetButton.IsPressed;
                 else
                     _isReseting = Input.GetKeyDown(_stage.ResetCube);
@@ -84,10 +85,10 @@ namespace Assets.Sources.ColorizerScripts
 
                     if (_currentColorData == null)
                     {
-                        if(TrySetRandomColorData() == false)
+                        if (TrySetRandomColorData() == false)
                             return;
                     }
-                   
+
                     Color color = _currentColorData.Color;
                     var templateCube = _stage.GetCubeByColor(color);
 
@@ -177,9 +178,9 @@ namespace Assets.Sources.ColorizerScripts
 
         private void SetPaintMaterials(IEnumerable<Color> colors)
         {
-            foreach(var color in colors)
+            foreach (var color in colors)
             {
-                if(IsHasColor(color) == false)
+                if (IsHasColor(color) == false)
                 {
                     int count = colors.Count(c => c == color);
                     ColorData colorData = Instantiate(_colorDataPrefab, _contentRect);
@@ -194,7 +195,7 @@ namespace Assets.Sources.ColorizerScripts
 
         private bool IsHasColor(Color color)
         {
-            foreach(var colorUI in _availableColors)
+            foreach (var colorUI in _availableColors)
             {
                 if (colorUI.Color == color)
                     return true;
@@ -229,12 +230,12 @@ namespace Assets.Sources.ColorizerScripts
 
         private bool TrySetRandomColorData()
         {
-            if(_availableColors.Count <= 0) 
+            if (_availableColors.Count <= 0)
                 return false;
 
             int randomIndex = _availableColors.Count == 1 ? 0 : Random.Range(0, _availableColors.Count);
 
-             Random.Range(0, _availableColors.Count);
+            Random.Range(0, _availableColors.Count);
             _currentColorData = _availableColors[randomIndex];
 
             if (_currentColorData.Count == 0)
@@ -249,7 +250,7 @@ namespace Assets.Sources.ColorizerScripts
 
         private void DeselectAllColorData()
         {
-            foreach(ColorData colorData in _availableColors)
+            foreach (ColorData colorData in _availableColors)
             {
                 colorData.Deselect();
                 colorData.SwitchButtonInteraction(false);

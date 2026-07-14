@@ -1,5 +1,5 @@
-using Assets.Sources.Utils;
 using System;
+using Assets.Sources.Utils;
 using UnityEngine;
 
 namespace Assets.Sources.Level
@@ -29,7 +29,7 @@ namespace Assets.Sources.Level
 
         public void EnableCollider()
         {
-            if(_collider != null )
+            if (_collider != null)
                 _collider.enabled = true;
         }
     }

@@ -11,7 +11,7 @@ namespace Assets.Sources.Utils
         {
             new Vector3(UserUtils.MaxRotation, 0, 0),
             new Vector3(0, UserUtils.MaxRotation, 0),
-            new Vector3(0, 0, UserUtils.MaxRotation)
+            new Vector3(0, 0, UserUtils.MaxRotation),
         };
 
         public static Sequence GetIdleAnimation(Transform transform)
@@ -31,8 +31,8 @@ namespace Assets.Sources.Utils
             return sequence;
         }
 
-        public static Sequence GetMoveScaleAnimation(RectTransform transform, Vector2 offset, 
-            float scaleMul = 0.75f, float duration = 0.75f)
+        public static Sequence GetMoveScaleAnimation(
+            RectTransform transform, Vector2 offset, float scaleMul = 0.75f, float duration = 0.75f)
         {
             Vector2 startPos = transform.anchoredPosition;
             Vector3 startScale = transform.localScale;
@@ -79,7 +79,7 @@ namespace Assets.Sources.Utils
                 duration = BaseAnimationLength;
 
             Vector2 startPos = rectTransform.anchoredPosition;
-            Vector2 endPos = startPos + Vector2.up * offsetY;
+            Vector2 endPos = startPos + (Vector2.up * offsetY);
 
             Sequence sequence = DOTween.Sequence();
             sequence.Append(rectTransform.DOAnchorPos(endPos, duration).From(startPos))
@@ -103,8 +103,8 @@ namespace Assets.Sources.Utils
             return sequence;
         }
 
-        public static Sequence GetFadeAnimation(CanvasGroup canvasGroup, float startValue, 
-            float endValue, float duration = 0)
+        public static Sequence GetFadeAnimation(
+            CanvasGroup canvasGroup, float startValue, float endValue, float duration = 0)
         {
             if (duration <= 0)
                 duration = BaseAnimationLength;
@@ -118,8 +118,8 @@ namespace Assets.Sources.Utils
             return sequence;
         }
 
-        public static Sequence GetMenuWindowAnimation(RectTransform transform, CanvasGroup canvasGroup, 
-            float startValue, float endValue, float duration = 0)
+        public static Sequence GetMenuWindowAnimation(
+            RectTransform transform, CanvasGroup canvasGroup, float startValue, float endValue, float duration = 0)
         {
             if (duration <= 0)
                 duration = BaseAnimationLength;
@@ -193,7 +193,7 @@ namespace Assets.Sources.Utils
             return sequence;
         }
 
-        public static Sequence GetStatAnimation(RectTransform transform,float duration)
+        public static Sequence GetStatAnimation(RectTransform transform, float duration)
         {
             float transformScaleX = transform.localScale.x;
 
@@ -204,7 +204,7 @@ namespace Assets.Sources.Utils
             sequence.Insert(0, transform.DOScale(transformScaleX * 1.2f, duration / 2)
                     .From(transformScaleX)
                     .SetEase(Ease.OutBack));
-              
+
             sequence.Insert(1, transform.DOScale(transformScaleX, duration / 2))
                     .SetEase(Ease.OutSine);
 
@@ -226,7 +226,7 @@ namespace Assets.Sources.Utils
                     .SetEase(Ease.OutBack));
 
             sequence.Insert(0, GetFadeAnimation(canvasGroup, 1, 0, duration * 0.5f));
-            
+
             sequence.SetAutoKill(false);
             sequence.Pause();
 

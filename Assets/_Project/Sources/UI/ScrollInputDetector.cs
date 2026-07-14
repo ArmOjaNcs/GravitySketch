@@ -5,19 +5,24 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Sources.UI
 {
-    public class ScrollInputDetector : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, 
-        IPointerDownHandler, IPointerUpHandler 
+    public class ScrollInputDetector : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler,
+        IPointerDownHandler, IPointerUpHandler
     {
-        private readonly List<RaycastResult> _raycastResults = new();
+        private readonly List<RaycastResult> _raycastResults = new ();
         private bool _isDragging;
         private bool _isPointerDowned;
         private PointerEventData _eventData;
 
         public event Action<float> ScrolledByWheel;
+
         public event Action<PointerEventData> BeginDrag;
+
         public event Action<PointerEventData> Dragging;
+
         public event Action<PointerEventData> EndDrag;
+
         public event Action Interacted;
+
         public event Action InteractStopped;
 
         private void Awake()
@@ -44,7 +49,7 @@ namespace Assets.Sources.UI
 
             if (Mathf.Abs(wheel) < 0.01f)
             {
-                if(_isPointerDowned == false)
+                if (_isPointerDowned == false)
                     InteractStopped?.Invoke();
 
                 return;
@@ -72,7 +77,7 @@ namespace Assets.Sources.UI
             _isDragging = false;
             EndDrag?.Invoke(eventData);
 
-            if(_isPointerDowned == false)
+            if (_isPointerDowned == false)
                 InteractStopped?.Invoke();
         }
 
@@ -86,7 +91,7 @@ namespace Assets.Sources.UI
         {
             _isPointerDowned = false;
 
-            if(_isDragging == false)
+            if (_isDragging == false)
                 InteractStopped?.Invoke();
         }
 

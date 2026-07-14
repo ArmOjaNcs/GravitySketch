@@ -1,7 +1,7 @@
+using System;
 using Assets.Sources.ColorizerScripts;
 using Assets.Sources.Pause;
 using Assets.Sources.Utils;
-using System;
 using UnityEngine;
 
 namespace Assets.Sources.Level
@@ -35,6 +35,14 @@ namespace Assets.Sources.Level
         }
 
         public void SetStage(PaintStage paintStage) => _stage = paintStage;
+
+        private protected override void OnRoutineStart() => _isLastCube = true;
+
+        private protected override void OnRoutineEnd()
+        {
+            if (_isLastCube)
+                base.OnRoutineEnd();
+        }
 
         private void Validate(int index, bool isAutoPaint)
         {
@@ -71,14 +79,6 @@ namespace Assets.Sources.Level
         {
             if (_colorizer.ColorsCount == 0)
                 OnUpdate();
-        }
-
-        private protected override void OnRoutineStart() => _isLastCube = true;
-      
-        private protected override void OnRoutineEnd()
-        {
-            if (_isLastCube)
-                base.OnRoutineEnd();
         }
     }
 }

@@ -1,6 +1,6 @@
-using UnityEngine;
-using UnityEditor;
 using Assets.Sources.Utils;
+using UnityEditor;
+using UnityEngine;
 
 namespace Assets.Sources.Table
 {
@@ -25,7 +25,7 @@ namespace Assets.Sources.Table
             {
                 for (int x = 0; x < UserUtils.ImageResolution; x++)
                 {
-                    int index = y * UserUtils.ImageResolution + x;
+                    int index = (y * UserUtils.ImageResolution) + x;
                     Color color = _sourceTexture.GetPixel(x, y);
 
                     if (UserUtils.IsTransparent(color) || UserUtils.IsBlack(color))

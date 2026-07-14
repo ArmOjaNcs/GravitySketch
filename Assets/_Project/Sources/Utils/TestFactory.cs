@@ -28,23 +28,6 @@ namespace Assets.Sources.Utils
 
         private void CreateEnemy()
         {
-            //Enemy enemy = Instantiate(_enemy, _spawnPoint.position, Quaternion.identity);
-            //enemy.SetAudioPlayerSpawner(_audioPlayerSpawner);
-            //EnemyMover enemyMover = enemy.GetComponent<EnemyMover>();
-            //enemyMover.SetMovePointsHolder(_patrolZone.MovePointsHolder);
-            //enemyMover.SetDistance(_enemyConfig.Level * 5);
-            //_patrolZone.AddEnemy(enemyMover);
-
-            //enemy.InitializeFromConfig(_enemyConfig);
-
-            //if (_enemyConfig.AttackConfig != null)
-            //{
-            //    var zone = (IEnemyAttack)enemy.AttackZone.AddComponent(_enemyConfig.AttackConfig.ZoneComponentType);
-            //    zone.InitFromConfig(_enemyConfig.AttackConfig, enemy.FirePoint, _audioPlayerSpawner, );
-            //}
-
-            //enemy.SetSize(_enemyConfig.Level);
-            //enemy.RetreatZone.InitFromConfig(_bomberConfig, enemy.FirePoint, _audioPlayerSpawner);
         }
     }
 }

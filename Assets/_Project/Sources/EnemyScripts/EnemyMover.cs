@@ -19,12 +19,12 @@ namespace Assets.Sources.EnemyScripts
 
         private float _stuckTimer;
         private Vector3 _lastPosition;
-        private Vector3[] _retreatDirectories;
-        private EnemyPatrolZone _patrolZone;
+        private Vector3[] _retreatDirectories = new Vector3[8];
         private Transform _target;
         private Vector3 _currentPoint;
         private Transform _transform;
         private NavMeshAgent _agent;
+        private NavMeshPath _path;
         private Vector3 _currentVelocity;
         private float _minSqrtDistanceToTarget = 20;
         private float _currentUpdateTime;
@@ -38,7 +38,14 @@ namespace Assets.Sources.EnemyScripts
         private float _retreatTimer;
         private float _retreatUpdateInterval = 0.2f;
         private bool _isPlayerInZone;
-        private bool _isBoss;
+
+        public bool IsBoss { get; private set; }
+
+        public EnemyPatrolZone PatrolZone { get; private set; }
+
+        private Vector3 Forward => _transform.forward;
+
+        private Vector3 Right => _transform.right;
 
         private void Update()
         {
@@ -99,6 +106,7 @@ namespace Assets.Sources.EnemyScripts
             base.Init(pauseHandler);
             _transform = transform;
             _lastPosition = _transform.position;
+            _path = new NavMeshPath();
             IsInitialized = true;
         }
 
@@ -136,9 +144,9 @@ namespace Assets.Sources.EnemyScripts
 
         public void SetIsBoss()
         {
-            _isBoss = true;
+            IsBoss = true;
             _isPlayerInZone = true;
-        } 
+        }
 
         public void Activate()
         {
@@ -170,12 +178,12 @@ namespace Assets.Sources.EnemyScripts
 
         public void SetPatrolZone(EnemyPatrolZone patrolZone)
         {
-            _patrolZone = patrolZone;
-        } 
+            PatrolZone = patrolZone;
+        }
 
-        private void OnPlayerInZone()
+        public void OnPlayerInZone()
         {
-            if (_isBoss)
+            if (IsBoss)
                 return;
 
             _isPlayerInZone = true;
@@ -184,7 +192,7 @@ namespace Assets.Sources.EnemyScripts
 
         private void OnPlayerOutZone()
         {
-            if (_isBoss)
+            if (IsBoss)
                 return;
 
             _isPlayerInZone = false;
@@ -193,7 +201,7 @@ namespace Assets.Sources.EnemyScripts
             {
                 DeactivateZones();
                 ReturnToPatrol();
-            } 
+            }
         }
 
         private void DeactivateZones()
@@ -215,7 +223,7 @@ namespace Assets.Sources.EnemyScripts
             if (IsPaused)
                 return;
 
-            if(_agent.isStopped)
+            if (_agent.isStopped)
                 _agent.isStopped = false;
 
             GetCurrentPoint();
@@ -242,7 +250,7 @@ namespace Assets.Sources.EnemyScripts
 
         private void GetCurrentPoint()
         {
-            _currentPoint = _patrolZone.GetRandomPointInZone();
+            _currentPoint = PatrolZone.GetRandomPointInZone();
             _currentPoint.y = _transform.position.y;
         }
 
@@ -253,11 +261,11 @@ namespace Assets.Sources.EnemyScripts
             _retreatZone.ShouldRetreat += OnRetreat;
             _moveZone.PlayerIn += OnMoveIn;
             _moveZone.PlayerOut += OnMoveOut;
-    
-            if (_patrolZone != null)
+
+            if (PatrolZone != null)
             {
-                _patrolZone.PlayerInZone += OnPlayerInZone;
-                _patrolZone.PlayerOutZone += OnPlayerOutZone;
+                PatrolZone.PlayerInZone += OnPlayerInZone;
+                PatrolZone.PlayerOutZone += OnPlayerOutZone;
             }
         }
 
@@ -268,16 +276,18 @@ namespace Assets.Sources.EnemyScripts
             _retreatZone.ShouldRetreat -= OnRetreat;
             _moveZone.PlayerIn -= OnMoveIn;
             _moveZone.PlayerOut -= OnMoveOut;
-            
-            if (_patrolZone != null)
+
+            if (PatrolZone != null)
             {
-                _patrolZone.PlayerInZone -= OnPlayerInZone;
-                _patrolZone.PlayerOutZone -= OnPlayerOutZone;
+                PatrolZone.PlayerInZone -= OnPlayerInZone;
+                PatrolZone.PlayerOutZone -= OnPlayerOutZone;
             }
         }
 
         private void OnStopIn() => _isStopped = true;
+
         private void OnStopOut() => _isStopped = false;
+
         private void OnRetreat(bool isRetreat) => _isRetreat = isRetreat;
 
         private void OnMoveOut()
@@ -310,29 +320,27 @@ namespace Assets.Sources.EnemyScripts
 
             _retreatTimer = 0;
             float checkDistance = _retreatDistance + _moveZone.Player.Radius;
-            _retreatDirectories = new Vector3[]
-            {
-                -_transform.forward,
-                (-transform.forward + transform.right).normalized,
-                (-transform.forward - transform.right).normalized,
-                _transform.right, -_transform.right,
-                (transform.forward - transform.right).normalized,
-                (transform.forward + transform.right).normalized, _transform.forward,
-            };
+
+            _retreatDirectories[0] = -Forward;
+            _retreatDirectories[1] = (-Forward + Right).normalized;
+            _retreatDirectories[2] = (-Forward - Right).normalized;
+            _retreatDirectories[3] = Right;
+            _retreatDirectories[4] = -Right;
+            _retreatDirectories[5] = (Forward + Right).normalized;
+            _retreatDirectories[6] = (Forward - Right).normalized;
+            _retreatDirectories[7] = Forward;
 
             foreach (var dir in _retreatDirectories)
             {
-                Vector3 target = _transform.position + dir * checkDistance;
+                Vector3 target = _transform.position + (dir * checkDistance);
 
                 if (NavMesh.SamplePosition(target, out NavMeshHit hit, checkDistance, NavMesh.AllAreas) == false)
                     continue;
 
-                NavMeshPath path = new NavMeshPath();
-
-                if (_agent.CalculatePath(hit.position, path) == false)
+                if (_agent.CalculatePath(hit.position, _path) == false)
                     continue;
 
-                if (path.status != NavMeshPathStatus.PathComplete)
+                if (_path.status != NavMeshPathStatus.PathComplete)
                     continue;
 
                 _agent.SetDestination(hit.position);

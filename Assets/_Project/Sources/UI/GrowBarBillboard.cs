@@ -29,15 +29,15 @@ namespace Assets.Sources.UI
             _grower.ScaleChanged -= OnScaleChanged;
         }
 
-        private void OnScaleChanged()
-        {
-            _currentScale = UserUtils.GetCorrectScale(_defaultScale, Parent.lossyScale);
-        }
-
         private protected override void FollowByParrent()
         {
             _rectTransform.localScale = _currentScale;
             base.FollowByParrent();
+        }
+
+        private void OnScaleChanged()
+        {
+            _currentScale = UserUtils.GetCorrectScale(_defaultScale, Parent.lossyScale);
         }
     }
 }

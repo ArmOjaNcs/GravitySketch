@@ -7,13 +7,13 @@ namespace Assets.Sources.UI
         [SerializeField] private protected Transform Parent;
         [SerializeField] private protected Vector3 Offset;
 
+        private protected Transform CameraPivot;
         private Transform _cameraTransform;
         private Transform _transform;
         private bool _isStop;
-        private protected Transform CameraPivot;
 
-        private protected Quaternion PivotRotation => Quaternion.Euler(0,
-            CameraPivot.eulerAngles.y, 0);
+        private protected Quaternion PivotRotation => Quaternion.Euler(
+            0, CameraPivot.eulerAngles.y, 0);
 
         private void Start()
         {

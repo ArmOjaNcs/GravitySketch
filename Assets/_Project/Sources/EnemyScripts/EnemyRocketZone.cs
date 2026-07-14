@@ -10,14 +10,17 @@ namespace Assets.Sources.EnemyScripts
         private ObjectPool<Rocket> _pool;
         private RocketConfig _rocketConfig;
 
-        public override void InitFromConfig(EnemyAttackConfig config, Transform firePoint, 
-            AudioPlayerSpawner audioPlayerSpawner, PauseHandler pauseHandler)
+        public override void InitFromConfig(
+            EnemyAttackConfig config,
+            Transform firePoint,
+            AudioPlayerSpawner audioPlayerSpawner,
+            PauseHandler pauseHandler)
         {
             base.InitFromConfig(config, firePoint, audioPlayerSpawner, pauseHandler);
 
             RocketerConfig rocketerConfig = config.SafeCast<RocketerConfig>();
 
-            if(rocketerConfig != null)
+            if (rocketerConfig != null)
             {
                 _pool = new ObjectPool<Rocket>(rocketerConfig.RocketPrefab, rocketerConfig.Capacity, transform);
                 _rocketConfig = rocketerConfig.RocketConfig;
@@ -31,7 +34,7 @@ namespace Assets.Sources.EnemyScripts
             base.Attack();
 
             Rocket rocket = _pool.GetElement();
-            
+
             if (rocket.IsInitialized == false)
             {
                 rocket.InitFromConfig(_rocketConfig, this);

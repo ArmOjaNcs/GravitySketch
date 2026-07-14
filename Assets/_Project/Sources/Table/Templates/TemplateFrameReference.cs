@@ -6,6 +6,23 @@ namespace Assets.Sources.Table
 {
     public class TemplateFrameReference : ScriptableObject
     {
+        [SerializeField] private List<IndexedType> _indexedTypes = new List<IndexedType>();
+
+        public void AddIndexedType(int index, CubeType type)
+        {
+            _indexedTypes.Add(new IndexedType(index, type));
+        }
+
+        public void InitTemplateCubes(IReadOnlyList<TemplateCube> templateCubes)
+        {
+            Debug.Log($"template cubes count {templateCubes.Count} _indexedTypes.Count {_indexedTypes.Count}");
+
+            for (int index = 0; index < templateCubes.Count; index++)
+            {
+                templateCubes[index].Init(_indexedTypes[index].Type, _indexedTypes[index].Index);
+            }
+        }
+
         [Serializable]
         private class IndexedType
         {
@@ -19,24 +36,8 @@ namespace Assets.Sources.Table
             }
 
             public int Index => _index;
+
             public CubeType Type => _type;
-        }
-
-        [SerializeField] private List<IndexedType> _indexedTypes = new List<IndexedType>();
-
-        public void AddIndexedType(int index, CubeType type)
-        {
-            _indexedTypes.Add(new IndexedType(index, type));
-        }
-
-        public void InitTemplateCubes(IReadOnlyList<TemplateCube> templateCubes)
-        {
-            Debug.Log($"template cubes count {templateCubes.Count} _indexedTypes.Count {_indexedTypes.Count}");
-            
-            for (int index = 0; index < templateCubes.Count; index++)
-            {
-                templateCubes[index].Init(_indexedTypes[index].Type, _indexedTypes[index].Index);
-            }
         }
     }
 }

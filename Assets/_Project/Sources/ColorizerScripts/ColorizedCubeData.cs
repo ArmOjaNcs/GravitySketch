@@ -11,8 +11,12 @@ namespace Assets.Sources.ColorizerScripts
         public readonly float Speed;
         public readonly Vector3 RotateDirection;
 
-        public ColorizedCubeData(Vector3 startPosition, IReadonlyTemplateCube templateCube,
-            Color color, float speed, Vector3 rotateDirection)
+        public ColorizedCubeData(
+            Vector3 startPosition,
+            IReadonlyTemplateCube templateCube,
+            Color color,
+            float speed,
+            Vector3 rotateDirection)
         {
             StartPosition = startPosition;
             TemplateCube = templateCube;

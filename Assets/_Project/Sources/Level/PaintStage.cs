@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Assets.Sources.Audio;
 using Assets.Sources.ColorizerScripts;
 using Assets.Sources.Pause;
@@ -6,14 +9,10 @@ using Assets.Sources.Save;
 using Assets.Sources.Table;
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using YG;
 
 namespace Assets.Sources.Level
 {
@@ -48,8 +47,11 @@ namespace Assets.Sources.Level
         private string _nextStageName = string.Empty;
 
         public bool IsReferenceShowing { get; private set; }
+
         public IReadOnlyList<IReadonlyTemplateCube> TemplateCubes => _template.TemplateCubes;
+
         public KeyCode Paint => Bindings.Paint;
+
         public KeyCode ResetCube => Bindings.ResetCube;
 
         private protected override void OnEnable()
@@ -74,9 +76,9 @@ namespace Assets.Sources.Level
             _tutorialDecline.onClick.RemoveListener(OnTutorialDecline);
         }
 
-        private void Start()
+        private protected override void Start()
         {
-            StartCoroutine(RefreshEventSystem(()=> _backgroundMusic.Play()));
+            StartCoroutine(RefreshEventSystem(() => _backgroundMusic.Play()));
         }
 
         public override void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
@@ -158,14 +160,6 @@ namespace Assets.Sources.Level
             base.Begin();
         }
 
-        private void OnTutorialClosed()
-        {
-            _tutorial.Closed -= OnTutorialClosed;
-            base.Begin();
-            PauseHandler.Resume();
-            Pause.interactable = true;
-        }
-
         private protected override void OnVirtualJoystickValueChanged(bool value)
         {
             _paint.gameObject.SetActive(value);
@@ -177,24 +171,62 @@ namespace Assets.Sources.Level
             base.OnVirtualJoystickValueChanged(value);
         }
 
+        private protected override void HideButtons()
+        {
+            if (TextWindow.IsShown && _toNextLevelAnimator.IsShown)
+                _toNextLevelAnimator.Hide();
+
+            base.HideButtons();
+        }
+
+        private protected override void OnMainMenuApplied()
+        {
+            if (_isFinished)
+            {
+                if (_nextStageName != string.Empty)
+                    Progress.SetStageName(_nextStageName);
+            }
+            else
+            {
+                Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
+            }
+
+            Progress.SetSceneType(SceneType.Main);
+            SaveSystem.SavePlayerProgress(Progress);
+
+            base.OnMainMenuApplied();
+        }
+
+        private void OnTutorialClosed()
+        {
+            _tutorial.Closed -= OnTutorialClosed;
+            base.Begin();
+            PauseHandler.Resume();
+            Pause.interactable = true;
+        }
+
         private void OnFinished()
         {
             if (_isFinished == false)
             {
-                StartCoroutine(FinishRoutine());
                 _isFinished = true;
+                StartCoroutine(FinishRoutine());
             }
         }
 
         private void OnShowing(bool isShowing)
         {
             IsReferenceShowing = isShowing;
-          
+
             if (isShowing)
+            {
                 _colorReference.HighlightAllCubes(TemplateCubes);
+            }
             else
+            {
                 foreach (var cube in TemplateCubes)
                     cube.StopHighlight();
+            }
         }
 
         private void OnAutoPaint(bool isAutoPaint)
@@ -227,7 +259,7 @@ namespace Assets.Sources.Level
 
             int finalScore = _validator.MatchScore + CurrentScore;
             Progress.UpdateLevelScore(UserUtils.GetCollectStageName(StageName), finalScore);
-            _finalScore.text = finalScore.ToString();
+            _finalScore.SetText("{0}", finalScore);
             SaveSystem.SavePlayerProgress(Progress);
 
             yield return new WaitForSeconds(UserUtils.Unit);
@@ -247,17 +279,7 @@ namespace Assets.Sources.Level
         private void OnInterfaceClosed()
         {
             _interfacesFade[0].Updated -= OnInterfaceClosed;
-
-            if (YG2.isTimerAdvCompleted)
-            {
-                YG2.onCloseInterAdv += OnInterAdvClosed;
-                YG2.onErrorInterAdv += OnInterAdvClosed;
-                YG2.InterstitialAdvShow();
-            }
-            else
-            {
-                ShowFinalWindow();
-            }
+            ShowFinalWindow();
         }
 
         private void ShowFinalWindow()
@@ -267,13 +289,6 @@ namespace Assets.Sources.Level
 
             TextWindow.Opened += OnTextWindowOpened;
             TextWindow.Show();
-        }
-
-        private void OnInterAdvClosed()
-        {
-            YG2.onCloseInterAdv -= OnInterAdvClosed;
-            YG2.onErrorInterAdv -= OnInterAdvClosed;
-            StartCoroutine(RefreshEventSystem(ShowFinalWindow));
         }
 
         private void OnTextWindowOpened()
@@ -286,32 +301,6 @@ namespace Assets.Sources.Level
             ShowButtons();
         }
 
-        private protected override void HideButtons()
-        {
-            if (TextWindow.IsShown && _toNextLevelAnimator.IsShown)
-                _toNextLevelAnimator.Hide();
-
-            base.HideButtons();
-        }
-
-        private protected override void OnMainMenuApplied()
-        {
-            if (_isFinished)
-            {
-                if (_nextStageName != string.Empty)
-                    Progress.SetStageName(_nextStageName);
-            }
-            else
-            {
-                Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
-            }
-
-            Progress.SetSceneType(SceneType.Main);
-            SaveSystem.SavePlayerProgress(Progress);
-
-            base.OnMainMenuApplied();
-        }
-
         private void OnNextApplied()
         {
             if (IsTutorial)
@@ -320,8 +309,11 @@ namespace Assets.Sources.Level
             Progress.SetStageName(_nextStageName);
             Progress.SetSceneType(SceneType.Collect);
             SaveSystem.SavePlayerProgress(Progress);
-            AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(ButtonSound)?.Play();
-            HideButtons();
+            TryShowAdv(() => PlayFinalAnimation(OnNext));
+        }
+
+        private void OnNext()
+        {
             TextWindow.Closed += LoadNext;
             TextWindow.Hide();
         }

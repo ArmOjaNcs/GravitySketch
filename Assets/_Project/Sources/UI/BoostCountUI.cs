@@ -30,7 +30,7 @@ namespace Assets.Sources.UI
             if (_booster.CurrentBoostCount > 1)
                 _boostCount.text = UserUtils.PlusSign.ToString();
             else
-                _boostCount.text = "";
+                _boostCount.text = string.Empty;
         }
     }
 }

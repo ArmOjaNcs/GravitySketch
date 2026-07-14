@@ -1,5 +1,5 @@
-using Assets.Sources.Utils;
 using System.Collections;
+using Assets.Sources.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +13,8 @@ namespace Assets.Sources.UI
         [SerializeField] private RectTransform _handle;
         [SerializeField] private RectTransform _indicatorArea;
         [SerializeField] private VerticalScrollContent _verticalScrollContent;
-        [SerializeField, Min(1)] private float _showTime;
+        [SerializeField]
+        [Min(1)] private float _showTime;
 
         private Coroutine _routine;
         private float _timer;

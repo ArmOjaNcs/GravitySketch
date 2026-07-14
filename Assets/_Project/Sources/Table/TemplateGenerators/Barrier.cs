@@ -9,6 +9,7 @@ namespace Assets.Sources.Table
         [SerializeField] private BoxCollider _collider;
 
         public MeshRenderer MeshRenderer => _meshRenderer;
+
         public BoxCollider Collider => _collider;
 
         public void SetColor(Color color)

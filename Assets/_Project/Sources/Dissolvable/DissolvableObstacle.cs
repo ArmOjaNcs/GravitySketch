@@ -18,10 +18,10 @@ namespace Assets.Sources.Dissolvable
         public override void DropDown()
         {
             base.DropDown();
-            
+
             SetLayerRecursively(gameObject, UserUtils.NormalLayer);
 
-            if(IsValidTag == false)
+            if (IsValidTag == false)
                 SetTagRecursively(gameObject, UserUtils.Dropped);
         }
 

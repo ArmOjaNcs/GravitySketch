@@ -4,6 +4,5 @@ namespace Assets.Sources.Pause
 {
     public class PauseMenu : MonoBehaviour
     {
-       
     }
 }

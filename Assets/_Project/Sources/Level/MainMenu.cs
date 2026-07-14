@@ -1,7 +1,7 @@
+using System.Collections;
 using Assets.Sources.Save;
 using Assets.Sources.UI;
 using Assets.Sources.Utils;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -26,6 +26,7 @@ namespace Assets.Sources.Level
         [SerializeField] private LeaderboardYG _leaderboard;
         [SerializeField] private EventSystem _eventSystem;
         [SerializeField] private InputSettingsMenu _inputSettings;
+        [SerializeField] private FenceColorizer _fenceColorizer;
 
         private bool _isStarted;
 
@@ -48,13 +49,12 @@ namespace Assets.Sources.Level
         {
             Progress.SetStageName(UserUtils.GetCollectStageName(StageName));
             Progress.SetSceneType(SceneType.Collect);
-            _isStarted = true;
             StartCoroutine(RefreshEventSystem());
-            _leaderboard.UpdateLB();
             _backgroundMusic.Play();
         }
 
         private void OnWindowOpening() => _default.Hide();
+
         private void OnWindowClosing() => _default.Show();
 
         private void OnPlayClicked(string stageName)
@@ -75,20 +75,21 @@ namespace Assets.Sources.Level
         }
 
         private void OnButtonClick() => _buttonSound.Play();
+
         private void OnToggleChanged(bool value)
         {
             if (_isStarted == false)
                 return;
-            
+
             _toggleSound.Play();
-        } 
+        }
 
         private void OnYGReady()
         {
             YandexGame.GetDataEvent -= OnYGReady;
             string text = LevelsCount == 0 ? UserUtils.Start : UserUtils.Continue;
             Translator.UpdateLang();
-            _startButtonText.text = Translator.Get(text);
+            _startButtonText.SetText(Translator.Get(text));
             StartCoroutine(DelayedStart());
         }
 
@@ -136,19 +137,22 @@ namespace Assets.Sources.Level
 
         private IEnumerator DelayedStart()
         {
-            yield return new WaitForSeconds(1);
             GameObject cubesPrefab = Resources.Load<GameObject>(UserUtils.GetToyCubeHolderName(UserUtils.Main));
             cubesPrefab = Instantiate(cubesPrefab);
+            _fenceColorizer.ColorizeFence();
             yield return null;
             _levelSelector.Init(this);
             _levelSelector.PlayClicked += OnPlayClicked;
             yield return null;
             _leaderboard.SetLeaderboard(TotalScore);
             SaveSystem.SavePlayerProgress(Progress);
+            _leaderboard.UpdateLB();
             yield return null;
             _inputSettings.Rebuild();
             yield return null;
             _default.Show();
+            yield return null;
+            _isStarted = true;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Assets.Sources.PlayerScripts
         {
             if (reward <= 0)
                 return;
-      
+
             Value += reward;
             ScoreChanged?.Invoke(reward);
         }

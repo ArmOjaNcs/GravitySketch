@@ -1,3 +1,4 @@
+using Assets.Sources.PlayerScripts;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +9,13 @@ namespace Assets.Sources.UI
         [Header("Mini-map UI")]
         [SerializeField] private Image _map;
         [SerializeField] private RectTransform _icon;
+        private float _mapWidth;
+        private float _mapHeight;
 
         [Header("Target")]
         [SerializeField] private Transform _target;
         [SerializeField] private Transform _forward;
+        [SerializeField] private Grower _grower;
 
         [Header("World bounds (half size)")]
         [SerializeField] private float _worldHalfWidth;
@@ -24,11 +28,25 @@ namespace Assets.Sources.UI
 
         private RectTransform _mapRect;
         private bool _isInitialized;
+        private bool _isGrowing;
 
         private void Awake()
         {
-            _mapRect = _map.GetComponent<RectTransform>();
+            RectInit();
+            InitDimensions();
             _icon.sizeDelta = Vector2.one * _baseIconSize;
+        }
+
+        private void OnEnable()
+        {
+            _grower.StartGrow += OnStartGrow;
+            _grower.Updated += OnGrowerUpdated;
+        }
+
+        private void OnDisable()
+        {
+            _grower.StartGrow -= OnStartGrow;
+            _grower.Updated -= OnGrowerUpdated;
         }
 
         private void Update()
@@ -41,17 +59,46 @@ namespace Assets.Sources.UI
             UpdateScale();
         }
 
+        private void OnRectTransformDimensionsChange()
+        {
+            RectInit();
+            InitDimensions();
+        }
+
+        public void SetMapSprite(Sprite sprite)
+        {
+            _map.sprite = sprite;
+            _isInitialized = true;
+        }
+
+        private void RectInit()
+        {
+            if (_mapRect != null)
+                return;
+
+            _mapRect = _map.GetComponent<RectTransform>();
+        }
+
+        private void InitDimensions()
+        {
+            if (_mapRect == null)
+                return;
+
+            var rect = _mapRect.rect;
+            _mapWidth = rect.width;
+            _mapHeight = rect.height;
+        }
+
         private void UpdatePosition()
         {
             Vector2 worldPos = new Vector2(_target.position.x, _target.position.z);
 
             Vector2 normalized = new Vector2(
                 worldPos.x / _worldHalfWidth,
-                worldPos.y / _worldHalfHeight
-            );
+                worldPos.y / _worldHalfHeight);
 
-            float mapWidth = _mapRect.rect.width;
-            float mapHeight = _mapRect.rect.height;
+            float mapWidth = _mapWidth;
+            float mapHeight = _mapHeight;
 
             float mapAspect = mapWidth / mapHeight;
             float worldAspect = _worldHalfWidth / _worldHalfHeight;
@@ -64,8 +111,7 @@ namespace Assets.Sources.UI
 
                 miniPos = new Vector2(
                     normalized.x * scale * worldAspect,
-                    normalized.y * scale
-                );
+                    normalized.y * scale);
             }
             else
             {
@@ -73,8 +119,7 @@ namespace Assets.Sources.UI
 
                 miniPos = new Vector2(
                     normalized.x * scale,
-                    normalized.y * scale / worldAspect
-                );
+                    normalized.y * scale / worldAspect);
             }
 
             _icon.anchoredPosition = miniPos;
@@ -88,11 +133,10 @@ namespace Assets.Sources.UI
 
         private void UpdateScale()
         {
-            float playerScale = Mathf.Max(
-                _target.localScale.x,
-                _target.localScale.y,
-                _target.localScale.z
-            );
+            if (_isGrowing == false)
+                return;
+
+            float playerScale = _target.localScale.x;
 
             float scaleFactor = playerScale <= _targetBaseScale
                 ? 1f
@@ -101,10 +145,8 @@ namespace Assets.Sources.UI
             _icon.localScale = Vector3.one * scaleFactor;
         }
 
-        public void SetMapSprite(Sprite sprite)
-        {
-            _map.sprite = sprite;
-            _isInitialized = true;
-        }
+        private void OnGrowerUpdated() => _isGrowing = false;
+
+        private void OnStartGrow() => _isGrowing = true;
     }
 }

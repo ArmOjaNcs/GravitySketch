@@ -12,6 +12,7 @@ namespace Assets.Sources.Utils
         public event Action Updated;
 
         public float MaxValue => _maxValue;
+
         public float CurrentValue { get; private set; }
 
         public void Initialize(float maxValue)
@@ -41,12 +42,12 @@ namespace Assets.Sources.Utils
 
         public void TakeHeal(float heal)
         {
-            if(heal <= 0)
+            if (heal <= 0)
                 return;
 
             CurrentValue += heal;
 
-            if(CurrentValue > MaxValue)
+            if (CurrentValue > MaxValue)
                 CurrentValue = MaxValue;
 
             Updated?.Invoke();

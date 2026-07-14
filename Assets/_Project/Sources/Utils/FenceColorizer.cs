@@ -1,4 +1,3 @@
-using Assets.Sources.Table;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,15 +6,13 @@ namespace Assets.Sources.Utils
     public class FenceColorizer : MonoBehaviour
     {
         [SerializeField] private List<GameObject> _fence;
-        [SerializeField] private TemplateColorReference _templateColorReference = null;
 
-        private void Awake()
+        private void Start()
         {
-            if(_templateColorReference != null)
-                ColorizeFence(_templateColorReference);
+            ColorizeFence();
         }
 
-        public void ColorizeFence(TemplateColorReference templateColorReference)
+        public void ColorizeFence()
         {
             foreach (var barrier in _fence)
             {
