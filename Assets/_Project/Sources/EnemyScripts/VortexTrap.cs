@@ -44,7 +44,7 @@ namespace Assets.Sources.EnemyScripts
 
         public void Init(PauseHandler pauseHandler, AudioPlayerSpawner audioPlayerSpawner)
         {
-            base.Init(pauseHandler);
+            Init(pauseHandler);
             _zone.Init(pauseHandler);
             _attackRoutine.Init(pauseHandler);
             _attackRoutine.Wait(UserUtils.DamageRate);

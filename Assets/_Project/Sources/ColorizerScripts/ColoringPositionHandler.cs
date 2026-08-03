@@ -109,8 +109,7 @@ namespace Assets.Sources.ColorizerScripts
 
             Vector2 move = new Vector2(
                 _paintJoystick.Horizontal,
-                _paintJoystick.Vertical
-            );
+                _paintJoystick.Vertical);
 
             if (move.sqrMagnitude > 0.0001f)
             {

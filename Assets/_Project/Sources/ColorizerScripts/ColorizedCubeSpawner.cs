@@ -93,12 +93,10 @@ namespace Assets.Sources.ColorizerScripts
         {
             Vector3 size = spawnZone.GetBoxCollider().size;
 
-            Vector3 randomPoint = new Vector3
-            (
+            Vector3 randomPoint = new Vector3(
                 Random.Range(-size.x / 2f, size.x / 2f),
                 Random.Range(-size.y / 2f, size.y / 2f),
-                Random.Range(-size.z / 2f, size.z / 2f)
-            );
+                Random.Range(-size.z / 2f, size.z / 2f));
 
             return spawnZone.GetPoint(randomPoint);
         }

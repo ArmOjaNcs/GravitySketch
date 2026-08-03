@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Sources.UI;
 using Assets.Sources.Level;
 using Assets.Sources.Pause;
 using Assets.Sources.Table;
+using Assets.Sources.UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -159,7 +159,6 @@ namespace Assets.Sources.ColorizerScripts
         {
             if (_currentColorData == null || _currentColorData.Count <= 0)
                 return;
-
 
             if (cube.Type != CubeType.In || cube.IsMarked)
                 return;

@@ -24,7 +24,6 @@ namespace Assets.Sources.UI
         [Header("Icon size")]
         [SerializeField] private float _baseIconSize = 15f;
         [SerializeField] private float _targetBaseScale = 1f;
-        [SerializeField] private float _targetBaseRadius = 0.65f;
 
         private RectTransform _mapRect;
         private bool _isInitialized;

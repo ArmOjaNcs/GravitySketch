@@ -12,7 +12,7 @@ namespace Assets.Sources.ColorizerScripts
         [SerializeField] private TextMeshProUGUI _text;
         [SerializeField] private AudioSource _buttonSound;
         [SerializeField]
-        [Range(1,10)] private int _showCounts;
+        [Range(1, 10)] private int _showCounts;
 
         private bool _isAutoPaint;
 

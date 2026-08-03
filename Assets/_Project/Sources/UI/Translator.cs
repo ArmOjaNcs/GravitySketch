@@ -7,15 +7,6 @@ namespace Assets.Sources.Utils
 {
     public static class Translator
     {
-        [SerializeField] private static string _currentLang = "en";
-
-        public static event Action LangChanged;
-
-        public static string CurrentLang => _currentLang;
-
-        public static bool IsLangSetted { get; private set; }
-
-
         private static readonly Dictionary<string, Dictionary<string, string>> _dictionary =
             new Dictionary<string, Dictionary<string, string>>()
         {
@@ -230,6 +221,14 @@ namespace Assets.Sources.Utils
             { "Equals",    new () { { "en", "=" },  { "ru", "=" }, { "tr", "=" } } },
             { "BackQuote", new () { { "en", "`" }, { "ru", "ё" }, { "tr", "`" } } },
         };
+
+        [SerializeField] private static string _currentLang = "en";
+
+        public static event Action LangChanged;
+
+        public static string CurrentLang => _currentLang;
+
+        public static bool IsLangSetted { get; private set; }
 
         public static string Get(string key)
         {

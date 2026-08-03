@@ -124,7 +124,7 @@ namespace Assets.Sources.Table
         [Serializable]
         private class ColorEntry
         {
-            [SerializeField] private List<int> _indexes = new();
+            [SerializeField] private List<int> _indexes = new ();
             [SerializeField] private Color _color;
             [SerializeField] private int _count;
 

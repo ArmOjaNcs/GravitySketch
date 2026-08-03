@@ -41,8 +41,12 @@ namespace Assets.Sources.PlayerScripts
             Dispose();
         }
 
-        public void InitBindings(InputBindings inputBindings, DynamicJoystick moveJoystick,
-            DynamicJoystick rotateJoystick, Button shieldAbility, Button boosterAbility)
+        public void InitBindings(
+            InputBindings inputBindings,
+            DynamicJoystick moveJoystick,
+            DynamicJoystick rotateJoystick,
+            Button shieldAbility,
+            Button boosterAbility)
         {
             _bindings = inputBindings;
             _moveJoystick = moveJoystick;

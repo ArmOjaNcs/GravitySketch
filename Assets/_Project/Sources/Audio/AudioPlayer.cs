@@ -7,8 +7,6 @@ namespace Assets.Sources.Audio
     [RequireComponent(typeof(AudioSource))]
     public class AudioPlayer : PauseableObject
     {
-        public bool IsFinishable { get; private set; }
-
         private Transform _transform;
         private bool _isFinished;
         private bool _isPlaying;
@@ -17,6 +15,7 @@ namespace Assets.Sources.Audio
         public event Action<AudioPlayer> PlaybackIsFinished;
 
         public AudioSource AudioSource { get; private set; }
+        public bool IsFinishable { get; private set; }
 
         private void OnEnable()
         {
