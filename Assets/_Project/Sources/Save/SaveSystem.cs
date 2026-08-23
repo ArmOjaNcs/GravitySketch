@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Sources.Save
+namespace Save
 {
     public static class SaveSystem
     {

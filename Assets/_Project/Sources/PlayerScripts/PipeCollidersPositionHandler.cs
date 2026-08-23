@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Sources.PlayerScripts
+namespace PlayerScripts
 {
     [RequireComponent(typeof(Rigidbody))]
     public class PipeCollidersPositionHandler : MonoBehaviour

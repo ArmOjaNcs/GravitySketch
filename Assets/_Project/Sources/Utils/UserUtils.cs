@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Assets.Sources.Utils
+namespace Utils
 {
     public static class UserUtils
     {

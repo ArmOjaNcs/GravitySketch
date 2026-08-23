@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-namespace Assets.Sources.Table
+namespace Table
 {
     public class CircleBarrierSpawner : MonoBehaviour
     {

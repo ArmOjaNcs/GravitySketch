@@ -1,10 +1,10 @@
 using System;
-using Assets.Sources.Pause;
-using Assets.Sources.Save;
+using Pause;
+using Save;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Sources.PlayerScripts
+namespace PlayerScripts
 {
     public class PlayerInput : PauseableObject, IDisposable
     {
@@ -16,11 +16,8 @@ namespace Assets.Sources.PlayerScripts
         private bool _subscribed;
 
         public event Action<Vector2> DirectionChanged;
-
         public event Action Boosted;
-
         public event Action Defended;
-
         public event Action<float> Rotated;
 
         public bool IsJoystickMode => _bindings == null ? false : _bindings.UseJoystick;

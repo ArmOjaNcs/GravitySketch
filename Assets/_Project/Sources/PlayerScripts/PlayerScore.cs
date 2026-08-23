@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets.Sources.PlayerScripts
+namespace PlayerScripts
 {
     public class PlayerScore : MonoBehaviour
     {

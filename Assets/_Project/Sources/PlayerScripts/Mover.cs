@@ -1,9 +1,11 @@
 using System;
-using Assets.Sources.Pause;
-using Assets.Sources.Utils;
+using CameraScripts;
+using Pause;
+using PlayerScripts.Ability;
+using Utils;
 using UnityEngine;
 
-namespace Assets.Sources.PlayerScripts
+namespace PlayerScripts
 {
     [RequireComponent(typeof(Rigidbody))]
     public class Mover : PauseableObject

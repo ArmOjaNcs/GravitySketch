@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Sources.Level;
-using Assets.Sources.Pause;
-using Assets.Sources.Table;
-using Assets.Sources.UI;
+using Level.StageScripts;
+using Pause;
+using Table;
+using UI.VerticalScrollContentScripts;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
-namespace Assets.Sources.ColorizerScripts
+namespace ColorizerScripts
 {
     public class Colorizer : PauseableObject
     {
@@ -28,13 +29,10 @@ namespace Assets.Sources.ColorizerScripts
         private bool _isReseting;
 
         public event Action<Color, int> ColorsCountChanged;
-
         public event Action<IReadonlyTemplateCube, Color, bool> PaintApplied;
-
         public event Action Reseted;
 
         public int ColorsCount => _availableColors.Sum(c => c.Count);
-
         public int AutoMatchCount { get; private set; }
 
         private void OnEnable()

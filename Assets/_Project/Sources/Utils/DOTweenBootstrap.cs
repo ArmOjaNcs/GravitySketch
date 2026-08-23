@@ -1,11 +1,14 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class DOTweenBootstrap : MonoBehaviour
+namespace Utils
 {
-    private void Awake()
+    public class DOTweenBootstrap : MonoBehaviour
     {
-        DOTween.SetTweensCapacity(500, 100);
-        DOTween.useSafeMode = false;
+        private void Awake()
+        {
+            DOTween.SetTweensCapacity(500, 100);
+            DOTween.useSafeMode = false;
+        }
     }
 }

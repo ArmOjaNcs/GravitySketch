@@ -1,10 +1,10 @@
 using System;
-using Assets.Sources.Pause;
-using Assets.Sources.Table;
+using Pause;
+using Table;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 
-namespace Assets.Sources.ColorizerScripts
+namespace ColorizerScripts
 {
     [RequireComponent(typeof(MeshRenderer))]
     public class ColorizedCube : PauseableObject
@@ -23,7 +23,6 @@ namespace Assets.Sources.ColorizerScripts
         private Color _currentColor;
 
         public event Action<ColorizedCube> Finished;
-
         public event Action<ColorizedCube> EffectFinished;
 
         public bool IsAutoPaint { get; private set; }

@@ -1,11 +1,11 @@
 using System;
-using Assets.Sources.Audio;
-using Assets.Sources.Pause;
-using Assets.Sources.Utils;
+using Audio;
+using Pause;
+using Utils;
 using DG.Tweening;
 using UnityEngine;
 
-namespace Assets.Sources.Dissolvable
+namespace Dissolvable
 {
     [RequireComponent(typeof(Rigidbody))]
     public abstract class DissolvableObject : PauseableRoutine
@@ -35,9 +35,7 @@ namespace Assets.Sources.Dissolvable
         public event Action Finished;
 
         public int Size => _size;
-
         public int Reward => _reward;
-
         public bool IsDissolving { get; private set; }
 
         private protected virtual void Awake()

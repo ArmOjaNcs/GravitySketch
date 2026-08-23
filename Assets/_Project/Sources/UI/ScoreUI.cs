@@ -1,9 +1,10 @@
-using Assets.Sources.Audio;
-using Assets.Sources.Pause;
-using Assets.Sources.PlayerScripts;
+using Audio;
+using Pause;
+using PlayerScripts;
+using UI.PauseableRoutineUI;
 using UnityEngine;
 
-namespace Assets.Sources.UI
+namespace UI
 {
     public class ScoreUI : SmoothedText
     {

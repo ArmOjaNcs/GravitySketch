@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Sources.Table
+namespace Table
 {
     [CreateAssetMenu(menuName = "Template/Material Holder")]
     public class MaterialHolder : ScriptableObject

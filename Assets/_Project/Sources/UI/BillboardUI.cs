@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Sources.UI
+namespace UI
 {
     public class BillboardUI : MonoBehaviour
     {

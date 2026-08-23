@@ -1,11 +1,12 @@
 using System;
-using Assets.Sources.UI;
-using Assets.Sources.Utils;
+using UI;
+using Utils;
 using TMPro;
+using UI.AnimatorMorph;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Sources.Level
+namespace Level
 {
     public class LevelSelector : MonoBehaviour
     {

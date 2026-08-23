@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Assets.Sources.EnemyScripts;
-using Assets.Sources.Pause;
-using Assets.Sources.Utils;
+using EnemyScripts;
+using Pause;
+using Utils;
 using UnityEngine;
 
-namespace Assets.Sources.PlayerScripts
+namespace PlayerScripts
 {
     [RequireComponent(typeof(CapsuleCollider))]
     public class Catcher : PauseableObject

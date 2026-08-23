@@ -1,9 +1,9 @@
 ﻿#if UNITY_EDITOR
-using Assets.Sources.Utils;
+using Utils;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Sources.Table
+namespace Table
 {
     [ExecuteInEditMode]
     public class TemplateFrameGenerator : MonoBehaviour

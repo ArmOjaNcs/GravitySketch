@@ -1,10 +1,11 @@
-using Assets.Sources.Pause;
-using Assets.Sources.Utils;
 using DG.Tweening;
+using Pause;
 using TMPro;
+using UI.PauseableRoutineUI;
+using Utils;
 using UnityEngine;
 
-namespace Assets.Sources.UI
+namespace UI
 {
     public class PopUpText : PauseableAnimation
     {

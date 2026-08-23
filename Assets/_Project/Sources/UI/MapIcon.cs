@@ -1,8 +1,8 @@
-using Assets.Sources.PlayerScripts;
+using PlayerScripts;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Sources.UI
+namespace UI
 {
     public class MapIcon : MonoBehaviour
     {

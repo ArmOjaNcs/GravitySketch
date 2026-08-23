@@ -1,9 +1,9 @@
 using System;
-using Assets.Sources.Audio;
-using Assets.Sources.Pause;
+using Audio;
+using Pause;
 using UnityEngine;
 
-namespace Assets.Sources.PlayerScripts
+namespace PlayerScripts
 {
     public class Grower : PauseableRoutine
     {
@@ -17,9 +17,7 @@ namespace Assets.Sources.PlayerScripts
         private Vector3 _targetScale;
 
         public event Action<float> SizeChanged;
-
         public event Action ScaleChanged;
-
         public event Action StartGrow;
 
         public float SizeDelta => _sizeDelta.x;

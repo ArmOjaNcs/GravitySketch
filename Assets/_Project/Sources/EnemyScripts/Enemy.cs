@@ -1,11 +1,13 @@
 using System;
-using Assets.Sources.Dissolvable;
-using Assets.Sources.Pause;
-using Assets.Sources.Utils;
+using Dissolvable;
+using EnemyScripts.Configs;
+using EnemyScripts.EnemyZones;
+using Pause;
+using Utils;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Sources.EnemyScripts
+namespace EnemyScripts
 {
     [RequireComponent(typeof(BoxCollider))]
     public class Enemy : DissolvableObject
@@ -21,21 +23,14 @@ namespace Assets.Sources.EnemyScripts
         [SerializeField] private PauseableObject[] _pauseableObjects;
 
         public event Action<bool> Detected;
-
         public event Action Downed;
-
         public event Action<Enemy> Dissolved;
 
         public GameObject AttackZone => _attackZone;
-
         public EnemyRetreatZone RetreatZone => _retreatZone;
-
         public Transform FirePoint => _firePoint;
-
         public EnemyMover Mover => _mover;
-
         public string Name { get; private set; }
-
         public bool IsDowned { get; private set; }
 
         public override void Init(PauseHandler pauseHandler)

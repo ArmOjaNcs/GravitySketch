@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Sources.Level;
-using Assets.Sources.Utils;
+using Level;
+using Level.StageScripts;
+using Utils;
 using UnityEngine;
 
-namespace Assets.Sources.Save
+namespace Save
 {
     [Serializable]
     public class PlayerProgress

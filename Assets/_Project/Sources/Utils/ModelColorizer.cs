@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Sources.Utils
+namespace Utils
 {
     public class ModelColorizer : MonoBehaviour
     {

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Assets.Sources.Pause;
-using Assets.Sources.Utils;
+using Pause;
+using Utils;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace Assets.Sources.Audio
+namespace Audio
 {
     public class AudioPlayerSpawner : MonoBehaviour
     {

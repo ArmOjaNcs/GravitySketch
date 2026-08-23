@@ -1,11 +1,13 @@
 using System;
-using Assets.Sources.Level;
-using Assets.Sources.Pause;
-using Assets.Sources.Table;
-using Assets.Sources.UI;
+using Level;
+using Level.StageScripts;
+using Pause;
+using Table;
+using UI.ColorizerUI;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Sources.ColorizerScripts
+namespace ColorizerScripts
 {
     public class ColoringPositionHandler : PauseableObject
     {

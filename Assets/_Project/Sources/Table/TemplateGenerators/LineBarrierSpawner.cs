@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Sources.Table
+namespace Table
 {
     public class LineBarrierSpawner : MonoBehaviour
     {

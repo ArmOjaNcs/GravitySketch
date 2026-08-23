@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Sources.Pause
+namespace Pause
 {
     public abstract class PauseableObject : MonoBehaviour, IPauseable
     {

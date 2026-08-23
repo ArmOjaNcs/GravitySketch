@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Sources.SimpleCubeScripts
+namespace SimpleCubeScripts
 {
     public class SpawnArea : MonoBehaviour
     {

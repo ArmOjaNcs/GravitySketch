@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Sources.EnemyScripts
+namespace EnemyScripts
 {
     public class FansAnimator : MonoBehaviour
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Assets.Sources.Pause
+namespace Pause
 {
     public class PauseableRoutine : PauseableObject
     {

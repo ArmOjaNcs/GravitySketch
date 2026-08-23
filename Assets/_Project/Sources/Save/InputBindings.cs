@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Sources.Save
+namespace Save
 {
     [Serializable]
     public class InputBindings

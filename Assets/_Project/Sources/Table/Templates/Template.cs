@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Sources.Dissolvable;
-using Assets.Sources.Pause;
-using Assets.Sources.Utils;
+using Dissolvable;
+using Pause;
+using Utils;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Assets.Sources.Table
+namespace Table
 {
     public class Template : MonoBehaviour
     {

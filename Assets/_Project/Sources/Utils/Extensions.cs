@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Assets.Sources.Utils
+namespace Utils
 {
     public static class Extensions
     {

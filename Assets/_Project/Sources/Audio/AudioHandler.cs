@@ -1,8 +1,8 @@
-using Assets.Sources.Save;
+using Save;
 using UnityEngine;
-using AudioSettings = Assets.Sources.Save.AudioSettings;
+using AudioSettings = Save.AudioSettings;
 
-namespace Assets.Sources.Audio
+namespace Audio
 {
     public class AudioHandler : MonoBehaviour
     {

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Sources.Pause
+namespace Pause
 {
     public class PauseInput : MonoBehaviour
     {

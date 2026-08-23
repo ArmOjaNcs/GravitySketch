@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Assets.Sources.SimpleCubeScripts;
+using SimpleCubeScripts;
 using UnityEngine;
 
-namespace Assets.Sources.PlayerScripts
+namespace PlayerScripts
 {
     [Serializable]
     public class CubesHolder

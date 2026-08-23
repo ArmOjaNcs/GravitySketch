@@ -1,8 +1,8 @@
 using System;
-using Assets.Sources.Pause;
+using Pause;
 using UnityEngine;
 
-namespace Assets.Sources.Audio
+namespace Audio
 {
     [RequireComponent(typeof(AudioSource))]
     public class AudioPlayer : PauseableObject

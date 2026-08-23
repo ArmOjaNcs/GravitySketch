@@ -1,4 +1,4 @@
-namespace Assets.Sources.Table
+namespace Table
 {
     public enum CubeType
     {

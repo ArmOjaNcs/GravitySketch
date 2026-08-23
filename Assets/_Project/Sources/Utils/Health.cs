@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets.Sources.Utils
+namespace Utils
 {
     public class Health : MonoBehaviour
     {
@@ -12,7 +12,6 @@ namespace Assets.Sources.Utils
         public event Action Updated;
 
         public float MaxValue => _maxValue;
-
         public float CurrentValue { get; private set; }
 
         public void Initialize(float maxValue)

@@ -1,11 +1,12 @@
 using System.Collections;
-using Assets.Sources.Level;
-using Assets.Sources.Utils;
+using Level;
+using Level.StageScripts;
+using Utils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Assets.Sources.UI
+namespace UI
 {
     public class LoadWindow : LevelScore
     {

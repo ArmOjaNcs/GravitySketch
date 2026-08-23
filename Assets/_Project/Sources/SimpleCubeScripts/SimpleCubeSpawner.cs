@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Assets.Sources.Audio;
-using Assets.Sources.Pause;
-using Assets.Sources.Table;
+using Audio;
+using Pause;
+using Table;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Assets.Sources.SimpleCubeScripts
+namespace SimpleCubeScripts
 {
     public class SimpleCubeSpawner : MonoBehaviour
     {

@@ -1,7 +1,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace Assets.Sources.Utils
+namespace Utils
 {
     public class LevelScreenshot : MonoBehaviour
     {

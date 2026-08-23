@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Sources.Pause
+namespace Pause
 {
     public class PauseHandler
     {

@@ -1,7 +1,7 @@
-using Assets.Sources.Dissolvable;
+using Dissolvable;
 using UnityEngine;
 
-namespace Assets.Sources.Level
+namespace Level
 {
     public class ToyCubeHolder : MonoBehaviour
     {

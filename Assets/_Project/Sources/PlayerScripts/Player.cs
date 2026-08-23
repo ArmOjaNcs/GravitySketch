@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Sources.Audio;
-using Assets.Sources.Pause;
-using Assets.Sources.Utils;
+using Audio;
+using Pause;
+using PlayerScripts.Ability;
+using Utils;
 using UnityEngine;
 
-namespace Assets.Sources.PlayerScripts
+namespace PlayerScripts
 {
     [RequireComponent(typeof(SphereCollider))]
     public class Player : MonoBehaviour

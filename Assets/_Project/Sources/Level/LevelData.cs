@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets.Sources.Level
+namespace Level
 {
     [Serializable]
     public class LevelData
@@ -15,7 +15,6 @@ namespace Assets.Sources.Level
         }
 
         public string Name => _name;
-
         public int Score => _score;
 
         public void UpdateScore(int score)

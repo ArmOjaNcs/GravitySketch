@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Sources.Table
+namespace Table
 {
     [RequireComponent(typeof(BoxCollider), typeof(MeshRenderer))]
     public class TemplateCube : MonoBehaviour, IReadonlyTemplateCube
@@ -11,15 +11,10 @@ namespace Assets.Sources.Table
         private MaterialPropertyBlock _mpb;
 
         public bool IsMarked { get; private set; }
-
         public bool IsColored => _isColored;
-
         public CubeType Type { get; private set; }
-
         public int Index { get; private set; }
-
         public Vector3 Position => (_transform != null) ? _transform.position : transform.position;
-
         public Color Color { get; private set; }
 
         public void Init(CubeType type, int index)

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets.Sources.PlayerScripts
+namespace PlayerScripts
 {
     public class GrowHandler : MonoBehaviour
     {
@@ -15,11 +15,8 @@ namespace Assets.Sources.PlayerScripts
         public event Action Growing;
 
         public int CurrentSize => _currentSize;
-
         public int CubesOnNextGrow => _cubesOnNextGrow;
-
         public int GrowDelta => _growDelta;
-
         public bool IsCanGrow => _currentSize < _maxSize;
 
         private void OnEnable()

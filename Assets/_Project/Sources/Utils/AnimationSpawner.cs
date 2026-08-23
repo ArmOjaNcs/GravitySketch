@@ -1,35 +1,11 @@
 using DG.Tweening;
 using UnityEngine;
 
-namespace Assets.Sources.Utils
+namespace Utils
 {
     public static class AnimationSpawner
     {
         private const float BaseAnimationLength = 2;
-
-        private static readonly Vector3[] _rotations =
-        {
-            new Vector3(UserUtils.MaxRotation, 0, 0),
-            new Vector3(0, UserUtils.MaxRotation, 0),
-            new Vector3(0, 0, UserUtils.MaxRotation),
-        };
-
-        public static Sequence GetIdleAnimation(Transform transform)
-        {
-            Vector3 startPosition = transform.position;
-            Quaternion startRotation = transform.rotation;
-
-            Sequence sequence = DOTween.Sequence()
-                .Append(transform.DORotate(GetRandomRotation(), BaseAnimationLength, RotateMode.FastBeyond360))
-                .Join(transform.DOMoveY(startPosition.y + 0.5f, BaseAnimationLength / UserUtils.Two))
-                .Insert(1, transform.DOMoveY(startPosition.y, BaseAnimationLength / UserUtils.Two))
-                .SetLoops(-1)
-                .SetEase(Ease.Linear)
-                .SetAutoKill(false)
-                .Pause();
-
-            return sequence;
-        }
 
         public static Sequence GetMoveScaleAnimation(
             RectTransform transform, Vector2 offset, float scaleMul = 0.75f, float duration = 0.75f)
@@ -155,18 +131,6 @@ namespace Assets.Sources.Utils
             return sequence;
         }
 
-        public static Tween GetLoadAnimation(RectTransform transform, float duration = 0)
-        {
-            if (duration <= 0)
-                duration = BaseAnimationLength;
-
-            return transform.DORotate(new Vector3(0, 0, 360), duration, RotateMode.FastBeyond360)
-                .SetAutoKill(false)
-                .SetLoops(-1)
-                .SetEase(Ease.Linear)
-                .SetLink(transform.gameObject);
-        }
-
         public static Sequence GetOptionsShowAnimation(RectTransform transform, CanvasGroup canvasGroup, float duration)
         {
             float startScaleX = transform.localScale.x;
@@ -231,13 +195,6 @@ namespace Assets.Sources.Utils
             sequence.Pause();
 
             return sequence;
-        }
-
-        private static Vector3 GetRandomRotation()
-        {
-            int rotationsIndex = Random.Range(0, _rotations.Length);
-
-            return _rotations[rotationsIndex];
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace Assets.Sources.Pause
+namespace Pause
 {
     public interface IPauseable
     {

@@ -1,7 +1,7 @@
-using Assets.Sources.Pause;
 using DG.Tweening;
+using Pause;
 
-namespace Assets.Sources.UI
+namespace UI
 {
     public abstract class PauseableAnimation : PauseableObject
     {

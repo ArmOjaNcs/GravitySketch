@@ -1,13 +1,13 @@
 using System;
-using Assets.Sources.AnomalyScpipts;
-using Assets.Sources.Dissolvable;
-using Assets.Sources.EnemyScripts;
-using Assets.Sources.Level;
-using Assets.Sources.SimpleCubeScripts;
-using Assets.Sources.Utils;
+using Dissolvable;
+using AnomalyScripts;
+using EnemyScripts;
+using Level;
+using SimpleCubeScripts;
+using Utils;
 using UnityEngine;
 
-namespace Assets.Sources.PlayerScripts
+namespace PlayerScripts
 {
     [RequireComponent(typeof(BoxCollider))]
     public class TakeOverLimit : MonoBehaviour
@@ -15,17 +15,11 @@ namespace Assets.Sources.PlayerScripts
         [SerializeField] private Transform _hole;
 
         public event Action<SimpleCube> CubeAbsorbed;
-
         public event Action<int> Rewarded;
-
         public event Action EnemyDissolved;
-
         public event Action BarrierDissolved;
-
         public event Action<int> ObstacleDissolved;
-
         public event Action AnomalyDissolved;
-
         public event Action<float> MedAidAbsorbed;
 
         public int EnemiesDissolvedCount { get; private set; }

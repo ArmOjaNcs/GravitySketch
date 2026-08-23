@@ -1,16 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Sources.Save;
-using Assets.Sources.UI;
-using Assets.Sources.Utils;
+using Save;
+using UI;
+using UI.VerticalScrollContentScripts;
+using Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Enum = System.Enum;
 
-namespace Assets.Sources.Level
+namespace Level
 {
     public class InputSettingsMenu : MonoBehaviour, IDisposable
     {

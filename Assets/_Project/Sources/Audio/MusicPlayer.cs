@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using Assets.Sources.PlayerScripts;
+using PlayerScripts;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Sources.Audio
+namespace Audio
 {
     public class MusicPlayer : MonoBehaviour
     {

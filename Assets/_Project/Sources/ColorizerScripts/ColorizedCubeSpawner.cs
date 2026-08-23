@@ -1,11 +1,11 @@
 using System;
-using Assets.Sources.Pause;
-using Assets.Sources.Table;
-using Assets.Sources.Utils;
+using Pause;
+using Table;
+using Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Assets.Sources.ColorizerScripts
+namespace ColorizerScripts
 {
     public class ColorizedCubeSpawner : PauseableObject
     {

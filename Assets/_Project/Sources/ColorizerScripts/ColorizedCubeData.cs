@@ -1,7 +1,7 @@
-using Assets.Sources.Table;
+using Table;
 using UnityEngine;
 
-namespace Assets.Sources.ColorizerScripts
+namespace ColorizerScripts
 {
     public struct ColorizedCubeData
     {

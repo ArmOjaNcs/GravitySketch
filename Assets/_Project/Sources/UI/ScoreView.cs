@@ -1,9 +1,10 @@
-using Assets.Sources.ColorizerScripts;
-using Assets.Sources.Level;
-using Assets.Sources.Pause;
+using ColorizerScripts;
+using Level;
+using Pause;
+using UI.PauseableRoutineUI;
 using UnityEngine;
 
-namespace Assets.Sources.UI
+namespace UI
 {
     public class ScoreView : SmoothedText
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Assets.Sources.Utils
+namespace Utils
 {
     public class Focus : MonoBehaviour
     {

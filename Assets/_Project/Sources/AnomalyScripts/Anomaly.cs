@@ -1,11 +1,10 @@
-using Assets.Sources.Dissolvable;
-using Assets.Sources.EnemyScripts;
-using Assets.Sources.Pause;
-using Assets.Sources.PlayerScripts;
-using Assets.Sources.Utils;
+using Dissolvable;
+using Pause;
+using PlayerScripts;
+using Utils;
 using UnityEngine;
 
-namespace Assets.Sources.AnomalyScpipts
+namespace AnomalyScripts
 {
     [RequireComponent(typeof(SphereCollider))]
     public class Anomaly : DissolvableObstacle

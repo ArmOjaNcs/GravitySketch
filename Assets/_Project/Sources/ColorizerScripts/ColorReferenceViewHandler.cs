@@ -1,10 +1,10 @@
 using System;
-using Assets.Sources.Pause;
+using Pause;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Sources.ColorizerScripts
+namespace ColorizerScripts
 {
     public class ColorReferenceViewHandler : PauseableRoutine
     {

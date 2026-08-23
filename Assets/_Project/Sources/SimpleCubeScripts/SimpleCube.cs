@@ -1,9 +1,9 @@
-using Assets.Sources.Dissolvable;
-using Assets.Sources.Pause;
+using Dissolvable;
+using Pause;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 
-namespace Assets.Sources.SimpleCubeScripts
+namespace SimpleCubeScripts
 {
     [RequireComponent(typeof(BoxCollider))]
     [RequireComponent(typeof(Rigidbody))]

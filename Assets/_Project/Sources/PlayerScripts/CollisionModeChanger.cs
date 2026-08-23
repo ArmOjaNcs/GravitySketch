@@ -1,7 +1,7 @@
-using Assets.Sources.Dissolvable;
+using Dissolvable;
 using UnityEngine;
 
-namespace Assets.Sources.PlayerScripts
+namespace PlayerScripts
 {
     [RequireComponent(typeof(BoxCollider))]
     public class CollisionModeChanger : MonoBehaviour

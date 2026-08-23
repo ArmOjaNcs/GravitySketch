@@ -1,9 +1,9 @@
 using System;
-using Assets.Sources.Dissolvable;
-using Assets.Sources.Utils;
+using Dissolvable;
+using Utils;
 using UnityEngine;
 
-namespace Assets.Sources.Level
+namespace Level
 {
     public class LevelExit : DissolvableObstacle
     {

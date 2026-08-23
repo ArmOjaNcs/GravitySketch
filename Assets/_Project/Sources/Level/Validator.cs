@@ -1,10 +1,11 @@
 using System;
-using Assets.Sources.ColorizerScripts;
-using Assets.Sources.Pause;
-using Assets.Sources.Utils;
+using ColorizerScripts;
+using Level.StageScripts;
+using Pause;
+using Utils;
 using UnityEngine;
 
-namespace Assets.Sources.Level
+namespace Level
 {
     public class Validator : PauseableRoutine
     {

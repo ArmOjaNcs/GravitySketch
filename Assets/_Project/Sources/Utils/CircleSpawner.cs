@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Sources.Utils
+namespace Utils
 {
     [ExecuteInEditMode]
     public class CircleSpawner : MonoBehaviour

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Sources.ColorizerScripts
+namespace ColorizerScripts
 {
     public class ColorData : MonoBehaviour
     {
@@ -12,15 +12,11 @@ namespace Assets.Sources.ColorizerScripts
         private int _count;
 
         public event Action<ColorData> Selected;
-
         public event Action Deselected;
-
         public event Action CountChanged;
-
         public event Action Initialized;
 
         public Color Color => _color;
-
         public int Count => _count;
 
         private void OnEnable()

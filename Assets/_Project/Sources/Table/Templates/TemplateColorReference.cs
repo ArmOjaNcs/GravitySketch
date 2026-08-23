@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Assets.Sources.Table
+namespace Table
 {
     [CreateAssetMenu(fileName = "TemplateColorReference", menuName = "ScriptableObjects/TemplateColorReference")]
     public class TemplateColorReference : ScriptableObject

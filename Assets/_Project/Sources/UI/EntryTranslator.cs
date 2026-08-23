@@ -1,8 +1,8 @@
-using Assets.Sources.Utils;
 using TMPro;
+using Utils;
 using UnityEngine;
 
-namespace Assets.Sources.UI
+namespace UI
 {
     public class EntryTranslator : MonoBehaviour
     {

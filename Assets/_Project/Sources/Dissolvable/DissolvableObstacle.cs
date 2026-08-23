@@ -1,7 +1,7 @@
-using Assets.Sources.Utils;
+using Utils;
 using UnityEngine;
 
-namespace Assets.Sources.Dissolvable
+namespace Dissolvable
 {
     public class DissolvableObstacle : DissolvableObject
     {

@@ -1,9 +1,10 @@
-﻿using Assets.Sources.Pause;
-using Assets.Sources.Utils;
+﻿using Pause;
+using Utils;
 using UnityEngine;
 using UnityEngine.AI;
+using EnemyScripts.EnemyZones;
 
-namespace Assets.Sources.EnemyScripts
+namespace EnemyScripts
 {
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyMover : PauseableObject
@@ -40,11 +41,9 @@ namespace Assets.Sources.EnemyScripts
         private bool _isPlayerInZone;
 
         public bool IsBoss { get; private set; }
-
         public EnemyPatrolZone PatrolZone { get; private set; }
 
         private Vector3 Forward => _transform.forward;
-
         private Vector3 Right => _transform.right;
 
         private void Update()

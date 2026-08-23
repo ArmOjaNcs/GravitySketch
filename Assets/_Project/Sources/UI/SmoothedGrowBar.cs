@@ -1,10 +1,12 @@
 using System.Collections;
-using Assets.Sources.Pause;
-using Assets.Sources.PlayerScripts;
-using Assets.Sources.Utils;
+using Pause;
+using PlayerScripts;
+using UI.GrowerUI;
+using UI.PauseableRoutineUI;
+using Utils;
 using UnityEngine;
 
-namespace Assets.Sources.UI
+namespace UI
 {
     public class SmoothedGrowBar : SmoothedImage
     {

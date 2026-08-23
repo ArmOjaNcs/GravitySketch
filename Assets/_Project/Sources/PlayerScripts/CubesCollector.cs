@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Sources.SimpleCubeScripts;
+using SimpleCubeScripts;
 using UnityEngine;
 
-namespace Assets.Sources.PlayerScripts
+namespace PlayerScripts
 {
     public class CubesCollector : MonoBehaviour
     {

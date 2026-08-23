@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Sources.ColorizerScripts
+namespace ColorizerScripts
 {
     [RequireComponent(typeof(BoxCollider))]
     public class SpawnZone : MonoBehaviour
