@@ -91,8 +91,8 @@ namespace PlayerScripts.Ability
 
         public void UpgradeDefend()
         {
-            if (_defence < 75)
-                _defence += UserUtils.Unit;
+            if (_defence < UserUtils.MaxDefence)
+                _defence += UserUtils.DefenceOnUpgrade;
         }
 
         private void OnDefended()

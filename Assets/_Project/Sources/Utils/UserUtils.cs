@@ -69,16 +69,41 @@ namespace Utils
         public const string MixerGroupInterface = nameof(MixerGroupInterface);
 
         public const float MinVelocity = 0.1f;
+        public const float TwoDimensionalSound = 0;
+        public const float UserInterfaceVolume = 0.5f;
         public const float ShowTime = 0.1f;
         public const float CalculateTime = 2f;
         public const float PlayerStartHealth = 100;
         public const float PlayerHealthByGrow = 5;
-        public const float Unit = 1;
-        public const float Two = 2;
-        public const float Three = 3;
-        public const float HalfOfUnit = 0.5f;
-        public const float QuarterOfUnit = 0.25f;
-        public const float ThirdOfUnit = 0.33f;
+        public const float PlayerColliderRadius = 0.65f;
+        public const float PlayerColliderDiameter = 1.3f;
+        public const float PaintStageWaitTime = 1f;
+        public const float ThreeDimensionalSound = 1f;
+        public const float GameplaySoundVolume = 0.7f;
+        public const float BoostMultiplier = 1.5f;
+        public const float MaxAlpha = 1;
+        public const float HalfAlpha = 1;
+        public const float MinRadius = 1;
+        public const float RetreatBombSizeRatio = 0.5f;
+        public const float FramePivotOffset = 0.5f;
+        public const float AimCrossSizeRatio = 0.5f;
+        public const float AimCrossDefaultScale = 0.33f;
+        public const float BoostAheadDistance = 0.5f;
+        public const float MinDissolveAnimationTime = 1.5f;
+        public const float MedAidHealPower = 50f;
+        public const float MinHealPower = 1f;
+        public const float AudioSettingsDefaultValue = 1f;
+        public const float MaxFilledImageValue = 1f;
+        public const float DelayBeforeRefresh = 3f;
+        public const float MoverUpgradeReducedCoefficient = 0.33f;
+        public const float MaxDefence = 75f;
+        public const float DefenceOnUpgrade = 1f;
+        public const float UpgraderAnimationDuration = 2f;
+        public const float SliderUpdateDuration = 1f;
+        public const float TemplateDissolveAnimationTime = 1.5f;
+        public const float FadeDuration = 0.5f;
+        public const float PivotCentre = 0.5f;
+        public const float DefaultStartValue = 1f;
         public const float TimeForShow = 5f;
         public const float MinPercentToComplete = 0.8f;
         public const float ExitTime = 3;
@@ -86,7 +111,9 @@ namespace Utils
         public const float LoadTime = 2f;
         public const float DamageRate = 0.5f;
         public const float GrowDuration = 1f;
+        public const float GrowEffectDuration = 2f;
         public const float ActiveDuration = 2f;
+        public const float MinFadeDuration = 0.25f;
 
         public const char PlusSign = '+';
         public const char DefaultChar = '\0';
@@ -136,6 +163,8 @@ namespace Utils
             { Shuttle, ShuttlePaint },
             { Planet, PlanetPaint },
         };
+
+        public static int FrameStartOffset { get; internal set; }
 
         public static bool IsBlack(Color color)
         {
@@ -249,19 +278,18 @@ namespace Utils
         public static Vector3 GetCorrectScale(Vector3 defaultScale, Vector3 targetLossyScale)
         {
             Vector3 correctedScale = new Vector3(
-               defaultScale.x / Unit * targetLossyScale.x,
-               defaultScale.y / Unit * targetLossyScale.y,
-               defaultScale.z / Unit * targetLossyScale.z);
+               defaultScale.x * targetLossyScale.x,
+               defaultScale.y * targetLossyScale.y,
+               defaultScale.z * targetLossyScale.z);
 
-            correctedScale *= 1.3f;
+            correctedScale *= PlayerColliderDiameter;
 
             return correctedScale;
         }
 
         public static float GetCorrectRadius(float radius)
         {
-            radius *= 1.3f;
-            radius /= Two;
+            radius *= PlayerColliderRadius;
             return radius;
         }
 

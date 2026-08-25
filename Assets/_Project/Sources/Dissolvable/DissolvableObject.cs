@@ -1,8 +1,8 @@
 using System;
 using Audio;
+using DG.Tweening;
 using Pause;
 using Utils;
-using DG.Tweening;
 using UnityEngine;
 
 namespace Dissolvable
@@ -65,22 +65,23 @@ namespace Dissolvable
                 return;
             }
 
-            if (_collisionSound != null && _isDropped)
-            {
-                _totalCollisionsCount++;
+            if (_collisionSound == null)
+                return;
 
-                if (_previousCollisionsCount >= _totalCollisionsCount)
-                {
-                    _previousCollisionsCount = _totalCollisionsCount;
-                    return;
-                }
-                else
-                {
-                    _previousCollisionsCount = _totalCollisionsCount;
-                    _audioPlayerSpawner.GetAudioPlayer(_transform.position)?
-                                       .SetAudioClip(_collisionSound)?.Play();
-                }
+            if (_isDropped == false)
+                return;
+
+            _totalCollisionsCount++;
+
+            if (_previousCollisionsCount >= _totalCollisionsCount)
+            {
+                _previousCollisionsCount = _totalCollisionsCount;
+                return;
             }
+
+            _previousCollisionsCount = _totalCollisionsCount;
+            _audioPlayerSpawner.GetAudioPlayerOnPosition(_transform.position)?
+                               .SetAudioClip(_collisionSound)?.Play();
         }
 
         private protected virtual void OnCollisionExit(Collision collision)
@@ -112,14 +113,20 @@ namespace Dissolvable
                 _wasPlayingBeforePause = true;
             }
 
-            if (_rigidbody != null && _isDropped && IsDissolving == false)
-            {
-                _currentVelocity = _rigidbody.velocity;
-                _currentAngularVelocity = _rigidbody.angularVelocity;
-                _rigidbody.velocity = Vector3.zero;
-                _rigidbody.angularVelocity = Vector3.zero;
-                _rigidbody.isKinematic = true;
-            }
+            if (_rigidbody == null)
+                return;
+
+            if (!_isDropped)
+                return;
+
+            if (IsDissolving)
+                return;
+
+            _currentVelocity = _rigidbody.velocity;
+            _currentAngularVelocity = _rigidbody.angularVelocity;
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
+            _rigidbody.isKinematic = true;
         }
 
         public override void Resume()
@@ -132,12 +139,18 @@ namespace Dissolvable
                 _wasPlayingBeforePause = false;
             }
 
-            if (_rigidbody != null && _isDropped && IsDissolving == false)
-            {
-                _rigidbody.isKinematic = false;
-                _rigidbody.velocity = _currentVelocity;
-                _rigidbody.angularVelocity = _currentAngularVelocity;
-            }
+            if (_rigidbody == null)
+                return;
+
+            if (!_isDropped)
+                return;
+
+            if (IsDissolving)
+                return;
+
+            _rigidbody.isKinematic = false;
+            _rigidbody.velocity = _currentVelocity;
+            _rigidbody.angularVelocity = _currentAngularVelocity;
         }
 
         public void SetSize(int size)
@@ -177,7 +190,7 @@ namespace Dissolvable
             IsDissolving = true;
 
             if (Mathf.Approximately(_dissolveAnimationTime, 0))
-                _dissolveAnimationTime = UserUtils.Unit + UserUtils.HalfOfUnit;
+                _dissolveAnimationTime = UserUtils.MinDissolveAnimationTime;
 
             DissolveAnimation = AnimationSpawner.GetDissolveAnimation(transform, _dissolveAnimationTime);
             _hole = hole;

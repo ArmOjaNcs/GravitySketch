@@ -39,7 +39,7 @@ namespace UI.Stats
         {
             _valueText.text = _cubesCollector.CubesCount.ToString();
             float target = _maxValue > 0 ? (float)_cubesCollector.CubesCount / _maxValue : 0f;
-            _slider.UpdateValue(UserUtils.Unit, target);
+            _slider.UpdateValue(UserUtils.SliderUpdateDuration, target);
         }
 
         private void OnCubesSpawned()

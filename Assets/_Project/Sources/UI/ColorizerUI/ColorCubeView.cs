@@ -53,8 +53,8 @@ namespace UI.ColorizerUI
             _count.text = _colorData.Count.ToString();
         }
 
-        private void OnColorDataSelected(ColorData _) => _frameFade.FadeIn(UserUtils.HalfOfUnit, UserUtils.Unit);
+        private void OnColorDataSelected(ColorData _) => _frameFade.FadeIn(UserUtils.FadeDuration, UserUtils.MaxAlpha);
 
-        private void OnColorDataDeselected() => _frameFade.FadeOut(UserUtils.HalfOfUnit);
+        private void OnColorDataDeselected() => _frameFade.FadeOut(UserUtils.FadeDuration);
     }
 }

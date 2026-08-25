@@ -264,16 +264,16 @@ namespace Level.StageScripts
             _finalScore.SetText("{0}", finalScore);
             SaveSystem.SavePlayerProgress(Progress);
 
-            yield return new WaitForSeconds(UserUtils.Unit);
+            yield return new WaitForSeconds(UserUtils.PaintStageWaitTime);
 
             AudioPlayerSpawner.GetAudioPlayer()?.SetUI()?.SetAudioClip(FinalSound)?.Play();
             _template.DropDown(PauseHandler);
             _interfacesFade[0].Updated += OnInterfaceClosed;
 
             foreach (SmoothedFade fade in _interfacesFade)
-                fade.FadeOut(UserUtils.HalfOfUnit);
+                fade.FadeOut(UserUtils.FadeDuration);
 
-            yield return new WaitForSeconds(UserUtils.Unit);
+            yield return new WaitForSeconds(UserUtils.PaintStageWaitTime);
 
             _hole.SetStarted();
         }

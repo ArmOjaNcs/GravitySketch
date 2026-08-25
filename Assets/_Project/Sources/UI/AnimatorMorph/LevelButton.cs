@@ -45,8 +45,8 @@ namespace UI.AnimatorMorph
 
         private protected override void InitAnimations()
         {
-            ShowAnimation = AnimationSpawner.GetFadeAnimation(CanvasGroup, 0, UserUtils.Unit, 0.5f);
-            HideAnimation = AnimationSpawner.GetFadeAnimation(CanvasGroup, UserUtils.Unit, 0, 0.5f);
+            ShowAnimation = AnimationSpawner.GetFadeAnimation(CanvasGroup, 0, UserUtils.DefaultStartValue, UserUtils.FadeDuration);
+            HideAnimation = AnimationSpawner.GetFadeAnimation(CanvasGroup, UserUtils.DefaultStartValue, 0, UserUtils.FadeDuration);
         }
 
         private void OnClick() => Chosen?.Invoke(this);

@@ -34,7 +34,7 @@ namespace Audio
             _pauseHandler = pauseHandler;
         }
 
-        public AudioPlayer GetAudioPlayer(Vector3 position)
+        public AudioPlayer GetAudioPlayerOnPosition(Vector3 position)
         {
             if (_pauseHandler == null)
                 return null;
@@ -46,10 +46,10 @@ namespace Audio
 
             AudioPlayer audioPlayer = _pool.GetElement();
             Initialize(audioPlayer);
-            audioPlayer.AudioSource.spatialBlend = 1;
+            audioPlayer.AudioSource.spatialBlend = UserUtils.ThreeDimensionalSound;
             audioPlayer.SetPosition(position);
             audioPlayer.AudioSource.outputAudioMixerGroup = _soundGroup;
-            audioPlayer.AudioSource.volume = 0.7f;
+            audioPlayer.AudioSource.volume = UserUtils.GameplaySoundVolume;
             _active3DSources.Add(audioPlayer.AudioSource);
 
             return audioPlayer;
@@ -67,9 +67,9 @@ namespace Audio
 
             AudioPlayer audioPlayer = _pool.GetElement();
             Initialize(audioPlayer);
-            audioPlayer.AudioSource.spatialBlend = 0;
+            audioPlayer.AudioSource.spatialBlend = UserUtils.TwoDimensionalSound;
             audioPlayer.AudioSource.outputAudioMixerGroup = _interfaceGroup;
-            audioPlayer.AudioSource.volume = 0.5f;
+            audioPlayer.AudioSource.volume = UserUtils.UserInterfaceVolume;
             audioPlayer.SetUI();
             _activeUISources.Add(audioPlayer.AudioSource);
 

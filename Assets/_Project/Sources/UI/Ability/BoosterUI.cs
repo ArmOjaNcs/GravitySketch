@@ -34,7 +34,7 @@ namespace UI.Ability
         private void OnBoostApplied()
         {
             ReloadTimeImage.SetValue(0);
-            ActiveTimeImage.SetValue(UserUtils.Unit);
+            ActiveTimeImage.SetValue(UserUtils.MaxFilledImageValue);
 
             if (_booster.CurrentBoostCount == 0)
                 ActiveTimeImage.UpdateValue(_booster.BoostTime, 0);
@@ -43,12 +43,12 @@ namespace UI.Ability
         private void OnReloading()
         {
             ReloadTimeImage.SetValue(0);
-            ReloadTimeImage.UpdateValue(_booster.BoostReloadTime, UserUtils.Unit);
+            ReloadTimeImage.UpdateValue(_booster.BoostReloadTime, UserUtils.MaxFilledImageValue);
         }
 
         private void OnReloaded()
         {
-            ActiveTimeImage.SetValue(UserUtils.Unit);
+            ActiveTimeImage.SetValue(UserUtils.MaxFilledImageValue);
             Animation.Restart();
         }
     }

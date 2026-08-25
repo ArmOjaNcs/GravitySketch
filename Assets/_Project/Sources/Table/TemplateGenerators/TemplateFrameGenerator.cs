@@ -22,8 +22,8 @@ namespace Table
             GameObject gameObject = new GameObject("Template_Container");
             gameObject.transform.parent = transform;
 
-            float offsetX = (_pixelPositions.x / UserUtils.Two) - UserUtils.HalfOfUnit;
-            float offsetY = (_pixelPositions.y / UserUtils.Two) - UserUtils.HalfOfUnit;
+            float offsetX = (_pixelPositions.x * UserUtils.FramePivotOffset) - UserUtils.FramePivotOffset;
+            float offsetY = (_pixelPositions.y * UserUtils.FramePivotOffset) - UserUtils.FramePivotOffset;
 
             gameObject.transform.localPosition = new Vector3(offsetX, offsetY, 0);
 

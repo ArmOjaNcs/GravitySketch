@@ -1,6 +1,6 @@
 using System;
-using Utils;
 using DG.Tweening;
+using Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,10 +55,10 @@ namespace UI.AnimatorMorph
         private protected override void InitAnimations()
         {
             ShowAnimation = AnimationSpawner.GetMenuWindowAnimation(
-                RectTransform, CanvasGroup, 0, UserUtils.Unit, Duration);
+                RectTransform, CanvasGroup, 0, UserUtils.DefaultStartValue, Duration);
             ShowAnimation.OnComplete(OnOpened);
             HideAnimation = AnimationSpawner.GetMenuWindowAnimation(
-                RectTransform, CanvasGroup, UserUtils.Unit, 0, Duration);
+                RectTransform, CanvasGroup, UserUtils.DefaultStartValue, 0, Duration);
             HideAnimation.OnComplete(OnClosed);
         }
 
@@ -85,7 +85,7 @@ namespace UI.AnimatorMorph
             RectTransform.SetParent(parentRect, false);
             RectTransform.anchorMin = Vector2.zero;
             RectTransform.anchorMax = Vector2.one;
-            RectTransform.pivot = new Vector2(UserUtils.HalfOfUnit, UserUtils.HalfOfUnit);
+            RectTransform.pivot = new Vector2(UserUtils.PivotCentre, UserUtils.PivotCentre);
             RectTransform.offsetMin = Vector2.zero;
             RectTransform.offsetMax = Vector2.zero;
         }

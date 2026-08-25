@@ -17,6 +17,9 @@ namespace EnemyScripts
         [SerializeField] private EnemyRetreatZone _retreatZone;
         [SerializeField] private float _stuckSqrSpeedThreshold = 0.2f;
         [SerializeField] private float _stuckTimeThreshold = 2f;
+        [SerializeField] private float _minSqrtDistanceToTarget = 20;
+        [SerializeField] private float _rotationSpeed = 5;
+        [SerializeField] private float _retreatUpdateInterval = 0.2f;
 
         private float _stuckTimer;
         private Vector3 _lastPosition;
@@ -27,9 +30,7 @@ namespace EnemyScripts
         private NavMeshAgent _agent;
         private NavMeshPath _path;
         private Vector3 _currentVelocity;
-        private float _minSqrtDistanceToTarget = 20;
         private float _currentUpdateTime;
-        private float _rotationSpeed = 5;
         private float _angularSpeed;
         private float _retreatDistance;
         private bool _isPlayerTarget;
@@ -37,7 +38,6 @@ namespace EnemyScripts
         private bool _isRetreat;
         private bool _isActive;
         private float _retreatTimer;
-        private float _retreatUpdateInterval = 0.2f;
         private bool _isPlayerInZone;
 
         public bool IsBoss { get; private set; }

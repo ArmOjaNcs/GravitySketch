@@ -39,10 +39,7 @@ namespace UI.VerticalScrollContentScripts
         private void SetHandleHeight()
         {
             float viewHeight = _scrollRect.viewport.rect.height;
-            Debug.Log($"viewHeight = {viewHeight}");
             float contentHeight = _scrollRect.content.rect.height;
-            Debug.Log($"contentHeight = {contentHeight}");
-
             float ratio = Mathf.Clamp01(viewHeight / contentHeight);
             _handle.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, _indicatorArea.rect.height * ratio);
         }
@@ -71,7 +68,7 @@ namespace UI.VerticalScrollContentScripts
 
         private IEnumerator ShowRoutine()
         {
-            _fade.FadeIn(UserUtils.HalfOfUnit, UserUtils.HalfOfUnit);
+            _fade.FadeIn(UserUtils.FadeDuration, UserUtils.HalfAlpha);
 
             while (_timer < _showTime)
             {
@@ -84,7 +81,7 @@ namespace UI.VerticalScrollContentScripts
                 yield return null;
             }
 
-            _fade.FadeOut(UserUtils.HalfOfUnit);
+            _fade.FadeOut(UserUtils.FadeDuration);
             _timer = 0;
             _routine = null;
         }

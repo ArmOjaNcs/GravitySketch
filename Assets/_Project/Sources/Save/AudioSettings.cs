@@ -15,10 +15,10 @@ namespace Save
 
         public AudioSettings()
         {
-            _totalVolume = UserUtils.Unit;
-            _musicVolume = UserUtils.Unit;
-            _soundVolume = UserUtils.Unit;
-            _interfaceVolume = UserUtils.Unit;
+            _totalVolume = UserUtils.AudioSettingsDefaultValue;
+            _musicVolume = UserUtils.AudioSettingsDefaultValue;
+            _soundVolume = UserUtils.AudioSettingsDefaultValue;
+            _interfaceVolume = UserUtils.AudioSettingsDefaultValue;
             _toggleStatus = true;
         }
 

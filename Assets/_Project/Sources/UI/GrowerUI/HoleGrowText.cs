@@ -40,13 +40,13 @@ namespace UI.GrowerUI
 
         private protected override void OnRoutineStart()
         {
-            _smoothedFade.FadeIn(UserUtils.QuarterOfUnit, UserUtils.Unit);
+            _smoothedFade.FadeIn(UserUtils.MinFadeDuration, UserUtils.MaxAlpha);
             _audioPlayer.Play();
         }
 
         private protected override void OnRoutineEnd()
         {
-            _smoothedFade.FadeOut(UserUtils.HalfOfUnit);
+            _smoothedFade.FadeOut(UserUtils.FadeDuration);
             _audioPlayer.Stop();
         }
     }

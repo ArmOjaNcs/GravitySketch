@@ -121,13 +121,13 @@ namespace PlayerScripts
             if (isGrowing)
                 _moveSpeed += _moveSpeedOnUpgrade;
             else
-                _moveSpeed += _moveSpeedOnUpgrade / UserUtils.Three;
+                _moveSpeed += _moveSpeedOnUpgrade * UserUtils.MoverUpgradeReducedCoefficient;
         }
 
         private void OnBoostApplied()
         {
             _isBoosted = true;
-            _currentSpeed = _moveSpeed * 1.5f;
+            _currentSpeed = _moveSpeed * UserUtils.BoostMultiplier;
         }
 
         private void OnBoostDiscarded() => _isBoosted = false;

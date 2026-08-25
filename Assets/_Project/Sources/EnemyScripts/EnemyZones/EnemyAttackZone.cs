@@ -56,7 +56,7 @@ namespace EnemyScripts.EnemyZones
 
         public AudioPlayer GetAudioPlayer(Vector3 position)
         {
-            return _audioPlayerSpawner.GetAudioPlayer(position);
+            return _audioPlayerSpawner.GetAudioPlayerOnPosition(position);
         }
 
         private protected override void PlayerDetected()

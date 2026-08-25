@@ -39,7 +39,7 @@ namespace UI.Stats
         {
             _valueText.text = _takeOverLimit.EnemiesDissolvedCount.ToString();
             float target = _totalEnemies > 0 ? (float)_takeOverLimit.EnemiesDissolvedCount / _totalEnemies : 0f;
-            _slider.UpdateValue(UserUtils.Unit, target);
+            _slider.UpdateValue(UserUtils.SliderUpdateDuration, target);
         }
 
         private void OnEnemiesSpawned()

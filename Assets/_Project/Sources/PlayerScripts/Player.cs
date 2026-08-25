@@ -29,19 +29,13 @@ namespace PlayerScripts
         private bool _isTutorial;
 
         public event Action IsDead;
-
         public event Action IsRevived;
-
         public event Action Damaged;
 
         public Vector3 Position => _transform == null ? transform.position : _transform.position;
-
         public Vector3 Velocity => _rigidbody == null ? Vector3.zero : _rigidbody.velocity;
-
         public float Radius => _sphereCollider.radius * _transform.localScale.x;
-
         public float CurrentSize => _growHandler.CurrentSize;
-
         public bool Dead { get; private set; }
 
         private void Awake()
@@ -100,7 +94,7 @@ namespace PlayerScripts
             {
                 if (_isTutorial)
                 {
-                    _health.TakeHeal(_health.MaxValue / UserUtils.Two);
+                    _health.TakeHeal(UserUtils.MedAidHealPower);
                     return;
                 }
 
@@ -130,7 +124,7 @@ namespace PlayerScripts
             _health.TakeHeal(healPower);
         }
 
-        private void OnBarrierDissolved() => _health.TakeHeal(UserUtils.Unit);
+        private void OnBarrierDissolved() => _health.TakeHeal(UserUtils.MinHealPower);
 
         private void OnObstacleDissolved(int size)
         {
@@ -141,7 +135,7 @@ namespace PlayerScripts
 
         private IEnumerator DelayedEnemyZonesRefresh()
         {
-            yield return new WaitForSeconds(UserUtils.Three);
+            yield return new WaitForSeconds(UserUtils.DelayBeforeRefresh);
 
             Dead = false;
             IsRevived?.Invoke();

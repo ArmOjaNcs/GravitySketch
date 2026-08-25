@@ -43,13 +43,13 @@ namespace UI.Stats
         private void OnUpgraded()
         {
             _powerAnimation.SetText(_upgrader.Power.ToString());
-            _powerAnimation.Play(UserUtils.Two);
+            _powerAnimation.Play(UserUtils.UpgraderAnimationDuration);
 
             if (_previousSize < _upgrader.CurrentSize)
             {
                 _previousSize = _upgrader.CurrentSize;
                 _sizeAnimation.SetText(_upgrader.CurrentSize.ToString());
-                _sizeAnimation.Play(UserUtils.Two);
+                _sizeAnimation.Play(UserUtils.UpgraderAnimationDuration);
             }
         }
     }

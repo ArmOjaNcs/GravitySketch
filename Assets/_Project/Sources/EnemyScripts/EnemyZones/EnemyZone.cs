@@ -17,7 +17,7 @@ namespace EnemyScripts.EnemyZones
         public Player Player { get; protected set; }
         public bool PlayerIsDead { get; protected set; }
 
-        private void Awake()
+        private protected virtual void Awake()
         {
             Collider = GetComponent<SphereCollider>();
             Collider.isTrigger = true;

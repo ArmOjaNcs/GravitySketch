@@ -30,10 +30,10 @@ namespace UI.Ability
 
         private void OnDefendStart()
         {
-            ActiveTimeImage.SetValue(UserUtils.Unit);
+            ActiveTimeImage.SetValue(UserUtils.MaxFilledImageValue);
             ActiveTimeImage.UpdateValue(_shield.DefendTime, 0);
             ReloadTimeImage.SetValue(0);
-            _backgroundFade.FadeIn(0, UserUtils.Unit);
+            _backgroundFade.FadeIn(0, UserUtils.MaxFilledImageValue);
         }
 
         private void OnReloadingStart()
@@ -47,7 +47,7 @@ namespace UI.Ability
 
         private void OnReloadImageUpdated()
         {
-            ActiveTimeImage.SetValue(UserUtils.Unit);
+            ActiveTimeImage.SetValue(UserUtils.MaxFilledImageValue);
             Animation.Restart();
         }
     }

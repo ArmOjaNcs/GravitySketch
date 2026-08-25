@@ -65,7 +65,7 @@ namespace UI
         {
             yield return base.UpdateRoutine(duration);
             _isShowed = false;
-            _smoothedFade.FadeOut(UserUtils.HalfOfUnit);
+            _smoothedFade.FadeOut(UserUtils.FadeDuration);
         }
 
         private void OnCubesUpdate(int cubesCount)
@@ -73,7 +73,7 @@ namespace UI
             if (_growHandler.IsCanGrow == false)
                 return;
 
-            _smoothedFade.FadeIn(UserUtils.HalfOfUnit, UserUtils.Unit);
+            _smoothedFade.FadeIn(UserUtils.FadeDuration, UserUtils.MaxAlpha);
             _isShowed = true;
             TargetValue = ((float)_cubesCollector.CubesCount - PreviousGrowThreshold) / _growHandler.GrowDelta;
             _growBarBillboard.IsStop(false);

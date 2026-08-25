@@ -69,7 +69,7 @@ namespace UI.GrowerUI
 
         private void OnGrowing()
         {
-            UpdateView(UserUtils.Two);
+            UpdateView(UserUtils.GrowEffectDuration);
         }
     }
 }

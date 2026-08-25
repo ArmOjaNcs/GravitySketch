@@ -136,7 +136,7 @@ namespace Trap
                 _zone.Player.TakeDamage(_damage);
         }
 
-        private AudioPlayer GetAudioPlayer() => _audioPlayerSpawner.GetAudioPlayer(_transform.position);
+        private AudioPlayer GetAudioPlayer() => _audioPlayerSpawner.GetAudioPlayerOnPosition(_transform.position);
 
         private void SubscribeOnCurrentAction() => _lifeRoutine.Updated += _currentSubscription;
 

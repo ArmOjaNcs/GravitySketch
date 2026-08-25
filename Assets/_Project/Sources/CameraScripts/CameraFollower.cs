@@ -39,12 +39,9 @@ namespace CameraScripts
         private float _shakeTimer;
         private float _shakeTimerTotal;
         private float _currentShakeIntensity;
-
         private float _rotateAxis;
-
         private float _aheadDelta = 1.2f;
         private float _defaultAheadDelta = 1.2f;
-
         private float _defaultYOffset = 5f;
 
         public Transform Transform => _transform;
@@ -95,7 +92,7 @@ namespace CameraScripts
 
         private void OnBoosterApplied()
         {
-            _aheadDelta += UserUtils.HalfOfUnit;
+            _aheadDelta += UserUtils.BoostAheadDistance;
         }
 
         private void OnBoosterDiscarded()
@@ -201,18 +198,12 @@ namespace CameraScripts
 
         private float GetAheadDistance()
         {
-            float radius = Mathf.Max(_player.Radius, UserUtils.Unit);
-
+            float radius = Mathf.Max(_player.Radius, UserUtils.MinRadius);
             float height = (radius * _defaultYOffset) + _defaultYOffset;
-
             float baseAhead = height * _aheadFactor * _aheadDelta;
-
             float speed = _player.Velocity.sqrMagnitude;
-
             float speedT = Mathf.Clamp01(speed / (_maxSpeedForLookAhead * _maxSpeedForLookAhead));
-
             float speedMultiplier = Mathf.Lerp(1f, _speedLookAheadMultiplier, speedT);
-
             float ahead = baseAhead * speedMultiplier;
 
             return Mathf.Max(ahead, _minAhead);

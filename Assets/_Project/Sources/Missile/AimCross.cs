@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 using EnemyScripts.EnemyZones;
+using System.Collections;
 
 namespace Missile
 {
@@ -26,13 +27,12 @@ namespace Missile
         private float _currentDelayTime;
         private AimCrossConfig _config;
         private bool _isShoot;
-        private bool _isDeactivated;
 
         public event Action Shoot;
 
         public bool IsAiming { get; private set; }
 
-        private Vector3 TargetScale => _initialScale * UserUtils.HalfOfUnit;
+        private Vector3 TargetScale => _initialScale * UserUtils.AimCrossSizeRatio;
 
         private protected override void OnEnable()
         {
@@ -46,25 +46,6 @@ namespace Missile
             _currentAimingTime = 0;
         }
 
-        private protected override void Update()
-        {
-            if (_isDeactivated)
-            {
-                if (_image.gameObject.activeSelf)
-                    _image.gameObject.SetActive(false);
-
-                if (Effect.isPlaying == false)
-                {
-                    Effect.gameObject.SetActive(false);
-                    gameObject.SetActive(false);
-                }
-
-                return;
-            }
-
-            base.Update();
-        }
-
         public override void InitFromConfig(MissileConfig config, EnemyAttackZone attackZone)
         {
             base.InitFromConfig(config, attackZone);
@@ -76,7 +57,6 @@ namespace Missile
 
             if (_config != null)
             {
-                _defaultEffectScale = Effect.transform.lossyScale;
                 var enemyAttackZone = attackZone.SafeCast<EnemySniperZone>();
 
                 if (enemyAttackZone != null)
@@ -100,7 +80,7 @@ namespace Missile
         {
             base.Init(pauseHandler);
             _rectTransform = GetComponent<RectTransform>();
-            _defaultScale = Vector3.one * UserUtils.ThirdOfUnit;
+            _defaultScale = Vector3.one * UserUtils.AimCrossDefaultScale;
             IsInitialized = true;
             OnEnable();
         }
@@ -176,15 +156,20 @@ namespace Missile
         private void OnDeactivated(EnemySniperZone enemySniperZone)
         {
             enemySniperZone.Deactivated -= OnDeactivated;
-            _isDeactivated = true;
+            
+            if (gameObject.activeInHierarchy == false)
+                return;
+
+            StartCoroutine(Disable());
         }
 
-        private void Disable()
+        private IEnumerator Disable()
         {
-            if (_image.gameObject.activeSelf) 
+            if (_image.gameObject.activeSelf)
                 _image.gameObject.SetActive(false);
 
-            if (Effect.isPlaying) return;
+            while (Effect.isPlaying && gameObject.activeSelf)
+                yield return null;
 
             Effect.gameObject.SetActive(false);
             gameObject.SetActive(false);

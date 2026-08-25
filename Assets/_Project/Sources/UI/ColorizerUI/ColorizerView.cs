@@ -44,9 +44,9 @@ namespace UI.ColorizerUI
         private void OnColorsCountChanged(Color color, int count)
         {
             if (color == Color.clear)
-                _fade.FadeOut(UserUtils.HalfOfUnit);
+                _fade.FadeOut(UserUtils.FadeDuration);
             else
-                _fade.FadeIn(UserUtils.HalfOfUnit, UserUtils.Unit);
+                _fade.FadeIn(UserUtils.FadeDuration, UserUtils.MaxAlpha);
 
             _cube.color = color;
             _cubeBackground.color = UserUtils.GetOppositeColor(color);

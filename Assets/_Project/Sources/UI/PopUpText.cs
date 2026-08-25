@@ -33,11 +33,11 @@ namespace UI
             if (IsPaused || IsInitialized == false)
                 return;
 
-            _smoothedFade.FadeIn(UserUtils.HalfOfUnit, UserUtils.Unit);
+            _smoothedFade.FadeIn(UserUtils.FadeDuration, UserUtils.MaxAlpha);
             CalculateDifference(currentValue);
             SetDifferenceText();
             Animation.Restart();
-            Animation.OnComplete(() => _smoothedFade.FadeOut(UserUtils.HalfOfUnit));
+            Animation.OnComplete(() => _smoothedFade.FadeOut(UserUtils.FadeDuration));
         }
 
         public void SetPreviousValue(float value)

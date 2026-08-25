@@ -15,9 +15,9 @@ namespace Missile
 
         private void CorrectSize()
         {
-            Transform.localScale /= UserUtils.Two;
-            Damage /= UserUtils.Two;
-            Radius /= UserUtils.Two;
+            Transform.localScale *= UserUtils.RetreatBombSizeRatio;
+            Damage *= UserUtils.RetreatBombSizeRatio;
+            Radius *= UserUtils.RetreatBombSizeRatio;
         }
     }
 }
